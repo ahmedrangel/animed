@@ -1,0 +1,9 @@
+:root, [data-bs-theme=dark] {
+  --bs-dark: #000;
+  --bs-dark-rgb: 0, 0, 0;
+  --bs-body-bg: #080808;
+  --bs-dark-bg-rbg: 8, 8, 8;
+  --font-rubik: "Rubik";
+  --bs-body-font-family: var(--font-rubik);
+  --font-family: var(--font-rubik);
+}

@@ -1,0 +1,52 @@
+/* main.css */
+.banner, #front, #overlay {
+  height: 500px;
+}
+
+#overlay {
+  background-image: linear-gradient(90deg, rgba(var(--bs-dark-bg-rbg), .9) 30%, rgba(255,255,255,0) 70%);
+}
+
+#info {
+  left: 3%;
+  width: 48%!important;
+}
+
+.stars {
+  filter: hue-rotate(190deg) saturate(.9) brightness(1.4);
+}
+
+@media only screen and (max-width: 767px) {
+ .banner {
+    align-items: flex-end!important;
+    height: auto;
+ }
+ #front {
+    max-width: 100%;
+    height: auto;
+    padding-bottom: 180px;
+ }
+
+ #info {
+  width: 95%!important;
+  padding-bottom: 1.4rem;
+  left: 2%;
+ }
+
+ #info h2 {
+  font-size: 1.2rem;
+ }
+
+ #info h6 {
+  font-size: .75rem;
+ }
+
+ #overlay {
+  height: 100%;
+  background-image: linear-gradient(0deg, rgba(var(--bs-dark-bg-rbg), .9) 30%, rgba(255,255,255,0) 70%);
+ }
+}
+
+.sidebar, .sidebar .nav {
+  width: 72px!important;
+}
