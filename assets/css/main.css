@@ -27,6 +27,13 @@
   filter: hue-rotate(190deg) saturate(.9) brightness(1.4);
 }
 
+#blur {
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 @media only screen and (max-width: 767px) {
   .banner {
     align-items: flex-end!important;

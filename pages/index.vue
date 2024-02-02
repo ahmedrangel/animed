@@ -6,8 +6,8 @@ const popular = data.value[0].data;
 <template>
   <VideoModal id="verModal" :video="`https://youtube.com/embed/${popular[0].attributes.youtubeVideoId}`" />
   <div class="col px-0 pb-5">
-    <div class="banner p-0 position-relative d-flex align-items-center p-0 w-100 overflow-hidden">
-      <img id="blur" class="position-absolute top-0 h-100" :src="popular[0].attributes.coverImage.large" style="z-index: -1;">
+    <div class="banner p-0 position-relative d-flex align-items-center p-0 w-100 overflow-hidden border-bottom">
+      <span id="blur" class="position-absolute top-0 w-100 h-100" :style="{ 'background-image': 'url(' + popular[0].attributes.coverImage.large + ')' }" />
       <span id="front" class="d-flex justify-content-center px-3 pt-5 pt-md-0 pt-lg-0">
         <img :src="popular[0].attributes.posterImage.large">
       </span>
