@@ -13,7 +13,7 @@ export const getPopular = async() => {
 };
 
 export const getRecentlyAdded = async() => {
-  const response = await fetch(`${KTS_BASE}/anime?filter%5Bstatus%5D=current&page%5Blimit%5D=20&sort=-created_at&filter%5Bstreamers%5D=Hulu%2CNetflix%2CCrunchyroll%2CFunimation%2CHIDIVE&filter%5Bsubtype%5D=tv`, {
+  const response = await fetch(`${KTS_BASE}/anime?filter%5Bstatus%5D=current&page%5Blimit%5D=16&sort=-created_at&filter%5Bstreamers%5D=Hulu%2CNetflix%2CCrunchyroll%2CFunimation%2CHIDIVE&filter%5Bsubtype%5D=tv`, {
     headers: headers
   });
   const data = await response.json();
@@ -21,7 +21,7 @@ export const getRecentlyAdded = async() => {
 };
 
 export const getTopRated = async() => {
-  const response = await fetch(`${KTS_BASE}/anime?page%5Blimit%5D=20&sort=-averageRating&filter%5Bstreamers%5D=Hulu%2CNetflix%2CCrunchyroll%2CFunimation%2CHIDIVE&filter%5Bsubtype%5D=tv`, {
+  const response = await fetch(`${KTS_BASE}/anime?page%5Blimit%5D=16&sort=-averageRating&filter%5Bstreamers%5D=Hulu%2CNetflix%2CCrunchyroll%2CFunimation%2CHIDIVE&filter%5Bsubtype%5D=tv`, {
     headers: headers
   });
   const data = await response.json();

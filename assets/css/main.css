@@ -1,4 +1,9 @@
 /* main.css */
+
+.row>* {
+  width: 0;
+}
+
 .banner, #overlay {
   height: 500px;
   justify-content: end;
@@ -23,36 +28,40 @@
 }
 
 @media only screen and (max-width: 767px) {
- .banner {
+  .banner {
     align-items: flex-end!important;
     height: auto;
     justify-content: center;
- }
- #front {
+  }
+  #front {
     max-width: 60%;
     height: auto;
     padding-bottom: 180px;
     margin-right: 0!important;
- }
+  }
 
- #info {
+  #info {
   width: 95%!important;
   padding-bottom: 1.4rem;
   left: 2%;
- }
+  }
 
- #info h2 {
+  #info h2 {
   font-size: 1.2rem;
- }
+  }
 
- #info h6 {
+  #info h6 {
   font-size: .75rem;
- }
+  }
 
- #overlay {
+  #overlay {
   height: 100%;
   background-image: linear-gradient(0deg, rgba(var(--bs-dark-bg-rbg), .9) 30%, rgba(255,255,255,0) 70%);
- }
+  }
+
+  .row>* {
+    width: 100%;
+  }
 }
 
 .sidebar, .sidebar .nav {

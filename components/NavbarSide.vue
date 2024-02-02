@@ -2,8 +2,8 @@
 </script>
 
 <template>
-  <div class="row flex-nowrap">
-    <div class="sidebar p-0 bg-dark d-lg-block d-none text-white border-end">
+  <div class="row m-0 flex-nowrap">
+    <div class="sidebar p-0 bg-dark d-md-block d-none text-white border-end">
       <div class="nav d-flex align-items-center justify-content-center text-white min-vh-100 position-fixed z-1">
         <ul id="menu" class="nav justify-content-center align-items-center">
           <li class="nav-item">
@@ -15,7 +15,7 @@
       </div>
       <div class="sidebar min-vh-100 invisible" />
     </div>
-    <nav class="navbar fixed-bottom bg-dark d-lg-none d-block text-white border-top">
+    <nav class="navbar fixed-bottom bg-dark d-md-none d-block text-white border-top">
       <div class="d-flex align-items-center justify-content-center">
         <ul id="menu" class="nav align-items-center">
           <li class="nav-item">
