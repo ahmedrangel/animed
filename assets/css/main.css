@@ -70,6 +70,10 @@
   .row>* {
     width: 100%;
   }
+
+  .modal.show {
+    padding-bottom: 8rem!important;
+  }
 }
 
 .sidebar, .sidebar .nav {
@@ -110,4 +114,8 @@ img {
   -webkit-user-drag: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+}
+
+.modal.show {
+  display: inline-table!important;
 }
