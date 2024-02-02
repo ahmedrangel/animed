@@ -1,6 +1,12 @@
 /* main.css */
-.banner, #front, #overlay {
+.banner, #overlay {
   height: 500px;
+  justify-content: end;
+}
+
+#front {
+  height: 470px;
+  margin-right: 12rem!important;
 }
 
 #overlay {
@@ -20,11 +26,13 @@
  .banner {
     align-items: flex-end!important;
     height: auto;
+    justify-content: center;
  }
  #front {
-    max-width: 100%;
+    max-width: 60%;
     height: auto;
     padding-bottom: 180px;
+    margin-right: 0!important;
  }
 
  #info {
@@ -49,4 +57,24 @@
 
 .sidebar, .sidebar .nav {
   width: 72px!important;
+}
+
+.modal-content, .modal-header {
+  background-color: transparent;
+  border: none;
+}
+
+.modal-dialog {
+  max-width: 800px;
+  margin: 30px auto;
+}
+
+.modal-body {
+  padding:0px;
+}
+
+.btn-close {
+  position:absolute;
+  right:-30px;
+  top:0;
 }

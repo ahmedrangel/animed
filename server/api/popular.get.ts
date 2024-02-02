@@ -1,5 +1,4 @@
-export default defineEventHandler(async (event) => {
-  const { token }: Token = getQuery(event);
-  const data = await getPopular(token);
+export default defineEventHandler(async () => {
+  const data = await getPopular();
   return data;
 });

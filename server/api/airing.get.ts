@@ -1,4 +1,4 @@
 export default defineEventHandler(async () => {
-  const data = await getToken();
+  const data = await getTopAiring();
   return data;
 });

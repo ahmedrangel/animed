@@ -1,7 +1,6 @@
-export const getRating = (rating: number) => {
-  const percentage = (rating / 5) * 100;
-  const remain = (100 - percentage).toFixed(2);
-  return remain;
+export const getRating = (percent: number) => {
+  const stars = (percent / 100) * 5;
+  return stars.toFixed(1);
 };
 
 export const formatRating = (rating: number) => {

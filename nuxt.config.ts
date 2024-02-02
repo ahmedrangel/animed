@@ -27,7 +27,8 @@ export default defineNuxtConfig({
   modules: [
     "nuxt-icon",
     "@nuxtjs/color-mode",
-    "nuxt-simple-sitemap"
+    "nuxt-simple-sitemap",
+    "nuxt-primevue"
   ],
   runtimeConfig: {},
   features: {
@@ -58,5 +59,19 @@ export default defineNuxtConfig({
   routeRules: {
     "/": { sitemap: { priority: 1 } },
     "/*/**": { sitemap: { priority: 0.8, lastmod: new Date().toISOString() } }
+  },
+  primevue: {
+    unstyled: true,
+    usePrimeVue: true,
+    options: {
+      ripple: true,
+    },
+    components: {
+      prefix: "Prime",
+      include: ["Button"] /* Used as <PrimeButton /> */
+    },
+    directives: {
+      include: ["Ripple"]
+    }
   }
 });
