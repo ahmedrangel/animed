@@ -24,7 +24,7 @@
 }
 
 .stars {
-  filter: hue-rotate(190deg) saturate(.9) brightness(1.4);
+  filter: hue-rotate(204deg) saturate(1) brightness(1.5);
 }
 
 #blur {
