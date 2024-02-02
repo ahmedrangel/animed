@@ -3,7 +3,7 @@ export default defineEventHandler(async () => {
   const rated = (await getTopRated()).data;
   const recent = (await getRecentlyAdded()).data;
   return [
-    { title: "Popular", data: popular, },
+    { title: "Trending", data: popular, },
     { title: "Recently Added", data: recent },
     { title: "Top Rated", data: rated, }
   ];
