@@ -27,3 +27,11 @@ export const getTopRated = async() => {
   const data = await response.json();
   return data;
 };
+
+export const getAnimeInfo = async(slug: string) => {
+  const response = await fetch(`${KTS_BASE}/anime?fields%5Bcategories%5D=slug%2Ctitle&filter%5Bslug%5D=${slug}&include=categories%2CanimeProductions.producer`, {
+    headers: headers
+  });
+  const data = await response.json();
+  return data;
+};
