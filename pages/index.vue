@@ -1,7 +1,7 @@
 <script setup lang="js">
 //const { data: t } = await useFetch("/api/token");
 const { data: p } = await useFetch("/api/popular");
-const { data: a } = await useFetch("/api/airing");
+const { data: a } = await useFetch("/api/recent");
 const { data: r } = await useFetch("/api/rated");
 const popular = p.value.data;
 const airing = a.value.data;
@@ -58,7 +58,7 @@ const rated = r.value.data;
               </div>
             </div>
             <div class="mt-4 mb-5">
-              <h3 class="mb-3">Top Airing</h3>
+              <h3 class="mb-3">Recently Added</h3>
               <div class="d-flex overflow-scroll">
                 <div v-for="(air, i) of airing" :key="i" class="col-lg-2 col-sm-3 col-6 mb-2">
                   <div :class="i === 0 ? 'me-1' : 'mx-1'">

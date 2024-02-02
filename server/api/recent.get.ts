@@ -1,4 +1,4 @@
 export default defineEventHandler(async () => {
-  const data = await getTopAiring();
+  const data = await getRecentlyAdded();
   return data;
 });
