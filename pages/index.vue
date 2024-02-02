@@ -8,7 +8,9 @@ const popular = data.value[0].data;
   <div class="col px-0 pb-5">
     <div class="banner p-0 position-relative d-flex align-items-center p-0 w-100 overflow-hidden">
       <img id="blur" class="position-absolute top-0 h-100" :src="popular[0].attributes.coverImage.large" style="z-index: -1;">
-      <img id="front" class="px-3 pt-5 pt-md-0 pt-lg-0" :src="popular[0].attributes.posterImage.large">
+      <span id="front" class="d-flex justify-content-center px-3 pt-5 pt-md-0 pt-lg-0">
+        <img :src="popular[0].attributes.posterImage.large">
+      </span>
       <div id="overlay" class="position-absolute w-100 top-0" />
       <div id="info" class="position-absolute">
         <h2 class="mb-1">{{ popular[0].attributes.canonicalTitle }}</h2>
@@ -31,9 +33,9 @@ const popular = data.value[0].data;
     </div>
     <div class="px-4 py-4 px-xl-5 w-100">
       <div v-for="(d, i) of data" :key="i" of data class="mt-4 mb-5">
-        <div class="d-flex justify-content-between mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
           <h3 class="mb-0">{{ d.title }}</h3>
-          <h4 class="mb-0 text-muted">Explore More</h4>
+          <h6 class="mb-0 text-muted">Explore More</h6>
         </div>
         <div class="d-flex overflow-auto">
           <div v-for="(list, j) of d.data" :key="j" class="col-lg-2 col-sm-3 col-6 mb-2">
