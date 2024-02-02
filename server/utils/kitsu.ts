@@ -5,7 +5,7 @@ const headers = {
 };
 
 export const getPopular = async() => {
-  const response = await fetch(`${KTS_BASE}/trending/anime`, {
+  const response = await fetch(`${KTS_BASE}/trending/anime?limit=20`, {
     headers: headers
   });
   const data = await response.json();
