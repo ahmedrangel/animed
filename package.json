@@ -1,16 +1,16 @@
 {
-  "name": "my-nuxt-starter",
+  "name": "anime",
   "version": "1.0.0",
-  "description": "Yizack nuxt template",
-  "author": "Yizack Rangel",
+  "description": "Anime client build with Nuxt 3",
+  "author": "Ahmed Rangel",
   "type": "module",
-  "homepage": "https://github.com/Yizack/my-nuxt-starter",
+  "homepage": "https://github.com/ahmedrangel/anime",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Yizack/my-nuxt-starter"
+    "url": "https://github.com/ahmedrangel/anime"
   },
   "bugs": {
-    "url": "https://github.com/Yizack/my-nuxt-starter/issues"
+    "url": "https://github.com/ahmedrangel/anime/issues"
   },
   "scripts": {
     "build": "nuxt build",
