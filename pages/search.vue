@@ -35,7 +35,7 @@ watch(query, async() => {
     </div>
     <ComponentLoadingSpinner v-if="loading" class="mt-5" />
     <div class="px-2 py-4 px-xl-5 w-100">
-      <div v-if="data && !loading" class="d-flex flex-wrap p-0 justify-content-center anime-row g-1">
+      <div v-if="data && !loading" class="d-flex flex-wrap p-0 justify-content-start anime-row g-1">
         <div v-for="(d, i) of data" :key="i" class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2 d-flex justify-content-center">
           <div class="mb-1" :class="i === 0 ? 'me-1' : 'mx-1'" style="max-width: 280px;">
             <NuxtLink :to="`/${d.attributes.slug}`">
