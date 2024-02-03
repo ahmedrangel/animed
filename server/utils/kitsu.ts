@@ -1,36 +1,41 @@
-const KTS_BASE = "https://kitsu.io/api/edge";
-const headers = {
-  "Accept": "application/vnd.api+json",
-  "Authorization": "Bearer undefined"
-};
-
 export const getPopular = async() => {
-  const response = await fetch(`${KTS_BASE}/trending/anime?limit=20`, {
-    headers: headers
+  const params = paramsBuilder();
+  const response = await fetch(`${KTS_BASE}/trending/anime?${params}`, {
+    headers: KTS_headers
   });
   const data = await response.json();
   return data;
 };
 
 export const getNewlyReleased = async() => {
-  const response = await fetch(`${KTS_BASE}/anime?filter%5Bstatus%5D=current&page%5Blimit%5D=16&sort=-start_date&filter%5Bstreamers%5D=Hulu%2CNetflix%2CCrunchyroll%2CFunimation%2CHIDIVE&filter%5Bsubtype%5D=tv`, {
-    headers: headers
+  const params = paramsBuilder({ status: "current", sort: "-start_date" });
+  const response = await fetch(`${KTS_BASE}/anime?${params}`, {
+    headers: KTS_headers
   });
   const data = await response.json();
   return data;
 };
 
 export const getTopRated = async() => {
-  const response = await fetch(`${KTS_BASE}/anime?page%5Blimit%5D=16&sort=-averageRating&filter%5Bstreamers%5D=Hulu%2CNetflix%2CCrunchyroll%2CFunimation%2CHIDIVE&filter%5Bsubtype%5D=tv`, {
-    headers: headers
+  const params = paramsBuilder({ sort: "-averageRating" });
+  const response = await fetch(`${KTS_BASE}/anime?${params}`, {
+    headers: KTS_headers
   });
   const data = await response.json();
   return data;
 };
 
 export const getAnimeInfo = async(slug: string) => {
-  const response = await fetch(`${KTS_BASE}/anime?fields%5Bcategories%5D=slug%2Ctitle&filter%5Bslug%5D=${slug}&include=categories%2CanimeProductions.producer`, {
-    headers: headers
+  const params = paramsBuilder({
+    categories: "slug,title",
+    slug: slug,
+    include: "categories,animeProductions.producer",
+    limit: null,
+    streamers: null,
+    subtype: null
+  });
+  const response = await fetch(`${KTS_BASE}/anime?${params}`, {
+    headers: KTS_headers
   });
   const data = await response.json();
   return data;

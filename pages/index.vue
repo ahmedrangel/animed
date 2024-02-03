@@ -13,10 +13,10 @@ const popular = data.value[0].data;
           <h6 class="mb-0 text-muted">Explore More</h6>
         </div>
         <div class="d-flex overflow-auto">
-          <div v-for="(list, j) of d.data" :key="j" class="col-lg-2 col-sm-3 col-6 mb-2">
+          <div v-for="(list, j) of d.data" :key="j" class="col-lg-2 col-sm-3 col-6 mb-3">
             <div :class="j === 0 ? 'me-1' : 'mx-1'">
               <NuxtLink :to="`/${list.attributes.slug}`">
-                <img class="img-fluid mb-2" :src="list.attributes.posterImage.large" width="280">
+                <img class="img-fluid mb-2" :src="list.attributes.posterImage.medium" width="280">
                 <h6 class="mb-1 text-white">{{ list.attributes.titles.en ? list.attributes.titles.en : list.attributes.titles.en_jp }}</h6>
               </NuxtLink>
               <small class="text-muted d-block mb-1">{{ list.attributes.titles.en_jp ? list.attributes.titles.en_jp : list.attributes.canonicalTitle }}</small>

@@ -9,7 +9,7 @@ const props = defineProps({
   <div class="banner p-0 position-relative d-flex align-items-center p-0 w-100 overflow-hidden border-bottom">
     <span id="blur" class="position-absolute top-0 w-100 h-100" :style="{ 'background-image': 'url(' + props.anime.attributes.coverImage?.original + ')' }" />
     <span id="front" class="d-flex justify-content-center px-4 pt-5 pt-md-0 pt-lg-0">
-      <img class="shadow" :src="props.anime.attributes.posterImage.large">
+      <img class="shadow" :src="props.anime.attributes.posterImage.medium">
     </span>
     <div id="overlay" class="position-absolute w-100 top-0" />
     <div id="info" class="position-absolute">
