@@ -7,7 +7,7 @@ const props = defineProps({
 <template>
   <VideoModal v-if="props.anime.attributes.youtubeVideoId" id="verModal" :video="`https://youtube.com/embed/${props.anime.attributes.youtubeVideoId}`" />
   <div class="banner p-0 position-relative d-flex align-items-center p-0 w-100 overflow-hidden border-bottom">
-    <span id="blur" class="position-absolute top-0 w-100 h-100" :style="{ 'background-image': 'url(' + props.anime.attributes.coverImage.large + ')' }" />
+    <span id="blur" class="position-absolute top-0 w-100 h-100" :style="{ 'background-image': 'url(' + props.anime.attributes.coverImage?.large + ')' }" />
     <span id="front" class="d-flex justify-content-center px-3 pt-5 pt-md-0 pt-lg-0">
       <img :src="props.anime.attributes.posterImage.large">
     </span>
