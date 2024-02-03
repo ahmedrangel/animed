@@ -1,4 +1,4 @@
 export default defineEventHandler(async () => {
-  const data = await getRecentlyAdded();
+  const data = await getNewlyReleased();
   return data;
 });

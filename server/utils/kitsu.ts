@@ -12,8 +12,8 @@ export const getPopular = async() => {
   return data;
 };
 
-export const getRecentlyAdded = async() => {
-  const response = await fetch(`${KTS_BASE}/anime?filter%5Bstatus%5D=current&page%5Blimit%5D=16&sort=-created_at&filter%5Bstreamers%5D=Hulu%2CNetflix%2CCrunchyroll%2CFunimation%2CHIDIVE&filter%5Bsubtype%5D=tv`, {
+export const getNewlyReleased = async() => {
+  const response = await fetch(`${KTS_BASE}/anime?filter%5Bstatus%5D=current&page%5Blimit%5D=16&sort=-start_date&filter%5Bstreamers%5D=Hulu%2CNetflix%2CCrunchyroll%2CFunimation%2CHIDIVE&filter%5Bsubtype%5D=tv`, {
     headers: headers
   });
   const data = await response.json();
