@@ -6,4 +6,6 @@
   --font-rubik: "Rubik";
   --bs-body-font-family: var(--font-rubik);
   --font-family: var(--font-rubik);
+  --bs-secondary: #1f1f1f;
+  --bs-secondary-rgb: 31, 31, 31;
 }
