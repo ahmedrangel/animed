@@ -15,7 +15,7 @@
 
 #front img {
   height: 470px;
-  margin-right: 12rem!important;
+  margin-right: 14rem!important;
 }
 
 #overlay {
@@ -38,6 +38,18 @@
   background-size: cover;
   background-position: center;
   opacity: .75;
+}
+
+@media only screen and (max-width: 1199px) {
+  #front img {
+    margin-right: 6rem!important;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  #front img {
+    margin-right: 0rem!important;
+  }
 }
 
 @media only screen and (max-width: 767px) {
