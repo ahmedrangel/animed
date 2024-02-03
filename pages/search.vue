@@ -10,7 +10,6 @@ watch(query, async() => {
     clearTimeout(debounce.value);
     debounce.value = null;
   }
-
   if (query.value.length > 0) {
     debounce.value = setTimeout(async () => {
       data.value = await getQuery(query.value);
