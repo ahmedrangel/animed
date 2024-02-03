@@ -14,9 +14,9 @@ const props = defineProps({
     <div id="overlay" class="position-absolute w-100 top-0" />
     <div id="info" class="position-absolute">
       <NuxtLink :to="`/${props.anime.attributes.slug}`">
-        <h2 class="mb-1 text-warning d-inline fw-bold">{{ props.anime.attributes.canonicalTitle }}</h2>
+        <h2 class="mb-1 text-warning d-inline fw-bold">{{ props.anime.attributes.titles.en_jp ? props.anime.attributes.titles.en_jp : props.anime.attributes.canonicalTitle }}</h2>
       </NuxtLink>
-      <h6 class="mb-1 text-muted">{{ props.anime.attributes.titles.en ? props.anime.attributes.titles.en : props.anime.attributes.canonicalTitle }}</h6>
+      <h6 class="mb-1 text-muted">{{ props.anime.attributes.titles.en ? props.anime.attributes.titles.en : props.anime.attributes.titles.en_jp }}</h6>
       <div class="d-flex align-items-center position-relative mb-2">
         <div class="stars d-flex align-items-center" style="height: 25px;">
           <img class="position-absolute" src="/images/stars.webp" width="100">

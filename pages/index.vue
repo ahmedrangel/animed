@@ -19,7 +19,7 @@ const popular = data.value[0].data;
                 <img class="img-fluid mb-2" :src="list.attributes.posterImage.large" width="280">
                 <h6 class="mb-1 text-white">{{ list.attributes.titles.en ? list.attributes.titles.en : list.attributes.titles.en_jp }}</h6>
               </NuxtLink>
-              <small class="text-muted d-block mb-1">{{ list.attributes.canonicalTitle }}</small>
+              <small class="text-muted d-block mb-1">{{ list.attributes.titles.en_jp ? list.attributes.titles.en_jp : list.attributes.canonicalTitle }}</small>
               <div class="d-flex align-items-center position-relative">
                 <div class="stars d-flex align-items-center" style="height: 16px;">
                   <img class="position-absolute" src="/images/stars.webp" width="80">
