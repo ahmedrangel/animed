@@ -42,7 +42,7 @@ onMounted(() => {
   <section id="search">
     <div class="d-flex justify-content-start align-items-center bg-secondary">
       <h4><Icon name="ph:magnifying-glass" class="mx-4" /></h4>
-      <input v-model="query" type="text" class="w-100 py-3 border-0 bg-transparent" placeholder="Type to search...">
+      <input v-model="query" type="text" class="w-100 py-3 border-0 bg-transparent" placeholder="Type to search..." @input="count = 20">
     </div>
     <div v-if="!result && !loading">
       <h2 class="text-muted mb-0 w-100 text-center mt-5">Type something to search...</h2>
