@@ -1,11 +1,11 @@
 <script setup lang="ts">
 const { data: data } = await useFetch("/api/explore/") as Record<string, any>;
-const popular = data.value.preview[0].data;
+const popular = data.value.preview[data.value.preview.length - 1].data[0];
 </script>
 
 <template>
   <section id="preview">
-    <ComponentBanner :anime="popular[0]" />
+    <ComponentBanner :anime="popular" />
     <div class="px-2 py-4 py-lg-5 px-xl-5 w-100">
       <div v-for="(d, i) of data.preview" :key="i" of data class="mb-5">
         <div class="d-flex justify-content-between align-items-center mb-3">

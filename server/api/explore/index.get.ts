@@ -30,15 +30,10 @@ export default defineEventHandler(async (event) => {
   const data = {
     preview: [
       { title: "Newly Released", data: newly, route: `/c/new${slug ? `/${slug}` : ""}` },
-      { title: "Top Rated", data: rated, route: `/c/top-rated${slug ? `/${slug}` : ""}` }
+      { title: "Top Rated", data: rated, route: `/c/top-rated${slug ? `/${slug}` : ""}` },
+      { title: "Trending", data: popular, route: `/c/trending${slug ? `/${slug}` : ""}` },
     ]
   } as Record<string, any>;
-  if (slug) {
-    data.preview.push({ title: "Trending", data: popular, route: "/c/trending/" + slug });
-  }
-  else {
-    data.preview.unshift({ title: "Trending", data: popular, route: "/c/trending" });
-  }
   data.slug = slug || null;
   data.category = cat_title;
   data.description = cat_desc;

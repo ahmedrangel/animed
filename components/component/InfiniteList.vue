@@ -52,6 +52,7 @@ onBeforeUnmount(() => {
           </div>
         </div>
         <span v-if="i === result.data.length - 10" ref="lastRow" class="m-0 p-0" />
+        <ComponentLoadingSpinner v-if="i === result.data.length - 1 && nexted" class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2" />
       </template>
     </div>
   </div>

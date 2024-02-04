@@ -2,12 +2,12 @@
 const { params } = useRoute();
 const { slug } = params;
 const { data: data } = await useFetch("/api/explore?slug=" + slug) as Record<string, any>;
-const popular = data.value.preview[0].data;
+const newly = data.value.preview[0].data[0];
 </script>
 
 <template>
   <section id="preview">
-    <ComponentBanner :anime="popular[0]" />
+    <ComponentBanner :anime="newly" />
     <div class="px-2 py-4 py-lg-5 px-xl-5 w-100">
       <div v-if="data.slug" class="pb-4 pb-lg-5">
         <h3 class="mb-2"><span><NuxtLink :to="`/c/${data.slug}`">{{ data.category }}</NuxtLink>&nbsp;Anime</span></h3>

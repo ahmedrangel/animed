@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const data = categories.data;
 const result = computed(() => data.sort((a, b) => (a.attributes.title > b.attributes.title) ? 1 : -1));
-console.log(result)
 </script>
 
 <template>
