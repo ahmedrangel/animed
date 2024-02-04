@@ -19,9 +19,14 @@ export default defineEventHandler(async (event) => {
       return response;
     }
   }
-
-  const data = await getPopular() as Record<string, any>;
+  const { slug } = getQuery(event);
+  const cat_id = categories.data.find((c) => c.attributes.slug === slug)?.id || null;
+  const cat_title = categories.data.find((c) => c.attributes.slug === slug)?.attributes.title || null;
+  const data = await getPopular({ category: cat_id }) as Record<string, any>;
   data.type = "trending";
+  data.title = "Trending";
+  data.slug = slug || null;
+  data.category = cat_title;
 
   const response = new Response(JSON.stringify(data), {
     headers: {

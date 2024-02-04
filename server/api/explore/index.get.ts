@@ -20,14 +20,26 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  const popular = (await getPopular()).data;
-  const rated = (await getTopRated()).data;
-  const newly = (await getNewlyReleased()).data;
-  const data = [
-    { title: "Trending", data: popular, route: "/c/trending" },
-    { title: "Newly Released", data: newly, route: "/c/new" },
-    { title: "Top Rated", data: rated, route: "/c/top-rated" }
-  ];
+  const { slug } = getQuery(event);
+  const cat_id = categories.data.find((c) => c.attributes.slug === slug)?.id || null;
+  const cat_title = categories.data.find((c) => c.attributes.slug === slug)?.attributes.title || null;
+  const popular = (await getPopular({ category: cat_id })).data;
+  const rated = (await getTopRated({ categories: slug })).data;
+  const newly = (await getNewlyReleased({ categories: slug })).data;
+  const data = {
+    preview: [
+      { title: "Newly Released", data: newly, route: `/c/new${slug ? `/${slug}` : ""}` },
+      { title: "Top Rated", data: rated, route: `/c/top-rated${slug ? `/${slug}` : ""}` }
+    ]
+  } as Record<string, any>;
+  if (slug) {
+    data.preview.push({ title: "Trending", data: popular, route: "/c/trending/" + slug });
+  }
+  else {
+    data.preview.unshift({ title: "Trending", data: popular, route: "/c/trending" });
+  }
+  data.slug = slug || null;
+  data.category = cat_title;
 
   const response = new Response(JSON.stringify(data), {
     headers: {

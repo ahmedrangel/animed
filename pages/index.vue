@@ -1,13 +1,13 @@
 <script setup lang="ts">
 const { data: data } = await useFetch("/api/explore/") as Record<string, any>;
-const popular = data.value[0].data;
+const popular = data.value.preview[0].data;
 </script>
 
 <template>
   <section id="home">
     <ComponentBanner :anime="popular[0]" />
     <div class="px-2 py-4 py-lg-5 px-xl-5 w-100">
-      <div v-for="(d, i) of data" :key="i" of data class="mb-5">
+      <div v-for="(d, i) of data.preview" :key="i" of data class="mb-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h3 class="mb-0">{{ d.title }}</h3>
           <NuxtLink :to="d.route">

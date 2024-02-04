@@ -4,7 +4,6 @@ const { data: result } = await useFetch("/api/explore/rated") as Record<string, 
 
 <template>
   <section v-if="result" id="top">
-    <ComponentBanner :anime="result.data[0]" />
-    <ComponentInfiniteList :data="result" title="Top Rated" />
+    <ComponentInfiniteList :data="result" />
   </section>
 </template>

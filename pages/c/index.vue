@@ -1,9 +1,5 @@
 <script setup lang="ts">
-const { data: result } = await useFetch("/api/category/") as Record<string, any>;
-
-const goTo = async(page: string) => {
-  await navigateTo(page);
-};
+const result = categories as Record<string, any>;
 </script>
 
 <template>

@@ -20,7 +20,8 @@ export const getQuery = async(query: string, offset: number) => {
 export const getNewlyReleased = async(options?: Record<string, any>) => {
   const params = paramsBuilder({
     sort: "-start_date",
-    offset: String(options?.offset)
+    offset: String(options?.offset),
+    categories: options?.categories
   });
   const response = await fetch(`${KTS_BASE}/anime?${params}`, {
     headers: KTS_headers
@@ -30,7 +31,10 @@ export const getNewlyReleased = async(options?: Record<string, any>) => {
 };
 
 export const getPopular = async(options?: Record<string, any>) => {
-  const params = paramsBuilder({ offset: String(options?.offset) });
+  const params = paramsBuilder({
+    offset: String(options?.offset),
+    category: options?.category
+  });
   const response = await fetch(`${KTS_BASE}/trending/anime?${params}`, {
     headers: KTS_headers
   });
@@ -39,7 +43,11 @@ export const getPopular = async(options?: Record<string, any>) => {
 };
 
 export const getTopRated = async(options?: Record<string, any>) => {
-  const params = paramsBuilder({ sort: "-averageRating", offset: String(options?.offset) });
+  const params = paramsBuilder({
+    sort: "-averageRating",
+    offset: String(options?.offset),
+    categories: options?.categories
+  });
   const response = await fetch(`${KTS_BASE}/anime?${params}`, {
     headers: KTS_headers
   });
@@ -49,18 +57,20 @@ export const getTopRated = async(options?: Record<string, any>) => {
 
 export const getAnimeInfo = async(slug: string) => {
   const params = paramsBuilder({
-    categories: "slug,title",
+    fields_categories: "slug,title",
     slug: slug,
     include: "categories,animeProductions.producer",
     limit: null,
     streamers: null,
-    subtype: null
+    subtype: null,
+    anime: null,
+    categories: null,
   });
   const response = await fetch(`${KTS_BASE}/anime?${params}`, {
     headers: KTS_headers
   });
-  const { data, meta } = await response.json();
-  return { data, count: meta?.count };
+  const { data } = await response.json();
+  return { data };
 };
 
 export const getCategories = async() => {
@@ -75,6 +85,15 @@ export const getCategories = async() => {
   });
   const { data, meta } = await response.json();
   return { data, count: meta?.count };
+};
+
+export const getCategoryId = async(slug: string) => {
+  const params = `filter%5Bslug%5D=${slug}`;
+  const response = await fetch(`${KTS_BASE}/categories?${params}`, {
+    headers: KTS_headers
+  });
+  const { data } = await response.json();
+  return data[0].id;
 };
 
 export const getList = async(type: string, options?: Record<string, any>) => {

@@ -4,7 +4,6 @@ const { data: result } = await useFetch("/api/explore/newly") as Record<string, 
 
 <template>
   <section v-if="result" id="newly">
-    <ComponentBanner :anime="result.data[0]" />
-    <ComponentInfiniteList :data="result" title="Newly Released" />
+    <ComponentInfiniteList :data="result" />
   </section>
 </template>

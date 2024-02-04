@@ -28,15 +28,16 @@ export const paramsBuilder = (options?: Record<string, string | null>) => {
     in_category: options?.category ? true : null,
     limit: options?.limit === null ? undefined : (options?.limit !== undefined ? options.limit : 20),
     fields: {
-      anime: options?.anime ? options.anime : "synopsis,slug,canonicalTitle,titles,coverImage,posterImage,averageRating,subtype,startDate",
-      categories: options?.categories,
+      anime: options?.anime ? options.anime : "synopsis,slug,canonicalTitle,titles,coverImage,posterImage,averageRating,subtype,startDate,youtubeVideoId",
+      categories: options?.fields_categories
     },
     filter: {
       streamers: options?.streamers === null ? undefined : "Hulu,Netflix,Crunchyroll,Funimation,HIDIVE",
       subtype: options?.subtype === null ? undefined : "tv,ova,ona",
       text: options?.query,
       slug: options?.slug,
-      status: options?.status
+      status: options?.status,
+      categories: options?.categories,
     },
     page: {
       limit: options?.limit === null ? undefined : (options?.limit !== undefined ? options.limit : 20),

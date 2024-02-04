@@ -62,7 +62,6 @@ export default defineNuxtConfig({
     "/*/**": { sitemap: { priority: 0.8, lastmod: new Date().toISOString() } }
   },
   primevue: {
-    unstyled: true,
     usePrimeVue: true,
     options: {
       ripple: true,

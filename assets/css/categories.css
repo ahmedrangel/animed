@@ -20,7 +20,7 @@
 }
 
 #categories a:hover {
-  background-color: #ffcd39;
+  background-color: var(--bs-link-hover-color);
   color: var(--bs-dark);
 }
 
