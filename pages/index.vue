@@ -4,7 +4,7 @@ const popular = data.value.preview[0].data;
 </script>
 
 <template>
-  <section id="home">
+  <section id="preview">
     <ComponentBanner :anime="popular[0]" />
     <div class="px-2 py-4 py-lg-5 px-xl-5 w-100">
       <div v-for="(d, i) of data.preview" :key="i" of data class="mb-5">

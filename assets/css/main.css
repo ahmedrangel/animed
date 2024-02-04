@@ -84,12 +84,16 @@
   background-image: linear-gradient(0deg, rgba(var(--bs-dark-bg-rbg), .9) 30%, rgba(255,255,255,0) 70%);
   }
 
-  #home .row>* {
+  #preview .row>* {
     width: 100%;
   }
 
   .modal.show {
     padding-bottom: 8rem!important;
+  }
+
+  #preview h3 {
+    font-size: 1.1rem;
   }
 }
 
