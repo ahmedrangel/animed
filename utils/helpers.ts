@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const getRating = (percent: number) => {
   const stars = (percent / 100) * 5;
   return stars.toFixed(1);
@@ -20,13 +22,18 @@ export const onScreen = (el: HTMLElement) => {
 
 export const paramsBuilder = (options?: Record<string, string | null>) => {
   const params: Record<string, any> = {
+    include: options?.include,
+    sort: options?.sort,
+    category: options?.category,
+    in_category: options?.category ? true : null,
+    limit: options?.limit === null ? undefined : 20,
     fields: {
-      anime: options?.anime,
+      anime: options?.anime ? options.anime : "synopsis,slug,canonicalTitle,titles,coverImage,posterImage,averageRating,subtype,startDate",
       categories: options?.categories,
     },
     filter: {
       streamers: options?.streamers === null ? undefined : "Hulu,Netflix,Crunchyroll,Funimation,HIDIVE",
-      subtype: options?.subtype === null ? undefined : "tv",
+      subtype: options?.subtype === null ? undefined : "tv,ova,ona",
       text: options?.query,
       slug: options?.slug,
       status: options?.status
@@ -35,8 +42,6 @@ export const paramsBuilder = (options?: Record<string, string | null>) => {
       limit: options?.limit === null ? undefined : 20,
       offset: options?.offset
     },
-    include: options?.include,
-    sort: options?.sort,
   };
 
   return Object.keys(params)
@@ -59,4 +64,8 @@ export const paramsBuilder = (options?: Record<string, string | null>) => {
     })
     .filter(Boolean) // Elimina elementos vacíos
     .join("&");
+};
+
+export const formatDate = (date: string) => {
+  return format(new Date(date), "MMM d, yyyy");
 };

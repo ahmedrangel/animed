@@ -1,5 +1,5 @@
-<script setup lang="js">
-const { data: data } = await useFetch("/api/home");
+<script setup lang="ts">
+const { data: data } = await useFetch("/api/home") as Record<string, any>;
 const popular = data.value[0].data;
 </script>
 
@@ -10,16 +10,19 @@ const popular = data.value[0].data;
       <div v-for="(d, i) of data" :key="i" of data class="mt-4 mb-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h3 class="mb-0">{{ d.title }}</h3>
-          <h6 class="mb-0 text-muted">Explore More</h6>
+          <NuxtLink :to="d.route">
+            <h6 class="mb-0 text-muted">Explore More</h6>
+          </NuxtLink>
         </div>
         <div class="d-flex overflow-auto">
           <div v-for="(list, j) of d.data" :key="j" class="col-lg-2 col-sm-3 col-6 mb-3">
             <div :class="j === 0 ? 'me-1' : 'mx-1'">
-              <NuxtLink :to="`/${list.attributes.slug}`">
+              <NuxtLink :to="`/a/${list.attributes.slug}`">
                 <img class="img-fluid mb-2" :src="list.attributes.posterImage.large" width="280">
-                <h6 class="mb-1 text-white">{{ list.attributes.titles.en ? list.attributes.titles.en : list.attributes.titles.en_jp }}</h6>
+                <h6 class="mb-1 text-white">{{ list.attributes.titles.en ? list.attributes.titles.en : list.attributes.titles.en_jp }} <span class="badge bg-secondary align-middle">{{ list.attributes.subtype }}</span></h6>
               </NuxtLink>
               <small class="text-muted d-block mb-1">{{ list.attributes.titles.en_jp ? list.attributes.titles.en_jp : list.attributes.canonicalTitle }}</small>
+              <small class="d-block mb-1 text-primary">{{ formatDate(list.attributes.startDate) }}</small>
               <div class="d-flex align-items-center position-relative">
                 <div class="stars d-flex align-items-center" style="height: 16px;">
                   <img class="position-absolute" src="/images/stars.webp" width="80">

@@ -24,9 +24,9 @@ export default defineEventHandler(async (event) => {
   const rated = (await getTopRated()).data;
   const newly = (await getNewlyReleased()).data;
   const obj = [
-    { title: "Trending", data: popular, },
-    { title: "Newly Released", data: newly },
-    { title: "Top Rated", data: rated, }
+    { title: "Trending", data: popular, route: "/c/trending" },
+    { title: "Newly Released", data: newly, route: "/c/new" },
+    { title: "Top Rated", data: rated, route: "/c/top-rated" }
   ];
 
   const response = new Response(JSON.stringify(obj), {

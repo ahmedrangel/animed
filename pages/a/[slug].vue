@@ -1,7 +1,7 @@
-<script setup lang="js">
+<script setup lang="ts">
 const { params } = useRoute();
 const { slug } = params;
-const { data: data } = await useFetch("/api/anime/" + slug);
+const { data: data } = await useFetch("/api/anime/" + slug) as Record<string, any>;
 const anime = data.value.data[0];
 </script>
 

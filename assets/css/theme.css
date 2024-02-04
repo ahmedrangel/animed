@@ -1,5 +1,6 @@
 :root, [data-bs-theme=dark] {
   --bs-primary: #ffc107;
+  --bs-primary-rgb: 255, 193, 7;
   --bs-dark: #000;
   --bs-dark-rgb: 0, 0, 0;
   --bs-body-bg: #080808;

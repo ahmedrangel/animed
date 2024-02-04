@@ -5,6 +5,10 @@ const tabs = [
     route: "/"
   },
   {
+    icon: "ph:squares-four-bold",
+    route: "/c"
+  },
+  {
     icon: "ph:magnifying-glass-bold",
     route: "/search"
   }
