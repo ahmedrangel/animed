@@ -3,9 +3,7 @@ const query = ref() as Ref<string>;
 const debounce = ref(null as any);
 const result = ref() as Ref<Record<string, any> | null>;
 const loading = ref(false) as Ref<boolean>;
-const nexted = ref(false) as Ref<boolean>;
 const count = ref(20) as Ref<number>;
-const lastRow = ref("lastRow") as unknown as Ref<HTMLElement[]>;
 
 watch(query, async() => {
   loading.value = true;
