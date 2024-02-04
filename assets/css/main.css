@@ -157,3 +157,7 @@ input:focus-visible {
   padding-left: calc(var(--bs-gutter-x) * .5);
   margin-top: var(--bs-gutter-y);
 }
+
+.nuxt-loading-indicator {
+  background: repeating-linear-gradient(to right,#ffffff 0%,#ffc575 50%,var(--bs-primary) 100%)!important;
+}
