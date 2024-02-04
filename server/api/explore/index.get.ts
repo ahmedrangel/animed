@@ -23,6 +23,7 @@ export default defineEventHandler(async (event) => {
   const { slug } = getQuery(event);
   const cat_id = categories.data.find((c) => c.attributes.slug === slug)?.id || null;
   const cat_title = categories.data.find((c) => c.attributes.slug === slug)?.attributes.title || null;
+  const cat_desc = categories.data.find((c) => c.attributes.slug === slug)?.attributes.description || null;
   const popular = (await getPopular({ category: cat_id })).data;
   const rated = (await getTopRated({ categories: slug })).data;
   const newly = (await getNewlyReleased({ categories: slug })).data;
@@ -40,6 +41,7 @@ export default defineEventHandler(async (event) => {
   }
   data.slug = slug || null;
   data.category = cat_title;
+  data.description = cat_desc;
 
   const response = new Response(JSON.stringify(data), {
     headers: {

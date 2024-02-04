@@ -345,49 +345,6 @@ export const categories = {
       }
     },
     {
-      "id": "236",
-      "type": "categories",
-      "links": {
-        "self": "https://kitsu.io/api/edge/categories/236"
-      },
-      "attributes": {
-        "createdAt": "2018-05-16T02:02:05.729Z",
-        "updatedAt": "2021-10-02T01:31:00.115Z",
-        "title": "Yaoi",
-        "description": "Yaoi refers to stories that portray homosexual (male/male) sex. It is not to be confused with the Shounen Ai category under Romance, which only portrays boy/boy relationships, but generally not anything pornographic. This is real male/male porn. The female version is Yuri.",
-        "totalMediaCount": 6928,
-        "slug": "yaoi",
-        "nsfw": false,
-        "childCount": 0
-      },
-      "relationships": {
-        "parent": {
-          "links": {
-            "self": "https://kitsu.io/api/edge/categories/236/relationships/parent",
-            "related": "https://kitsu.io/api/edge/categories/236/parent"
-          }
-        },
-        "anime": {
-          "links": {
-            "self": "https://kitsu.io/api/edge/categories/236/relationships/anime",
-            "related": "https://kitsu.io/api/edge/categories/236/anime"
-          }
-        },
-        "drama": {
-          "links": {
-            "self": "https://kitsu.io/api/edge/categories/236/relationships/drama",
-            "related": "https://kitsu.io/api/edge/categories/236/drama"
-          }
-        },
-        "manga": {
-          "links": {
-            "self": "https://kitsu.io/api/edge/categories/236/relationships/manga",
-            "related": "https://kitsu.io/api/edge/categories/236/manga"
-          }
-        }
-      }
-    },
-    {
       "id": "155",
       "type": "categories",
       "links": {
@@ -1716,6 +1673,49 @@ export const categories = {
           "links": {
             "self": "https://kitsu.io/api/edge/categories/75/relationships/manga",
             "related": "https://kitsu.io/api/edge/categories/75/manga"
+          }
+        }
+      }
+    },
+    {
+      "id": "35",
+      "type": "categories",
+      "links": {
+        "self": "https://kitsu.io/api/edge/categories/35"
+      },
+      "attributes": {
+        "createdAt": "2017-05-31T06:38:40.877Z",
+        "updatedAt": "2021-10-02T01:31:02.068Z",
+        "title": "Idol",
+        "description": "In Japanese culture, idols (アイドル) are media personalities in their teens and early twenties who are considered particularly cute and cuddly and who will, for a period ranging from several months to a few years, regularly appear in the mass media, e.g. as singers for J-pop groups, bit-part actors, TV personalities, models in photo spreads published in magazines, advertisements, etc.Source: wiki",
+        "totalMediaCount": 856,
+        "slug": "idol",
+        "nsfw": false,
+        "childCount": 0
+      },
+      "relationships": {
+        "parent": {
+          "links": {
+            "self": "https://kitsu.io/api/edge/categories/35/relationships/parent",
+            "related": "https://kitsu.io/api/edge/categories/35/parent"
+          }
+        },
+        "anime": {
+          "links": {
+            "self": "https://kitsu.io/api/edge/categories/35/relationships/anime",
+            "related": "https://kitsu.io/api/edge/categories/35/anime"
+          }
+        },
+        "drama": {
+          "links": {
+            "self": "https://kitsu.io/api/edge/categories/35/relationships/drama",
+            "related": "https://kitsu.io/api/edge/categories/35/drama"
+          }
+        },
+        "manga": {
+          "links": {
+            "self": "https://kitsu.io/api/edge/categories/35/relationships/manga",
+            "related": "https://kitsu.io/api/edge/categories/35/manga"
           }
         }
       }

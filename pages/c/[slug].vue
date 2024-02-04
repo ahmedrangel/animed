@@ -9,6 +9,10 @@ const popular = data.value.preview[0].data;
   <section id="preview">
     <ComponentBanner :anime="popular[0]" />
     <div class="px-2 py-4 py-lg-5 px-xl-5 w-100">
+      <div v-if="data.slug" class="pb-4 pb-lg-5">
+        <h3 class="mb-2"><span><NuxtLink :to="`/c/${data.slug}`">{{ data.category }}</NuxtLink>&nbsp;Anime</span></h3>
+        <h6 class="mb-0">{{ data.description }}</h6>
+      </div>
       <div v-for="(d, i) of data.preview" :key="i" of data class="mb-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h3 class="mb-0">{{ d.title }}<span v-if="data.slug">&nbsp;<NuxtLink :to="`/c/${data.slug}`">{{ data.category }}</NuxtLink></span></h3>
