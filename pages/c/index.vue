@@ -8,11 +8,11 @@ const goTo = async(page: string) => {
 
 <template>
   <section id="categories">
-    <h3 class="px-4 py-4 mb-0">Categories</h3>
+    <h3 class="px-4 py-4 mb-0 bg-dark">Categories</h3>
     <ul>
-      <div v-for="(c, i) of result.data" :key="i" v-ripple role="button" class="p-ripple px-2 py-4 d-flex justify-content-center align-items-center" @click="goTo(`/c/${c.attributes.slug}`)">
+      <NuxtLink v-for="(c, i) of result.data" :key="i" v-ripple :to="`/c/${c.attributes.slug}`" role="button" class="p-ripple px-2 py-4 d-flex justify-content-center align-items-center">
         <span class="category-name h3 text-center">{{ c.attributes.title }}</span>
-      </div>
+      </NuxtLink>
     </ul>
   </section>
 </template>

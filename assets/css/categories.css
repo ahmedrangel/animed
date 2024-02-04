@@ -6,11 +6,12 @@
   padding: 0; 
 }
 
-#categories div {
+#categories a  {
   flex: 1 0 220px;
   border-right: 1px solid var(--bs-body-bg);
   border-bottom: 1px solid var(--bs-body-bg);
   background-color: var(--bs-secondary);
+  color: var(--bs-body-color);
   
   &:empty {
     height: 0;
@@ -18,7 +19,7 @@
   };
 }
 
-#categories div:hover {
+#categories a:hover {
   background-color: #ffcd39;
   color: var(--bs-dark);
 }
@@ -31,7 +32,7 @@
   .category-name {
     font-size: 1.5rem;
   }
-  #categories div{
+  #categories a {
     flex: 1 0 180px;
   }
 }
@@ -40,7 +41,7 @@
   .category-name {
     font-size: 1.2rem;
   }
-  #categories div{
+  #categories a {
     flex: 1 0 160px;
   }
 }
@@ -49,7 +50,7 @@
   .category-name {
     font-size: 1rem;
   }
-  #categories div{
+  #categories a {
     flex: 1 0 110px;
   }
 }
@@ -57,7 +58,7 @@
   .category-name {
     font-size: .9rem;
   }
-  #categories div{
+  #categories a {
     flex: 1 0 100px;
   }
 }
