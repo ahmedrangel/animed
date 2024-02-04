@@ -23,13 +23,13 @@ export default defineEventHandler(async (event) => {
   const popular = (await getPopular()).data;
   const rated = (await getTopRated()).data;
   const newly = (await getNewlyReleased()).data;
-  const obj = [
+  const data = [
     { title: "Trending", data: popular, route: "/c/trending" },
     { title: "Newly Released", data: newly, route: "/c/new" },
     { title: "Top Rated", data: rated, route: "/c/top-rated" }
   ];
 
-  const response = new Response(JSON.stringify(obj), {
+  const response = new Response(JSON.stringify(data), {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
       "Access-Control-Allow-Origin": "*",
@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
     }
   });
 
-  if (obj && !process.dev) {
+  if (data && !process.dev) {
     console.info("Stored in cache!");
     cloudflare.context.waitUntil(cacheManager.cache.put(cacheManager.cacheKey, response.clone()));
   }
