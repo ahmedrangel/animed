@@ -30,7 +30,7 @@ onBeforeUnmount(() => {
 <template>
   <div v-if="result" class="px-2 py-5 px-xl-5 w-100">
     <div v-if="result.title" class="d-flex justify-content-between align-items-center mb-3">
-      <h3 class="mb-0">{{ result.title }}&nbsp;<NuxtLink :to="result.slug">{{ result.category }}</NuxtLink></h3>
+      <h3 class="mb-0">{{ result.title }}&nbsp;<NuxtLink :to="`/c/${result.slug}`">{{ result.category }}</NuxtLink></h3>
     </div>
     <div class="d-flex flex-wrap p-0 justify-content-start anime-row g-1">
       <template v-for="(d, i) of result?.data" :key="i">
