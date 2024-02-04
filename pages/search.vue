@@ -24,18 +24,6 @@ watch(query, async() => {
     loading.value = false;
   }
 });
-
-onMounted(() => {
-  addEventListener("scroll", async() => {
-    if (onScreen(lastRow.value[0]) && !nexted.value && count.value <= result.value?.count) {
-      nexted.value = true;
-      const next = await getQuery(query.value, count.value + 20);
-      result.value?.data.push(...next.data);
-      count.value = count.value + 20;
-      nexted.value = false;
-    }
-  });
-});
 </script>
 
 <template>
@@ -48,6 +36,6 @@ onMounted(() => {
       <h2 class="text-muted mb-0 w-100 text-center mt-5">Type something to search...</h2>
     </div>
     <ComponentLoadingSpinner v-if="loading" class="mt-5" />
-    <ComponentInfiniteList v-if="result && !loading" :data="result" />
+    <ComponentInfiniteList v-if="result && !loading" :data="result" type="query" :query="query" />
   </section>
 </template>

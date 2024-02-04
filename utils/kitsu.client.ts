@@ -19,7 +19,6 @@ export const getQuery = async(query: string, offset: number) => {
 
 export const getNewlyReleased = async(options?: Record<string, any>) => {
   const params = paramsBuilder({
-    anime: "synopsis,slug,canonicalTitle,titles,coverImage,posterImage,averageRating,subtype,startDate",
     sort: "-start_date",
     offset: String(options?.offset)
   });
@@ -74,4 +73,5 @@ export const getList = async(type: string, options?: Record<string, any>) => {
   else if (type === "top-rated") {
     return await getTopRated(options);
   }
+  return await getQuery(options?.query, options?.offset);
 };

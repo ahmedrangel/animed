@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const props = defineProps({
   data: { type: Object, required: true },
-  title: { type: String, required: false, default: null }
+  title: { type: String, required: false, default: null },
+  query: { type: String, required: false, default: null }
 });
 const result = props.data as Record<string, any>;
 const nexted = ref(false) as Ref<boolean>;
@@ -11,7 +12,7 @@ const lastRow = ref("lastRow") as unknown as Ref<HTMLElement[]>;
 const scrollHandler = async () => {
   if (onScreen(lastRow.value[0]) && !nexted.value && count.value <= result.count) {
     nexted.value = true;
-    const next = await getList(result.type, {offset: count.value + 20}) as Record<string, any>;
+    const next = await getList(result.type, {offset: count.value + 20, query: props.query}) as Record<string, any>;
     result?.data.push(...next.data);
     count.value = count.value + 20;
     nexted.value = false;
@@ -28,7 +29,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="px-2 py-5 px-xl-5 w-100">
+  <div v-if="props.data" class="px-2 py-5 px-xl-5 w-100">
     <div v-if="props.title" class="d-flex justify-content-between align-items-center mb-3">
       <h3 class="mb-0">{{ props.title }}</h3>
     </div>
@@ -51,7 +52,7 @@ onBeforeUnmount(() => {
             </div>
           </div>
         </div>
-        <span v-if="i === result?.data.length - 1" ref="lastRow" class="m-0 p-0" />
+        <span v-if="i === result.data.length - 1" ref="lastRow" class="m-0 p-0" />
       </template>
     </div>
   </div>
