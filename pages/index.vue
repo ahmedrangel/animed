@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data: data } = await useFetch("/api/home") as Record<string, any>;
+const { data: data } = await useFetch("/api/explore/") as Record<string, any>;
 const popular = data.value[0].data;
 </script>
 

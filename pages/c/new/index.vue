@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data: result } = await useFetch("/api/newly") as Record<string, any>;
+const { data: result } = await useFetch("/api/explore/newly") as Record<string, any>;
 </script>
 
 <template>

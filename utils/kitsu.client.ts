@@ -63,6 +63,20 @@ export const getAnimeInfo = async(slug: string) => {
   return { data, count: meta?.count };
 };
 
+export const getCategories = async() => {
+  const params = paramsBuilder({
+    limit: String(40),
+    sort: "-total_media_count",
+    streamers: null,
+    subtype: null
+  });
+  const response = await fetch(`${KTS_BASE}/categories?${params}`, {
+    headers: KTS_headers
+  });
+  const { data, meta } = await response.json();
+  return { data, count: meta?.count };
+};
+
 export const getList = async(type: string, options?: Record<string, any>) => {
   if (type === "new") {
     return await getNewlyReleased(options);

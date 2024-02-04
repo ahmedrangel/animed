@@ -26,7 +26,7 @@ export const paramsBuilder = (options?: Record<string, string | null>) => {
     sort: options?.sort,
     category: options?.category,
     in_category: options?.category ? true : null,
-    limit: options?.limit === null ? undefined : 20,
+    limit: options?.limit === null ? undefined : (options?.limit !== undefined ? options.limit : 20),
     fields: {
       anime: options?.anime ? options.anime : "synopsis,slug,canonicalTitle,titles,coverImage,posterImage,averageRating,subtype,startDate",
       categories: options?.categories,
@@ -39,7 +39,7 @@ export const paramsBuilder = (options?: Record<string, string | null>) => {
       status: options?.status
     },
     page: {
-      limit: options?.limit === null ? undefined : 20,
+      limit: options?.limit === null ? undefined : (options?.limit !== undefined ? options.limit : 20),
       offset: options?.offset
     },
   };
