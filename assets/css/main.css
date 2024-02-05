@@ -95,6 +95,10 @@
   #preview h3 {
     font-size: 1.1rem;
   }
+
+  small {
+    font-size: .7rem;
+  }
 }
 
 .sidebar, .sidebar .nav {
