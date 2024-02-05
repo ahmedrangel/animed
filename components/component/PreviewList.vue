@@ -6,7 +6,7 @@ const props = defineProps({
 
 <template>
   <div class="px-2 py-4 py-lg-5 px-xl-5 w-100">
-    <div v-if="props.data.slug" class="pb-4 pb-lg-5">
+    <div v-if="props.data.slug" id="category-desc" class="pb-4 pb-lg-5">
       <h3 class="mb-2"><span><NuxtLink :to="`/c/${data.slug}`">{{ data.category }}</NuxtLink>&nbsp;Anime</span></h3>
       <h6 class="mb-0">{{ data.description }}</h6>
     </div>

@@ -75,7 +75,7 @@
   font-size: 1.2rem;
   }
 
-  #info h6 {
+  #info h6, #category-desc h6 {
   font-size: .75rem;
   }
 
