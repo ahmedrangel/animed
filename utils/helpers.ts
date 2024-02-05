@@ -21,51 +21,8 @@ export const onScreen = (el: HTMLElement) => {
   return (rect.top >= 0 && rect.left >= 0 && rect.bottom <= window.innerHeight && rect.right <= window.innerWidth);
 };
 
-export const paramsBuilder = (options?: Record<string, string | null>) => {
-  const params: Record<string, any> = {
-    include: options?.include,
-    sort: options?.sort,
-    category: options?.category,
-    in_category: options?.category ? true : null,
-    limit: options?.limit === null ? undefined : (options?.limit !== undefined ? options.limit : 12),
-    fields: {
-      anime: options?.anime ? options.anime : "synopsis,slug,canonicalTitle,titles,coverImage,posterImage,averageRating,subtype,startDate,youtubeVideoId",
-      categories: options?.fields_categories
-    },
-    filter: {
-      streamers: options?.streamers === null ? undefined : "Hulu,Netflix,Crunchyroll,Funimation,HIDIVE",
-      subtype: options?.subtype === null ? undefined : "tv,ova,ona",
-      text: options?.query,
-      slug: options?.slug,
-      status: options?.status,
-      categories: options?.categories,
-    },
-    page: {
-      limit: options?.limit === null ? undefined : (options?.limit !== undefined ? options.limit : 12),
-      offset: options?.offset
-    },
-  };
-
-  return Object.keys(params)
-    .map(key => {
-      if (params[key]) {
-        if (typeof params[key] === "object") {
-          return Object.keys(params[key])
-            .map(subkey => {
-              if (params[key][subkey]) {
-                return `${key}${encodeURIComponent(`[${subkey}]`)}=${encodeURIComponent(params[key][subkey])}`;
-              }
-              return "";
-            })
-            .filter(Boolean) // Elimina elementos vacíos
-            .join("&");
-        }
-        return `${key}=${encodeURIComponent(params[key])}`;
-      }
-      return "";
-    })
-    .filter(Boolean) // Elimina elementos vacíos
-    .join("&");
+export const fixSlug = (name: string) => {
+  return name.replace(/ /g, "-").replace(/[^a-zA-Z0-9-]/g, "").toLowerCase();
 };
 
 export const formatDate = (date: string) => {

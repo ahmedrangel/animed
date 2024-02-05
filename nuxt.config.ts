@@ -64,7 +64,7 @@ export default defineNuxtConfig({
   primevue: {
     usePrimeVue: true,
     options: {
-      ripple: true,
+      ripple: true
     },
     components: {
       prefix: "Prime",

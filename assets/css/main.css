@@ -40,15 +40,31 @@
   opacity: .75;
 }
 
+.image {
+  height: 380px;
+}
+
+@media only screen and (max-width: 1500px) {
+  .image {
+    height: 300px;
+  }
+}
+
 @media only screen and (max-width: 1199px) {
   #front img {
     margin-right: 6rem!important;
+  }
+  .image {
+    height: 250px;
   }
 }
 
 @media only screen and (max-width: 991px) {
   #front img {
     margin-right: 0rem!important;
+  }
+  .image {
+    height: 300px;
   }
 }
 
@@ -98,6 +114,16 @@
 
   small {
     font-size: .7rem;
+  }
+
+  .image {
+    height: 220px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .image {
+    height: 270px;
   }
 }
 

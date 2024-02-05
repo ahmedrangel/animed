@@ -2,7 +2,7 @@
 const { params } = useRoute();
 const { slug } = params;
 
-const exists = categories.data.find((c) => c.attributes.slug === slug) || null;
+const exists = categories.find((c) => fixSlug(c.name) === slug) || null;
 
 if (!exists) {
   throw createError({

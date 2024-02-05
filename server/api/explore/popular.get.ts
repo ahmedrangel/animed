@@ -19,13 +19,15 @@ export default defineEventHandler(async (event) => {
       return response;
     }
   }
+
   const { slug } = getQuery(event);
-  const cat_id = categories.data.find((c) => c.attributes.slug === slug)?.id || null;
-  const cat_title = categories.data.find((c) => c.attributes.slug === slug)?.attributes.title || null;
-  const data = await getPopular({ category: cat_id, limit: 20 }) as Record<string, any>;
+  const cat_title = categories.find((c) => fixSlug(c.name) === slug)?.name || null;
+  const cat_type = categories.find((c) => fixSlug(c.name) === slug)?.type || null;
+  const option = slug ? cat_type === "genre" ? { genres: [cat_title] } : { tags: [cat_title] } : null;
+  const { data } = await getPopular(option) as Record<string, any>;
   data.type = "trending";
+  data.category = cat_title || null;
   data.slug = slug || null;
-  data.category = cat_title;
 
   const response = new Response(JSON.stringify(data), {
     headers: {

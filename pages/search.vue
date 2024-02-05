@@ -3,7 +3,7 @@ const query = ref() as Ref<string>;
 const debounce = ref(null as any);
 const result = ref() as Ref<Record<string, any> | null>;
 const loading = ref(false) as Ref<boolean>;
-const count = ref(20) as Ref<number>;
+const count = ref(1) as Ref<number>;
 watch(query, async() => {
   loading.value = true;
   if (debounce.value) {
@@ -12,7 +12,7 @@ watch(query, async() => {
   }
   if (query.value.length > 0) {
     debounce.value = setTimeout(async () => {
-      result.value = await getQuery({ query: query.value, offset: count.value, limit: 20});
+      result.value = await getQuery({ search: query.value });
       loading.value = false;
     }, 1000);
   }
@@ -27,12 +27,12 @@ watch(query, async() => {
   <section id="search">
     <div class="d-flex justify-content-start align-items-center bg-secondary">
       <h4><Icon name="ph:magnifying-glass" class="mx-4" /></h4>
-      <input v-model="query" type="text" class="w-100 py-3 border-0 bg-transparent" placeholder="Type to search..." @input="count = 20">
+      <input v-model="query" type="text" class="w-100 py-3 border-0 bg-transparent" placeholder="Type to search..." @input="count = 1">
     </div>
     <div v-if="!result && !loading">
       <h2 class="text-muted mb-0 w-100 text-center mt-5">Type something to search...</h2>
     </div>
     <ComponentLoadingSpinner v-if="loading" class="mt-5" />
-    <ComponentInfiniteList v-if="result && !loading" :data="result" type="query" :query="query" />
+    <ComponentInfiniteList v-if="result && !loading" :data="result.data" :query="query" />
   </section>
 </template>

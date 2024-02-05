@@ -1,7 +1,7 @@
 {
   "name": "anime",
   "version": "1.0.0",
-  "description": "Anime client built with Nuxt 3",
+  "description": "Anime client built with Nuxt 3 using data provided from Anilist API",
   "author": "Ahmed Rangel",
   "type": "module",
   "homepage": "https://github.com/ahmedrangel/anime",
@@ -27,7 +27,7 @@
     "@nuxtjs/color-mode": "^3.3.2",
     "@types/bootstrap": "^5.2.10",
     "eslint": "^8.56.0",
-    "nuxt": "^3.10.0",
+    "nuxt": "^3.10.1",
     "nuxt-icon": "^0.6.8",
     "nuxt-primevue": "^0.2.2",
     "nuxt-simple-sitemap": "^4.4.1",
