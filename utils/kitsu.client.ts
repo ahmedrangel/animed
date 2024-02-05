@@ -10,10 +10,9 @@ export const getQuery = async(query: string, offset: number) => {
     query,
     offset: String(offset)
   });
-  const response = await fetch(`${KTS_BASE}/anime?${params}`, {
+  const { data, meta } = await $fetch(`${KTS_BASE}/anime?${params}`, {
     headers: KTS_headers
-  });
-  const { data, meta } = await response.json();
+  }).catch(() => null) as Record<string, any>;
   return { data, count: meta.count };
 };
 
@@ -23,10 +22,9 @@ export const getNewlyReleased = async(options?: Record<string, any>) => {
     offset: String(options?.offset),
     categories: options?.categories
   });
-  const response = await fetch(`${KTS_BASE}/anime?${params}`, {
+  const { data, meta } = await $fetch(`${KTS_BASE}/anime?${params}`, {
     headers: KTS_headers
-  });
-  const { data, meta } = await response.json();
+  }).catch(() => null) as Record<string, any>;
   return { data, count: meta?.count };
 };
 
@@ -35,10 +33,9 @@ export const getPopular = async(options?: Record<string, any>) => {
     offset: String(options?.offset),
     category: options?.category
   });
-  const response = await fetch(`${KTS_BASE}/trending/anime?${params}`, {
+  const { data, meta } = await $fetch(`${KTS_BASE}/trending/anime?${params}`, {
     headers: KTS_headers
-  });
-  const { data, meta } = await response.json();
+  }).catch(() => null) as Record<string, any>;
   return { data, count: meta?.count };
 };
 
@@ -48,10 +45,9 @@ export const getTopRated = async(options?: Record<string, any>) => {
     offset: String(options?.offset),
     categories: options?.categories
   });
-  const response = await fetch(`${KTS_BASE}/anime?${params}`, {
+  const { data, meta } = await $fetch(`${KTS_BASE}/anime?${params}`, {
     headers: KTS_headers
-  });
-  const { data, meta } = await response.json();
+  }).catch(() => null) as Record<string, any>;
   return { data, count: meta?.count };
 };
 
@@ -66,10 +62,9 @@ export const getAnimeInfo = async(slug: string) => {
     anime: null,
     categories: null,
   });
-  const response = await fetch(`${KTS_BASE}/anime?${params}`, {
+  const { data } = await $fetch(`${KTS_BASE}/anime?${params}`, {
     headers: KTS_headers
-  });
-  const { data } = await response.json();
+  }).catch(() => null) as Record<string, any>;
   return { data };
 };
 
@@ -80,19 +75,17 @@ export const getCategories = async() => {
     streamers: null,
     subtype: null
   });
-  const response = await fetch(`${KTS_BASE}/categories?${params}`, {
+  const { data, meta } = await $fetch(`${KTS_BASE}/categories?${params}`, {
     headers: KTS_headers
-  });
-  const { data, meta } = await response.json();
+  }).catch(() => null) as Record<string, any>;
   return { data, count: meta?.count };
 };
 
 export const getCategoryId = async(slug: string) => {
   const params = `filter%5Bslug%5D=${slug}`;
-  const response = await fetch(`${KTS_BASE}/categories?${params}`, {
+  const { data } = await $fetch(`${KTS_BASE}/categories?${params}`, {
     headers: KTS_headers
-  });
-  const { data } = await response.json();
+  }).catch(() => null) as Record<string, any>;
   return data[0].id;
 };
 
