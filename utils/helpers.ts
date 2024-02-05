@@ -1,8 +1,9 @@
 import { format } from "date-fns";
 
 export const getRating = (percent: number) => {
-  const stars = (percent / 100) * 5;
-  return stars.toFixed(1);
+  const stars = (percent / 90) * 5;
+  const fix = stars > 5 ? 5 : stars;
+  return fix.toFixed(1);
 };
 
 export const formatRating = (rating: number) => {
