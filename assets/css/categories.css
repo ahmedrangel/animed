@@ -21,7 +21,11 @@
 
 #categories a:hover {
   background-color: var(--bs-link-hover-color);
-  color: var(--bs-dark);
+  color: var(--bs-dark)!important;
+}
+
+#categories a>*:hover {
+  color: var(--bs-dark)!important;
 }
 
 .category-name {

@@ -37,7 +37,9 @@ onBeforeUnmount(() => {
         <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2 d-flex justify-content-center">
           <div class="mb-1" :class="i === 0 ? 'me-1' : 'mx-1'" style="max-width: 280px;">
             <NuxtLink :to="`/a/${d.attributes.slug}`">
-              <img class="img-fluid mb-2" :src="d.attributes.posterImage.medium ? d.attributes.posterImage.medium : d.attributes.posterImage.original" width="280">
+              <div class="image overflow-hidden mb-2">
+                <img class="img-fluid scale-on-hover" :src="d.attributes.posterImage.large ? d.attributes.posterImage.large : d.attributes.posterImage.original" width="280">
+              </div>
               <h6 class="mb-1 text-white">{{ d.attributes.titles.en ? d.attributes.titles.en : d.attributes.titles.en_jp }} <span class="badge bg-secondary align-middle">{{ d.attributes.subtype }}</span></h6>
             </NuxtLink>
             <small class="text-muted d-block mb-1">{{ d.attributes.canonicalTitle }}</small>

@@ -23,9 +23,11 @@ const newly = data.value.preview[0].data[0];
         <div class="d-flex overflow-auto">
           <div v-for="(list, j) of d.data" :key="j" class="col-lg-2 col-sm-3 col-6 mb-3">
             <div :class="j === 0 ? 'me-1' : 'mx-1'">
-              <NuxtLink :to="`/a/${list.attributes.slug}`">
-                <img class="img-fluid mb-2" :src="list.attributes.posterImage.large" width="280">
-                <h6 class="mb-1 text-white">{{ list.attributes.titles.en ? list.attributes.titles.en : list.attributes.titles.en_jp }} <span class="badge bg-secondary align-middle">{{ list.attributes.subtype }}</span></h6>
+              <NuxtLink :to="`/a/${list.attributes.slug}`" class="text-white">
+                <div class="image overflow-hidden mb-2">
+                  <img class="img-fluid scale-on-hover" :src="list.attributes.posterImage.large" width="280">
+                </div>
+                <h6 class="mb-1">{{ list.attributes.titles.en ? list.attributes.titles.en : list.attributes.titles.en_jp }} <span class="badge bg-secondary align-middle">{{ list.attributes.subtype }}</span></h6>
               </NuxtLink>
               <small class="text-muted d-block mb-1">{{ list.attributes.titles.en_jp ? list.attributes.titles.en_jp : list.attributes.canonicalTitle }}</small>
               <small class="d-block mb-1 text-primary">{{ formatDate(list.attributes.startDate) }}</small>

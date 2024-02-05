@@ -121,7 +121,7 @@
   top:0;
 }
 
-img, iframe {
+img, iframe, .image {
   border-radius: 6px;
 }
 
@@ -164,4 +164,20 @@ input:focus-visible {
 
 .nuxt-loading-indicator {
   background: repeating-linear-gradient(to right,#ffffff 0%,#ffc575 50%,var(--bs-primary) 100%)!important;
+}
+
+#menu .router-link-active {
+  color: var(--bs-primary)!important;
+}
+
+a>*:hover, a:hover {
+  color: var(--bs-link-hover-color)!important;
+}
+
+.scale-on-hover:hover {
+  transform: scale(1.1);
+}
+
+.scale-on-hover {
+  transition: .3s linear;
 }
