@@ -46,8 +46,8 @@ onBeforeUnmount(() => {
             <small class="d-block mb-1 text-primary">{{ formatDate(d.attributes.startDate) }}</small>
             <div class="d-flex align-items-center position-relative">
               <div class="stars d-flex align-items-center" style="height: 16px;">
-                <img class="position-absolute" src="/images/stars.webp" width="80">
-                <img class="" src="/images/stars-filled.webp" width="80" :style="{'clip-path': 'inset(0px ' + (100-d.attributes.averageRating) + '% 0px 0px) '}">
+                <img class="position-absolute" src="/images/stars.webp" width="80" style="opacity: 0.5">
+                <img src="/images/stars-filled.webp" width="80" :style="{'clip-path': 'inset(0px ' + (100-d.attributes.averageRating) + '% 0px 0px) '}">
               </div>
               <small class="ms-2 mb-0 text-white">{{ getRating(d.attributes.averageRating) }}</small>
             </div>

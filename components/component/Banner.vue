@@ -19,7 +19,7 @@ const props = defineProps({
       <h6 class="mb-1 text-muted">{{ props.anime.attributes.titles.en ? props.anime.attributes.titles.en : props.anime.attributes.titles.en_jp }}</h6>
       <div class="d-flex align-items-center position-relative mb-2">
         <div class="stars d-flex align-items-center" style="height: 25px;">
-          <img class="position-absolute" src="/images/stars.webp" width="100">
+          <img class="position-absolute" src="/images/stars.webp" width="100" style="opacity: 0.5">
           <img class="" src="/images/stars-filled.webp" width="100" :style="{'clip-path': 'inset(0px ' + (100-props.anime.attributes.averageRating) + '% 0px 0px) '}">
         </div>
         <span class="ms-2 mb-0 h6">{{ getRating(props.anime.attributes.averageRating) }}</span>
