@@ -22,9 +22,8 @@ export default defineEventHandler(async (event) => {
   const { slug } = getQuery(event);
   const cat_id = categories.data.find((c) => c.attributes.slug === slug)?.id || null;
   const cat_title = categories.data.find((c) => c.attributes.slug === slug)?.attributes.title || null;
-  const data = await getPopular({ category: cat_id }) as Record<string, any>;
+  const data = await getPopular({ category: cat_id, limit: 20 }) as Record<string, any>;
   data.type = "trending";
-  data.title = "Trending";
   data.slug = slug || null;
   data.category = cat_title;
 

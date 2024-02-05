@@ -11,7 +11,7 @@ const lastRow = ref("lastRow") as unknown as Ref<HTMLElement[]>;
 const scrollHandler = async () => {
   if (onScreen(lastRow.value[0]) && !nexted.value && count.value <= result.count) {
     nexted.value = true;
-    const next = await getList(result.type, {offset: count.value + 20, query: props.query, categories: result?.category }) as Record<string, any>;
+    const next = await getList(result.type, {offset: count.value + 20, query: props.query, categories: result?.category, limit: 20 }) as Record<string, any>;
     result?.data.push(...next.data);
     count.value = count.value + 20;
     nexted.value = false;

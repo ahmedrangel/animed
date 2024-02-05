@@ -4,11 +4,12 @@ export const KTS_headers = {
   "Authorization": "Bearer undefined"
 };
 
-export const getQuery = async(query: string, offset: number) => {
+export const getQuery = async(options?: Record<string, any>) => {
   const params = paramsBuilder({
     anime: "slug,canonicalTitle,titles,posterImage,averageRating,subtype,startDate",
-    query,
-    offset: String(offset)
+    query: options?.query,
+    offset: options?.offset,
+    limit: options?.limit
   });
   const { data, meta } = await $fetch(`${KTS_BASE}/anime?${params}`, {
     headers: KTS_headers
@@ -20,35 +21,38 @@ export const getNewlyReleased = async(options?: Record<string, any>) => {
   const params = paramsBuilder({
     sort: "-start_date",
     offset: String(options?.offset),
-    categories: options?.categories
+    categories: options?.categories,
+    limit: options?.limit,
   });
   const { data, meta } = await $fetch(`${KTS_BASE}/anime?${params}`, {
     headers: KTS_headers
   }).catch(() => null) as Record<string, any>;
-  return { data, count: meta?.count };
+  return { data, count: meta?.count, title: "Newly Released" };
 };
 
 export const getPopular = async(options?: Record<string, any>) => {
   const params = paramsBuilder({
     offset: String(options?.offset),
-    category: options?.category
+    category: options?.category,
+    limit: options?.limit,
   });
   const { data, meta } = await $fetch(`${KTS_BASE}/trending/anime?${params}`, {
     headers: KTS_headers
   }).catch(() => null) as Record<string, any>;
-  return { data, count: meta?.count };
+  return { data, count: meta?.count, title: "Trending" };
 };
 
 export const getTopRated = async(options?: Record<string, any>) => {
   const params = paramsBuilder({
     sort: "-averageRating",
     offset: String(options?.offset),
-    categories: options?.categories
+    categories: options?.categories,
+    limit: options?.limit
   });
   const { data, meta } = await $fetch(`${KTS_BASE}/anime?${params}`, {
     headers: KTS_headers
   }).catch(() => null) as Record<string, any>;
-  return { data, count: meta?.count };
+  return { data, count: meta?.count, title: "Top Rated" };
 };
 
 export const getAnimeInfo = async(slug: string) => {
@@ -99,5 +103,5 @@ export const getList = async(type: string, options?: Record<string, any>) => {
   else if (type === "top-rated") {
     return await getTopRated(options);
   }
-  return await getQuery(options?.query, options?.offset);
+  return await getQuery(options);
 };

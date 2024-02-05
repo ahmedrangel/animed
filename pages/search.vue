@@ -4,7 +4,6 @@ const debounce = ref(null as any);
 const result = ref() as Ref<Record<string, any> | null>;
 const loading = ref(false) as Ref<boolean>;
 const count = ref(20) as Ref<number>;
-
 watch(query, async() => {
   loading.value = true;
   if (debounce.value) {
@@ -13,7 +12,7 @@ watch(query, async() => {
   }
   if (query.value.length > 0) {
     debounce.value = setTimeout(async () => {
-      result.value = await getQuery(query.value, count.value);
+      result.value = await getQuery({ query: query.value, offset: count.value, limit: 20});
       loading.value = false;
     }, 1000);
   }

@@ -24,14 +24,14 @@ export default defineEventHandler(async (event) => {
   const cat_id = categories.data.find((c) => c.attributes.slug === slug)?.id || null;
   const cat_title = categories.data.find((c) => c.attributes.slug === slug)?.attributes.title || null;
   const cat_desc = categories.data.find((c) => c.attributes.slug === slug)?.attributes.description || null;
-  const popular = (await getPopular({ category: cat_id })).data;
-  const rated = (await getTopRated({ categories: slug })).data;
-  const newly = (await getNewlyReleased({ categories: slug })).data;
+  const popular = await getPopular({ category: cat_id });
+  const rated = await getTopRated({ categories: slug });
+  const newly = await getNewlyReleased({ categories: slug });
   const data = {
     preview: [
-      { title: "Newly Released", data: newly, route: `/c/new${slug ? `/${slug}` : ""}` },
-      { title: "Top Rated", data: rated, route: `/c/top-rated${slug ? `/${slug}` : ""}` },
-      { title: "Trending", data: popular, route: `/c/trending${slug ? `/${slug}` : ""}` },
+      { title: newly.title, data: newly.data, route: `/c/new${slug ? `/${slug}` : ""}` },
+      { title: rated.title, data: rated.data, route: `/c/top-rated${slug ? `/${slug}` : ""}` },
+      { title: popular.title, data: popular.data, route: `/c/trending${slug ? `/${slug}` : ""}` },
     ]
   } as Record<string, any>;
   data.slug = slug || null;
