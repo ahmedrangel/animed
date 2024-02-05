@@ -26,7 +26,7 @@ const props = defineProps({
       </div>
       <!-- eslint-disable-next-line vue/no-v-html-->
       <h6 v-if="props.anime.description" class="mb-2 fw-normal" v-html="props.anime.description.replace(/<br>/g,'')" />
-      <PrimeButton v-if="props.anime.trailer.site === 'youtube'" class="btn btn-warning mt-1" data-bs-toggle="modal" data-bs-target="#verModal">
+      <PrimeButton v-if="props.anime?.trailer?.site === 'youtube'" class="btn btn-warning mt-1" data-bs-toggle="modal" data-bs-target="#verModal">
         <div class="d-flex justify-content-center align-items-center py-1 px-2">
           <Icon name="solar:play-bold" />&nbsp;&nbsp;
           <span class="h6 mb-0 fw-bold">Watch Trailer</span>
