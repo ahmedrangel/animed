@@ -20,7 +20,7 @@ const tabs = [
     <div class="sidebar p-0 bg-dark d-lg-block d-none border-end">
       <ul id="menu" class="nav flex-column justify-content-evenly align-items-center min-vh-100 position-fixed z-1">
         <li v-for="(tab, i) of tabs" :key="i" class="nav-item">
-          <NuxtLink :to="tab.route" class="nav-link align-middle p-0 text-body">
+          <NuxtLink :to="tab.route" class="nav-link align-middle p-2 text-body">
             <h2 class="mb-0"><Icon :name="tab.icon" /></h2>
           </NuxtLink>
         </li>
@@ -30,7 +30,7 @@ const tabs = [
     <nav class="navbar fixed-bottom bg-dark d-lg-none d-block border-top w-100">
       <ul id="menu" class="nav align-items-center justify-content-evenly">
         <li v-for="(tab, i) of tabs" :key="i" class="nav-item">
-          <NuxtLink :to="tab.route" class="nav-link align-middle px-0 text-body">
+          <NuxtLink :to="tab.route" class="nav-link align-middle p-2 text-body">
             <h2 class="mb-0"><Icon :name="tab.icon" /></h2>
           </NuxtLink>
         </li>
