@@ -40,6 +40,10 @@
   opacity: .75;
 }
 
+#anime-page #blur {
+  opacity: .9;
+}
+
 .image {
   height: 380px;
 }
