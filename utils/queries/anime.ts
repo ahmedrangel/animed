@@ -1,3 +1,5 @@
+import * as gql from "gql-query-builder";
+
 const query = `
   query media($id: Int, $type: MediaType, $isAdult: Boolean) {
     Media(id: $id, type: $type, isAdult: $isAdult) {
@@ -5,6 +7,7 @@ const query = `
       title {
         romaji
         english
+        native
       }
       coverImage {
         extraLarge
@@ -23,29 +26,18 @@ const query = `
       description
       season
       seasonYear
-      type
       format
       status(version: 2)
       episodes
       duration
-      chapters
-      volumes
       genres
       synonyms
       source(version: 3)
       isAdult
-      isLocked
-      meanScore
       averageScore
       popularity
-      favourites
-      isFavouriteBlocked
       hashtag
       countryOfOrigin
-      isLicensed
-      isFavourite
-      isRecommendationBlocked
-      isReviewBlocked
       nextAiringEpisode {
         airingAt
         timeUntilAiring
@@ -118,24 +110,6 @@ const query = `
           node {
             id
             name
-          }
-        }
-      }
-      reviewPreview: reviews(perPage: 2, sort: [RATING_DESC, ID]) {
-        pageInfo {
-          total
-        }
-        nodes {
-          id
-          summary
-          rating
-          ratingAmount
-          user {
-            id
-            name
-            avatar {
-              large
-            }
           }
         }
       }
@@ -233,4 +207,16 @@ export const queryAnime = (options?: Record<string, any>) => {
     id: options?.id
   };
   return JSON.stringify({ query, variables });
+};
+
+export const queryAnimeSlug = (id: number) => {
+  const query = gql.query({
+    operation: "Media",
+    variables: { id },
+    fields: [
+      "id",
+      { title: ["romaji"] }
+    ]
+  });
+  return JSON.stringify(query);
 };

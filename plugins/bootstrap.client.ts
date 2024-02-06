@@ -6,6 +6,7 @@ import Popover from "bootstrap/js/dist/popover";
 import Carousel from "bootstrap/js/dist/carousel";
 import Modal from "bootstrap/js/dist/modal";
 import Toast from "bootstrap/js/dist/toast";
+import Tab from "bootstrap/js/dist/tab";
 
 class Bootstrap {
   hideModal (id: HTMLElement) {
@@ -55,6 +56,11 @@ class Bootstrap {
     const offcanvas = new Offcanvas(id);
     offcanvas.show();
     return id;
+  }
+
+  initializeTab () {
+    const tab = new Tab(".nav-tabs");
+    tab.show();
   }
 }
 

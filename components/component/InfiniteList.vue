@@ -45,7 +45,7 @@ onBeforeUnmount(() => {
               <h6 class="mb-1 text-white">{{ d.title.english ? d.title.english : d.title.romaji }} <span class="badge bg-secondary align-middle">{{ d.format }}</span></h6>
             </NuxtLink>
             <small class="text-muted d-block mb-1">{{ d.title.romaji }}</small>
-            <small class="d-block mb-1 text-primary">{{ d.startDate.year ? formatDate(`${d.startDate.year}-${d.startDate.month}-${d.startDate.day}`) : "TBA" }}</small>
+            <small class="d-block mb-1 text-primary">{{ d.startDate.year ? formatDate(d.startDate.year, d.startDate.month, d.startDate.day) : "TBA" }}</small>
             <div class="d-flex align-items-center position-relative">
               <div class="stars d-flex align-items-center" style="height: 16px;">
                 <img class="position-absolute" src="/images/stars.webp" width="80" style="opacity: 0.5">

@@ -91,7 +91,7 @@
   font-size: 1.2rem;
   }
 
-  #info h6, #category-desc h6 {
+  #info h6, #category-desc h6, #anime-page h6 {
   font-size: .75rem;
   }
 
@@ -210,4 +210,9 @@ a>*:hover, a:hover {
 
 .scale-on-hover {
   transition: .3s linear;
+}
+
+#anime-nav .router-link-active>* {
+  border-bottom: 2px solid var(--bs-primary);
+  color: var(--bs-primary);
 }

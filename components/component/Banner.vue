@@ -6,7 +6,7 @@ const props = defineProps({
 
 <template>
   <VideoModal v-if="props.anime?.trailer?.site === 'youtube'" id="verModal" :video="`https://youtube.com/embed/${props.anime?.trailer?.id}`" />
-  <div class="banner p-0 position-relative d-flex align-items-center p-0 w-100 overflow-hidden border-bottom">
+  <div class="banner p-0 position-relative d-flex align-items-center p-0 w-100 overflow-hidden border-bottom bg-secondary">
     <span id="blur" class="position-absolute top-0 w-100 h-100" :style="{ 'background-image': 'url(' + props.anime?.bannerImage + ')' }" />
     <span id="front" class="d-flex justify-content-center px-4 pt-5 pt-md-0 pt-lg-0">
       <img class="shadow" :src="props.anime?.coverImage?.extraLarge">

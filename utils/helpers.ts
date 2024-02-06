@@ -25,6 +25,19 @@ export const fixSlug = (name: string) => {
   return name?.replace(/ /g, "-")?.replace(/[^a-zA-Z0-9-]/g, "")?.toLowerCase();
 };
 
-export const formatDate = (date: string) => {
-  return format(new Date(date), "MMM d, yyyy");
+export const formatDate = (y?: string, m?: string, d?: string) => {
+  if (m && y && d) {
+    return format(new Date(y, m - 1, d), "MMM d, yyyy");
+  }
+  else if (!d && m && y) {
+    return format(new Date(y, m - 1), "MMM yyyy");
+  }
+};
+
+export const getStudios = (studios: Record<string, any>) => {
+  return studios.edges.filter(edge => edge.isMain === true).map(edge => edge.node.name).join(", ");
+};
+
+export const getProducers = (studios: Record<string, any>) => {
+  return studios.edges.filter(edge => edge.isMain === false).map(edge => edge.node.name).join(", ");
 };
