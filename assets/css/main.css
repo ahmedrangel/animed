@@ -13,8 +13,8 @@
   justify-content: end;
 }
 
-#anime-page .banner {
-  height: 380px;
+#anime-page #front {
+  height: 180px;
 }
 
 #front img {
@@ -50,6 +50,10 @@
 
 .image {
   height: 380px;
+}
+
+#anime-page #details {
+  justify-content: space-between;
 }
 
 @media only screen and (max-width: 1500px) {
@@ -126,6 +130,14 @@
 
   .image {
     height: 220px;
+  }
+
+  #anime-nav a>* {
+    font-size: .8rem!important;
+  }
+
+  #anime-page #details {
+    justify-content: center;
   }
 }
 

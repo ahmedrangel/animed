@@ -19,13 +19,13 @@ if (slug !== _slug) {
       <ComponentBanner2 v-if="anime" :anime="anime" />
       <div class="px-2 py-4 py-lg-5 px-lg-5 px-xl-5 w-100">
         <nav id="anime-nav" class="nav justify-content-center gap-4">
-          <NuxtLink class="nav-link active px-3 py-0 text-white" aria-current="page" :to="slug">
+          <NuxtLink class="nav-link active px-1 py-0 text-white" aria-current="page" :to="slug">
             <h5 class="py-2 mb-0">OVERVIEW</h5>
           </NuxtLink>
-          <NuxtLink class="nav-link px-3 py-0 text-white" :to="slug + '/characters'">
+          <NuxtLink class="nav-link px-1 py-0 text-white" :to="slug + '/characters'">
             <h5 class="py-2 mb-0">CHARACTERS</h5>
           </NuxtLink>
-          <NuxtLink class="nav-link px-3 py-0 text-white" :to="slug + '/episodes'">
+          <NuxtLink class="nav-link px-1 py-0 text-white" :to="slug + '/episodes'">
             <h5 class="py-2 mb-0">EPISODES</h5>
           </NuxtLink>
         </nav>
@@ -41,9 +41,9 @@ if (slug !== _slug) {
             <small class="ms-2 mb-0 text-white">{{ getRating(anime.averageScore) }}</small>
           </div>
         </div>
-        <div class="py-4 d-flex justify-content-center align-items-start anime-row flex-wrap px-2 px-xl-4 g-xl-5">
-          <img :src="anime?.coverImage?.extraLarge" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 img-fluid px-0" style="max-width: 400px;">
-          <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-9 pt-4 pt-md-0">
+        <div id="details" class="py-3 d-flex align-items-start anime-row mx-0 flex-wrap px-xl-4 g-xl-5">
+          <img id="cover" :src="anime?.coverImage?.extraLarge" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 img-fluid px-0" style="max-width: 400px;">
+          <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-9 pt-4 pt-md-0 px-0 px-md-4">
             <div v-if="anime.description" class="pb-4">
               <h2 class="text-white">Description</h2>
               <!-- eslint-disable-next-line vue/no-v-html-->

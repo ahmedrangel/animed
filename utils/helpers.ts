@@ -32,6 +32,9 @@ export const formatDate = (y?: string, m?: string, d?: string) => {
   else if (!d && m && y) {
     return format(new Date(y, m - 1), "MMM yyyy");
   }
+  else if (!d && !m && y) {
+    return format(new Date(y), "yyyy");
+  }
 };
 
 export const getStudios = (studios: Record<string, any>) => {
