@@ -232,5 +232,5 @@ export const queryAnime = (options?: Record<string, any>) => {
   const variables = {
     id: options?.id
   };
-  return { query, variables };
+  return JSON.stringify({ query, variables });
 };

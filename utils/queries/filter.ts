@@ -1,76 +1,42 @@
-const query = `
-  query MediaQuery(
-    $page: Int,
-    $type: MediaType,
-    $format: [MediaFormat],
-    $sort: [MediaSort],
-    $status: MediaStatus,
-    $licensedBy: [Int],
-    $search: String,
-    $genres: [String],
-    $tags: [String],
-    $status_in: [MediaStatus]
-  ) {
-    Page(page: $page, perPage: 20) {
-      pageInfo {
-        total
-        perPage
-        currentPage
-        lastPage
-        hasNextPage
-      }
-      media(
-        type: $type,
-        format_in: $format,
-        sort: $sort,
-        status: $status,
-        status_in: $status_in
-        search: $search,
-        licensedById_in: $licensedBy,
-        genre_in: $genres,
-        tag_in: $tags
-      ) {
-        id
-        title {
-          romaji
-          english
-        }
-        coverImage {
-          extraLarge
-        }
-        bannerImage
-        startDate {
-          year
-          month
-          day
-        }
-        description
-        format
-        status(version: 2)
-        episodes
-        isAdult
-        averageScore
-        trailer {
-          id
-          site
-        }
-      }
-    }
-  }
-`;
+import { Format, Licensor } from "../../enums/anilist";
+import * as gql from "gql-query-builder";
 
 export const queryFilter = (options?: Record<string, any>) => {
-  const variables = {
-    page: options?.page || 1,
-    type: "ANIME",
-    format: ["TV", "OVA", "ONA"],
-    sort: options?.sort,
-    status: options?.status,
-    status_in: options?.status_in,
-    search: options?.search,
-    licensedBy: ["5", "7", "10", "20"],
-    genres: options?.genres,
-    tags: options?.tags,
-  };
-  return { query, variables };
+  const query = gql.query({
+    operation: "Page",
+    variables: {
+      page: { type: "Int", value: options?.page || 1 },
+      perPage: { type: "Int", value: 20 }
+    },
+    fields: [
+      { pageInfo: ["total", "perPage", "currentPage", "lastPage", "hasNextPage"] },
+      {
+        operation: "media",
+        variables: {
+          type: { type: "MediaType", value: "ANIME" },
+          format_in: { type: "[MediaFormat]", value: [Format.TV, Format.OVA, Format.ONA] },
+          sort: { type: "[MediaSort]", value: options?.sort },
+          status_in: { type: "[MediaStatus]", value: options?.status_in },
+          search: options?.search,
+          licensedById_in: { type: "[Int]", value: [Licensor.CRUNCHYROLL, Licensor.HULU, Licensor.NETFLIX, Licensor.HIDIVE] },
+          genre_in: { type: "[String]", value: options?.genres },
+          tag_in: { type: "[String]", value: options?.tags }
+        },
+        fields: [
+          "id",
+          { title: ["romaji", "english"] },
+          { coverImage: ["extraLarge"] },
+          "bannerImage",
+          { startDate: ["year", "month", "day"] },
+          "description",
+          "format",
+          "status",
+          "episodes",
+          "isAdult",
+          "averageScore",
+          { trailer: ["id", "site"] }
+        ]
+      }]
+  });
+  return JSON.stringify(query);
 };

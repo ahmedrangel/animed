@@ -1,48 +1,48 @@
 import { queryAnime } from "./queries/anime";
 import { queryFilter } from "./queries/filter";
-
-export const ANI_BASE = "https://graphql.anilist.co";
+import { API, Sort, Status } from "../enums/anilist";
 
 export const getQuery = async(options?: Record<string, any> | null) => {
-  const { data } = await $fetch(ANI_BASE, {
+  const { data } = await $fetch(API.GRAPHQL, {
     method: "POST",
-    body: JSON.stringify(queryFilter({ ...options, sort: "SEARCH_MATCH" }))
+    body: queryFilter({ ...options, sort: Sort.SEARCH_MATCH })
   }).catch(() => null) as Record<string, any>;
   data.type = "search";
   return { data: data.Page };
 };
 
 export const getNewlyReleased = async(options?: Record<string, any> | null) => {
-  const { data } = await $fetch(ANI_BASE, {
+  console.log(queryFilter({ ...options, sort: Sort.START_DATE_DESC, status_in: [Status.AIRING, Status.FINISHED] }));
+  const { data } = await $fetch(API.GRAPHQL, {
     method: "POST",
-    body: JSON.stringify(queryFilter({ ...options, sort: "START_DATE_DESC", status_in: ["RELEASING", "FINISHED"] }))
+    body: queryFilter({ ...options, sort: Sort.START_DATE_DESC, status_in: [Status.AIRING, Status.FINISHED] })
   }).catch(() => null) as Record<string, any>;
   data.Page.title = "Newly Released";
   return { data: data.Page };
 };
 
 export const getPopular = async(options?: Record<string, any> | null) => {
-  const { data } = await $fetch(ANI_BASE, {
+  const { data } = await $fetch(API.GRAPHQL, {
     method: "POST",
-    body: JSON.stringify(queryFilter({ ...options, sort: "POPULARITY_DESC" }))
+    body: queryFilter({ ...options, sort: [Sort.TRENDING_DESC, Sort.POPULARITY_DESC] })
   }).catch(() => null) as Record<string, any>;
   data.Page.title = "Trending";
   return { data: data.Page };
 };
 
 export const getTopRated = async(options?: Record<string, any> | null) => {
-  const { data } = await $fetch(ANI_BASE, {
+  const { data } = await $fetch(API.GRAPHQL, {
     method: "POST",
-    body: JSON.stringify(queryFilter({ ...options, sort: "SCORE_DESC" }))
+    body: queryFilter({ ...options, sort: Sort.SCORE_DESC })
   }).catch(() => null) as Record<string, any>;
   data.Page.title = "Top Rated";
   return { data: data.Page };
 };
 
 export const getAnimeInfo = async(id: number) => {
-  const { data } = await $fetch(ANI_BASE, {
+  const { data } = await $fetch(API.GRAPHQL, {
     method: "POST",
-    body: JSON.stringify(queryAnime({ id }))
+    body: queryAnime({ id })
   }).catch(() => null) as Record<string, any>;
   return { data };
 };
