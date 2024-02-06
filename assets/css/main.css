@@ -13,6 +13,10 @@
   justify-content: end;
 }
 
+#anime-page .banner {
+  height: 380px;
+}
+
 #front img {
   height: 470px;
   margin-right: 14rem!important;
