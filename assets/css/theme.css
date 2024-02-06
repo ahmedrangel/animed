@@ -3,14 +3,14 @@
   --bs-primary-rgb: 255, 193, 7;
   --bs-dark: #000;
   --bs-dark-rgb: 0, 0, 0;
-  --bs-body-bg: #080808;
+  --bs-body-bg: #0c0c0c;
   --bs-dark-bg-rbg: 8, 8, 8;
   --font-rubik: "Rubik";
   --bs-body-font-family: var(--font-rubik);
   --font-family: var(--font-rubik);
-  --bs-secondary: #1f1f1f;
-  --bs-secondary-rgb: 31, 31, 31;
-  --bs-border-color: #2e3338;
+  --bs-secondary: #282828;
+  --bs-secondary-rgb: 40, 40, 40;
+  --bs-border-color: rgb(48, 51, 55);
   --bs-link-color-rgb: var(--bs-primary-rgb);
   --bs-link-hover-color-rgb: 247, 212, 109;
   --bs-link-hover-color: #f7d46d;
