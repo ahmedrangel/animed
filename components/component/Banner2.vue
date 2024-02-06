@@ -5,7 +5,8 @@ const props = defineProps({
 </script>
 
 <template>
-  <div v-if="props.anime?.bannerImage" class="banner2 p-0 d-flex align-items-center p-0 w-100 overflow-hidden border-bottom">
-    <img id="blur" :src="props.anime?.bannerImage" class="top-0 w-100 h-100">
+  <div class="banner p-0 position-relative d-flex align-items-center p-0 w-100 overflow-hidden border-bottom">
+    <span id="blur" class="position-absolute top-0 w-100 h-100 bg-secondary" :style="{ 'background-image': 'url(' + props.anime?.bannerImage + ')' }" />
+    <div id="front" style="height: 260px;" />
   </div>
 </template>
