@@ -41,7 +41,7 @@ if (slug !== _slug) {
             <small class="ms-2 mb-0 text-white">{{ getRating(anime.averageScore) }}</small>
           </div>
         </div>
-        <div class="py-4 d-flex justify-content-center align-items-start anime-row flex-wrap px-0 px-xl-4 g-xl-5">
+        <div class="py-4 d-flex justify-content-center align-items-start anime-row flex-wrap px-2 px-xl-4 g-xl-5">
           <img :src="anime?.coverImage?.extraLarge" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 img-fluid pb-4 pb-md-0 px-0" style="max-width: 400px;">
           <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-9">
             <div v-if="anime.description" class="pb-4">
