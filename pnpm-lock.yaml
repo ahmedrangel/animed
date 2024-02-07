@@ -15,8 +15,8 @@ dependencies:
     specifier: ^3.8.0
     version: 3.8.0
   primevue:
-    specifier: ^3.47.2
-    version: 3.47.2(vue@3.4.15)
+    specifier: ^3.48.1
+    version: 3.48.1(vue@3.4.15)
 
 devDependencies:
   '@nuxt/eslint-config':
@@ -6161,7 +6161,7 @@ packages:
     resolution: {integrity: sha512-OfXDe5V0WovXt9b2GOjYV1kyVXmcFfj+6DqVs1pbeP4EyF2H0SbIMoUTT8Ax+sXT/tQ+mXr3qTFD9Y6IL+Y9og==, tarball: https://registry.npmjs.org/nuxt-primevue/-/nuxt-primevue-0.2.2.tgz}
     dependencies:
       '@nuxt/kit': 3.10.0
-      primevue: 3.47.2(vue@3.4.15)
+      primevue: 3.48.1(vue@3.4.15)
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -6962,8 +6962,8 @@ packages:
     engines: {node: ^14.13.1 || >=16.0.0}
     dev: true
 
-  /primevue@3.47.2(vue@3.4.15):
-    resolution: {integrity: sha512-/vgIhc2vxNW8amBGBJX/NMBgWi/THOwT0DIPgy/aswJ86x+uwLwGtjNz22c/uSE5UkHu4E5rpktWOJtFvTbRPg==, tarball: https://registry.npmjs.org/primevue/-/primevue-3.47.2.tgz}
+  /primevue@3.48.1(vue@3.4.15):
+    resolution: {integrity: sha512-lyJ+E0ZCv2pR9jIpdPLBysU8zB2hOKrN7q78orloWelPx05zSYoMVKAWaqKTHNpunD52xffjaqovt1y6B/9XoQ==, tarball: https://registry.npmjs.org/primevue/-/primevue-3.48.1.tgz}
     peerDependencies:
       vue: ^3.0.0
     dependencies:
