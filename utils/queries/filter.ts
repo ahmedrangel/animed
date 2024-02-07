@@ -5,7 +5,6 @@ export const queryFilter = (options?: Record<string, any>) => {
   for (const key in options) {
     if (!options[key]) delete options[key];
   }
-  console.log(options);
   const query = gql.query({
     operation: "Page",
     variables: {
@@ -14,8 +13,7 @@ export const queryFilter = (options?: Record<string, any>) => {
     },
     fields: [
       { pageInfo: ["total", "perPage", "currentPage", "lastPage", "hasNextPage"] },
-      {
-        operation: "media",
+      { operation: "media",
         variables: {
           type: { type: "MediaType", value: "ANIME" },
           format_in: { type: "[MediaFormat]", value: [Format.TV, Format.OVA, Format.ONA] },
