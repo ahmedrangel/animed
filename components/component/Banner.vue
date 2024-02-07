@@ -2,6 +2,9 @@
 const props = defineProps({
   anime: { type: Object, required: true },
 });
+
+const description = fixDescription(props.anime.description.replace(/<br>/g,""));
+const toRoute = `/a/${props.anime?.id}/${fixSlug(props.anime?.title?.romaji)}`;
 </script>
 
 <template>
@@ -13,7 +16,7 @@ const props = defineProps({
     </span>
     <div id="overlay" class="position-absolute w-100 top-0" />
     <div id="info" class="position-absolute">
-      <NuxtLink :to="`/a/${props.anime?.id}/${fixSlug(props.anime?.title?.romaji)}`">
+      <NuxtLink :to="toRoute">
         <h2 class="mb-1 text-warning d-inline fw-bold">{{ props.anime?.title?.romaji }}</h2>
       </NuxtLink>
       <h6 class="mb-1 text-muted">{{ props.anime?.title?.english }}</h6>
@@ -24,8 +27,11 @@ const props = defineProps({
         </div>
         <span class="ms-2 mb-0 h6">{{ getRating(props.anime.averageScore) }}</span>
       </div>
-      <!-- eslint-disable-next-line vue/no-v-html-->
-      <h6 v-if="props.anime.description" class="mb-2 fw-normal" v-html="props.anime.description.replace(/<br>/g,'')" />
+      <h6 v-if="props.anime.description" class="mb-2 fw-normal">
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <span v-html="description.text" />
+        <NuxtLink v-if="description.more" class="text-primary" :to="toRoute">&nbsp;Read more</NuxtLink>
+      </h6>
       <PrimeButton v-if="props.anime?.trailer?.site === 'youtube'" class="btn btn-warning mt-1" data-bs-toggle="modal" data-bs-target="#verModal">
         <div class="d-flex justify-content-center align-items-center py-1 px-2">
           <Icon name="solar:play-bold" />&nbsp;&nbsp;

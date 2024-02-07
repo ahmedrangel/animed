@@ -25,7 +25,7 @@ export const fixSlug = (name: string) => {
   return name?.replace(/ /g, "-")?.replace(/[^a-zA-Z0-9-]/g, "")?.toLowerCase();
 };
 
-export const formatDate = (y?: string, m?: string, d?: string) => {
+export const formatDate = (y?: number, m?: number, d?: number) => {
   if (m && y && d) {
     return format(new Date(y, m - 1, d), "MMM d, yyyy");
   }
@@ -38,9 +38,20 @@ export const formatDate = (y?: string, m?: string, d?: string) => {
 };
 
 export const getStudios = (studios: Record<string, any>) => {
-  return studios.edges.filter(edge => edge.isMain === true).map(edge => edge.node.name).join(", ");
+  return studios.edges.filter((edge: { isMain: boolean; }) => edge.isMain === true)
+    .map((edge: { node: { name: string; }; }) => edge.node.name).join(", ");
 };
 
 export const getProducers = (studios: Record<string, any>) => {
-  return studios.edges.filter(edge => edge.isMain === false).map(edge => edge.node.name).join(", ");
+  return studios.edges.filter((edge: { isMain: boolean; }) => edge.isMain === false)
+    .map((edge: { node: { name: string; }; }) => edge.node.name).join(", ");
+};
+
+export const fixDescription = (text: string) => {
+  const limit = 1000;
+  if (text.length > limit) {
+    text = text.substring(0, limit) + "...";
+    return { text: text as string, more: true as boolean };
+  }
+  return { text: text as string, more: false as boolean };
 };
