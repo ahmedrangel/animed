@@ -22,10 +22,10 @@ if (slug !== _slug) {
           <NuxtLink class="nav-link active px-1 py-0 text-white" aria-current="page" :to="slug">
             <h5 class="py-2 mb-0">OVERVIEW</h5>
           </NuxtLink>
-          <NuxtLink class="nav-link px-1 py-0 text-white" :to="slug + '/characters'">
+          <NuxtLink class="nav-link px-1 py-0 text-white disabled" :to="slug + '/characters'">
             <h5 class="py-2 mb-0">CHARACTERS</h5>
           </NuxtLink>
-          <NuxtLink class="nav-link px-1 py-0 text-white" :to="slug + '/episodes'">
+          <NuxtLink class="nav-link px-1 py-0 text-white disabled" :to="slug + '/episodes'">
             <h5 class="py-2 mb-0">EPISODES</h5>
           </NuxtLink>
         </nav>
