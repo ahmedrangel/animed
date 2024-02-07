@@ -1,212 +1,120 @@
 import * as gql from "gql-query-builder";
-
-const query = `
-  query media($id: Int, $type: MediaType, $isAdult: Boolean) {
-    Media(id: $id, type: $type, isAdult: $isAdult) {
-      id
-      title {
-        romaji
-        english
-        native
-      }
-      coverImage {
-        extraLarge
-      }
-      bannerImage
-      startDate {
-        year
-        month
-        day
-      }
-      endDate {
-        year
-        month
-        day
-      }
-      description
-      season
-      seasonYear
-      format
-      status(version: 2)
-      episodes
-      duration
-      genres
-      synonyms
-      source(version: 3)
-      isAdult
-      averageScore
-      popularity
-      hashtag
-      countryOfOrigin
-      nextAiringEpisode {
-        airingAt
-        timeUntilAiring
-        episode
-      }
-      relations {
-        edges {
-          id
-          relationType(version: 2)
-          node {
-            id
-            title {
-              userPreferred
-            }
-            format
-            type
-            status(version: 2)
-            bannerImage
-            coverImage {
-              large
-            }
-          }
-        }
-      }
-      characterPreview: characters(perPage: 6, sort: [ROLE, RELEVANCE, ID]) {
-        edges {
-          id
-          role
-          name
-          voiceActors(language: JAPANESE, sort: [RELEVANCE, ID]) {
-            id
-            name {
-              userPreferred
-            }
-            language: languageV2
-            image {
-              large
-            }
-          }
-          node {
-            id
-            name {
-              userPreferred
-            }
-            image {
-              large
-            }
-          }
-        }
-      }
-      staffPreview: staff(perPage: 8, sort: [RELEVANCE, ID]) {
-        edges {
-          id
-          role
-          node {
-            id
-            name {
-              userPreferred
-            }
-            language: languageV2
-            image {
-              large
-            }
-          }
-        }
-      }
-      studios {
-        edges {
-          isMain
-          node {
-            id
-            name
-          }
-        }
-      }
-      recommendations(perPage: 7, sort: [RATING_DESC, ID]) {
-        pageInfo {
-          total
-        }
-        nodes {
-          id
-          rating
-          userRating
-          mediaRecommendation {
-            id
-            title {
-              userPreferred
-            }
-            format
-            type
-            status(version: 2)
-            bannerImage
-            coverImage {
-              large
-            }
-          }
-          user {
-            id
-            name
-            avatar {
-              large
-            }
-          }
-        }
-      }
-      externalLinks {
-        id
-        site
-        url
-        type
-        language
-        color
-        icon
-        notes
-        isDisabled
-      }
-      streamingEpisodes {
-        site
-        title
-        thumbnail
-        url
-      }
-      trailer {
-        id
-        site
-      }
-      rankings {
-        id
-        rank
-        type
-        format
-        year
-        season
-        allTime
-        context
-      }
-      tags {
-        id
-        name
-        description
-        rank
-        isMediaSpoiler
-        isGeneralSpoiler
-        userId
-      }
-      mediaListEntry {
-        id
-        status
-        score
-      }
-      stats {
-        statusDistribution {
-          status
-          amount
-        }
-        scoreDistribution {
-          score
-          amount
-        }
-      }
-    }
-  }
-`;
+import { Language, Sort } from "~/enums/anilist";
 
 export const queryAnime = (options?: Record<string, any>) => {
-  const variables = {
-    id: options?.id
-  };
-  return JSON.stringify({ query, variables });
+  const query = gql.query({
+    operation: "Media",
+    variables: { id: Number(options?.id) },
+    fields: [
+      "id",
+      { title: ["romaji", "english", "native"] },
+      { coverImage: ["extraLarge"] },
+      "bannerImage",
+      { startDate: ["year", "month", "day"] },
+      { endDate: ["year", "month", "day"] },
+      "description",
+      "season",
+      "seasonYear",
+      "format",
+      "status",
+      "episodes",
+      "duration",
+      "genres",
+      "synonyms",
+      "source",
+      "averageScore",
+      "hashtag",
+      "countryOfOrigin",
+      { trailer: ["id", "site"] },
+      { nextAiringEpisode: ["airingAt", "timeUntilAiring", "episode"] },
+      { studios: [
+        { edges: [
+          "isMain",
+          { node: [
+            "id",
+            "name"
+          ]}
+        ]}
+      ]},
+      { externalLinks: [
+        "id",
+        "site",
+        "url",
+        "icon"
+      ]},
+      { streamingEpisodes: [
+        "site",
+        "title",
+        "thumbnail",
+        "url"
+      ]},
+      { operation: "characters",
+        variables: {
+          perPage: 9,
+          characterSort: { name: "sort", type: "[CharacterSort]", value: [Sort.ROLE, Sort.RELEVANCE, Sort.ID] }
+        },
+        fields: [
+          { edges: [
+            "id",
+            "role",
+            "name",
+            { node: [
+              "id",
+              { name: ["userPreferred"] },
+              { image: ["large"] },
+            ]},
+            { operation: "voiceActors",
+              variables: {
+                staffLanguage: { name: "language", type: "StaffLanguage", value: Language.JAPANESE },
+                staffSort: { name: "sort", type: "[StaffSort]", value: [Sort.RELEVANCE, Sort.ID] }
+              },
+              fields: [
+                "id",
+                { name: ["userPreferred"] },
+                { image: ["large"] },
+              ]
+            }
+          ]}
+        ]
+      },
+      { operation: "staff",
+        variables: {
+          staffSort: { name: "sort", type: "[StaffSort]", value: [Sort.RELEVANCE, Sort.ID] }
+        },
+        fields: [
+          { edges: [
+            "id",
+            "role",
+            { node: [
+              "id",
+              { name: ["userPreferred"] },
+              { image: ["large"] },
+            ]}
+          ]}
+        ]
+      },
+      { operation: "recommendations",
+        variables: {
+          perPage: 6,
+          recommendationSort: { name: "sort", type: "[RecommendationSort]", value: [Sort.RATING_DESC, Sort.ID] },
+        },
+        fields: [
+          { nodes: [
+            "id",
+            { mediaRecommendation: [
+              "id",
+              { title: ["romaji", "english", "native"] },
+              "format",
+              { startDate: ["year", "month", "day"] },
+              { coverImage: ["extraLarge"] },
+              "averageScore"
+            ]}
+          ]}
+        ]
+      }
+    ]
+  });
+  return JSON.stringify(query);
 };
 
 export const queryAnimeSlug = (id: number) => {
