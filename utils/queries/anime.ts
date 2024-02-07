@@ -30,24 +30,11 @@ export const queryAnime = (options?: Record<string, any>) => {
       { studios: [
         { edges: [
           "isMain",
-          { node: [
-            "id",
-            "name"
-          ]}
+          { node: ["id", "name"] }
         ]}
       ]},
-      { externalLinks: [
-        "id",
-        "site",
-        "url",
-        "icon"
-      ]},
-      { streamingEpisodes: [
-        "site",
-        "title",
-        "thumbnail",
-        "url"
-      ]},
+      { externalLinks: ["id", "site", "url", "icon"] },
+      { streamingEpisodes: ["site", "title", "thumbnail", "url"] },
       { operation: "characters",
         variables: {
           perPage: 9,
