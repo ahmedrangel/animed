@@ -2,6 +2,9 @@ import * as gql from "gql-query-builder";
 import { Language, Sort } from "~/enums/anilist";
 
 export const queryAnime = (options?: Record<string, any>) => {
+  for (const key in options) {
+    if (!options[key]) delete options[key];
+  }
   const query = gql.query({
     operation: "Media",
     variables: { id: Number(options?.id) },

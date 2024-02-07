@@ -2,6 +2,10 @@ import { Format, Licensor } from "../../enums/anilist";
 import * as gql from "gql-query-builder";
 
 export const queryFilter = (options?: Record<string, any>) => {
+  for (const key in options) {
+    if (!options[key]) delete options[key];
+  }
+  console.log(options);
   const query = gql.query({
     operation: "Page",
     variables: {

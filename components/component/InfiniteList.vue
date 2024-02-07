@@ -12,7 +12,7 @@ const hasNextPage = ref(result.pageInfo.hasNextPage);
 const scrollHandler = async () => {
   if (String(lastRow.value) !== "lastRow" && onScreen(lastRow.value[0]) && !nexted.value && count.value && hasNextPage.value) {
     nexted.value = true;
-    const next = await getList(result.type, { page: count.value, search: props.query }) as Record<string, any>;
+    const next = await getList(result.type, { page: count.value, search: props?.query }) as Record<string, any>;
     result.media.push(...next.data.media);
     nexted.value = false;
     count.value = count.value + 1;
