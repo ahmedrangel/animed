@@ -8,8 +8,8 @@
   --font-rubik: "Rubik";
   --bs-body-font-family: var(--font-rubik);
   --font-family: var(--font-rubik);
-  --bs-secondary: #282828;
-  --bs-secondary-rgb: 40, 40, 40;
+  --bs-secondary: #2d2d2d;
+  --bs-secondary-rgb: 45, 45, 45;
   --bs-border-color: rgb(48, 51, 55);
   --bs-link-color-rgb: var(--bs-primary-rgb);
   --bs-link-hover-color-rgb: 247, 212, 109;

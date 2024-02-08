@@ -4,6 +4,11 @@ const { id, slug } = params;
 const { data: data } = await useFetch("/api/anime/" + id) as Record<string, any>;
 const _slug = fixSlug(data.value.title.romaji);
 const anime = data.value;
+const externalLinks = anime.externalLinks
+  .filter((e: { site: string; }) => !e?.site.toLocaleLowerCase().includes("youtube"))
+  .sort((a: Record<string, string>, b: Record<string, string>) => {
+    return a?.site === "Official Site" ? -1 : b?.site === "Official Site" ? 1 : 0;
+  });
 if (slug !== _slug) {
   throw createError({
     statusCode: 404,
@@ -85,6 +90,14 @@ if (slug !== _slug) {
                   <span class="badge bg-secondary align-middle mx-1 fw-normal">{{ genre }}</span>
                 </span>
               </h6>
+            </div>
+            <div v-if="externalLinks" class="d-flex pt-2">
+              <div v-for="(site, i) of externalLinks" :key="i">
+                <a :href="site.url" target="_blank" class="d-block p-2 rounded me-2" :style="{'background-color': site.color ? site.color : 'var(--bs-secondary)'}">
+                  <Icon v-if="!site.icon" name="ph:globe-simple-bold" class="text-white" style="font-size: 32px;" />
+                  <img v-else :src="site.icon" style="width: 30px;">
+                </a>
+              </div>
             </div>
           </div>
         </div>

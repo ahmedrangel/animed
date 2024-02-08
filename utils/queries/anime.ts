@@ -36,7 +36,7 @@ export const queryAnime = (options?: Record<string, any>) => {
           { node: ["id", "name"] }
         ]}
       ]},
-      { externalLinks: ["id", "site", "url", "icon"] },
+      { externalLinks: ["site", "url", "icon", "color"] },
       { streamingEpisodes: ["site", "title", "thumbnail", "url"] },
       { operation: "characters",
         variables: {
