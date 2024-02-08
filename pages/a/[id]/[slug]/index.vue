@@ -91,9 +91,9 @@ if (slug !== _slug) {
                 </span>
               </h6>
             </div>
-            <div v-if="externalLinks" class="d-flex pt-2">
+            <div v-if="externalLinks" class="d-flex flex-wrap pt-2 gap-2">
               <div v-for="(site, i) of externalLinks" :key="i">
-                <a :href="site.url" target="_blank" class="d-block p-2 rounded me-2" :style="{'background-color': site.color ? site.color : 'var(--bs-secondary)'}">
+                <a :href="site.url" target="_blank" class="d-block p-2 rounded" :style="{'background-color': site.color ? site.color : 'var(--bs-secondary)'}">
                   <Icon v-if="!site.icon" name="ph:globe-simple-bold" class="text-white" style="font-size: 32px;" />
                   <img v-else :src="site.icon" style="width: 30px;">
                 </a>
