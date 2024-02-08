@@ -28,7 +28,7 @@ export const categories = [
   { name: "Super Power", type: "tag " },
   { name: "School", type: "tag " },
   { name: "Yuri", type: "tag" },
-  { name: "Boy's Love", type: "tag" },
+  { name: "Boys' Love", type: "tag" },
   { name: "Crime", type: "tag" },
   { name: "Magic", type: "tag" },
   { name: "Parody", type: "tag" },
