@@ -19,6 +19,8 @@ if (slug !== _slug) {
     fatal: true
   });
 }
+
+const streamingEpisodes = anime.streamingEpisodes.slice(0, 6);
 </script>
 
 <template>
@@ -138,14 +140,14 @@ if (slug !== _slug) {
             </div>
           </div>
         </div>
-        <div v-if="anime?.streamingEpisodes[0]" id="episodes">
+        <div v-if="streamingEpisodes[0]" id="episodes">
           <h2 class="text-white mb-2">Episodes</h2>
           <div class="d-flex justify-content-start align-items-start anime-row flex-wrap m-0 g-2">
-            <template v-for="(ep, i) of anime.streamingEpisodes.reverse()" :key="i">
-              <a v-if="i < 6" class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-2 mb-2 text-muted" :href="ep.url">
+            <template v-for="(ep, i) of streamingEpisodes" :key="i">
+              <a class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-2 mb-2 text-muted" :href="ep.url">
                 <div class="bg-dark rounded">
                   <div class="overflow-hidden position-relative rounded rounded-bottom-0">
-                    <img class="img-fluid rounded rounded-bottom-0 scale-on-hover" :src="ep.thumbnail">
+                    <img class="img-fluid rounded rounded-bottom-0 scale-on-hover w-100" :src="ep.thumbnail">
                     <span class="position-absolute top-50 start-50 translate-middle mb-0 invisible pe-none text-white"><Icon name="ci:external-link" /></span>
                   </div>
                   <h6 class="p-3 m-0">{{ ep.title }}</h6>
