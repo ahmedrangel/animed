@@ -20,7 +20,7 @@ if (slug !== _slug) {
   });
 }
 
-const streamingEpisodes = anime.streamingEpisodes.slice(0, 6);
+const streamingEpisodes = sortEpisodes(anime.streamingEpisodes).slice(0, 6);
 </script>
 
 <template>

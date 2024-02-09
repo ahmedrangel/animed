@@ -55,3 +55,12 @@ export const fixDescription = (text: string) => {
   }
   return { text: text as string, more: false as boolean };
 };
+
+export const sortEpisodes = (episodes: any[]) => {
+  episodes.sort((a, b) => {
+    const episodeA = parseInt(a.title.match(/\d+/g)[0]);
+    const episodeB = parseInt(b.title.match(/\d+/g)[0]);
+    return episodeB - episodeA;
+  });
+  return episodes;
+};
