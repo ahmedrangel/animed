@@ -5,7 +5,10 @@ const { data: data } = await useFetch("/api/anime/" + id) as Record<string, any>
 const _slug = fixSlug(data.value.title.romaji);
 const anime = data.value;
 const externalLinks = anime.externalLinks
-  .filter((e: { site: string; }) => !e?.site.toLocaleLowerCase().includes("youtube" && "funimation"))
+  .filter((e: { site: string; }) => {
+    const site = e?.site.toLowerCase();
+    return site !== "youtube" && site !== "funimation";
+  })
   .sort((a: Record<string, string>, b: Record<string, string>) => {
     return a?.site === "Official Site" ? -1 : b?.site === "Official Site" ? 1 : 0;
   });
