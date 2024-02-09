@@ -147,7 +147,7 @@ if (slug !== _slug) {
                 <div class="bg-dark rounded">
                   <div class="overflow-hidden position-relative">
                     <img class="img-fluid rounded-top rounded-bottom-0 scale-on-hover" :src="ep.thumbnail">
-                    <span class="position-absolute top-50 start-50 translate-middle mb-0 invisible pe-none"><Icon name="ci:external-link" /></span>
+                    <span class="position-absolute top-50 start-50 translate-middle mb-0 invisible pe-none text-white"><Icon name="ci:external-link" /></span>
                   </div>
                   <h6 class="p-3 m-0">{{ ep.title }}</h6>
                 </div>
