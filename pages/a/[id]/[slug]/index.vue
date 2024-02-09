@@ -28,18 +28,8 @@ const streamingEpisodes = sortEpisodes(anime.streamingEpisodes).slice(0, 6);
     <div class="col px-0 pb-5">
       <ComponentBanner2 v-if="anime" :anime="anime" />
       <div class="px-2 py-4 py-lg-5 px-lg-5 px-xl-5 w-100">
-        <nav id="anime-nav" class="nav justify-content-center gap-4">
-          <NuxtLink class="nav-link active px-1 py-0 text-white" aria-current="page" :to="slug">
-            <h5 class="py-2 mb-0">OVERVIEW</h5>
-          </NuxtLink>
-          <NuxtLink class="nav-link px-1 py-0 text-white disabled" :to="slug + '/characters'">
-            <h5 class="py-2 mb-0">CHARACTERS</h5>
-          </NuxtLink>
-          <NuxtLink class="nav-link px-1 py-0 text-white disabled" :to="slug + '/episodes'">
-            <h5 class="py-2 mb-0">EPISODES</h5>
-          </NuxtLink>
-        </nav>
-        <div class="pt-4 px-0 px-xl-4">
+        <ComponentAnimeMenu :anime-id="String(id)" :slug="String(slug)" />
+        <div class="pt-4 px-0">
           <h4 class="mb-1 text-primary">{{ anime.title.romaji }} <span class="badge bg-secondary align-middle">{{ anime.format }}</span></h4>
           <h6 v-if="anime.title.english" class="mb-1">{{ anime.title.english }}</h6>
           <h6 v-if="anime.title.native" class="mb-1">{{ anime.title.native }}</h6>
@@ -51,7 +41,7 @@ const streamingEpisodes = sortEpisodes(anime.streamingEpisodes).slice(0, 6);
             <small class="ms-2 mb-0 text-white">{{ getRating(anime.averageScore) }}</small>
           </div>
         </div>
-        <div id="details" class="pt-3 pb-4 d-flex align-items-start anime-row mx-0 flex-wrap px-xl-4 g-xl-5">
+        <div id="details" class="pt-3 pb-4 d-flex align-items-start anime-row mx-0 flex-wrap px-0">
           <img id="cover" :src="anime?.coverImage?.extraLarge" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 img-fluid px-0" style="max-width: 400px;">
           <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-9 pt-4 pt-md-0 px-0 ps-md-4">
             <div v-if="anime.description" class="pb-4">

@@ -1,4 +1,4 @@
-import { queryAnime, queryAnimeSlug } from "./queries/anime";
+import { queryAnime, queryAnimeCharacters, queryAnimeSlug } from "./queries/anime";
 import { queryFilter } from "./queries/filter";
 import { API, Sort, Status } from "../enums/anilist";
 
@@ -38,10 +38,10 @@ export const getTopRated = async(options?: Record<string, any> | null) => {
   return { data: data.Page };
 };
 
-export const getAnimeInfo = async(id: number) => {
+export const getAnimeInfo = async(options?: Record<string, any>) => {
   const { data } = await $fetch(API.GRAPHQL, {
     method: "POST",
-    body: queryAnime({ id })
+    body: queryAnime(options)
   }).catch((e) => console.info(e)) as Record<string, any>;
   return { data };
 };
@@ -65,4 +65,12 @@ export const getList = async(type: string, options?: Record<string, any>) => {
     return await getTopRated(options);
   }
   return await getQuery(options);
+};
+
+export const getAnimeCharacters = async(options?: Record<string, any>) => {
+  const { data } = await $fetch(API.GRAPHQL, {
+    method: "POST",
+    body: queryAnimeCharacters(options)
+  }).catch((e) => console.info(e)) as Record<string, any>;
+  return { data };
 };

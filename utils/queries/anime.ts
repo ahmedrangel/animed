@@ -1,5 +1,5 @@
 import * as gql from "gql-query-builder";
-import { Language, Sort } from "~/enums/anilist";
+import { Sort } from "~/enums/anilist";
 
 export const queryAnime = (options?: Record<string, any>) => {
   for (const key in options) {
@@ -55,7 +55,7 @@ export const queryAnime = (options?: Record<string, any>) => {
             ]},
             { operation: "voiceActors",
               variables: {
-                staffLanguage: { name: "language", type: "StaffLanguage", value: Language.JAPANESE },
+                staffLanguage: { name: "language", type: "StaffLanguage", value: options?.language },
                 staffSort: { name: "sort", type: "[StaffSort]", value: [Sort.RELEVANCE, Sort.ID] }
               },
               fields: [
@@ -115,6 +115,55 @@ export const queryAnimeSlug = (id: number) => {
     fields: [
       "id",
       { title: ["romaji"] }
+    ]
+  });
+  return JSON.stringify(query);
+};
+
+export const queryAnimeCharacters = (options?: Record<string, any>) => {
+  for (const key in options) {
+    if (!options[key]) delete options[key];
+  }
+  const query = gql.query({
+    operation: "Media",
+    variables: { id: Number(options?.id) },
+    fields: [
+      "id",
+      { title: ["romaji", "english", "native"] },
+      "bannerImage",
+      "format",
+      "averageScore",
+      { operation: "characters",
+        variables: {
+          page: { type: "Int", value: options?.page || 1 },
+          characterSort: { name: "sort", type: "[CharacterSort]", value: [Sort.ROLE, Sort.RELEVANCE, Sort.ID] }
+        },
+        fields: [
+          { pageInfo: ["total", "perPage", "currentPage", "lastPage", "hasNextPage"] },
+          { edges: [
+            "id",
+            "role",
+            "name",
+            { node: [
+              "id",
+              { name: ["userPreferred"] },
+              { image: ["large"] },
+            ]},
+            { operation: "voiceActors",
+              variables: {
+                staffLanguage: { name: "language", type: "StaffLanguage", value: options?.language },
+                staffSort: { name: "sort", type: "[StaffSort]", value: [Sort.RELEVANCE, Sort.ID] }
+              },
+              fields: [
+                "id",
+                { name: ["userPreferred"] },
+                { image: ["large"] },
+                "languageV2"
+              ]
+            }
+          ]}
+        ]
+      }
     ]
   });
   return JSON.stringify(query);
