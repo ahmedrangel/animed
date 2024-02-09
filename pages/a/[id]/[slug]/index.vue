@@ -4,7 +4,6 @@ const { id, slug } = params;
 const { data: data } = await useFetch("/api/anime/" + id) as Record<string, any>;
 const _slug = fixSlug(data.value.title.romaji);
 const anime = data.value;
-console.log(anime);
 const externalLinks = anime.externalLinks
   .filter((e: { site: string; }) => {
     const site = e?.site.toLowerCase();
@@ -145,7 +144,7 @@ if (slug !== _slug) {
             <template v-for="(ep, i) of anime.streamingEpisodes" :key="i">
               <a v-if="i < 6" class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-2 mb-2 text-muted" :href="ep.url">
                 <div class="bg-dark rounded">
-                  <div class="overflow-hidden position-relative">
+                  <div class="overflow-hidden position-relative rounded">
                     <img class="img-fluid rounded-top rounded-bottom-0 scale-on-hover" :src="ep.thumbnail">
                     <span class="position-absolute top-50 start-50 translate-middle mb-0 invisible pe-none text-white"><Icon name="ci:external-link" /></span>
                   </div>
