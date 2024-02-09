@@ -236,3 +236,15 @@ a>*:hover, a:hover {
   border-bottom: 2px solid var(--bs-primary);
   color: var(--bs-primary);
 }
+
+#episodes a:hover .invisible {
+  font-size: 1.6rem;
+}
+
+#episodes a:hover .invisible {
+  visibility: visible!important;
+}
+
+#episodes a:hover img {
+  opacity: .5;
+}

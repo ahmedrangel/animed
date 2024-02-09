@@ -4,6 +4,7 @@ const { id, slug } = params;
 const { data: data } = await useFetch("/api/anime/" + id) as Record<string, any>;
 const _slug = fixSlug(data.value.title.romaji);
 const anime = data.value;
+console.log(anime);
 const externalLinks = anime.externalLinks
   .filter((e: { site: string; }) => {
     const site = e?.site.toLowerCase();
@@ -49,7 +50,7 @@ if (slug !== _slug) {
             <small class="ms-2 mb-0 text-white">{{ getRating(anime.averageScore) }}</small>
           </div>
         </div>
-        <div id="details" class="py-3 d-flex align-items-start anime-row mx-0 flex-wrap px-xl-4 g-xl-5">
+        <div id="details" class="pt-3 pb-4 d-flex align-items-start anime-row mx-0 flex-wrap px-xl-4 g-xl-5">
           <img id="cover" :src="anime?.coverImage?.extraLarge" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 img-fluid px-0" style="max-width: 400px;">
           <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-9 pt-4 pt-md-0 px-0 ps-md-4">
             <div v-if="anime.description" class="pb-4">
@@ -115,8 +116,8 @@ if (slug !== _slug) {
             </div>
           </div>
         </div>
-        <div v-if="anime?.characters?.edges[0]" id="characters">
-          <h2 class="text-white mb-3">Characters</h2>
+        <div v-if="anime?.characters?.edges[0]" id="characters" class="pb-4">
+          <h2 class="text-white mb-2">Characters</h2>
           <div class="d-flex justify-content-start align-items-start anime-row flex-wrap gx-0 gx-lg-3 gy-1 m-0">
             <div v-for="(c, i) of anime.characters.edges" :key="i" class="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-3">
               <div class="d-flex align-items-start anime-row flex-wrap row-cols-auto g-2 bg-secondary rounded m-0">
@@ -136,6 +137,22 @@ if (slug !== _slug) {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div v-if="anime?.streamingEpisodes[0]" id="episodes">
+          <h2 class="text-white mb-2">Episodes</h2>
+          <div class="d-flex justify-content-start align-items-start anime-row flex-wrap m-0 g-2">
+            <template v-for="(ep, i) of anime.streamingEpisodes" :key="i">
+              <a v-if="i < 6" class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-2 mb-2 text-muted" :href="ep.url">
+                <div class="bg-dark rounded">
+                  <div class="overflow-hidden position-relative">
+                    <img class="img-fluid rounded-top rounded-bottom-0 scale-on-hover" :src="ep.thumbnail">
+                    <span class="position-absolute top-50 start-50 translate-middle mb-0 invisible pe-none"><Icon name="ci:external-link" /></span>
+                  </div>
+                  <h6 class="p-3 m-0">{{ ep.title }}</h6>
+                </div>
+              </a>
+            </template>
           </div>
         </div>
       </div>
