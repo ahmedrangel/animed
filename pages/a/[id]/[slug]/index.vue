@@ -141,7 +141,7 @@ if (slug !== _slug) {
         <div v-if="anime?.streamingEpisodes[0]" id="episodes">
           <h2 class="text-white mb-2">Episodes</h2>
           <div class="d-flex justify-content-start align-items-start anime-row flex-wrap m-0 g-2">
-            <template v-for="(ep, i) of anime.streamingEpisodes" :key="i">
+            <template v-for="(ep, i) of anime.streamingEpisodes.reverse()" :key="i">
               <a v-if="i < 6" class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-2 mb-2 text-muted" :href="ep.url">
                 <div class="bg-dark rounded">
                   <div class="overflow-hidden position-relative rounded">
