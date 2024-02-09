@@ -100,7 +100,7 @@ if (slug !== _slug) {
                 <div v-for="(site, i) of externalLinks" :key="i">
                   <a :href="site.url" target="_blank" class="d-block p-2 rounded" :style="{'background-color': site.color ? site.color : 'var(--bs-secondary)'}">
                     <Icon v-if="!site.icon" name="ph:globe-simple-bold" class="text-white" style="font-size: 32px;" />
-                    <img v-else :src="site.icon" style="width: 30px;">
+                    <img v-else :src="site.icon" class="pe-none" style="width: 30px;">
                   </a>
                 </div>
               </div>
@@ -117,9 +117,9 @@ if (slug !== _slug) {
         </div>
         <div v-if="anime?.characters?.edges[0]" id="characters">
           <h2 class="text-white mb-4">Characters</h2>
-          <div class="d-flex justify-content-start align-items-start anime-row flex-wrap gx-4 gy-2">
+          <div class="d-flex justify-content-start align-items-start anime-row flex-wrap gx-0 gx-lg-3 gy-2 m-0">
             <div v-for="(c, i) of anime.characters.edges" :key="i" class="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-3">
-              <div class="d-flex align-items-start anime-row flex-wrap row-cols-auto g-2 bg-secondary">
+              <div class="d-flex align-items-start anime-row flex-wrap row-cols-auto g-2 bg-secondary rounded m-0">
                 <div class="col ps-0 mt-0" style="max-width: 100px;">
                   <img :src="c.node.image.large" class="img-fluid rounded-start" style="max-height: 90px;">
                 </div>
