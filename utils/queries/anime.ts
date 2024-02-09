@@ -62,6 +62,7 @@ export const queryAnime = (options?: Record<string, any>) => {
                 "id",
                 { name: ["userPreferred"] },
                 { image: ["large"] },
+                "languageV2"
               ]
             }
           ]}
