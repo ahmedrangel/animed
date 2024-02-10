@@ -73,3 +73,12 @@ export const isOnCrunchyroll = (links: Array<Record<string, any>>) => {
   }
   return false;
 };
+
+export const noVaInLanguage = (actors, language) => {
+  for (const va of actors) {
+    if (va.languageV2 === language) {
+      return false;
+    }
+  }
+  return true;
+};
