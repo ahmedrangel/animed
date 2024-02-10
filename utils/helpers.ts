@@ -64,3 +64,12 @@ export const sortEpisodes = (episodes: any[]) => {
   });
   return episodes;
 };
+
+export const isOnCrunchyroll = (links: Array<Record<string, any>>) => {
+  for (const el of links) {
+    if (el.site === "Crunchyroll") {
+      return true;
+    }
+  }
+  return false;
+};

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 const { params } = useRoute();
 const { id, slug } = params;
-const { data: data } = await useFetch("/api/anime/" + id + "/characters") as Record<string, any>;
-const anime = data.value;
+const { data: data } = await useFetch("/api/anime/" + id + "/episodes") as Record<string, any>;
 
 const _slug = fixSlug(data.value.title.romaji);
 if (slug !== _slug) {
@@ -12,6 +11,9 @@ if (slug !== _slug) {
     fatal: true
   });
 }
+
+const anime = data.value;
+const streamingEpisodes = sortEpisodes(anime.streamingEpisodes);
 </script>
 
 <template>
@@ -32,8 +34,21 @@ if (slug !== _slug) {
             <small class="ms-2 mb-0 text-white">{{ getRating(anime.averageScore) }}</small>
           </div>
         </div>
-        <div v-if="anime?.characters?.edges[0]" id="characters" class="pb-4">
-          <ComponentInfiniteCharacters :data="anime" />
+        <div v-if="streamingEpisodes[0]" id="episodes">
+          <h2 class="text-white mb-2">Episodes</h2>
+          <div class="d-flex justify-content-start align-items-start anime-row flex-wrap m-0 g-2">
+            <template v-for="(ep, i) of streamingEpisodes" :key="i">
+              <a class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3 mb-2 text-muted" :href="ep.url">
+                <div class="bg-dark rounded">
+                  <div class="overflow-hidden position-relative rounded rounded-bottom-0">
+                    <img class="img-fluid rounded rounded-bottom-0 scale-on-hover w-100" :src="ep.thumbnail">
+                    <span class="position-absolute top-50 start-50 translate-middle mb-0 invisible pe-none text-white"><Icon name="ci:external-link" /></span>
+                  </div>
+                  <h6 class="p-3 m-0">{{ ep.title }}</h6>
+                </div>
+              </a>
+            </template>
+          </div>
         </div>
       </div>
     </div>

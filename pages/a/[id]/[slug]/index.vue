@@ -2,7 +2,16 @@
 const { params } = useRoute();
 const { id, slug } = params;
 const { data: data } = await useFetch("/api/anime/" + id) as Record<string, any>;
+
 const _slug = fixSlug(data.value.title.romaji);
+if (slug !== _slug) {
+  throw createError({
+    statusCode: 404,
+    message: `Anime not found: '${slug}'`,
+    fatal: true
+  });
+}
+
 const anime = data.value;
 const externalLinks = anime.externalLinks
   .filter((e: { site: string; }) => {
@@ -12,15 +21,9 @@ const externalLinks = anime.externalLinks
   .sort((a: Record<string, string>, b: Record<string, string>) => {
     return a?.site === "Official Site" ? -1 : b?.site === "Official Site" ? 1 : 0;
   });
-if (slug !== _slug) {
-  throw createError({
-    statusCode: 404,
-    message: `Anime not found: '${slug}'`,
-    fatal: true
-  });
-}
 
 const streamingEpisodes = sortEpisodes(anime.streamingEpisodes).slice(0, 6);
+const includeCR = isOnCrunchyroll(externalLinks);
 </script>
 
 <template>
@@ -28,7 +31,7 @@ const streamingEpisodes = sortEpisodes(anime.streamingEpisodes).slice(0, 6);
     <div class="col px-0 pb-5">
       <ComponentBanner2 v-if="anime" :anime="anime" />
       <div class="px-2 py-4 py-lg-5 px-lg-5 px-xl-5 w-100">
-        <ComponentAnimeMenu :anime-id="String(id)" :slug="String(slug)" />
+        <ComponentAnimeMenu :anime-id="String(id)" :slug="String(slug)" :episodes="streamingEpisodes[0] || includeCR ? true : false" />
         <div class="pt-4 px-0">
           <h4 class="mb-1 text-primary">{{ anime.title.romaji }} <span class="badge bg-secondary align-middle">{{ anime.format }}</span></h4>
           <h6 v-if="anime.title.english" class="mb-1">{{ anime.title.english }}</h6>
@@ -108,7 +111,12 @@ const streamingEpisodes = sortEpisodes(anime.streamingEpisodes).slice(0, 6);
           </div>
         </div>
         <div v-if="anime?.characters?.edges[0]" id="characters" class="pb-4">
-          <h2 class="text-white mb-2">Characters</h2>
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="text-white mb-0">Characters</h2>
+            <NuxtLink :to="`/a/${id}/${slug}/characters`">
+              <h6 class="mb-0 text-muted">See more</h6>
+            </NuxtLink>
+          </div>
           <div class="d-flex justify-content-start align-items-start anime-row flex-wrap gx-0 gx-lg-3 gy-1 m-0">
             <div v-for="(c, i) of anime.characters.edges" :key="i" class="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-3">
               <div class="d-flex align-items-start anime-row flex-wrap row-cols-auto g-2 bg-secondary rounded m-0">
@@ -131,7 +139,12 @@ const streamingEpisodes = sortEpisodes(anime.streamingEpisodes).slice(0, 6);
           </div>
         </div>
         <div v-if="streamingEpisodes[0]" id="episodes">
-          <h2 class="text-white mb-2">Episodes</h2>
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="text-white mb-0">Episodes</h2>
+            <NuxtLink :to="`/a/${id}/${slug}/episodes`">
+              <h6 class="mb-0 text-muted">See more</h6>
+            </NuxtLink>
+          </div>
           <div class="d-flex justify-content-start align-items-start anime-row flex-wrap m-0 g-2">
             <template v-for="(ep, i) of streamingEpisodes" :key="i">
               <a class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-2 mb-2 text-muted" :href="ep.url">

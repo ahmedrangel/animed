@@ -2,6 +2,7 @@
 const props = defineProps({
   animeId: { type: String, required: true },
   slug: { type: String, required: true },
+  episodes: { type: Boolean, required: false, default: true }
 });
 </script>
 
@@ -13,7 +14,7 @@ const props = defineProps({
     <NuxtLink class="nav-link active px-1 py-0 text-white" :to="`/a/${props.animeId}/${props.slug}/characters`">
       <h5 class="py-2 mb-0">CHARACTERS</h5>
     </NuxtLink>
-    <NuxtLink class="nav-link px-1 py-0 text-white disabled" :to="`/a/${props.animeId}/${props.slug}/episodes`">
+    <NuxtLink v-if="props.episodes" class="nav-link px-1 py-0 text-white" :to="`/a/${props.animeId}/${props.slug}/episodes`">
       <h5 class="py-2 mb-0">EPISODES</h5>
     </NuxtLink>
   </nav>

@@ -1,4 +1,4 @@
-import { queryAnime, queryAnimeCharacters, queryAnimeSlug } from "./queries/anime";
+import { queryAnime, queryAnimeCharacters, queryAnimeSlug, queryAnimeEpisodes } from "./queries/anime";
 import { queryFilter } from "./queries/filter";
 import { API, Sort, Status } from "../enums/anilist";
 
@@ -71,6 +71,14 @@ export const getAnimeCharacters = async(options?: Record<string, any>) => {
   const { data } = await $fetch(API.GRAPHQL, {
     method: "POST",
     body: queryAnimeCharacters(options)
+  }).catch((e) => console.info(e)) as Record<string, any>;
+  return { data };
+};
+
+export const getAnimeEpisodes = async(options?: Record<string, any>) => {
+  const { data } = await $fetch(API.GRAPHQL, {
+    method: "POST",
+    body: queryAnimeEpisodes(options)
   }).catch((e) => console.info(e)) as Record<string, any>;
   return { data };
 };

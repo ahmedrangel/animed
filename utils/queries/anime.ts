@@ -168,3 +168,22 @@ export const queryAnimeCharacters = (options?: Record<string, any>) => {
   });
   return JSON.stringify(query);
 };
+
+export const queryAnimeEpisodes = (options?: Record<string, any>) => {
+  for (const key in options) {
+    if (!options[key]) delete options[key];
+  }
+  const query = gql.query({
+    operation: "Media",
+    variables: { id: Number(options?.id) },
+    fields: [
+      "id",
+      { title: ["romaji", "english", "native"] },
+      "bannerImage",
+      "format",
+      "averageScore",
+      { streamingEpisodes: ["site", "title", "thumbnail", "url"] }
+    ]
+  });
+  return JSON.stringify(query);
+};
