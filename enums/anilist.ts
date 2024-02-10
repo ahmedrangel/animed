@@ -10,6 +10,7 @@ export enum Status {
 
 export enum Format {
   TV = "TV",
+  TV_SHORT = "TV_SHORT",
   ONA = "ONA",
   OVA = "OVA"
 }

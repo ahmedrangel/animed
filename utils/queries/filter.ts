@@ -16,7 +16,7 @@ export const queryFilter = (options?: Record<string, any>) => {
       { operation: "media",
         variables: {
           type: { type: "MediaType", value: "ANIME" },
-          format_in: { type: "[MediaFormat]", value: [Format.TV, Format.OVA, Format.ONA] },
+          format_in: { type: "[MediaFormat]", value: [Format.TV, Format.OVA, Format.ONA, Format.TV_SHORT] },
           sort: { type: "[MediaSort]", value: options?.sort },
           status_in: { type: "[MediaStatus]", value: options?.status_in },
           search: options?.search,

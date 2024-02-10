@@ -42,7 +42,7 @@ onBeforeUnmount(() => {
               <div class="image overflow-hidden mb-2 w-100 position-relative">
                 <img class="img-fluid scale-on-hover h-100 w-100 top-0 left-0 position-absolute object-fit-cover" :src="d.coverImage.extraLarge" width="280">
               </div>
-              <h6 class="mb-1">{{ d.title.english ? d.title.english : d.title.romaji }} <span class="badge bg-secondary align-middle">{{ d.format }}</span></h6>
+              <h6 class="mb-1">{{ d.title.english ? d.title.english : d.title.romaji }} <span class="badge bg-secondary align-middle">{{ d.format.replace(/_/g," ") }}</span></h6>
             </NuxtLink>
             <small class="text-muted d-block mb-1">{{ d.title.romaji }}</small>
             <small class="d-block mb-1 text-primary">{{ d.startDate.year ? formatDate(d.startDate.year, d.startDate.month, d.startDate.day) : "TBA" }}</small>
