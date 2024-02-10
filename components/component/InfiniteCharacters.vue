@@ -17,7 +17,7 @@ for (const l of result.characters.edges) {
   }
 }
 
-const currentLanguage = ref(languages[0]);
+const currentLanguage = ref(languages[0] === "Japanese" ? languages[0] : "Japanese");
 
 const scrollHandler = async () => {
   if (String(lastRow.value) !== "lastRow" && onScreen(lastRow.value[0]) && !nexted.value && count.value && hasNextPage.value) {
