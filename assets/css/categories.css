@@ -32,36 +32,41 @@
   font-size: 1.7rem;
 }
 
-@media only screen and (max-width: 1199px) {
+@media only screen and (width <= 1199px) {
   .category-name {
     font-size: 1.5rem;
   }
+
   #categories a {
     flex: 1 0 180px;
   }
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (width <= 991px) {
   .category-name {
     font-size: 1.2rem;
   }
+
   #categories a {
     flex: 1 0 160px;
   }
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (width <= 767px) {
   .category-name {
     font-size: 1rem;
   }
+
   #categories a {
     flex: 1 0 110px;
   }
 }
-@media (max-width: 576px) {
+
+@media (width <= 576px) {
   .category-name {
     font-size: .9rem;
   }
+
   #categories a {
     flex: 1 0 100px;
   }

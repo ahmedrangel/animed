@@ -38,11 +38,11 @@ onBeforeUnmount(() => {
       <template v-for="(d, i) of result?.media" :key="i">
         <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2 d-flex justify-content-center">
           <div class="mb-1 w-100" :class="i === 0 ? 'me-1' : 'mx-1'">
-            <NuxtLink :to="`/a/${d.id}/${fixSlug(d.title.romaji)}`">
+            <NuxtLink :to="`/a/${d.id}/${fixSlug(d.title.romaji)}`" class="text-white">
               <div class="image overflow-hidden mb-2 w-100 position-relative">
                 <img class="img-fluid scale-on-hover h-100 w-100 top-0 left-0 position-absolute object-fit-cover" :src="d.coverImage.extraLarge" width="280">
               </div>
-              <h6 class="mb-1 text-white">{{ d.title.english ? d.title.english : d.title.romaji }} <span class="badge bg-secondary align-middle">{{ d.format }}</span></h6>
+              <h6 class="mb-1">{{ d.title.english ? d.title.english : d.title.romaji }} <span class="badge bg-secondary align-middle">{{ d.format }}</span></h6>
             </NuxtLink>
             <small class="text-muted d-block mb-1">{{ d.title.romaji }}</small>
             <small class="d-block mb-1 text-primary">{{ d.startDate.year ? formatDate(d.startDate.year, d.startDate.month, d.startDate.day) : "TBA" }}</small>

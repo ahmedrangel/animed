@@ -1,4 +1,4 @@
-:root, [data-bs-theme=dark] {
+:root, [data-bs-theme="dark"] {
   --bs-primary: #ffc107;
   --bs-primary-rgb: 255, 193, 7;
   --bs-dark: #000;
@@ -10,7 +10,7 @@
   --font-family: var(--font-rubik);
   --bs-secondary: #2d2d2d;
   --bs-secondary-rgb: 45, 45, 45;
-  --bs-border-color: rgb(48, 51, 55);
+  --bs-border-color: rgb(48 51 55);
   --bs-link-color-rgb: var(--bs-primary-rgb);
   --bs-link-hover-color-rgb: 247, 212, 109;
   --bs-link-hover-color: #f7d46d;
