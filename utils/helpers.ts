@@ -65,15 +65,6 @@ export const sortEpisodes = (episodes: any[]) => {
   return episodes;
 };
 
-export const isOnCrunchyroll = (links: Array<Record<string, any>>) => {
-  for (const el of links) {
-    if (el.site === "Crunchyroll") {
-      return true;
-    }
-  }
-  return false;
-};
-
 export const noVaInLanguage = (actors, language) => {
   for (const va of actors) {
     if (va.languageV2 === language) {

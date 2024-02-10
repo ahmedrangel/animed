@@ -4,7 +4,6 @@ const props = defineProps({
 });
 
 const result = props.data as Record<string, any>;
-console.log(result);
 const nexted = ref(false) as Ref<boolean>;
 const count = ref(2) as Ref<number>;
 const lastRow = ref("lastRow") as unknown as Ref<HTMLElement[]>;

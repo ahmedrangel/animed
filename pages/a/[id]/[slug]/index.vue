@@ -13,6 +13,7 @@ if (slug !== _slug) {
 }
 
 const anime = data.value;
+
 const externalLinks = anime.externalLinks
   .filter((e: { site: string; }) => {
     const site = e?.site.toLowerCase();
@@ -23,7 +24,6 @@ const externalLinks = anime.externalLinks
   });
 
 const streamingEpisodes = sortEpisodes(anime.streamingEpisodes).slice(0, 6);
-const includeCR = isOnCrunchyroll(externalLinks);
 </script>
 
 <template>
@@ -31,7 +31,7 @@ const includeCR = isOnCrunchyroll(externalLinks);
     <div class="col px-0 pb-5">
       <ComponentBanner2 v-if="anime" :anime="anime" />
       <div class="px-2 py-4 py-lg-5 px-lg-5 px-xl-5 w-100">
-        <ComponentAnimeMenu :anime-id="String(id)" :slug="String(slug)" :episodes="streamingEpisodes[0] || includeCR ? true : false" />
+        <ComponentAnimeMenu :anime-id="String(id)" :slug="String(slug)" :episodes="streamingEpisodes[0] ? true : false" />
         <div class="pt-4 px-0">
           <h4 class="mb-1 text-primary">{{ anime.title.romaji }} <span class="badge bg-secondary align-middle">{{ anime.format.replace(/_/g," ") }}</span></h4>
           <h6 v-if="anime.title.english" class="mb-1">{{ anime.title.english }}</h6>
