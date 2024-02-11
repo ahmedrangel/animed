@@ -1,3 +1,13 @@
+import { categories } from "./utils/categories";
+import { fixSlug } from "./utils/helpers";
+
+
+const routes = ["/sitemap.xml"] as string[];
+for (const c of categories) {
+  const slug = fixSlug(c.name);
+  routes.push(`/c/${slug}`, `/c/new/${slug}`, `/c/top-rated/${slug}`, `/c/trending/${slug}`);
+}
+
 export default defineNuxtConfig({
   app: {
     head: {
@@ -47,7 +57,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     prerender: {
-      routes: ["/sitemap.xml"]
+      routes
     }
   },
   sitemap: {
