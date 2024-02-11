@@ -43,7 +43,7 @@ export default defineNuxtConfig({
     storageKey: "nuxt-color-mode"
   },
   site: {
-    url: ""
+    url: "https://anime.ahmedrangel.com"
   },
   nitro: {
     prerender: {
