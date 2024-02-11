@@ -23,7 +23,7 @@ const externalLinks = anime.externalLinks
     return a?.site === "Official Site" ? -1 : b?.site === "Official Site" ? 1 : 0;
   });
 
-const streamingEpisodes = sortEpisodes(anime.streamingEpisodes).slice(0, 6);
+const streamingEpisodes = sortEpisodes(anime?.streamingEpisodes)?.slice(0, 6) || [];
 </script>
 
 <template>

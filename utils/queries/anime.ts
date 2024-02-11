@@ -133,6 +133,7 @@ export const queryAnimeCharacters = (options?: Record<string, any>) => {
       "bannerImage",
       "format",
       "averageScore",
+      { streamingEpisodes: ["title"] },
       { operation: "characters",
         variables: {
           page: { type: "Int", value: options?.page || 1 },
