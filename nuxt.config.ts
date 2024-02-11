@@ -74,5 +74,8 @@ export default defineNuxtConfig({
     directives: {
       include: ["Ripple"]
     }
+  },
+  experimental: {
+    viewTransition: true
   }
 });
