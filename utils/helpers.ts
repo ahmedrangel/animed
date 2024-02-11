@@ -65,11 +65,19 @@ export const sortEpisodes = (episodes: any[]) => {
   return episodes;
 };
 
-export const noVaInLanguage = (actors, language) => {
+export const noVaInLanguage = (actors: Array<Record<string, any>>, language: string) => {
   for (const va of actors) {
     if (va.languageV2 === language) {
       return false;
     }
   }
   return true;
+};
+
+export const waitForAnimation = (event: MouseEvent) => {
+  event.preventDefault();
+  setTimeout(() => {
+    const targetUrl = (event.target as HTMLAnchorElement).getAttribute("href");
+    if (targetUrl) navigateTo(targetUrl);
+  }, 150);
 };
