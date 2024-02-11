@@ -3,14 +3,14 @@ const props = defineProps({
   anime: { type: Object, required: true },
 });
 
-const description = fixDescription(props.anime.description.replace(/<br>/g,""));
+const description = fixDescription(props.anime?.description.replace(/<br>/g,""));
 const toRoute = `/a/${props.anime?.id}/${fixSlug(props.anime?.title?.romaji)}`;
 </script>
 
 <template>
   <VideoModal v-if="props.anime?.trailer?.site === 'youtube'" id="verModal" :video="`https://youtube.com/embed/${props.anime?.trailer?.id}`" />
   <div class="banner p-0 position-relative d-flex align-items-center p-0 w-100 overflow-hidden border-bottom">
-    <span id="blur" class="position-absolute top-0 w-100 h-100 bg-secondary" :style="{ 'background-image': 'url(' + props.anime?.bannerImage + ')' }" />
+    <span id="blur" class="position-absolute top-0 w-100 h-100 bg-secondary" :style="{ 'background-image': props.anime?.bannerImage ? 'url(' + props.anime?.bannerImage + ')' : 'none' }" />
     <span id="front" class="d-flex justify-content-center px-4 pt-5 pt-md-0 pt-lg-0">
       <img class="shadow" :src="props.anime?.coverImage?.extraLarge">
     </span>
