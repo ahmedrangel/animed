@@ -29,13 +29,13 @@ const toRoute = `/a/${props.anime?.id}/${fixSlug(props.anime?.title?.romaji)}`;
       </div>
       <h6 v-if="props.anime.description" class="mb-2 fw-normal">
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <span v-html="description.text" />
+        <span class="fw-light" v-html="description.text" />
         <NuxtLink v-if="description.more" class="text-primary" :to="toRoute">&nbsp;Read more</NuxtLink>
       </h6>
       <PrimeButton v-if="props.anime?.trailer?.site === 'youtube'" class="btn btn-warning mt-1" data-bs-toggle="modal" data-bs-target="#verModal">
         <div class="d-flex justify-content-center align-items-center py-1 px-2">
           <Icon name="solar:play-bold" />&nbsp;&nbsp;
-          <span class="h6 mb-0 fw-bold">Watch Trailer</span>
+          <span class="h6 mb-0">Watch Trailer</span>
         </div>
       </PrimeButton>
     </div>

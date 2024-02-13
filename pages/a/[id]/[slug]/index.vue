@@ -53,36 +53,36 @@ const streamingEpisodes = sortEpisodes(anime?.streamingEpisodes)?.slice(0, 6) ||
               <h6 class="mb-0 fw-normal" v-html="anime.description" />
             </div>
             <div class="d-flex justify-content-start align-items-start anime-row flex-wrap m-0">
-              <h6 v-if="anime.status" class="mb-2 fw-normal col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
-                <span class="text-primary">Status:</span>&nbsp;&nbsp; {{ anime.status.toLowerCase() }}
+              <h6 v-if="anime.status" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
+                <span class="text-primary">Status:</span>&nbsp; {{ anime.status.toLowerCase() }}
               </h6>
-              <h6 v-if="anime.startDate?.year" class="mb-2 fw-normal col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0">
-                <span class="text-primary">Release Date:</span>&nbsp;&nbsp; {{ anime.startDate.year ? formatDate(anime.startDate.year, anime.startDate.month, anime.startDate.day) : "TBA" }}
+              <h6 v-if="anime.startDate?.year" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0">
+                <span class="text-primary">Release Date:</span>&nbsp; {{ anime.startDate.year ? formatDate(anime.startDate.year, anime.startDate.month, anime.startDate.day) : "TBA" }}
               </h6>
-              <h6 v-if="anime.endDate?.year" class="mb-2 fw-normal col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0">
-                <span class="text-primary">End Date:</span>&nbsp;&nbsp; {{ anime.endDate?.year ? formatDate(anime.endDate.year, anime.endDate.month, anime.endDate.day) : "TBA" }}
+              <h6 v-if="anime.endDate?.year" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0">
+                <span class="text-primary">End Date:</span>&nbsp; {{ anime.endDate?.year ? formatDate(anime.endDate.year, anime.endDate.month, anime.endDate.day) : "TBA" }}
               </h6>
-              <h6 v-if="anime.episodes" class="mb-2 fw-normal col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0">
-                <span class="text-primary">Episodes:</span>&nbsp;&nbsp; {{ anime.episodes }}
+              <h6 v-if="anime.episodes" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0">
+                <span class="text-primary">Episodes:</span>&nbsp; {{ anime.episodes }}
               </h6>
-              <h6 v-if="anime.duration" class="mb-2 fw-normal col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0">
-                <span class="text-primary">Episode Duration:</span>&nbsp;&nbsp; {{ anime.duration }} mins
+              <h6 v-if="anime.duration" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0">
+                <span class="text-primary">Episode Duration:</span>&nbsp; {{ anime.duration }} mins
               </h6>
-              <h6 v-if="anime.season" class="mb-2 fw-normal col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
-                <span class="text-primary">Season:</span>&nbsp;&nbsp; {{ anime.season.toLowerCase() }} {{ anime.seasonYear }}
+              <h6 v-if="anime.season" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
+                <span class="text-primary">Season:</span>&nbsp; {{ anime.season.toLowerCase() }} {{ anime.seasonYear }}
               </h6>
-              <h6 v-if="anime.source" class="mb-2 fw-normal col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
-                <span class="text-primary">Source:</span>&nbsp;&nbsp; {{ anime.source.toLowerCase().replace(/_/g, " ") }}
+              <h6 v-if="anime.source" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
+                <span class="text-primary">Source:</span>&nbsp; {{ anime.source.toLowerCase().replace(/_/g, " ") }}
               </h6>
-              <h6 v-if="getStudios(anime.studios)" class="mb-2 fw-normal col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0">
-                <span class="text-primary">Studios:</span>&nbsp;&nbsp; {{ getStudios(anime.studios) }}
+              <h6 v-if="getStudios(anime.studios)" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0">
+                <span class="text-primary">Studios:</span>&nbsp; {{ getStudios(anime.studios) }}
               </h6>
-              <h6 v-if="getProducers(anime.studios)" class="mb-2 fw-normal col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0">
-                <span class="text-primary">Producers:</span>&nbsp;&nbsp; {{ getProducers(anime.studios) }}
+              <h6 v-if="getProducers(anime.studios)" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0">
+                <span class="text-primary">Producers:</span>&nbsp; {{ getProducers(anime.studios) }}
               </h6>
             </div>
             <div v-if="anime.genres">
-              <h6 class="mb-2 fw-normal">
+              <h6 class="mb-2">
                 <span class="text-primary">Genres:</span>&nbsp;
                 <span v-for="(genre, i) of anime.genres" :key="i">
                   <span class="badge bg-secondary align-middle mx-1 fw-normal">{{ genre }}</span>
@@ -153,7 +153,7 @@ const streamingEpisodes = sortEpisodes(anime?.streamingEpisodes)?.slice(0, 6) ||
                     <img class="img-fluid rounded rounded-bottom-0 scale-on-hover w-100" :src="ep.thumbnail">
                     <span class="position-absolute top-50 start-50 translate-middle mb-0 invisible pe-none text-white"><Icon name="ci:external-link" /></span>
                   </div>
-                  <h6 class="p-3 m-0">{{ ep.title }}</h6>
+                  <h6 class="p-3 m-0 fw-normal">{{ ep.title }}</h6>
                 </div>
               </a>
             </template>

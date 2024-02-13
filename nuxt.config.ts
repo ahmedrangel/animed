@@ -12,9 +12,6 @@ export default defineNuxtConfig({
       },
       meta: [
         { name: "robots", content: "index, follow" }
-      ],
-      link: [
-        { rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Rubik", }
       ]
     }
   },
@@ -30,7 +27,8 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@nuxtjs/color-mode",
     "@nuxtjs/sitemap",
-    "nuxt-primevue"
+    "@nuxtjs/google-fonts",
+    "nuxt-primevue",
   ],
   runtimeConfig: {},
   features: {
@@ -74,6 +72,13 @@ export default defineNuxtConfig({
     directives: {
       include: ["Ripple"]
     }
+  },
+  googleFonts: {
+    display: "swap",
+    download: true,
+    families: {
+      "Rubik": [300, 400, 500, 600, 700],
+    },
   },
   experimental: {
     viewTransition: true

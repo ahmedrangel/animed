@@ -20,10 +20,10 @@ const props = defineProps({
               <div class="image overflow-hidden mb-2 w-100 position-relative">
                 <img class="img-fluid scale-on-hover h-100 w-100 top-0 left-0 position-absolute object-fit-cover" :src="list.coverImage.extraLarge" width="280">
               </div>
-              <h6 class="mb-1">{{ list.title.english ? list.title.english : list.title.romaji }} <span class="badge bg-secondary align-middle">{{ list.format.replace(/_/g," ") }}</span></h6>
+              <h6 class="mb-1 fw-normal">{{ list.title.english ? list.title.english : list.title.romaji }} <span class="badge bg-secondary align-middle">{{ list.format.replace(/_/g," ") }}</span></h6>
             </NuxtLink>
-            <small class="text-muted d-block mb-1">{{ list.title.romaji }}</small>
-            <small class="d-block mb-1 text-primary">{{ list.startDate.year ? formatDate(list.startDate.year, list.startDate.month, list.startDate.day) : "TBA" }}</small>
+            <small class="text-muted d-block mb-1 fw-light">{{ list.title.romaji }}</small>
+            <small class="d-block mb-1 text-primary ">{{ list.startDate.year ? formatDate(list.startDate.year, list.startDate.month, list.startDate.day) : "TBA" }}</small>
             <div class="d-flex align-items-center position-relative">
               <div class="stars d-flex align-items-center" style="height: 16px;">
                 <img class="position-absolute" src="/images/stars.webp" width="80" style="opacity: 0.5">
