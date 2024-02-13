@@ -1,3 +1,5 @@
+import { SITE } from "./utils/info.ts";
+
 export default defineNuxtConfig({
   app: {
     head: {
@@ -41,7 +43,7 @@ export default defineNuxtConfig({
     storageKey: "nuxt-color-mode"
   },
   site: {
-    url: "https://anime.ahmedrangel.com"
+    url: SITE.url
   },
   nitro: {
     prerender: {

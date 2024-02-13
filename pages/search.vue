@@ -1,4 +1,6 @@
 <script setup lang="ts">
+definePageMeta({ layout: "no-footer" });
+
 const query = ref() as Ref<string>;
 const debounce = ref(null as any);
 const result = ref() as Ref<Record<string, any> | null>;

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+definePageMeta({ layout: "no-footer" });
+
 const { params } = useRoute();
 const { slug } = params;
 
