@@ -25,18 +25,18 @@
   "devDependencies": {
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxtjs/color-mode": "^3.3.2",
+    "@nuxtjs/sitemap": "^5.1.0",
     "@types/bootstrap": "^5.2.10",
+    "date-fns": "^3.3.1",
     "eslint": "^8.56.0",
+    "gql-query-builder": "^3.8.0",
     "nuxt": "^3.10.1",
     "nuxt-icon": "^0.6.8",
-    "nuxt-primevue": "^0.2.2",
-    "nuxt-simple-sitemap": "^4.4.1",
+    "nuxt-primevue": "^0.3.0",
     "stylelint-config-standard": "^36.0.0"
   },
   "dependencies": {
     "bootstrap": "^5.3.2",
-    "date-fns": "^3.3.1",
-    "gql-query-builder": "^3.8.0",
     "primevue": "^3.48.1"
   }
 }
