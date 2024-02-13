@@ -4,18 +4,32 @@ const props = defineProps({
   slug: { type: String, required: true },
   episodes: { type: Boolean, required: false, default: true }
 });
+
+const tabs = [
+  {
+    name: "Overview",
+    route: `/a/${props.animeId}/${props.slug}`,
+    enable: true
+  },
+  {
+    name: "Characters",
+    route: `/a/${props.animeId}/${props.slug}/characters`,
+    enable: true
+  },
+  {
+    name: "Episodes",
+    route: `/a/${props.animeId}/${props.slug}/episodes`,
+    enable: props.episodes ? true : false
+  }
+];
 </script>
 
 <template>
   <nav id="anime-nav" class="nav justify-content-center gap-4">
-    <NuxtLink class="nav-link px-1 py-0 text-white" aria-current="page" :to="`/a/${props.animeId}/${props.slug}`">
-      <h5 class="py-2 mb-0">OVERVIEW</h5>
-    </NuxtLink>
-    <NuxtLink class="nav-link active px-1 py-0 text-white" :to="`/a/${props.animeId}/${props.slug}/characters`">
-      <h5 class="py-2 mb-0">CHARACTERS</h5>
-    </NuxtLink>
-    <NuxtLink v-if="props.episodes" class="nav-link px-1 py-0 text-white" :to="`/a/${props.animeId}/${props.slug}/episodes`">
-      <h5 class="py-2 mb-0">EPISODES</h5>
-    </NuxtLink>
+    <template v-for="(tab, i) of tabs" :key="i">
+      <NuxtLink v-if="tab.enable" class="nav-link px-1 py-0 text-white" aria-current="page" :to="tab.route" :title="tab.name">
+        <h5 class="py-2 mb-0">{{ tab.name.toUpperCase() }}</h5>
+      </NuxtLink>
+    </template>
   </nav>
 </template>
