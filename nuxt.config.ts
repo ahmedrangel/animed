@@ -1,20 +1,3 @@
-
-import { categories } from "./utils/categories";
-import { fixSlug } from "./utils/helpers";
-
-const routeRules = {
-  "/": { sitemap: { priority: 1 } },
-  "/*/**": { sitemap: { priority: 0.8, lastmod: new Date().toISOString() } }
-};
-
-for (const c of categories) {
-  const slug = fixSlug(c.name);
-  const rules = [`/c/${slug}`, `/c/new/${slug}`, `/c/top-rated/${slug}`, `/c/trending/${slug}`];
-  for (const r of rules) {
-    routeRules[r] = { sitemap: { priority: 0.8, lastmod: new Date().toISOString() } };
-  }
-}
-
 export default defineNuxtConfig({
   app: {
     head: {
@@ -75,7 +58,10 @@ export default defineNuxtConfig({
       { label: "Last Modified", select: "sitemap:lastmod", width: "35%" }
     ]
   },
-  routeRules,
+  routeRules: {
+    "/": { sitemap: { priority: 1 } },
+    "/*/**": { sitemap: { priority: 0.8, lastmod: new Date().toISOString() } }
+  },
   primevue: {
     usePrimeVue: true,
     options: {
