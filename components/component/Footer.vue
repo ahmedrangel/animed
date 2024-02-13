@@ -5,7 +5,7 @@
       <div class="d-flex align-items-center mb-2">
         <h6 class="mb-0 fw-normal">Data provided by&nbsp;</h6>
         <a target="_blank" href="https://anilist.co">
-          <img src="/images/anilist-logo.svg" height="40" title="AniList">
+          <img src="/images/anilist-logo.svg" class="pe-none" height="40" title="AniList">
         </a>
       </div>
       <h6 class="mb-0 fw-normal">This project uses the AniList API but is not endorsed or certified by AniList.&nbsp;</h6>
