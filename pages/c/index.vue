@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const result = computed(() => categories.sort((a, b) => (a.name > b.name) ? 1 : -1));
+const result = categories.sort((a, b) => (a.name > b.name) ? 1 : -1);
 </script>
 
 <template>
