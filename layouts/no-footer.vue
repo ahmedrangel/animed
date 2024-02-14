@@ -1,11 +1,11 @@
 <template>
   <div id="layout">
-    <main>
-      <ComponentNavbar>
-        <div class="col px-0">
+    <ComponentNavbar>
+      <div class="col px-0">
+        <Suspense>
           <slot />
-        </div>
-      </ComponentNavbar>
-    </main>
+        </Suspense>
+      </div>
+    </ComponentNavbar>
   </div>
 </template>
