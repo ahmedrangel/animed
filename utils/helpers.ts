@@ -73,11 +73,3 @@ export const noVaInLanguage = (actors: Array<Record<string, any>>, language: str
   }
   return true;
 };
-
-export const waitForAnimation = (event: MouseEvent) => {
-  event.preventDefault();
-  setTimeout(() => {
-    const targetUrl = (event.target as HTMLAnchorElement).getAttribute("href");
-    if (targetUrl) navigateTo(targetUrl);
-  }, 150);
-};

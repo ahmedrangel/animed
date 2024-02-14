@@ -1,7 +1,8 @@
-import { SITE } from "./utils/info.ts";
+import { SITE } from "./utils/info";
 
 export default defineNuxtConfig({
   app: {
+    pageTransition: { name: "fade", mode: "out-in" },
     head: {
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
@@ -90,8 +91,5 @@ export default defineNuxtConfig({
     families: {
       "Rubik": [300, 400, 500, 600, 700],
     },
-  },
-  experimental: {
-    viewTransition: true
   }
 });

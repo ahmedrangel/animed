@@ -3,7 +3,9 @@
     <ComponentNavbar>
       <div class="col px-0">
         <Suspense>
-          <slot />
+          <main>
+            <slot />
+          </main>
         </Suspense>
       </div>
     </ComponentNavbar>
