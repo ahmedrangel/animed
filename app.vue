@@ -4,9 +4,11 @@ setScrollBehavior();
 
 <template>
   <NuxtLoadingIndicator :throttle="0" />
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <ComponentNavbar>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </ComponentNavbar>
 </template>
 
 <style>
