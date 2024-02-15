@@ -4,15 +4,26 @@ const props = defineProps({
   video: { type: String, required: true },
 });
 
+const clickHandler = (e: Event) => {
+  const target = e.target as Node;
+  const iframe = document.querySelector("#embed") as HTMLIFrameElement;
+  if (!iframe?.contains(target)) {
+    iframe.contentWindow?.postMessage("{\"event\":\"command\",\"func\":\"stopVideo\",\"args\":\"\"}", "*");
+  }
+};
+
 onMounted(() => {
   const modal = document.querySelector("#" + props.id) as HTMLElement;
-  modal.addEventListener("click", (e: Event) => {
-    const target = e.target as Node;
-    const iframe = document.querySelector("#embed") as HTMLIFrameElement;
-    if (!iframe?.contains(target)) {
-      iframe.contentWindow?.postMessage("{\"event\":\"command\",\"func\":\"stopVideo\",\"args\":\"\"}", "*");
-    }
-  });
+  if (modal) {
+    modal.addEventListener("click", clickHandler);
+  }
+});
+
+onBeforeUnmount(() => {
+  const modal = document.querySelector("#" + props.id) as HTMLElement;
+  if (modal) {
+    modal.removeEventListener("click", clickHandler);
+  }
 });
 </script>
 
