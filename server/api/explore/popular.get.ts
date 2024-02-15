@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
       "Access-Control-Allow-Origin": "*",
-      "Cache-Control": "s-maxage=3600" // 1h cache
+      "Cache-Control": "s-maxage=43200" // 12h cache
     }
   });
 
