@@ -32,15 +32,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <section id="search">
-    <div class="d-flex justify-content-start align-items-center bg-secondary">
-      <h4><Icon name="ph:magnifying-glass" class="mx-4" /></h4>
-      <input ref="input" v-model="query" type="text" class="w-100 py-3 border-0 bg-transparent" placeholder="Type to search..." @input="count = 1">
-    </div>
-    <div v-if="!result && !loading">
-      <h2 class="text-muted mb-0 w-100 text-center mt-5">Type something to search...</h2>
-    </div>
-    <ComponentLoadingSpinner v-if="loading" class="mt-5" />
-    <ComponentInfiniteList v-if="result && !loading" :data="result.data" :query="query" />
-  </section>
+  <main>
+    <section id="search">
+      <div class="d-flex justify-content-start align-items-center bg-secondary">
+        <h4><Icon name="ph:magnifying-glass" class="mx-4" /></h4>
+        <input ref="input" v-model="query" type="text" class="w-100 py-3 border-0 bg-transparent" placeholder="Type to search..." @input="count = 1">
+      </div>
+      <div v-if="!result && !loading">
+        <h2 class="text-muted mb-0 w-100 text-center mt-5">Type something to search...</h2>
+      </div>
+      <ComponentLoadingSpinner v-if="loading" class="mt-5" />
+      <ComponentInfiniteList v-if="result && !loading" :data="result.data" :query="query" />
+    </section>
+  </main>
 </template>

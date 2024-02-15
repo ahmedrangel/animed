@@ -5,7 +5,9 @@ const { data: result } = await useFetch("/api/explore/popular") as Record<string
 </script>
 
 <template>
-  <section v-if="result" id="trending">
-    <ComponentInfiniteList :data="result" />
-  </section>
+  <main>
+    <section v-if="result" id="trending">
+      <ComponentInfiniteList :data="result" />
+    </section>
+  </main>
 </template>

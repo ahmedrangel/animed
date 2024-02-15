@@ -18,7 +18,9 @@ const { data: result } = await useFetch("/api/explore/rated?slug=" + slug) as Re
 </script>
 
 <template>
-  <section v-if="result" id="top-rated">
-    <ComponentInfiniteList :data="result" />
-  </section>
+  <main>
+    <section v-if="result" id="top-rated">
+      <ComponentInfiniteList :data="result" />
+    </section>
+  </main>
 </template>

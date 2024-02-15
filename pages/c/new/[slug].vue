@@ -18,7 +18,9 @@ const { data: result } = await useFetch("/api/explore/newly?slug=" + slug) as Re
 </script>
 
 <template>
-  <section v-if="result" id="newly">
-    <ComponentInfiniteList :data="result" />
-  </section>
+  <main>
+    <section v-if="result" id="newly">
+      <ComponentInfiniteList :data="result" />
+    </section>
+  </main>
 </template>

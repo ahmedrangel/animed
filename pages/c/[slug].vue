@@ -16,8 +16,10 @@ const newly = data.value.preview[0].data[0];
 </script>
 
 <template>
-  <section id="preview">
-    <ComponentBanner :anime="newly" />
-    <ComponentPreviewList :data="data" />
-  </section>
+  <main>
+    <section id="preview">
+      <ComponentBanner :anime="newly" />
+      <ComponentPreviewList :data="data" />
+    </section>
+  </main>
 </template>

@@ -10,8 +10,10 @@ if (!popular.value) {
 </script>
 
 <template>
-  <section id="preview">
-    <ComponentBanner v-if="popular" :anime="popular" />
-    <ComponentPreviewList :data="data" />
-  </section>
+  <main>
+    <section id="preview">
+      <ComponentBanner v-if="popular" :anime="popular" />
+      <ComponentPreviewList :data="data" />
+    </section>
+  </main>
 </template>
