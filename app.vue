@@ -19,6 +19,5 @@ setScrollBehavior();
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-  filter: blur(0.3rem);
 }
 </style>
