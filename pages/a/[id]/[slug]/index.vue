@@ -2,7 +2,7 @@
 const { params } = useRoute();
 const { id, slug } = params;
 const { data: data } = await useFetch("/api/anime/" + id) as Record<string, any>;
-console.log(data.value);
+
 const _slug = fixSlug(data.value.title.romaji);
 if (slug !== _slug) {
   throw createError({
