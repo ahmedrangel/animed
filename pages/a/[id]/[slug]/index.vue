@@ -2,7 +2,7 @@
 const { params } = useRoute();
 const { id, slug } = params;
 const { data: data } = await useFetch("/api/anime/" + id) as Record<string, any>;
-
+console.log(data.value);
 const _slug = fixSlug(data.value.title.romaji);
 if (slug !== _slug) {
   throw createError({
@@ -18,10 +18,20 @@ const externalLinks = anime.externalLinks
   .filter((e: { site: string; }) => {
     const site = e?.site.toLowerCase();
     return site !== "youtube" && site !== "funimation";
-  })
-  .sort((a: Record<string, string>, b: Record<string, string>) => {
-    return a?.site === "Official Site" ? -1 : b?.site === "Official Site" ? 1 : 0;
   });
+
+if (anime.idMal) {
+  externalLinks.unshift({
+    color: "#2e51a2",
+    icon: "/images/mal.png",
+    site: "MyAnimeList",
+    url: "https://myanimelist.net/anime/" + anime.idMal
+  });
+}
+
+externalLinks.sort((a: Record<string, string>, b: Record<string, string>) => {
+  return a?.site === "Official Site" ? -1 : b?.site === "Official Site" ? 1 : 0;
+});
 
 const streamingEpisodes = sortEpisodes(anime?.streamingEpisodes)?.slice(0, 6) || [];
 </script>

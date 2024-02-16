@@ -10,6 +10,7 @@ export const queryAnime = (options?: Record<string, any>) => {
     variables: { id: Number(options?.id) },
     fields: [
       "id",
+      "idMal",
       { title: ["romaji", "english", "native"] },
       { coverImage: ["extraLarge"] },
       "bannerImage",
