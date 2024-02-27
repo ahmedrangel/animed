@@ -13,7 +13,7 @@
       </div>
       <h6 class="mb-0 fw-normal">This project uses the AniList API but is not endorsed or certified by AniList.&nbsp;</h6>
     </div>
-    <a target="_blank" :href="SITE.github">
+    <a target="_blank" :href="SITE.github" class="d-inline-flex" title="GitHub Repository">
       <h2 class="mb-0 text-muted">
         <Icon name="simple-icons:github" />
       </h2>
