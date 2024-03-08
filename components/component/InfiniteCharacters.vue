@@ -53,7 +53,7 @@ onBeforeUnmount(() => {
           <div class="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-3">
             <div class="d-flex align-items-start anime-row flex-wrap row-cols-auto g-2 bg-secondary rounded m-0">
               <div class="col ps-0 mt-0" style="max-width: 100px;">
-                <img :src="c.node.image.large" class="img-fluid rounded-start" style="max-height: 90px;">
+                <img :src="c.node.image.large" class="img-fluid rounded-start" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
               </div>
               <div class="col text-start me-auto mt-0 py-1">
                 <small class="d-block text-primary">{{ c.node?.name.userPreferred }}</small>
@@ -64,7 +64,7 @@ onBeforeUnmount(() => {
                 <small class="text-capitalize text-muted">{{ va.languageV2 }}</small>
               </div>
               <div class="col pe-0 mt-0">
-                <img :src="va.image.large" class="img-fluid rounded-start" style="max-height: 90px;">
+                <img :src="va.image.large" class="img-fluid rounded-start" style="max-height: 90px;" :alt="va.name.userPreferred" :title="va.name.userPreferred">
               </div>
             </div>
           </div>
@@ -74,7 +74,7 @@ onBeforeUnmount(() => {
         <div class="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-3">
           <div class="d-flex align-items-start anime-row flex-wrap row-cols-auto g-2 bg-secondary rounded m-0">
             <div class="col ps-0 mt-0" style="max-width: 100px;">
-              <img :src="c.node.image.large" class="img-fluid rounded-start" style="max-height: 90px;">
+              <img :src="c.node.image.large" class="img-fluid rounded-start" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
             </div>
             <div class="col text-start me-auto mt-0 py-1">
               <small class="d-block text-primary">{{ c.node?.name.userPreferred }}</small>

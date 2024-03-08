@@ -18,7 +18,7 @@ const props = defineProps({
           <div :class="j === 0 ? 'me-1' : 'mx-1'">
             <NuxtLink :to="`/a/${list.id}/${fixSlug(list.title.romaji)}`" class="text-white">
               <div class="image overflow-hidden mb-2 w-100 position-relative">
-                <img class="img-fluid scale-on-hover h-100 w-100 top-0 left-0 position-absolute object-fit-cover" :src="list.coverImage.extraLarge" width="280">
+                <img class="img-fluid scale-on-hover h-100 w-100 top-0 left-0 position-absolute object-fit-cover" :src="list.coverImage.extraLarge" width="280" :alt="list.title.romaji" :title="list.title.romaji">
               </div>
               <h6 class="mb-1 fw-normal">{{ list.title.english ? list.title.english : list.title.romaji }} <span class="badge bg-secondary align-middle">{{ list.format.replace(/_/g," ") }}</span></h6>
             </NuxtLink>

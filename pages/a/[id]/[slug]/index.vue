@@ -78,7 +78,7 @@ useHead({
             </div>
           </div>
           <div id="details" class="pt-3 pb-4 d-flex align-items-start anime-row mx-0 flex-wrap px-0">
-            <img id="cover" :src="anime?.coverImage?.extraLarge" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 img-fluid px-0" style="max-width: 400px;">
+            <img id="cover" :src="anime?.coverImage?.extraLarge" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 img-fluid px-0" style="max-width: 400px;" :alt="anime.title.romaji" :title="anime.title.romaji">
             <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-9 pt-4 pt-md-0 px-0 ps-md-4">
               <div v-if="anime.description" class="pb-4">
                 <h2 class="text-white">Description</h2>
@@ -154,7 +154,7 @@ useHead({
               <div v-for="(c, i) of anime.characters.edges" :key="i" class="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-3">
                 <div class="d-flex align-items-start anime-row flex-wrap row-cols-auto g-2 bg-secondary rounded m-0">
                   <div class="col ps-0 mt-0" style="max-width: 100px;">
-                    <img :src="c.node.image.large" class="img-fluid rounded-start" style="max-height: 90px;">
+                    <img :src="c.node.image.large" class="img-fluid rounded-start" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
                   </div>
                   <div class="col text-start me-auto mt-0 py-1">
                     <small class="d-block text-primary">{{ c.node?.name.userPreferred }}</small>
@@ -165,7 +165,7 @@ useHead({
                     <small class="text-capitalize text-muted">{{ c.voiceActors[0]?.languageV2 }}</small>
                   </div>
                   <div class="col pe-0 mt-0">
-                    <img :src="c.voiceActors[0]?.image.large" class="img-fluid rounded-start" style="max-height: 90px;">
+                    <img :src="c.voiceActors[0]?.image.large" class="img-fluid rounded-start" style="max-height: 90px;" :alt="c.voiceActors[0]?.name.userPreferred" :title="c.voiceActors[0]?.name.userPreferred">
                   </div>
                 </div>
               </div>
@@ -183,7 +183,7 @@ useHead({
                 <a class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-2 mb-2 text-muted" :href="ep.url">
                   <div class="bg-dark rounded">
                     <div class="overflow-hidden position-relative rounded rounded-bottom-0">
-                      <img class="img-fluid rounded rounded-bottom-0 scale-on-hover w-100" :src="ep.thumbnail">
+                      <img class="img-fluid rounded rounded-bottom-0 scale-on-hover w-100" :src="ep.thumbnail" :alt="ep.title" :title="ep.title">
                       <span class="position-absolute top-50 start-50 translate-middle mb-0 invisible pe-none text-white"><Icon name="ci:external-link" /></span>
                     </div>
                     <h6 class="p-3 m-0 fw-normal">{{ ep.title }}</h6>
