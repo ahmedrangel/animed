@@ -23,7 +23,7 @@ useSeoMeta({
   ogUrl: SITE.url + `/c/${slug}`,
   ogImage: SITE.url + SITE.og_card,
   // Twitter
-  twitterCard: "summary",
+  twitterCard: "summary_large_image",
   twitterTitle: data.value.category + " | Categories | " + SITE.name,
 });
 

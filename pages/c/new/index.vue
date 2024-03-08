@@ -12,7 +12,7 @@ useSeoMeta({
   ogUrl: SITE.url + "/c/new",
   ogImage: SITE.url + SITE.og_card,
   // Twitter
-  twitterCard: "summary",
+  twitterCard: "summary_large_image",
   twitterTitle: `${result.value.title}` + " | Categories | " + SITE.name,
 });
 

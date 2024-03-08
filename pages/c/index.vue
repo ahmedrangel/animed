@@ -10,7 +10,7 @@ useSeoMeta({
   ogSiteName: SITE.name,
   ogImage: SITE.url + SITE.og_card,
   // Twitter
-  twitterCard: "summary",
+  twitterCard: "summary_large_image",
   twitterTitle: "Categories | " + SITE.name,
 });
 

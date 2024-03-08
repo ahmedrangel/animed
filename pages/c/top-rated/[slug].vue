@@ -25,7 +25,7 @@ useSeoMeta({
   ogUrl: SITE.url + `/c/top-rated/${slug}`,
   ogImage: SITE.url + SITE.og_card,
   // Twitter
-  twitterCard: "summary",
+  twitterCard: "summary_large_image",
   twitterTitle: `${result.value.title} ${result.value.category}` + " | Categories | " + SITE.name,
 });
 
