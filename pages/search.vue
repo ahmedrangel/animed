@@ -30,6 +30,19 @@ onMounted(() => {
   input.value.focus();
 });
 
+useSeoMeta({
+  title: "Search | " + SITE.name,
+  // Open Graph
+  ogType: "website",
+  ogTitle: "Search | " + SITE.name,
+  ogSiteName: SITE.name,
+  ogUrl: SITE.url + "/search",
+  ogImage: SITE.url + SITE.og_card,
+  // Twitter
+  twitterCard: "summary",
+  twitterTitle: "Search | " + SITE.name,
+});
+
 useHead({
   link: [{ rel: "canonical", href: SITE.url + "/search" }]
 });

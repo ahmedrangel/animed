@@ -73,3 +73,12 @@ export const noVaInLanguage = (actors: Array<Record<string, any>>, language: str
   }
   return true;
 };
+
+export const fixSeoDescription = (text: string) => {
+  const limit = 300;
+  if (text.length > limit) {
+    text = text.substring(0, limit) + "...";
+    return { text: text as string, more: true as boolean };
+  }
+  return { text: text as string, more: false as boolean };
+};

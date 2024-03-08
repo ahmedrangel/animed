@@ -131,6 +131,7 @@ export const queryAnimeCharacters = (options?: Record<string, any>) => {
     fields: [
       "id",
       { title: ["romaji", "english", "native"] },
+      { coverImage: ["extraLarge"] },
       "bannerImage",
       "format",
       "averageScore",
@@ -181,6 +182,7 @@ export const queryAnimeEpisodes = (options?: Record<string, any>) => {
     fields: [
       "id",
       { title: ["romaji", "english", "native"] },
+      { coverImage: ["extraLarge"] },
       "bannerImage",
       "format",
       "averageScore",

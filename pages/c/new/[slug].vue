@@ -16,6 +16,19 @@ if (!exists) {
 
 const { data: result } = await useFetch("/api/explore/newly?slug=" + slug) as Record<string, any>;
 
+useSeoMeta({
+  title: `${result.value.title} ${result.value.category}` + " | Categories | " + SITE.name,
+  // Open Graph
+  ogType: "website",
+  ogTitle: `${result.value.title} ${result.value.category}` + " | Categories | " + SITE.name,
+  ogSiteName: SITE.name,
+  ogUrl: SITE.url + `/c/new/${slug}`,
+  ogImage: SITE.url + SITE.og_card,
+  // Twitter
+  twitterCard: "summary",
+  twitterTitle: `${result.value.title} ${result.value.category}` + " | Categories | " + SITE.name,
+});
+
 useHead({
   link: [{ rel: "canonical", href: SITE.url + `/c/new/${slug}` }]
 });

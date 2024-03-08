@@ -15,6 +15,22 @@ if (slug !== _slug) {
 
 const streamingEpisodes = sortEpisodes(anime?.streamingEpisodes)?.slice(0, 6) || [];
 
+useSeoMeta({
+  title: anime.title.romaji + " | " + SITE.name,
+  description: "Characters",
+  // Open Graph
+  ogType: "website",
+  ogTitle: anime.title.romaji + " | " + SITE.name,
+  ogDescription: "Characters",
+  ogSiteName: SITE.name,
+  ogUrl: SITE.url + `/a/${id}/${slug}/characters`,
+  ogImage: anime?.coverImage?.extraLarge,
+  // Twitter
+  twitterCard: "summary",
+  twitterTitle: anime.title.romaji + " | " + SITE.name,
+  twitterDescription: "Characters"
+});
+
 useHead({
   link: [{ rel: "canonical", href: SITE.url + `/a/${id}/${slug}/characters` }]
 });

@@ -8,6 +8,19 @@ if (!popular.value) {
   popular.value = trendings.data[Math.floor(Math.random() * trendings.data.length - 1)];
 }
 
+useSeoMeta({
+  title: SITE.name,
+  // Open Graph
+  ogType: "website",
+  ogTitle: SITE.name,
+  ogUrl: SITE.url,
+  ogSiteName: SITE.name,
+  ogImage: SITE.url + SITE.og_card,
+  // Twitter
+  twitterCard: "summary",
+  twitterTitle: SITE.name,
+});
+
 useHead({
   link: [{ rel: "canonical", href: SITE.url }]
 });

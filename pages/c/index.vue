@@ -1,6 +1,19 @@
 <script setup lang="ts">
 const result = categories.sort((a, b) => (a.name > b.name) ? 1 : -1);
 
+useSeoMeta({
+  title: "Categories | " + SITE.name,
+  // Open Graph
+  ogType: "website",
+  ogTitle: "Categories | " + SITE.name,
+  ogUrl: SITE.url + "/c",
+  ogSiteName: SITE.name,
+  ogImage: SITE.url + SITE.og_card,
+  // Twitter
+  twitterCard: "summary",
+  twitterTitle: "Categories | " + SITE.name,
+});
+
 useHead({
   link: [{ rel: "canonical", href: SITE.url + "/c" }]
 });
