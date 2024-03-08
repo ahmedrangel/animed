@@ -2,6 +2,10 @@
 definePageMeta({ layout: "no-footer" });
 
 const { data: result } = await useFetch("/api/explore/newly") as Record<string, any>;
+
+useHead({
+  link: [{ rel: "canonical", href: SITE.url + "/c/new" }]
+});
 </script>
 
 <template>

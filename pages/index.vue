@@ -7,6 +7,10 @@ const trendings = data.value.preview[data.value.preview.length - 1];
 if (!popular.value) {
   popular.value = trendings.data[Math.floor(Math.random() * trendings.data.length - 1)];
 }
+
+useHead({
+  link: [{ rel: "canonical", href: SITE.url }]
+});
 </script>
 
 <template>

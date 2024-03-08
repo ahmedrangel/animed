@@ -14,6 +14,10 @@ if (slug !== _slug) {
 }
 
 const streamingEpisodes = sortEpisodes(anime?.streamingEpisodes)?.slice(0, 6) || [];
+
+useHead({
+  link: [{ rel: "canonical", href: SITE.url + `/a/${id}/${slug}/characters` }]
+});
 </script>
 
 <template>

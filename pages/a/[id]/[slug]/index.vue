@@ -34,6 +34,10 @@ externalLinks.sort((a: Record<string, string>, b: Record<string, string>) => {
 });
 
 const streamingEpisodes = sortEpisodes(anime?.streamingEpisodes)?.slice(0, 6) || [];
+
+useHead({
+  link: [{ rel: "canonical", href: SITE.url + `/a/${id}/${slug}` }]
+});
 </script>
 
 <template>

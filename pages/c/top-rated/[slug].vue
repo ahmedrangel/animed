@@ -15,6 +15,10 @@ if (!exists) {
 }
 
 const { data: result } = await useFetch("/api/explore/rated?slug=" + slug) as Record<string, any>;
+
+useHead({
+  link: [{ rel: "canonical", href: SITE.url + `/c/top-rated/${slug}` }]
+});
 </script>
 
 <template>

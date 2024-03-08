@@ -29,6 +29,10 @@ watch(query, async() => {
 onMounted(() => {
   input.value.focus();
 });
+
+useHead({
+  link: [{ rel: "canonical", href: SITE.url + "/search" }]
+});
 </script>
 
 <template>

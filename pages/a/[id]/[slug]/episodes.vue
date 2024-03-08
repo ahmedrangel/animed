@@ -14,6 +14,10 @@ if (slug !== _slug) {
 
 const anime = data.value;
 const streamingEpisodes = sortEpisodes(anime.streamingEpisodes);
+
+useHead({
+  link: [{ rel: "canonical", href: SITE.url + `/a/${id}/${slug}/episodes` }]
+});
 </script>
 
 <template>

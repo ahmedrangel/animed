@@ -1,5 +1,9 @@
 <script setup lang="ts">
 const result = categories.sort((a, b) => (a.name > b.name) ? 1 : -1);
+
+useHead({
+  link: [{ rel: "canonical", href: SITE.url + "/c" }]
+});
 </script>
 
 <template>

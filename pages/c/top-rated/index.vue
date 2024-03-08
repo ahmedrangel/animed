@@ -2,6 +2,10 @@
 definePageMeta({ layout: "no-footer" });
 
 const { data: result } = await useFetch("/api/explore/rated") as Record<string, any>;
+
+useHead({
+  link: [{ rel: "canonical", href: SITE.url + "/c/top-rated" }]
+});
 </script>
 
 <template>

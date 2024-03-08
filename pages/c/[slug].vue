@@ -13,6 +13,10 @@ if (!exists) {
 }
 const { data: data } = await useFetch("/api/explore?slug=" + slug) as Record<string, any>;
 const newly = data.value.preview[0].data[0];
+
+useHead({
+  link: [{ rel: "canonical", href: SITE.url + `/c/${slug}` }]
+});
 </script>
 
 <template>
