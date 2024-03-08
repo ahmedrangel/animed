@@ -26,7 +26,7 @@ useSeoMeta({
   ogUrl: SITE.url + `/a/${id}/${slug}/characters`,
   ogImage: anime?.coverImage?.extraLarge,
   // Twitter
-  twitterCard: "summary_large_image",
+  twitterCard: "summary",
   twitterTitle: anime.title.romaji + " | " + SITE.name,
   twitterDescription: "Characters"
 });
