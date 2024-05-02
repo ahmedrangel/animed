@@ -9,8 +9,7 @@ export const getRating = (percent: number) => {
 export const formatRating = (rating: number) => {
   if (rating >= 1000000) {
     return (rating / 1000000).toFixed(2) + "m";
-  }
-  else if (rating >= 1000) {
+  } else if (rating >= 1000) {
     return (rating / 1000).toFixed(1) + "k";
   }
   return rating.toString();
@@ -28,11 +27,9 @@ export const fixSlug = (name: string) => {
 export const formatDate = (y?: number, m?: number, d?: number) => {
   if (m && y && d) {
     return format(new Date(y, m - 1, d), "MMM d, yyyy");
-  }
-  else if (!d && m && y) {
+  } else if (!d && m && y) {
     return format(new Date(y, m - 1), "MMM yyyy");
-  }
-  else if (!d && !m && y) {
+  } else if (!d && !m && y) {
     return format(new Date(y), "yyyy");
   }
 };

@@ -7,9 +7,9 @@ export default defineEventHandler(async (event) => {
   };
 
   // Check cache
-  if (!process.dev) {
+  if (!import.meta.dev) {
     const cacheKey = new Request(reqURL, cloudflare.req);
-    // @ts-ignore
+    // @ts-expect-error
     const cache = caches.default;
     cacheManager = { cache, cacheKey };
     const response = await cache.match(cacheKey);
@@ -44,7 +44,7 @@ export default defineEventHandler(async (event) => {
     }
   });
 
-  if (data && !process.dev) {
+  if (data && !import.meta.dev) {
     console.info("Stored in cache!");
     cloudflare.context.waitUntil(cacheManager.cache.put(cacheManager.cacheKey, response.clone()));
   }

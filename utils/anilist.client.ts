@@ -57,11 +57,9 @@ export const getAnimeSlug = async(id: number) => {
 export const getList = async(type: string, options?: Record<string, any>) => {
   if (type === "new") {
     return await getNewlyReleased(options);
-  }
-  else if (type === "trending") {
+  } else if (type === "trending") {
     return await getPopular(options);
-  }
-  else if (type === "top-rated") {
+  } else if (type === "top-rated") {
     return await getTopRated(options);
   }
   return await getQuery(options);
