@@ -41,6 +41,7 @@ export default defineNuxtConfig({
     "@nuxtjs/sitemap",
     "@nuxtjs/google-fonts",
     "nuxt-primevue",
+    "@nuxt/eslint"
   ],
   runtimeConfig: {},
   features: {
