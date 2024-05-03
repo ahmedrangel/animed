@@ -51,7 +51,7 @@ onBeforeUnmount(() => {
       <template v-for="(va, j) of c.voiceActors" :key="j">
         <template v-if="va.languageV2 === currentLanguage">
           <div class="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-3">
-            <div class="d-flex align-items-start anime-row flex-wrap row-cols-auto g-2 bg-secondary rounded m-0">
+            <div class="d-flex align-items-start anime-row row-cols-auto g-2 bg-secondary rounded m-0 text-nowrap overflow-auto">
               <div class="col ps-0 mt-0" style="max-width: 100px;">
                 <img :src="c.node.image.large" class="img-fluid rounded-start" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
               </div>
