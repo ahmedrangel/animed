@@ -12,16 +12,16 @@ if (!exists) {
   });
 }
 const { data: data } = await useFetch("/api/explore?slug=" + slug) as Record<string, any>;
-const random_anime = useState("random-anime", () => null);
-
 const newlies = data.value.preview[0].data;
+const animes_with_banner = newlies.filter((el: Record<string, string>) => el.bannerImage);
 
-if (!random_anime.value) {
-  const animes_with_banner = newlies.filter((el: Record<string, string>) => el.bannerImage);
+const random_anime = useState(`random-anime-${slug}`, () => {
+  return animes_with_banner.length ? getRandomObject(animes_with_banner) : getRandomObject(newlies);
+});
+
+onBeforeUnmount(() => {
   random_anime.value = animes_with_banner.length ? getRandomObject(animes_with_banner) : getRandomObject(newlies);
-}
-
-const anime = random_anime.value;
+});
 
 useSeoMeta({
   title: data.value.category + " | Categories | " + SITE.name,
@@ -44,7 +44,7 @@ useHead({
 <template>
   <main>
     <section id="preview">
-      <ComponentBanner v-if="anime" :anime="anime" />
+      <ComponentBanner :anime="random_anime" />
       <ComponentPreviewList :data="data" />
     </section>
   </main>
