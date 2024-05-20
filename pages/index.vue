@@ -9,9 +9,7 @@ if (!random_anime.value) {
   random_anime.value = animes_with_banner.length ? getRandomObject(animes_with_banner) : getRandomObject(trendings);
 }
 
-onBeforeUnmount(() => {
-  random_anime.value = null;
-});
+const anime = random_anime.value;
 
 useSeoMeta({
   title: SITE.name,
@@ -34,7 +32,7 @@ useHead({
 <template>
   <main>
     <section id="preview">
-      <ComponentBanner v-if="random_anime" :anime="random_anime" />
+      <ComponentBanner v-if="anime" :anime="anime" />
       <ComponentPreviewList :data="data" />
     </section>
   </main>

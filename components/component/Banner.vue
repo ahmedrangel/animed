@@ -5,6 +5,11 @@ const props = defineProps({
 
 const description = fixDescription(props.anime?.description.replace(/<br>/g,""));
 const toRoute = `/a/${props.anime?.id}/${fixSlug(props.anime?.title?.romaji)}`;
+const random_anime = useState("random-anime", () => null);
+
+onBeforeRouteLeave(() => {
+  random_anime.value = null;
+});
 </script>
 
 <template>
