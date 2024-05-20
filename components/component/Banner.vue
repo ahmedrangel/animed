@@ -3,8 +3,6 @@ const props = defineProps({
   anime: { type: Object, required: true },
 });
 
-console.log(props.anime);
-
 const description = fixDescription(props.anime?.description.replace(/<br>/g,""));
 const toRoute = `/a/${props.anime?.id}/${fixSlug(props.anime?.title?.romaji)}`;
 </script>
