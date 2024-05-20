@@ -1,11 +1,13 @@
 <script setup lang="ts">
 const { data: data } = await useFetch("/api/explore/") as Record<string, any>;
-const popular = useState("random-anime", () => null);
+const random_anime = useState("random-anime", () => null);
+random_anime.value = null;
 
-const trendings = data.value.preview[data.value.preview.length - 1];
+const trendings = data.value.preview[data.value.preview.length - 1].data;
 
-if (!popular.value) {
-  popular.value = trendings.data[Math.floor(Math.random() * trendings.data.length - 1)];
+if (!random_anime.value) {
+  const animes_with_banner = trendings.filter((el: Record<string, string>) => el.bannerImage);
+    random_anime.value = animes_with_banner.length ? getRandomObject(animes_with_banner) : getRandomObject(trendings);
 }
 
 useSeoMeta({
@@ -29,7 +31,7 @@ useHead({
 <template>
   <main>
     <section id="preview">
-      <ComponentBanner v-if="popular" :anime="popular" />
+      <ComponentBanner v-if="random_anime" :anime="random_anime" />
       <ComponentPreviewList :data="data" />
     </section>
   </main>
