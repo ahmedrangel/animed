@@ -35,6 +35,7 @@ export default withNuxt([{
     "vue/html-closing-bracket-spacing": ["error", { "selfClosingTag": "always" }],
     "@typescript-eslint/no-explicit-any": ["off"],
     "@typescript-eslint/no-dynamic-delete": ["off"],
-    "@typescript-eslint/ban-ts-comment": ["off"]
+    "@typescript-eslint/ban-ts-comment": ["off"],
+    "vue/html-indent": ["error", 2]
   }
 }]);
