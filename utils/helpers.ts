@@ -82,4 +82,4 @@ export const fixSeoDescription = (text: string) => {
 
 export const getRandomObject = (obj: Record<string, any>) => {
   return obj[Math.floor(Math.random() * obj.length - 1)];
-}
+};
