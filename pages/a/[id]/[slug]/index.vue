@@ -117,8 +117,10 @@ useHead({
               <div v-if="anime.genres">
                 <h6 class="mb-2">
                   <span class="text-primary">Genres:</span>&nbsp;
-                  <span v-for="(genre, i) of anime.genres" :key="i">
-                    <span class="badge bg-secondary align-middle mx-1 fw-normal">{{ genre }}</span>
+                  <span v-for="(genre, i) of anime.genres" :key="i" class="mx-1">
+                    <NuxtLink :to="`/c/${fixSlug(genre)}`">
+                      <span class="badge bg-secondary align-middle fw-normal">{{ genre }}</span>
+                    </NuxtLink>
                   </span>
                 </h6>
               </div>
