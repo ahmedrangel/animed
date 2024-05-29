@@ -45,7 +45,7 @@ useHead({
   <main>
     <section id="preview">
       <ComponentBanner :anime="random_anime" />
-      <ComponentPreviewList :data="data" />
+      <ComponentPreviewList :data="data" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />
     </section>
   </main>
 </template>

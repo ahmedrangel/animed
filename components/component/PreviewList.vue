@@ -5,9 +5,9 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="px-2 pt-4 pt-lg-5 px-xl-5 w-100">
-    <div v-for="(d, i) of props.data.preview" :key="i" of data class="pb-5">
-      <div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <div v-for="(d, i) of props.data.preview" :key="i" of data :class="props.data.preview.length - 1 !== i ? 'pb-5' : ''">
+      <div v-if="d?.title" class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="mb-0">{{ d.title }}<span v-if="props.data.category">&nbsp;<NuxtLink :to="`/c/${fixSlug(props.data.category)}`">{{ props.data.category }}</NuxtLink></span></h3>
         <NuxtLink :to="d.route">
           <h6 class="mb-0 text-muted">Explore More</h6>

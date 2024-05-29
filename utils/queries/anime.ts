@@ -41,7 +41,7 @@ export const queryAnime = (options?: Record<string, any>) => {
       { streamingEpisodes: ["site", "title", "thumbnail", "url"] },
       { operation: "characters",
         variables: {
-          perPage: 9,
+          perPageCharacters: { name: "perPage", type: "Int", value: 9 },
           characterSort: { name: "sort", type: "[CharacterSort]", value: [Sort.ROLE, Sort.RELEVANCE, Sort.ID] }
         },
         fields: [
@@ -87,12 +87,11 @@ export const queryAnime = (options?: Record<string, any>) => {
       },
       { operation: "recommendations",
         variables: {
-          perPage: 6,
+          perPageRecommendation: { name: "perPage", type: "Int", value: 6 },
           recommendationSort: { name: "sort", type: "[RecommendationSort]", value: [Sort.RATING_DESC, Sort.ID] },
         },
         fields: [
           { nodes: [
-            "id",
             { mediaRecommendation: [
               "id",
               { title: ["romaji", "english", "native"] },

@@ -228,7 +228,7 @@ input:focus-visible {
   transition: .3s linear;
 }
 
-.scale-on-hover:hover {
+.scale-on-hover:hover, .episode-card:hover .scale-on-hover {
   transform: scale(1.1);
 }
 

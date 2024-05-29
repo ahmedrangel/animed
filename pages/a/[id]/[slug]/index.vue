@@ -37,6 +37,12 @@ const streamingEpisodes = sortEpisodes(anime?.streamingEpisodes)?.slice(0, 6) ||
 
 const seoDescription = fixSeoDescription(anime.description.replace(/<[^>]*>/g, "")).text;
 
+const recommendations = {
+  preview: [{
+    data: anime?.recommendations?.nodes?.map((r: Record<string, any>) => r.mediaRecommendation)
+  }]
+};
+
 useSeoMeta({
   title: anime.title.romaji + " | " + SITE.name,
   description: seoDescription,
@@ -182,11 +188,11 @@ useHead({
             </div>
             <div class="d-flex justify-content-start align-items-start anime-row flex-wrap m-0 g-2">
               <template v-for="(ep, i) of streamingEpisodes" :key="i">
-                <a class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-2 mb-2 text-muted" :href="ep.url">
-                  <div class="bg-dark rounded">
-                    <div class="overflow-hidden position-relative rounded rounded-bottom-0">
+                <a class="episode-card col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-2 mb-2 text-white" :href="ep.url">
+                  <div class="bg-secondary text-white rounded">
+                    <div class="bg-dark overflow-hidden position-relative rounded rounded-bottom-0">
                       <img class="img-fluid rounded rounded-bottom-0 scale-on-hover w-100" :src="ep.thumbnail" :alt="ep.title" :title="ep.title">
-                      <span class="position-absolute top-50 start-50 translate-middle mb-0 invisible pe-none text-white"><Icon name="ci:external-link" /></span>
+                      <span class="position-absolute top-50 start-50 translate-middle mb-0 invisible pe-none"><Icon name="ci:external-link" /></span>
                     </div>
                     <h6 class="p-3 m-0 fw-normal">{{ ep.title }}</h6>
                   </div>
@@ -194,6 +200,11 @@ useHead({
               </template>
             </div>
           </div>
+          <hr class="my-5">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="mb-0">Recommendations</h2>
+          </div>
+          <ComponentPreviewList :data="recommendations" />
         </div>
       </div>
     </section>
