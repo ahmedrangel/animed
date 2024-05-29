@@ -202,7 +202,7 @@ useHead({
           </div>
           <hr class="my-5">
           <div class="d-flex justify-content-between align-items-center mb-2">
-            <h2 class="mb-0">Recommendations</h2>
+            <h2 class="mb-2">Recommendations</h2>
           </div>
           <ComponentPreviewList :data="recommendations" />
         </div>
