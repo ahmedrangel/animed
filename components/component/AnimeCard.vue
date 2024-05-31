@@ -9,7 +9,7 @@ const anime = props.data;
 <template>
   <NuxtLink :to="`/a/${anime.id}/${fixSlug(anime.title.romaji)}`" class="text-white">
     <div class="position-relative">
-      <span v-if="anime.status === 'RELEASING'" class="badge bg-dark position-absolute top-0 end-0 z-1 p-1 mt-1 me-1 d-flex align-items-center">
+      <span v-if="anime.status === 'RELEASING'" class="pe-none badge bg-dark position-absolute top-0 end-0 z-1 p-1 mt-1 me-1 d-flex align-items-center">
         <Icon name="ph:circle-fill" class="me-1 text-danger" />
         <span>Airing</span>
       </span>
