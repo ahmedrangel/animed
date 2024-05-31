@@ -14,11 +14,13 @@ const props = defineProps({
         </NuxtLink>
       </div>
       <div class="d-flex overflow-auto">
-        <div v-for="(anime, j) of d.data" :key="j" class="col-lg-2 col-sm-3 col-6 mb-3">
-          <div :class="j === 0 ? 'me-1' : 'mx-1'">
-            <ComponentAnimeCard :data="anime" />
+        <template v-for="(anime, j) of d.data" :key="j">
+          <div v-if="anime" class="col-lg-2 col-sm-3 col-6 mb-3">
+            <div :class="j === 0 ? 'me-1' : 'mx-1'">
+              <ComponentAnimeCard :data="anime" />
+            </div>
           </div>
-        </div>
+        </template>
       </div>
     </div>
   </div>
