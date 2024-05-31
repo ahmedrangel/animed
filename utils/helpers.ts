@@ -83,3 +83,10 @@ export const fixSeoDescription = (text: string) => {
 export const getRandomObject = (obj: Record<string, any>) => {
   return obj[Math.floor(Math.random() * obj.length - 1)];
 };
+
+export const fixEpisodeTitle = (text: string) => {
+  const spliced = text.split(" - ");
+  const episode = spliced[0].replace("Episode", "EP");
+  const title = spliced[1];
+  return { episode, title };
+};
