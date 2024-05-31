@@ -17,9 +17,11 @@ const ep = props.data;
         <span class="text-primary">
           {{ fixEpisodeTitle(ep.title).episode }}
         </span>
-        <span class="text-muted">&nbsp;-&nbsp;</span>
-        <span>
-          {{ fixEpisodeTitle(ep.title).title }}
+        <span v-if="fixEpisodeTitle(ep.title).title">
+          <span class="text-muted">&nbsp;-&nbsp;</span>
+          <span>
+            {{ fixEpisodeTitle(ep.title).title }}
+          </span>
         </span>
       </h6>
     </div>

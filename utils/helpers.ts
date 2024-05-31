@@ -55,8 +55,12 @@ export const fixDescription = (text: string) => {
 
 export const sortEpisodes = (episodes: any[]) => {
   episodes?.sort((a, b) => {
-    const episodeA = parseInt(a?.title.match(/\d+/g)[0]);
-    const episodeB = parseInt(b?.title.match(/\d+/g)[0]);
+    const matchA = a?.title.match(/\d+/g);
+    const matchB = b?.title.match(/\d+/g);
+
+    const episodeA = matchA ? parseInt(matchA[0]) : Number.MIN_SAFE_INTEGER;
+    const episodeB = matchB ? parseInt(matchB[0]) : Number.MIN_SAFE_INTEGER;
+
     return episodeB - episodeA;
   });
   return episodes;
