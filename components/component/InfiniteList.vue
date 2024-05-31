@@ -35,24 +35,10 @@ onBeforeUnmount(() => {
       <h3 class="mb-0">{{ result.title }}&nbsp;<NuxtLink :to="`/c/${fixSlug(result.category)}`">{{ result.category }}</NuxtLink></h3>
     </div>
     <div class="d-flex flex-wrap p-0 justify-content-start anime-row g-1">
-      <template v-for="(d, i) of result?.media" :key="i">
+      <template v-for="(anime, i) of result?.media" :key="i">
         <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2 d-flex justify-content-center">
           <div class="mb-1 w-100" :class="i === 0 ? 'me-1' : 'mx-1'">
-            <NuxtLink :to="`/a/${d.id}/${fixSlug(d.title.romaji)}`" class="text-white">
-              <div class="image overflow-hidden mb-2 w-100 position-relative">
-                <img class="img-fluid scale-on-hover h-100 w-100 top-0 left-0 position-absolute object-fit-cover" :src="d.coverImage.extraLarge" width="280">
-              </div>
-              <h6 class="mb-1 fw-normal">{{ d.title.english ? d.title.english : d.title.romaji }} <span class="badge bg-secondary align-middle">{{ d.format.replace(/_/g," ") }}</span></h6>
-            </NuxtLink>
-            <small class="text-muted d-block mb-1 fw-light">{{ d.title.romaji }}</small>
-            <small class="d-block mb-1 text-primary">{{ d.startDate.year ? formatDate(d.startDate.year, d.startDate.month, d.startDate.day) : "TBA" }}</small>
-            <div class="d-flex align-items-center position-relative">
-              <div class="stars d-flex align-items-center" style="height: 16px;">
-                <img class="position-absolute" src="/images/stars.webp" width="80" style="opacity: 0.5">
-                <img src="/images/stars-filled.webp" width="80" :style="{'clip-path': 'inset(0px ' + (100-d.averageScore) + '% 0px 0px) '}">
-              </div>
-              <small class="ms-2 mb-0 text-white">{{ getRating(d.averageScore) }}</small>
-            </div>
+            <ComponentAnimeCard :data="anime" />
           </div>
         </div>
         <span v-if="i === result.media.length - 11" ref="lastRow" class="m-0 p-0" />

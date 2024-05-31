@@ -48,7 +48,6 @@ export const queryAnime = (options?: Record<string, any>) => {
           { edges: [
             "id",
             "role",
-            "name",
             { node: [
               "id",
               { name: ["userPreferred"] },
@@ -96,6 +95,7 @@ export const queryAnime = (options?: Record<string, any>) => {
               "id",
               { title: ["romaji", "english", "native"] },
               "format",
+              "status",
               { startDate: ["year", "month", "day"] },
               { coverImage: ["extraLarge"] },
               "averageScore"
