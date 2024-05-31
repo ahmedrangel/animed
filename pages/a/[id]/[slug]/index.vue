@@ -35,7 +35,7 @@ externalLinks.sort((a: Record<string, string>, b: Record<string, string>) => {
 
 const streamingEpisodes = sortEpisodes(anime?.streamingEpisodes)?.slice(0, 6) || [];
 
-const seoDescription = fixSeoDescription(anime.description.replace(/<[^>]*>/g, "")).text;
+const seoDescription = fixSeoDescription(anime?.description?.replace(/<[^>]*>/g, "") || "").text;
 
 const recommendations = {
   preview: [{
