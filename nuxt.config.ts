@@ -14,7 +14,8 @@ export default defineNuxtConfig({
         lang: "en"
       },
       meta: [
-        { name: "robots", content: "index, follow" }
+        { name: "robots", content: "index, follow" },
+        { property: "og:ttl", content: "604800" }
       ],
       link : [
         { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
