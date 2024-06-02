@@ -1,3 +1,5 @@
+import { sleep } from "~/server/utils/helpers";
+
 export default defineEventHandler(async (event) => {
   const { cloudflare } = event.context;
   const { href: reqURL } = getRequestURL(event);
@@ -25,7 +27,9 @@ export default defineEventHandler(async (event) => {
   const cat_type = categories.find((c) => fixSlug(c.name) === slug)?.type || null;
   const option = slug ? cat_type === "genre" ? { genres: [cat_title] } : { tags: [cat_title] } : null;
   const popular = await getPopular(option) as Record<string, any>;
+  await sleep(200);
   const rated = await getTopRated(option) as Record<string, any>;
+  await sleep(200);
   const newly = await getNewlyReleased(option) as Record<string, any>;
   const data = {
     preview: [
