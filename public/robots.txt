@@ -1,4 +1,5 @@
 User-agent: *
+Crawl-Delay: 43200
 Disallow:
 
 Sitemap: https://animed.ahmedrangel.com/sitemap.xml
