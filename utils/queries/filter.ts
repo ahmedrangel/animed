@@ -12,7 +12,7 @@ export const queryFilter = (options?: Record<string, any>) => {
       perPage: { type: "Int", value: 20 }
     },
     fields: [
-      { pageInfo: ["total", "perPage", "currentPage", "lastPage", "hasNextPage"] },
+      { pageInfo: ["hasNextPage"] },
       { operation: "media",
         variables: {
           type: { type: "MediaType", value: "ANIME" },

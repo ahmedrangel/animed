@@ -94,3 +94,9 @@ export const fixEpisodeTitle = (text: string) => {
   const title = spliced[1];
   return { episode, title };
 };
+
+export const fixStaffDescription = (text: string) => {
+  return text
+    .replaceAll("https://anilist.co/anime", "/a")
+    .replaceAll("https://anilist.co/staff", "/p");
+};

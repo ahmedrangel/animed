@@ -141,7 +141,7 @@ export const queryAnimeCharacters = (options?: Record<string, any>) => {
           characterSort: { name: "sort", type: "[CharacterSort]", value: [Sort.ROLE, Sort.RELEVANCE, Sort.ID] }
         },
         fields: [
-          { pageInfo: ["total", "perPage", "currentPage", "lastPage", "hasNextPage"] },
+          { pageInfo: ["hasNextPage"] },
           { edges: [
             "id",
             "role",

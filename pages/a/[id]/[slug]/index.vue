@@ -169,7 +169,9 @@ useHead({
                     <small class="text-capitalize">{{ c.role.toLowerCase() }}</small>
                   </div>
                   <div class="col text-end mt-0 py-1">
-                    <small class="d-block">{{ c.voiceActors[0]?.name.userPreferred }}</small>
+                    <small v-if="c.voiceActors[0]" class="d-block">
+                      <NuxtLink :to="`/p/${c.voiceActors[0]?.id}/${fixSlug(c.voiceActors[0]?.name.userPreferred)}`">{{ c.voiceActors[0]?.name.userPreferred }}</NuxtLink>
+                    </small>
                     <small class="text-capitalize text-muted">{{ c.voiceActors[0]?.languageV2 }}</small>
                   </div>
                   <div class="col pe-0 mt-0">
