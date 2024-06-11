@@ -60,7 +60,9 @@ onBeforeUnmount(() => {
                 <small class="text-capitalize">{{ c.role.toLowerCase() }}</small>
               </div>
               <div class="col text-end mt-0 py-1">
-                <small class="d-block">{{ va.name.userPreferred }}</small>
+                <small v-if="va.name.userPreferred" class="d-block">
+                  <NuxtLink :to="`/p/${va.id}/${fixSlug(va.name.userPreferred)}`">{{ va.name.userPreferred }}</NuxtLink>
+                </small>
                 <small class="text-capitalize text-muted">{{ va.languageV2 }}</small>
               </div>
               <div class="col pe-0 mt-0">
