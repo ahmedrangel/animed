@@ -75,5 +75,6 @@ export const queryStaffSlug = (id: number) => {
       { name: ["userPreferred"] }
     ]
   });
+  console.log(query);
   return JSON.stringify(query);
 };

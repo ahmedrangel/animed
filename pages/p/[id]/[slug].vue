@@ -1,49 +1,43 @@
 <script setup lang="ts">
 const { params } = useRoute();
 const { id, slug } = params;
-const staff = ref();
+const { data: data } = await useFetch("/api/people/" + id) as Record<string, any>;
 
-onMounted(async() => {
-  const response = await getStaff({ id }).catch(() => null);
-  const data = response?.data?.Staff;
-
-  const _slug = fixSlug(data?.name?.userPreferred) || null;
-  if (String(slug).toLowerCase() !== _slug || !data) {
-    throw createError({
-      statusCode: 404,
-      message: `People not found: '${_slug || id}'`,
-      fatal: true
-    });
-  }
-
-  staff.value = data;
-
-  useSeoMeta({
-    title: staff.value.name.userPreferred + " | " + SITE.name,
-    description: staff.value.name.userPreferred,
-    // Open Graph
-    ogType: "website",
-    ogTitle: staff.value.name.userPreferred + " | " + SITE.name,
-    ogDescription: staff.value.name.userPreferred,
-    ogSiteName: SITE.name,
-    ogUrl: SITE.url + `/p/${id}/${slug}`,
-    ogImage: staff.value.image.large,
-    // Twitter
-    twitterCard: "summary",
-    twitterTitle: staff.value.name.userPreferred + " | " + SITE.name,
-    twitterDescription: staff.value.name.userPreferred
+const _slug = fixSlug(data.value.name.userPreferred);
+if (String(slug).toLowerCase() !== _slug) {
+  throw createError({
+    statusCode: 404,
+    message: `People not found: '${slug}'`,
+    fatal: true
   });
+}
 
-  useHead({
-    link: [{ rel: "canonical", href: SITE.url + `/p/${id}/${slug}` }]
-  });
+const staff = data.value;
+
+useSeoMeta({
+  title: staff.name.userPreferred + " | " + SITE.name,
+  description: staff.name.userPreferred,
+  // Open Graph
+  ogType: "website",
+  ogTitle: staff.name.userPreferred + " | " + SITE.name,
+  ogDescription: staff.name.userPreferred,
+  ogSiteName: SITE.name,
+  ogUrl: SITE.url + `/p/${id}/${slug}`,
+  ogImage: staff.image.large,
+  // Twitter
+  twitterCard: "summary",
+  twitterTitle: staff.name.userPreferred + " | " + SITE.name,
+  twitterDescription: staff.name.userPreferred
+});
+
+useHead({
+  link: [{ rel: "canonical", href: SITE.url + `/p/${id}/${slug}` }]
 });
 </script>
 
 <template>
   <main>
-    <ComponentLoadingSpinner v-if="!staff" class="my-5" />
-    <section v-else id="people-page">
+    <section id="people-page">
       <div class="col px-0 pb-5">
         <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
           <div class="pt-4 px-0">
