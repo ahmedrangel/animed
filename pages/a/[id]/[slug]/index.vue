@@ -1,72 +1,82 @@
 <script setup lang="ts">
+import { Language } from "~/enums/anilist";
+
 const { params } = useRoute();
 const { id, slug } = params;
-const { data: data } = await useFetch("/api/anime/" + id) as Record<string, any>;
+const anime = ref();
+const streamingEpisodes = ref();
+const recommendations = ref();
+const externalLinks = ref();
 
-const _slug = fixSlug(data.value.title.romaji);
-if (String(slug).toLowerCase() !== _slug) {
-  throw createError({
-    statusCode: 404,
-    message: `Anime not found: '${slug}'`,
-    fatal: true
+onMounted(async() => {
+  const response = await getAnimeInfo({ id, language: Language.JAPANESE }).catch(() => null);
+  const data = response?.data?.Media;
+  anime.value = data;
+
+  const _slug = fixSlug(data?.title?.romaji) || null;
+  if (String(slug).toLowerCase() !== _slug || !data) {
+    throw createError({
+      statusCode: 404,
+      message: `Anime not found: '${_slug || id}'`,
+      fatal: true
+    });
+  }
+
+  externalLinks.value = anime.value.externalLinks
+    .filter((e: { site: string; }) => {
+      const site = e?.site.toLowerCase();
+      return site !== "youtube" && site !== "funimation";
+    });
+
+  if (anime.value.idMal) {
+    externalLinks.value.unshift({
+      color: "#2e51a2",
+      icon: "/images/mal.png",
+      site: "MyAnimeList",
+      url: "https://myanimelist.net/anime/" + anime.value.idMal
+    });
+  }
+
+  externalLinks.value.sort((a: Record<string, string>, b: Record<string, string>) => {
+    return a?.site === "Official Site" ? -1 : b?.site === "Official Site" ? 1 : 0;
   });
-}
 
-const anime = data.value;
+  streamingEpisodes.value = sortEpisodes(anime.value?.streamingEpisodes)?.slice(0, 6) || [];
 
-const externalLinks = anime.externalLinks
-  .filter((e: { site: string; }) => {
-    const site = e?.site.toLowerCase();
-    return site !== "youtube" && site !== "funimation";
+  const seoDescription = fixSeoDescription(anime.value?.description?.replace(/<[^>]*>/g, "") || "").text;
+
+  recommendations.value = {
+    preview: [{
+      data: anime.value?.recommendations?.nodes?.map((r: Record<string, any>) => r.mediaRecommendation)
+    }]
+  };
+
+  useSeoMeta({
+    title: anime.value.title.romaji + " | " + SITE.name,
+    description: seoDescription,
+    // Open Graph
+    ogType: "website",
+    ogTitle: anime.value.title.romaji + " | " + SITE.name,
+    ogDescription: seoDescription,
+    ogSiteName: SITE.name,
+    ogUrl: SITE.url + `/a/${id}/${slug}`,
+    ogImage: anime.value?.coverImage?.extraLarge,
+    // Twitter
+    twitterCard: "summary",
+    twitterTitle: anime.value.title.romaji + " | " + SITE.name,
+    twitterDescription: seoDescription
   });
 
-if (anime.idMal) {
-  externalLinks.unshift({
-    color: "#2e51a2",
-    icon: "/images/mal.png",
-    site: "MyAnimeList",
-    url: "https://myanimelist.net/anime/" + anime.idMal
+  useHead({
+    link: [{ rel: "canonical", href: SITE.url + `/a/${id}/${slug}` }]
   });
-}
-
-externalLinks.sort((a: Record<string, string>, b: Record<string, string>) => {
-  return a?.site === "Official Site" ? -1 : b?.site === "Official Site" ? 1 : 0;
-});
-
-const streamingEpisodes = sortEpisodes(anime?.streamingEpisodes)?.slice(0, 6) || [];
-
-const seoDescription = fixSeoDescription(anime?.description?.replace(/<[^>]*>/g, "") || "").text;
-
-const recommendations = {
-  preview: [{
-    data: anime?.recommendations?.nodes?.map((r: Record<string, any>) => r.mediaRecommendation)
-  }]
-};
-
-useSeoMeta({
-  title: anime.title.romaji + " | " + SITE.name,
-  description: seoDescription,
-  // Open Graph
-  ogType: "website",
-  ogTitle: anime.title.romaji + " | " + SITE.name,
-  ogDescription: seoDescription,
-  ogSiteName: SITE.name,
-  ogUrl: SITE.url + `/a/${id}/${slug}`,
-  ogImage: anime?.coverImage?.extraLarge,
-  // Twitter
-  twitterCard: "summary",
-  twitterTitle: anime.title.romaji + " | " + SITE.name,
-  twitterDescription: seoDescription
-});
-
-useHead({
-  link: [{ rel: "canonical", href: SITE.url + `/a/${id}/${slug}` }]
 });
 </script>
 
 <template>
   <main>
-    <section id="anime-page">
+    <ComponentLoadingSpinner v-if="!anime" class="my-5" />
+    <section v-else id="anime-page">
       <div class="col px-0 pb-5">
         <ComponentBanner2 v-if="anime" :anime="anime" />
         <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
