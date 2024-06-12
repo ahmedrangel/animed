@@ -29,8 +29,6 @@ export const queryExplore = (options?: Record<string, any> | null) => {
             "description",
             "format",
             "status",
-            "episodes",
-            "isAdult",
             "averageScore",
             { trailer: ["id", "site"] }
           ]
