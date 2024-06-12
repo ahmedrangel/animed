@@ -2,6 +2,7 @@ import { queryAnime, queryAnimeCharacters, queryAnimeSlug, queryAnimeEpisodes } 
 import { queryFilter } from "./queries/filter";
 import { API, Sort, Status } from "../enums/anilist";
 import { queryStaff, queryStaffSlug } from "./queries/staff";
+import { queryExplore } from "./queries/explore";
 
 export const getQuery = async(options?: Record<string, any> | null) => {
   const { data } = await $fetch(API.GRAPHQL, {
@@ -85,7 +86,7 @@ export const getAnimeEpisodes = async(options?: Record<string, any>) => {
 export const getStaff = async (options?: Record<string, any>) => {
   const { data } = await $fetch(API.GRAPHQL, {
     method: "POST",
-    body: queryStaff(options)
+    body: queryStaff({ ...options })
   }).catch((e) => console.info(e)) as Record<string, any>;
   return { data };
 };
@@ -96,4 +97,18 @@ export const getStaffSlug = async (id: number) => {
     body: queryStaffSlug(id)
   }).catch((e) => console.info(e)) as Record<string, any>;
   return data;
+};
+
+export const getExplore = async (options?: Record<string, any> | null) => {
+  const { data } = await $fetch(API.GRAPHQL, {
+    method: "POST",
+    body: queryExplore(options)
+  }).catch((e) => console.info(e)) as Record<string, any>;
+  data.newly.title = "Newly Released";
+  data.newly.route = `/c/new${options?.slug ? `/${options.slug}` : ""}`;
+  data.trending.title = "Trending";
+  data.trending.route = `/c/trending${options?.slug ? `/${options.slug}` : ""}`;
+  data.top.title = "Top Rated";
+  data.top.route = `/c/top-rated${options?.slug ? `/${options.slug}` : ""}`;
+  return { preview: data, category: options?.category };
 };

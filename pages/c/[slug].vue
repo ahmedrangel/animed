@@ -12,7 +12,7 @@ if (!exists) {
   });
 }
 const { data: data } = await useFetch("/api/explore?slug=" + slug) as Record<string, any>;
-const newlies = data.value.preview[0].data;
+const newlies = data.value.preview.newly.media;
 const animes_with_banner = newlies.filter((el: Record<string, string>) => el.bannerImage);
 
 const random_anime = useState(`random-anime-${slug}`, () => {

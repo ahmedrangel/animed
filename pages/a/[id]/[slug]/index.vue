@@ -38,9 +38,11 @@ const streamingEpisodes = sortEpisodes(anime?.streamingEpisodes)?.slice(0, 6) ||
 const seoDescription = fixSeoDescription(anime?.description?.replace(/<[^>]*>/g, "") || "").text;
 
 const recommendations = {
-  preview: [{
-    data: anime?.recommendations?.nodes?.map((r: Record<string, any>) => r.mediaRecommendation)
-  }]
+  preview: {
+    recommendations: {
+      media: anime?.recommendations?.nodes?.map((r: Record<string, any>) => r.mediaRecommendation)
+    }
+  }
 };
 
 useSeoMeta({

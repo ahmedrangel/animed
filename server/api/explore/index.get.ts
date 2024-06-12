@@ -1,4 +1,4 @@
-import { sleep } from "~/server/utils/helpers";
+import { getExplore } from "~/utils/anilist.client";
 
 export default defineEventHandler(async (event) => {
   const { cloudflare } = event.context;
@@ -25,21 +25,8 @@ export default defineEventHandler(async (event) => {
   const { slug } = getQuery(event);
   const cat_title = categories.find((c) => fixSlug(c.name) === slug)?.name || null;
   const cat_type = categories.find((c) => fixSlug(c.name) === slug)?.type || null;
-  const option = slug ? cat_type === "genre" ? { genres: [cat_title] } : { tags: [cat_title] } : null;
-  const popular = await getPopular(option) as Record<string, any>;
-  await sleep(200);
-  const rated = await getTopRated(option) as Record<string, any>;
-  await sleep(200);
-  const newly = await getNewlyReleased(option) as Record<string, any>;
-  const data = {
-    preview: [
-      { title: newly.data.title, data: newly.data.media, route: `/c/new${slug ? `/${slug}` : ""}` },
-      { title: rated.data.title, data: rated.data.media, route: `/c/top-rated${slug ? `/${slug}` : ""}` },
-      { title: popular.data.title, data: popular.data.media, route: `/c/trending${slug ? `/${slug}` : ""}` },
-    ]
-  } as Record<string, any>;
-  data.category = cat_title || null;
-
+  const option = slug ? cat_type === "genre" ? { genres: [cat_title], slug, category: cat_title } : { tags: [cat_title], slug, category: cat_title } : null as Record<string, any> | null;
+  const data = await getExplore(option) as Record<string, any>;
   const response = new Response(JSON.stringify(data), {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
