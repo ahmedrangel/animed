@@ -95,7 +95,7 @@ useHead({
               </div>
               <div class="d-flex justify-content-start align-items-start anime-row flex-wrap m-0">
                 <h6 v-if="anime.status" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
-                  <span class="text-primary">Status:</span>&nbsp; {{ anime.status.toLowerCase() }}
+                  <span class="text-primary">Status:</span>&nbsp; {{ anime.status.toLowerCase().replace(/_/g," ") }}
                 </h6>
                 <h6 v-if="anime.startDate?.year" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0">
                   <span class="text-primary">Release Date:</span>&nbsp; {{ anime.startDate.year ? formatDate(anime.startDate.year, anime.startDate.month, anime.startDate.day) : "TBA" }}
