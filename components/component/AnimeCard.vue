@@ -10,7 +10,7 @@ const anime = props.data;
   <NuxtLink :to="`/a/${anime.id}/${fixSlug(anime.title.romaji)}`" class="text-white">
     <div class="position-relative">
       <span v-if="anime.status === 'RELEASING'" class="pe-none badge bg-dark position-absolute top-0 end-0 z-1 p-1 mt-1 me-1 d-flex align-items-center">
-        <ComponentGrowingSpinner class="me-1 text-danger" style="width: 1em; height: 1em;" />
+        <ComponentGrowingSpinner class="me-1 text-danger" style="width: 1em; height: 1em; animation-duration: 1.4s;" />
         <span>Airing</span>
       </span>
       <div class="image overflow-hidden mb-2 w-100 position-relative">
