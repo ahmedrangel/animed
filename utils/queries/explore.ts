@@ -16,7 +16,7 @@ export const queryExplore = (options?: Record<string, any> | null) => {
             [`${options.alias}_format_in`]: { name: "format_in", type: "[MediaFormat]", value: [Format.TV, Format.OVA, Format.ONA, Format.TV_SHORT] },
             [`${options.alias}_sort`]: { name: "sort", type: "[MediaSort]", value: options?.sort },
             [`${options.alias}_status_in`]: { name: "status_in", type: "[MediaStatus]", value: options?.status_in },
-            [`${options.alias}_licensedById_in`]: { name: "licensedById_in", type: "[Int]", value: [Licensor.CRUNCHYROLL, Licensor.HULU, Licensor.NETFLIX, Licensor.HIDIVE] },
+            [`${options.alias}_licensedById_in`]: { name: "licensedById_in", type: "[Int]", value: [Licensor.CRUNCHYROLL, Licensor.HULU, Licensor.NETFLIX, Licensor.HIDIVE, Licensor.AMAZON] },
             [`${options.alias}_genre_in`]: { name: "genre_in", type: "[String]", value: options?.genres },
             [`${options.alias}_tag_in`]: { name: "tag_in", type: "[String]", value: options?.tags }
           },

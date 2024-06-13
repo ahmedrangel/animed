@@ -56,6 +56,17 @@ export const getAnimeSlug = async(id: number) => {
   return data;
 };
 
+export const getUpcoming = async(options?: Record<string, any> | null) => {
+  const todayYear = new Date().getFullYear();
+  const { data } = await $fetch(API.GRAPHQL, {
+    method: "POST",
+    body: queryFilter({ ...options, sort: Sort.START_DATE, status_in: [Status.NOT_YET_RELEASED], startDate_greater: `${todayYear}0000` })
+  }).catch((e) => console.info(e)) as Record<string, any>;
+  data.Page.title = "Upcoming";
+  data.Page.route = `/c/upcoming${options?.slug ? `/${options.slug}` : ""}`;
+  return { data: data.Page };
+};
+
 export const getList = async(type: string, options?: Record<string, any>) => {
   if (type === "new") {
     return await getNewlyReleased(options);
@@ -63,6 +74,8 @@ export const getList = async(type: string, options?: Record<string, any>) => {
     return await getPopular(options);
   } else if (type === "top-rated") {
     return await getTopRated(options);
+  } else if (type === "upcoming") {
+    return await getUpcoming(options);
   }
   return await getQuery(options);
 };

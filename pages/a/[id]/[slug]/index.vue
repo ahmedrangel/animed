@@ -198,11 +198,13 @@ useHead({
               </template>
             </div>
           </div>
-          <hr class="my-5">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <h2 class="mb-2">Recommendations</h2>
-          </div>
-          <ComponentPreviewList :data="recommendations" />
+          <template v-if="recommendations.preview.recommendations.media.length">
+            <hr class="my-5">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h2 class="mb-2">Recommendations</h2>
+            </div>
+            <ComponentPreviewList :data="recommendations" />
+          </template>
         </div>
       </div>
     </section>

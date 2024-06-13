@@ -39,6 +39,18 @@ useSeoMeta({
 useHead({
   link: [{ rel: "canonical", href: SITE.url + `/c/${slug}` }]
 });
+
+const upcoming = ref();
+const loading = ref();
+
+onMounted(async() => {
+  const cat_title = categories.find((c) => fixSlug(c.name) === slug)?.name || null;
+  const cat_type = categories.find((c) => fixSlug(c.name) === slug)?.type || null;
+  const option = slug ? cat_type === "genre" ? { genres: [cat_title], slug } : { tags: [cat_title], slug } : null;
+  loading.value = true;
+  upcoming.value = { preview: await getUpcoming(option) };
+  loading.value = false;
+});
 </script>
 
 <template>
@@ -46,6 +58,8 @@ useHead({
     <section id="preview">
       <ComponentBanner :anime="random_anime" />
       <ComponentPreviewList :data="data" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />
+      <ComponentPreviewList v-if="upcoming" :data="upcoming" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />
+      <ComponentLoadingSpinner v-if="loading" />
     </section>
   </main>
 </template>

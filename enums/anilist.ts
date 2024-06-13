@@ -19,6 +19,7 @@ export enum Sort {
   TRENDING_DESC = "TRENDING_DESC",
   POPULARITY_DESC = "POPULARITY_DESC",
   SEARCH_MATCH = "SEARCH_MATCH",
+  START_DATE = "START_DATE",
   START_DATE_DESC = "START_DATE_DESC",
   SCORE_DESC = "SCORE_DESC",
   ROLE = "ROLE",
@@ -31,7 +32,8 @@ export enum Licensor {
   CRUNCHYROLL = 5,
   HULU = 7,
   NETFLIX = 10,
-  HIDIVE = 20
+  HIDIVE = 20,
+  AMAZON = 21,
 }
 
 export enum Language {

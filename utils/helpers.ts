@@ -30,7 +30,7 @@ export const formatDate = (y?: number, m?: number, d?: number) => {
   } else if (!d && m && y) {
     return format(new Date(y, m - 1), "MMM yyyy");
   } else if (!d && !m && y) {
-    return format(new Date(y), "yyyy");
+    return y;
   }
 };
 

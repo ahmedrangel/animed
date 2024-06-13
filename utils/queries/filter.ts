@@ -20,9 +20,11 @@ export const queryFilter = (options?: Record<string, any>) => {
           sort: { type: "[MediaSort]", value: options?.sort },
           status_in: { type: "[MediaStatus]", value: options?.status_in },
           search: options?.search,
-          licensedById_in: { type: "[Int]", value: [Licensor.CRUNCHYROLL, Licensor.HULU, Licensor.NETFLIX, Licensor.HIDIVE] },
+          licensedById_in: { type: "[Int]", value: [Licensor.CRUNCHYROLL, Licensor.HULU, Licensor.NETFLIX, Licensor.HIDIVE, Licensor.AMAZON] },
           genre_in: { type: "[String]", value: options?.genres },
-          tag_in: { type: "[String]", value: options?.tags }
+          tag_in: { type: "[String]", value: options?.tags },
+          startDate_greater: { type: "FuzzyDateInt", value: options?.startDate_greater },
+          startDate_lesser: { type: "FuzzyDateInt", value: options?.startDate_lesser }
         },
         fields: [
           "id",

@@ -28,6 +28,15 @@ useSeoMeta({
 useHead({
   link: [{ rel: "canonical", href: SITE.url }]
 });
+
+const upcoming = ref();
+const loading = ref();
+
+onMounted(async() => {
+  loading.value = true;
+  upcoming.value = { preview: await getUpcoming() };
+  loading.value = false;
+});
 </script>
 
 <template>
@@ -35,6 +44,8 @@ useHead({
     <section id="preview">
       <ComponentBanner :anime="random_anime" />
       <ComponentPreviewList :data="data" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />
+      <ComponentPreviewList v-if="upcoming" :data="upcoming" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />
+      <ComponentLoadingSpinner v-if="loading" />
     </section>
   </main>
 </template>
