@@ -46,7 +46,7 @@ export const getProducers = (studios: Record<string, any>) => {
 
 export const fixDescription = (text: string) => {
   const limit = 1000;
-  if (text.length > limit) {
+  if (text?.length > limit) {
     text = text.substring(0, limit) + "...";
     return { text: text as string, more: true as boolean };
   }
@@ -77,7 +77,7 @@ export const noVaInLanguage = (actors: Array<Record<string, any>>, language: str
 
 export const fixSeoDescription = (text: string) => {
   const limit = 300;
-  if (text.length > limit) {
+  if (text?.length > limit) {
     text = text.substring(0, limit) + "...";
     return { text: text as string, more: true as boolean };
   }
@@ -85,7 +85,7 @@ export const fixSeoDescription = (text: string) => {
 };
 
 export const getRandomObject = (obj: Record<string, any>) => {
-  return obj[Math.floor(Math.random() * obj.length - 1)];
+  return obj[Math.floor(Math.random() * obj?.length - 1)];
 };
 
 export const fixEpisodeTitle = (text: string) => {

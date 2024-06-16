@@ -223,7 +223,7 @@ onMounted(async() => {
               </template>
             </div>
           </div>
-          <template v-if="recommendations.preview.recommendations.media.length">
+          <template v-if="recommendations.preview?.recommendations?.media?.length">
             <hr class="my-5">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <h2 class="mb-2">Recommendations</h2>

@@ -16,11 +16,11 @@ const newlies = data.value.preview.newly.media;
 const animes_with_banner = newlies.filter((el: Record<string, string>) => el.bannerImage);
 
 const random_anime = useState(`random-anime-${slug}`, () => {
-  return animes_with_banner.length ? getRandomObject(animes_with_banner) : getRandomObject(newlies);
+  return animes_with_banner?.length ? getRandomObject(animes_with_banner) : getRandomObject(newlies);
 });
 
 onBeforeUnmount(() => {
-  random_anime.value = animes_with_banner.length ? getRandomObject(animes_with_banner) : getRandomObject(newlies);
+  random_anime.value = animes_with_banner?.length ? getRandomObject(animes_with_banner) : getRandomObject(newlies);
 });
 
 useSeoMeta({
