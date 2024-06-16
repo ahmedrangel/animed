@@ -14,14 +14,14 @@ if (String(slug).toLowerCase() !== _slug) {
 
 const anime = data.value;
 
-const externalLinks = anime.externalLinks
+const externalLinks = ref(anime.externalLinks
   .filter((e: { site: string; }) => {
     const site = e?.site.toLowerCase();
     return site !== "youtube" && site !== "funimation";
-  });
+  }));
 
 if (anime.idMal) {
-  externalLinks.unshift({
+  externalLinks.value.unshift({
     color: "#2e51a2",
     icon: "/images/mal.png",
     site: "MyAnimeList",
@@ -29,7 +29,7 @@ if (anime.idMal) {
   });
 }
 
-externalLinks.sort((a: Record<string, string>, b: Record<string, string>) => {
+externalLinks.value.sort((a: Record<string, string>, b: Record<string, string>) => {
   return a?.site === "Official Site" ? -1 : b?.site === "Official Site" ? 1 : 0;
 });
 
@@ -63,6 +63,30 @@ useSeoMeta({
 
 useHead({
   link: [{ rel: "canonical", href: SITE.url + `/a/${id}/${slug}` }]
+});
+
+const loading_aflv = ref(false);
+
+onMounted(async() => {
+  loading_aflv.value = true;
+  const animeflv = await aflvSearch(data.value?.title?.english || data.value?.title?.native);
+  for (const aflv of animeflv) {
+    if (aflv.type === "Anime" &&
+    (
+      aflv?.slug?.replace("-tv", "") === slug ||
+      aflv?.title?.toLowerCase()?.replace(/[^\w]/g, "") === data?.value?.title?.english?.toLowerCase()?.replace(/[^\w]/g, "") ||
+      aflv?.title?.toLowerCase()?.replace(/[^\w]/g, "") === data?.value?.title?.romaji?.toLowerCase()?.replace(/[^\w]/g, "")
+    )) {
+      externalLinks.value.push({
+        color: "#2f353a",
+        icon: "/images/aflv.png",
+        site: "AnimeFLV",
+        url: aflv.url
+      });
+      break;
+    }
+  }
+  loading_aflv.value = false;
 });
 </script>
 
@@ -141,6 +165,7 @@ useHead({
                       <img v-else :src="site.icon" class="pe-none" style="width: 30px;">
                     </a>
                   </div>
+                  <ComponentGrowingSpinner v-if="loading_aflv" style="width: 2.9em; height: 2.9em" />
                 </div>
               </div>
               <div v-if="anime?.trailer?.site === 'youtube'">
