@@ -29,7 +29,10 @@ export default defineEventHandler(async (event) => {
   obj.slug = slug;
 
   const animeflv = await getAflvSearch(encodeURIComponent(obj?.title?.english || obj?.title?.native));
-  if (animeflv?.length) obj.externalLinks.push(animeFlvRelationLogic(animeflv, obj));
+  if (animeflv?.length) {
+    const foundRelation = animeFlvRelationLogic(animeflv, obj);
+    foundRelation ? obj.externalLinks.push(foundRelation) : null;
+  }
 
   const response = new Response(JSON.stringify(obj), {
     headers: {
