@@ -25,6 +25,11 @@ export default defineEventHandler(async (event) => {
   const { id } = getRouterParams(event);
   const { data } = await getAnimeInfo({ id: Number(id), language: Language.JAPANESE });
   const obj = data.Media;
+  const slug = fixSlug(obj.title.romaji);
+  obj.slug = slug;
+
+  const animeflv = await getAflvSearch(encodeURIComponent(obj?.title?.english || obj?.title?.native));
+  if (animeflv?.length) obj.externalLinks.push(animeFlvRelationLogic(animeflv, obj));
 
   const response = new Response(JSON.stringify(obj), {
     headers: {
