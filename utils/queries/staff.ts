@@ -48,13 +48,16 @@ export const queryStaff = (options?: Record<string, any>) => {
             "characterRole",
             {
               characters: [
-                { name: ["userPreferred"] }
+                { name: ["userPreferred"] },
+                { image: ["large"] }
               ]
             },
             { node: [
-              { title: ["userPreferred"] },
+              "id",
+              "format",
+              { title: ["romaji", "english", "native"] },
               { coverImage: ["large"] },
-              { startDate: ["year", "month", "day"] }
+              { startDate: ["year", "month", "day"] },
             ]}
           ]}
         ]

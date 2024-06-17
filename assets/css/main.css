@@ -242,6 +242,19 @@ input:focus-visible {
   font-size: 1.6rem;
 }
 
+.fw-500 {
+  font-weight: 500;
+}
+
 #episodes a:hover img {
   opacity: .4;
+}
+
+#people-page .staff-description, #people-page .staff-description p {
+  font-weight: normal
+}
+
+.character-on-anime {
+  border-radius: 16px 0px 0px 0px !important;
+  border-color: var(--bs-secondary)!important;
 }

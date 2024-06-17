@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 
 export const getRating = (percent: number) => {
+  if (!percent) return 0;
   const stars = (percent / 100) * 10;
   const format = Math.round(stars * 10) / 10;
   return format;
@@ -31,6 +32,8 @@ export const formatDate = (y?: number, m?: number, d?: number) => {
     return format(new Date(y, m - 1), "MMM yyyy");
   } else if (!d && !m && y) {
     return y;
+  } else if (d && m && !y) {
+    return format(new Date(m - 1, d), "MMM") + " " + d;
   }
 };
 
@@ -98,5 +101,13 @@ export const fixEpisodeTitle = (text: string) => {
 export const fixStaffDescription = (text: string) => {
   return text
     .replaceAll("https://anilist.co/anime", "/a")
-    .replaceAll("https://anilist.co/staff", "/p");
+    .replaceAll("https://anilist.co/staff", "/p")
+    .replace("<p><strong>", "<h6 class=\"fw-500 d-flex justify-content-start align-items-start anime-row flex-wrap mx-0 mb-2\"><strong>")
+    .replaceAll("</p>", "</h6>")
+    .replaceAll("<strong>", "<span><span class=\"mb-2 text-primary fw-500\">")
+    .replaceAll("</strong>", "</span>")
+    .replaceAll("<br />\n<span>", "</span><span>")
+    .replaceAll("</h6>\n", "</span></h6>\n")
+    .replaceAll("<span><span", "<span class=\"mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize\"><span")
+    .replaceAll("\n", "");
 };

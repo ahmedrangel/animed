@@ -33,6 +33,21 @@ useSeoMeta({
 useHead({
   link: [{ rel: "canonical", href: SITE.url + `/p/${id}/${slug}` }]
 });
+
+const charactersYears = staff.characterMedia.edges.map((edge: Record<string, any>) => edge.node.startDate.year );
+const orderedCharacters = {} as Record<string, any>;
+const uniqueYears = [...new Set(charactersYears)];
+for (const y of uniqueYears) {
+  const prop = y ? String(y) : "TBA";
+  orderedCharacters[prop] = [];
+  for (const c of staff.characterMedia.edges) {
+    if (c.node.startDate.year === y) {
+      orderedCharacters[prop].push(c);
+    };
+  }
+}
+console.log(charactersYears);
+console.log(orderedCharacters);
 </script>
 
 <template>
@@ -42,27 +57,71 @@ useHead({
         <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
           <div class="pt-4 px-0">
             <div class="d-flex align-items-center gap-2">
-              <h4 class="mb-1 text-primary">{{ staff.name.userPreferred }}</h4>
-              <Icon v-if="staff.name.native" name="ph:dot-outline-fill" />
-              <h4 v-if="staff.name.native" class="mb-1">{{ staff.name.native }}</h4>
+              <h4 class="mb-1 text-primary">{{ staff.name?.userPreferred }}</h4>
+              <Icon v-if="staff.name?.native" name="ph:dot-outline-fill" />
+              <h4 v-if="staff.name?.native" class="mb-1">{{ staff.name?.native }}</h4>
             </div>
-            <h6 v-if="staff.name.alternative" class="mb-1 text-muted">{{ staff.name.alternative.join(", ") }}</h6>
+            <h6 v-if="staff.name?.alternative" class="mb-1 text-muted">{{ staff.name?.alternative.join(", ") }}</h6>
           </div>
           <div id="details" class="pt-3 pb-4 d-flex align-items-start justify-content-center anime-row mx-0 flex-wrap px-0">
             <img id="cover" :src="staff?.image?.large" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-2 img-fluid px-0" style="max-width: 300px;" :alt="staff.name.userPreferred" :title="staff.name.userPreferred">
             <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-10 pt-4 pt-md-0 px-0 ps-md-4">
-              <div v-if="staff.description" class="pb-4">
+              <div class="pb-4">
                 <h2 class="text-white">Description</h2>
+                <div class="d-flex justify-content-start align-items-start anime-row flex-wrap m-0">
+                  <h6 v-if="staff?.dateOfBirth?.year || staff?.dateOfBirth?.month || staff?.dateOfBirth?.day" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
+                    <span class="text-primary">Birth:</span>&nbsp; {{ formatDate(staff?.dateOfBirth?.year, staff?.dateOfBirth?.month, staff?.dateOfBirth?.day) }}
+                  </h6>
+                  <h6 v-if="staff?.dateOfDeath?.year || staff?.dateOfDeath?.month || staff?.dateOfDeath?.day" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
+                    <span class="text-primary">Death:</span>&nbsp; {{ formatDate(staff?.dateOfDeath?.year, staff?.dateOfDeath?.month, staff?.dateOfDeath?.day) }}
+                  </h6>
+                  <h6 v-if="staff?.age" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
+                    <span class="text-primary">Age:</span>&nbsp; {{ staff.age }}
+                  </h6>
+                  <h6 v-if="staff?.gender" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
+                    <span class="text-primary">Gender:</span>&nbsp; {{ staff.gender }}
+                  </h6>
+                  <h6 v-if="staff?.languageV2" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
+                    <span class="text-primary">Language:</span>&nbsp; {{ staff.languageV2 }}
+                  </h6>
+                  <h6 v-if="staff?.yearsActive[0]" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
+                    <span class="text-primary">Years Active:</span>&nbsp; {{ staff.yearsActive[0] }} - {{ staff.yearsActive[1] ? staff.yearsActive[1] : "Present" }}
+                  </h6>
+                  <h6 v-if="staff?.homeTown" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
+                    <span class="text-primary">Hometown:</span>&nbsp; {{ staff.homeTown }}
+                  </h6>
+                  <h6 v-if="staff?.bloodType" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
+                    <span class="text-primary">Blood Type:</span>&nbsp; {{ staff.bloodType }}
+                  </h6>
+                </div>
                 <!-- eslint-disable-next-line vue/no-v-html-->
-                <h6 class="mb-0 fw-normal" v-html="fixStaffDescription(staff.description)" />
-              </div>
-              <div class="d-flex justify-content-start align-items-start anime-row flex-wrap m-0">
-                <!--
-                <h6 v-if="anime.status" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
-                  <span class="text-primary">Status:</span>&nbsp; {{ anime.status.toLowerCase() }}
-                </h6>-->
+                <span v-if="staff.description" class="staff-description" v-html="fixStaffDescription(staff.description)" />
               </div>
             </div>
+          </div>
+          <hr class="my-4">
+          <div id="characters">
+            <template v-for="(y, i) of uniqueYears" :key="i">
+              <h1 class="mb-4">{{ y ? String(y) : "TBA" }}</h1>
+              <div class="d-flex flex-wrap p-0 justify-content-start anime-row g-3">
+                <template v-for="(c, j) of orderedCharacters[y ? String(y) : 'TBA']" :key="j">
+                  <div class="position-relative col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2 justify-content-center">
+                    <div class="character-image image overflow-hidden mb-2 w-100 position-relative">
+                      <img class="img-fluid scale-on-hover h-100 w-100 position-absolute object-fit-cover" :src="c.characters[0].image.large" alt="" title="">
+                      <img class="character-on-anime img-fluid bottom-0 end-0 position-absolute pe-none border-start border-top border-2" :src="c.node.coverImage.large" width="90px" alt="" title="">
+                    </div>
+                    <h5 class="mb-1 text-primary">{{ c.characters[0].name?.userPreferred }}</h5>
+                    <template v-if="c?.node">
+                      <NuxtLink :to="`/a/${c.node?.id}/${fixSlug(c.node?.title.romaji)}`" class="text-white">
+                        <h6 class="mb-0 fw-normal">{{ c.node?.title?.english ? c.node?.title?.english : c.node?.title?.romaji }} <span class="badge bg-secondary align-middle">{{ c.node?.format?.replace(/_/g," ") }}</span></h6>
+                      </NuxtLink>
+                      <small class="text-muted d-block mb-1 fw-light">{{ c.node?.title?.romaji }}</small>
+                    </template>
+                  </div>
+                </template>
+              </div>
+              <hr v-if="y !== uniqueYears[uniqueYears?.length - 1]" class="my-4">
+            </template>
           </div>
         </div>
       </div>
