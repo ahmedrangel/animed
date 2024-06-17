@@ -8,3 +8,4 @@ db.sqlite
 scripts/*.js
 *.sqlite3
 /*.sql
+.vscode

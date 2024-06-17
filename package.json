@@ -19,8 +19,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "npm run lint:eslint && npm run lint:stylelint",
-    "lint:eslint": "eslint --fix .",
-    "lint:stylelint": "stylelint \"**/*.css\" --fix"
+    "lint:eslint": "eslint --fix --config .config/eslint.mjs",
+    "lint:stylelint": "stylelint \"**/*.css\" --fix --config .config/stylelint.json"
   },
   "devDependencies": {
     "@nuxt/eslint": "^0.3.13",
