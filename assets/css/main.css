@@ -84,6 +84,14 @@ img {
   .image {
     height: 300px;
   }
+
+  .character-element {
+    height: 250px!important;
+  }
+
+  .character-on-anime {
+    width: 80px!important;
+  }
 }
 
 @media only screen and (width <= 1199px) {
@@ -94,6 +102,14 @@ img {
   .image {
     height: 250px;
   }
+
+  .character-element {
+    height: 200px!important;
+  }
+  
+  .character-on-anime {
+    width: 60px!important;
+  }
 }
 
 @media only screen and (width <= 991px) {
@@ -103,6 +119,14 @@ img {
 
   .image {
     height: 300px;
+  }
+
+  .character-element {
+    height: 250px!important;
+  }
+
+  .character-on-anime {
+    width: 80px!important;
   }
 }
 
@@ -166,11 +190,23 @@ img {
   #anime-page #details {
     justify-content: center;
   }
+
+  .character-on-anime {
+    width: 75px;
+  }
 }
 
 @media only screen and (width <= 575px) {
   .image {
     height: 270px;
+  }
+
+  .character-element {
+    height: 290px!important;
+  }
+
+  .character-on-anime {
+    width: 76px!important;
   }
 }
 
@@ -224,12 +260,17 @@ input:focus-visible {
   color: var(--bs-primary)!important;
 }
 
-.scale-on-hover {
+.scale-on-hover, .scale-full-on-hover {
   transition: .3s linear;
 }
 
 .scale-on-hover:hover, .episode-card:hover .scale-on-hover {
   transform: scale(1.1);
+}
+
+.scale-full-on-hover:hover {
+  width: 85%!important;
+  opacity: 1!important;
 }
 
 #anime-nav .router-link-active>* {
@@ -257,4 +298,9 @@ input:focus-visible {
 .character-on-anime {
   border-radius: 16px 0px 0px 0px !important;
   border-color: var(--bs-secondary)!important;
+  transition: all .3s ease-in-out;
+}
+
+.character-element:hover .character-on-anime {
+  opacity: .4;
 }

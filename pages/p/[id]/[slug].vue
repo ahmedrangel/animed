@@ -33,19 +33,6 @@ useSeoMeta({
 useHead({
   link: [{ rel: "canonical", href: SITE.url + `/p/${id}/${slug}` }]
 });
-
-const charactersYears = staff.characterMedia.edges.map((edge: Record<string, any>) => edge.node.startDate.year );
-const orderedCharacters = {} as Record<string, any>;
-const uniqueYears = [...new Set(charactersYears)];
-for (const y of uniqueYears) {
-  const prop = y ? String(y) : "TBA";
-  orderedCharacters[prop] = [];
-  for (const c of staff.characterMedia.edges) {
-    if (c.node.startDate.year === y) {
-      orderedCharacters[prop].push(c);
-    };
-  }
-}
 </script>
 
 <template>
@@ -98,29 +85,7 @@ for (const y of uniqueYears) {
             </div>
           </div>
           <hr class="my-4">
-          <div id="characters">
-            <template v-for="(y, i) of uniqueYears" :key="i">
-              <h1 class="mb-4">{{ y ? String(y) : "TBA" }}</h1>
-              <div class="d-flex flex-wrap p-0 justify-content-start anime-row g-3">
-                <template v-for="(c, j) of orderedCharacters[y ? String(y) : 'TBA']" :key="j">
-                  <div class="position-relative col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2 justify-content-center">
-                    <div class="character-image image overflow-hidden mb-2 w-100 position-relative">
-                      <img class="img-fluid scale-on-hover h-100 w-100 position-absolute object-fit-cover" :src="c.characters[0].image.large" alt="" title="">
-                      <img class="character-on-anime img-fluid bottom-0 end-0 position-absolute pe-none border-start border-top border-2" :src="c.node.coverImage.large" width="90px" alt="" title="">
-                    </div>
-                    <h5 class="mb-1 text-primary">{{ c.characters[0].name?.userPreferred }}</h5>
-                    <template v-if="c?.node">
-                      <NuxtLink :to="`/a/${c.node?.id}/${fixSlug(c.node?.title.romaji)}`" class="text-white">
-                        <h6 class="mb-0 fw-normal">{{ c.node?.title?.english ? c.node?.title?.english : c.node?.title?.romaji }} <span class="badge bg-secondary align-middle">{{ c.node?.format?.replace(/_/g," ") }}</span></h6>
-                      </NuxtLink>
-                      <small class="text-muted d-block mb-1 fw-light">{{ c.node?.title?.romaji }}</small>
-                    </template>
-                  </div>
-                </template>
-              </div>
-              <hr v-if="y !== uniqueYears[uniqueYears?.length - 1]" class="my-4">
-            </template>
-          </div>
+          <InfiniteStaffCharacters :data="staff" />
         </div>
       </div>
     </section>

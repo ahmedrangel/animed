@@ -40,7 +40,7 @@ export const queryStaff = (options?: Record<string, any>) => {
         variables: {
           mediaPage: { name: "page", type: "Int", value: options?.page || 1 },
           mediaSort: { name: "sort", type: "[MediaSort]", value: [Sort.START_DATE_DESC] },
-          mediaPerPage: { name: "perPage", type: "Int", value: 20 }
+          mediaPerPage: { name: "perPage", type: "Int", value: 25 }
         },
         fields: [
           { pageInfo: ["hasNextPage"] },

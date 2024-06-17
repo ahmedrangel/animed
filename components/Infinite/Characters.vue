@@ -20,7 +20,7 @@ for (const l of result.characters.edges) {
 const currentLanguage = ref(languages[0] === "Japanese" ? languages[0] : "Japanese");
 
 const scrollHandler = async () => {
-  if (String(lastRow.value) !== "lastRow" && onScreen(lastRow.value[0]) && !nexted.value && count.value && hasNextPage.value) {
+  if (onScreen(lastRow.value[0]) && !nexted.value && count.value && hasNextPage.value) {
     nexted.value = true;
     const next = await getAnimeCharacters({ id: result.id, page: count.value }) as Record<string, any>;
     result.characters.edges.push(...next.data.Media.characters.edges);

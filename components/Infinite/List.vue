@@ -10,7 +10,7 @@ const lastRow = ref("lastRow") as unknown as Ref<HTMLElement[]>;
 const hasNextPage = ref(result.pageInfo.hasNextPage);
 
 const scrollHandler = async () => {
-  if (String(lastRow.value) !== "lastRow" && onScreen(lastRow.value[0]) && !nexted.value && count.value && hasNextPage.value) {
+  if (onScreen(lastRow.value[0]) && !nexted.value && count.value && hasNextPage.value) {
     nexted.value = true;
     const next = await getList(result.type, { page: count.value, search: props?.query, genres: result?.category }) as Record<string, any>;
     result.media.push(...next.data.media);
