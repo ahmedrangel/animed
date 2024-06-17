@@ -55,7 +55,7 @@ export const queryStaff = (options?: Record<string, any>) => {
             { node: [
               "id",
               "format",
-              { title: ["romaji", "english", "native"] },
+              { title: ["romaji", "english"] },
               { coverImage: ["large"] },
               { startDate: ["year", "month", "day"] },
             ]}
