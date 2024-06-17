@@ -68,16 +68,18 @@ export const getUpcoming = async(options?: Record<string, any> | null) => {
 };
 
 export const getList = async(type: string, options?: Record<string, any>) => {
-  if (type === "new") {
-    return await getNewlyReleased(options);
-  } else if (type === "trending") {
-    return await getPopular(options);
-  } else if (type === "top-rated") {
-    return await getTopRated(options);
-  } else if (type === "upcoming") {
-    return await getUpcoming(options);
+  switch (type) {
+    case "new":
+      return await getNewlyReleased(options);
+    case "trending":
+      return await getPopular(options);
+    case "top-rated":
+      return await getTopRated(options);
+    case "upcoming":
+      return await getUpcoming(options);
+    default:
+      return await getQuery(options);
   }
-  return await getQuery(options);
 };
 
 export const getAnimeCharacters = async(options?: Record<string, any>) => {

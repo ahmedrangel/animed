@@ -296,7 +296,7 @@ input:focus-visible {
 }
 
 .character-on-anime {
-  border-radius: 16px 0px 0px 0px !important;
+  border-radius: 16px 0 0 !important;
   border-color: var(--bs-secondary)!important;
   transition: all .3s ease-in-out;
 }

@@ -19,7 +19,8 @@ watch(query, async() => {
       result.value = await getQuery({ search: query.value });
       loading.value = false;
     }, 1000);
-  } else {
+  }
+  else {
     result.value = null;
     loading.value = false;
   }
