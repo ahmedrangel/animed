@@ -3,7 +3,7 @@ const { params } = useRoute();
 const { id, slug } = params;
 const { data: data } = await useFetch("/api/anime/" + id) as Record<string, any>;
 
-const _slug = fixSlug(data.value.title.romaji);
+const _slug = fixSlug(data.value?.title?.romaji) || null;
 if (String(slug).toLowerCase() !== _slug) {
   throw createError({
     statusCode: 404,
