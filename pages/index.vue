@@ -42,10 +42,10 @@ onMounted(async() => {
 <template>
   <main>
     <section id="preview">
-      <ComponentBanner :anime="random_anime" />
-      <ComponentPreviewList :data="data" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />
-      <ComponentPreviewList v-if="upcoming" :data="upcoming" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />
-      <ComponentLoadingSpinner v-if="loading" />
+      <BannerDetailed :anime="random_anime" />
+      <AnimePreviewList :data="data" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />
+      <AnimePreviewList v-if="upcoming" :data="upcoming" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />
+      <SpinnerLoading v-if="loading" />
     </section>
   </main>
 </template>

@@ -40,9 +40,9 @@ useHead({
   <main>
     <section id="anime-page">
       <div class="col px-0 pb-5">
-        <ComponentBanner2 v-if="anime" :anime="anime" />
+        <BannerBasic v-if="anime" :anime="anime" />
         <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
-          <ComponentAnimeMenu :anime-id="String(id)" :slug="String(slug)" />
+          <AnimeMenu :anime-id="String(id)" :slug="String(slug)" />
           <div class="py-4 px-0">
             <h4 class="mb-1 text-primary">{{ anime.title.romaji }} <span class="badge bg-secondary align-middle">{{ anime.format.replace(/_/g," ") }}</span></h4>
             <h6 v-if="anime.title.english" class="mb-1">{{ anime.title.english }}</h6>
@@ -60,7 +60,7 @@ useHead({
             <div class="d-flex justify-content-start align-items-start anime-row flex-wrap m-0 g-2">
               <template v-for="(ep, i) of streamingEpisodes" :key="i">
                 <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3 mb-2">
-                  <ComponentEpisodeCard :data="ep" />
+                  <EpisodeCard :data="ep" />
                 </div>
               </template>
             </div>

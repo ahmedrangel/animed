@@ -3,6 +3,6 @@
     <div>
       <slot />
     </div>
-    <ComponentFooter />
+    <FooterComp />
   </div>
 </template>

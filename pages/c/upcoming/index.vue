@@ -24,7 +24,7 @@ useHead({
 <template>
   <main>
     <section v-if="result" id="upcoming">
-      <ComponentInfiniteList :data="result" />
+      <InfiniteList :data="result" />
     </section>
   </main>
 </template>

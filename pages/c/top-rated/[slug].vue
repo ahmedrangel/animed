@@ -37,7 +37,7 @@ useHead({
 <template>
   <main>
     <section v-if="result" id="top-rated">
-      <ComponentInfiniteList :data="result" />
+      <InfiniteList :data="result" />
     </section>
   </main>
 </template>

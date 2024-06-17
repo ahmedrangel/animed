@@ -19,7 +19,7 @@ const preview_keys = Object.keys(props.data?.preview);
         <template v-for="(anime, j) of props.data.preview[k].media" :key="j">
           <div v-if="anime" class="col-lg-2 col-sm-3 col-6 mb-3">
             <div :class="j === 0 ? 'me-1' : 'mx-1'">
-              <ComponentAnimeCard :data="anime" />
+              <AnimeCard :data="anime" />
             </div>
           </div>
         </template>

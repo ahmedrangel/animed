@@ -86,7 +86,7 @@ onBeforeUnmount(() => {
         </div>
       </template>
       <span v-if="i === result?.characters?.edges?.length - 1" ref="lastRow" class="m-0 p-0" />
-      <ComponentLoadingSpinner v-if="i === result.characters.edges - 1 && nexted" class="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-3" />
+      <SpinnerLoading v-if="i === result.characters.edges - 1 && nexted" class="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-3" />
     </template>
   </div>
 </template>

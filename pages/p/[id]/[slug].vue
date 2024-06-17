@@ -46,8 +46,6 @@ for (const y of uniqueYears) {
     };
   }
 }
-console.log(charactersYears);
-console.log(orderedCharacters);
 </script>
 
 <template>

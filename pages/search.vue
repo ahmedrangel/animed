@@ -57,8 +57,8 @@ useHead({
       <div v-if="!result && !loading">
         <h2 class="text-muted mb-0 w-100 text-center mt-5">Type something to search...</h2>
       </div>
-      <ComponentLoadingSpinner v-if="loading" class="mt-5" />
-      <ComponentInfiniteList v-if="result && !loading" :data="result.data" :query="query" />
+      <SpinnerLoading v-if="loading" class="mt-5" />
+      <InfiniteList v-if="result && !loading" :data="result.data" :query="query" />
     </section>
   </main>
 </template>

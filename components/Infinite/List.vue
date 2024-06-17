@@ -38,11 +38,11 @@ onBeforeUnmount(() => {
       <template v-for="(anime, i) of result?.media" :key="i">
         <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2 d-flex justify-content-center">
           <div class="mb-1 w-100" :class="i === 0 ? 'me-1' : 'mx-1'">
-            <ComponentAnimeCard :data="anime" />
+            <AnimeCard :data="anime" />
           </div>
         </div>
         <span v-if="i === result?.media?.length - 11" ref="lastRow" class="m-0 p-0" />
-        <ComponentLoadingSpinner v-if="i === result?.media?.length - 1 && nexted" class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2" />
+        <SpinnerLoading v-if="i === result?.media?.length - 1 && nexted" class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2" />
       </template>
     </div>
   </div>
