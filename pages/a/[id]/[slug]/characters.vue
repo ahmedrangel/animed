@@ -4,7 +4,7 @@ const { id, slug } = params;
 const { data: data } = await useFetch("/api/anime/" + id + "/characters") as Record<string, any>;
 const anime = data.value;
 
-const _slug = fixSlug(data.value.title.romaji);
+const _slug = fixSlug(data.value?.title.romaji);
 if (slug !== _slug) {
   throw createError({
     statusCode: 404,
