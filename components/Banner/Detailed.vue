@@ -3,7 +3,7 @@ const props = defineProps({
   anime: { type: Object, required: true },
 });
 
-const description = fixDescription(props.anime?.description.replace(/<br>/g,""));
+const description = fixDescription(props.anime?.description?.replace(/<br>/g,""));
 const toRoute = `/a/${props.anime?.id}/${fixSlug(props.anime?.title?.romaji)}`;
 </script>
 
@@ -27,7 +27,7 @@ const toRoute = `/a/${props.anime?.id}/${fixSlug(props.anime?.title?.romaji)}`;
         </div>
         <span class="ms-2 mb-0 h6">{{ getRating(props.anime?.averageScore) }}</span>
       </div>
-      <h6 v-if="props.anime.description" class="mb-2 fw-normal">
+      <h6 v-if="props.anime?.description" class="mb-2 fw-normal">
         <!-- eslint-disable-next-line vue/no-v-html -->
         <span class="fw-light" v-html="description.text" />
         <NuxtLink v-if="description.more" class="text-primary" :to="toRoute">&nbsp;Read more</NuxtLink>
