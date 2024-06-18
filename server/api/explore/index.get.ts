@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
     const response = await cache.match(cacheKey);
 
     if (response) {
-      const parsed = await response.json();
+      const parsed = JSON.parse(response);
       if (!parsed.preview?.newly?.media?.length || !parsed.preview?.top?.media?.length || !parsed.preview?.trending?.media?.length) {
         console.info("Cache cleared due to not matching required properties!");
         cache.delete(cacheKey);
