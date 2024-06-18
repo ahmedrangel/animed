@@ -18,6 +18,7 @@ export default defineEventHandler(async (event) => {
 
     if (response) {
       if (!response.preview?.newly?.media?.length || !response.preview?.top?.media?.length || !response.preview?.trending?.media?.length) {
+        console.info("Cache cleared due to not matching required properties!");
         cache.delete(cacheKey);
       }
       else {
