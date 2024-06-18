@@ -19,10 +19,6 @@ const random_anime = useState(`random-anime-${slug}`, () => {
   return animes_with_banner?.length ? getRandomObject(animes_with_banner) : getRandomObject(newlies);
 });
 
-onBeforeUnmount(() => {
-  random_anime.value = animes_with_banner?.length ? getRandomObject(animes_with_banner) : getRandomObject(newlies);
-});
-
 useSeoMeta({
   title: data.value.category + " | Categories | " + SITE.name,
   // Open Graph
@@ -50,6 +46,10 @@ onMounted(async() => {
   loading.value = true;
   upcoming.value = { preview: await getUpcoming(option) };
   loading.value = false;
+});
+
+onBeforeUnmount(() => {
+  clearNuxtState(`random-anime-${slug}`);
 });
 </script>
 
