@@ -18,15 +18,16 @@ export default defineEventHandler(async (event) => {
 
     if (response) {
       const cacheBody = response.clone().body;
-      console.log(cacheBody);
+      console.log(JSON.stringify(cacheBody));
+      /*
       if (!response.preview?.newly?.media?.length || !response.preview?.top?.media?.length || !response.preview?.trending?.media?.length) {
         console.info("Cache cleared due to not matching required properties!");
         cache.delete(cacheKey);
       }
-      else {
-        console.info("Found in cache!");
-        return response;
-      }
+      else {*/
+      console.info("Found in cache!");
+      return response;
+      /*}*/
     }
   }
 
