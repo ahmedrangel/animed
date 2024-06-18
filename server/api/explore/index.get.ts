@@ -17,8 +17,13 @@ export default defineEventHandler(async (event) => {
     const response = await cache.match(cacheKey);
 
     if (response) {
-      console.info("Found in cache!");
-      return response;
+      if (!response.preview?.newly?.media?.length || !response.preview?.top?.media?.length || !response.preview?.trending?.media?.length) {
+        cache.delete(cacheKey);
+      }
+      else {
+        console.info("Found in cache!");
+        return response;
+      }
     }
   }
 
