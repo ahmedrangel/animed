@@ -17,7 +17,8 @@ export default defineEventHandler(async (event) => {
     const response = await cache.match(cacheKey);
 
     if (response) {
-      if (!response.preview?.newly?.media?.length || !response.preview?.top?.media?.length || !response.preview?.trending?.media?.length) {
+      const parsed = await response.json();
+      if (!parsed.preview?.newly?.media?.length || !parsed.preview?.top?.media?.length || !parsed.preview?.trending?.media?.length) {
         console.info("Cache cleared due to not matching required properties!");
         cache.delete(cacheKey);
       }
@@ -45,6 +46,5 @@ export default defineEventHandler(async (event) => {
     console.info("Stored in cache!");
     cloudflare.context.waitUntil(cacheManager.cache.put(cacheManager.cacheKey, response.clone()));
   }
-
   return response;
 });
