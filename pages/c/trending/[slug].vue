@@ -4,7 +4,7 @@ definePageMeta({ layout: "no-footer" });
 const { params } = useRoute();
 const { slug } = params;
 
-const exists = categories.find((c) => fixSlug(c.name) === slug) || null;
+const exists = categories.find(c => fixSlug(c.name) === slug) || null;
 
 if (!exists) {
   throw createError({
@@ -26,7 +26,7 @@ useSeoMeta({
   ogImage: SITE.url + SITE.og_card,
   // Twitter
   twitterCard: "summary_large_image",
-  twitterTitle: `${result.value.title} ${result.value.category}` + " | Categories | " + SITE.name,
+  twitterTitle: `${result.value.title} ${result.value.category}` + " | Categories | " + SITE.name
 });
 
 useHead({

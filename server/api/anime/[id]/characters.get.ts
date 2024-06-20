@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const { id } = getRouterParams(event);
-  const { data } = await getAnimeCharacters({ id: Number(id) }) ;
+  const { data } = await getAnimeCharacters({ id: Number(id) });
   const obj = data.Media;
 
   const response = new Response(JSON.stringify(obj), {

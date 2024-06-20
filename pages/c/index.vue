@@ -11,7 +11,7 @@ useSeoMeta({
   ogImage: SITE.url + SITE.og_card,
   // Twitter
   twitterCard: "summary_large_image",
-  twitterTitle: "Categories | " + SITE.name,
+  twitterTitle: "Categories | " + SITE.name
 });
 
 useHead({

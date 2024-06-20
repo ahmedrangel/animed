@@ -32,7 +32,7 @@ export const queryStaff = (options?: Record<string, any>) => {
   const query = gql.query({
     operation: "Staff",
     variables: {
-      id: Number(options?.id),
+      id: Number(options?.id)
     },
     fields: [
       ...generalFields(options?.page),
@@ -57,9 +57,9 @@ export const queryStaff = (options?: Record<string, any>) => {
               "format",
               { title: ["romaji", "english"] },
               { coverImage: ["large"] },
-              { startDate: ["year", "month", "day"] },
-            ]}
-          ]}
+              { startDate: ["year", "month", "day"] }
+            ] }
+          ] }
         ]
       }
     ]
@@ -71,7 +71,7 @@ export const queryStaffSlug = (id: number) => {
   const query = gql.query({
     operation: "Staff",
     variables: {
-      id: Number(id),
+      id: Number(id)
     },
     fields: [
       "id",

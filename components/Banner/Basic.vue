@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps({
-  anime: { type: Object, required: true },
+  anime: { type: Object, required: true }
 });
 </script>
 

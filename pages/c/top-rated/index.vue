@@ -13,7 +13,7 @@ useSeoMeta({
   ogImage: SITE.url + SITE.og_card,
   // Twitter
   twitterCard: "summary_large_image",
-  twitterTitle: `${result.value.title}` + " | Categories | " + SITE.name,
+  twitterTitle: `${result.value.title}` + " | Categories | " + SITE.name
 });
 
 useHead({

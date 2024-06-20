@@ -36,13 +36,13 @@ export const formatDate = (y?: number, m?: number, d?: number) => {
 };
 
 export const getStudios = (studios: Record<string, any>) => {
-  return studios.edges.filter((edge: { isMain: boolean; }) => edge.isMain === true)
-    .map((edge: { node: { name: string; }; }) => edge.node.name).join(", ");
+  return studios.edges.filter((edge: { isMain: boolean }) => edge.isMain === true)
+    .map((edge: { node: { name: string } }) => edge.node.name).join(", ");
 };
 
 export const getProducers = (studios: Record<string, any>) => {
-  return studios.edges.filter((edge: { isMain: boolean; }) => edge.isMain === false)
-    .map((edge: { node: { name: string; }; }) => edge.node.name).join(", ");
+  return studios.edges.filter((edge: { isMain: boolean }) => edge.isMain === false)
+    .map((edge: { node: { name: string } }) => edge.node.name).join(", ");
 };
 
 export const fixDescription = (text: string) => {

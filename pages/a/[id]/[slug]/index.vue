@@ -15,7 +15,7 @@ if (String(slug).toLowerCase() !== _slug) {
 const anime = data.value;
 
 const externalLinks = ref(anime?.externalLinks
-  .filter((e: { site: string; }) => {
+  .filter((e: { site: string }) => {
     const site = e?.site.toLowerCase();
     return site !== "youtube" && site !== "funimation";
   }));
@@ -74,13 +74,13 @@ useHead({
         <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
           <AnimeMenu :anime-id="String(id)" :slug="String(slug)" :episodes="streamingEpisodes[0] ? true : false" />
           <div class="pt-4 px-0">
-            <h4 class="mb-1 text-primary">{{ anime.title.romaji }} <span class="badge bg-secondary align-middle">{{ anime?.format?.replace(/_/g," ") }}</span></h4>
+            <h4 class="mb-1 text-primary">{{ anime.title.romaji }} <span class="badge bg-secondary align-middle">{{ anime?.format?.replace(/_/g, " ") }}</span></h4>
             <h6 v-if="anime.title.english" class="mb-1">{{ anime.title.english }}</h6>
             <h6 v-if="anime.title.native" class="mb-1">{{ anime.title.native }}</h6>
             <div class="d-flex align-items-center position-relative">
               <div class="stars d-flex align-items-center" style="height: 25px;">
                 <img class="position-absolute" src="/images/stars.webp" width="100" style="opacity: 0.5">
-                <img src="/images/stars-filled.webp" width="100" :style="{'clip-path': 'inset(0px ' + (100-anime?.averageScore) + '% 0px 0px) '}">
+                <img src="/images/stars-filled.webp" width="100" :style="{ 'clip-path': 'inset(0px ' + (100-anime?.averageScore) + '% 0px 0px) ' }">
               </div>
               <small class="ms-2 mb-0 text-white">{{ getRating(anime.averageScore) }}</small>
             </div>
@@ -90,12 +90,12 @@ useHead({
             <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-9 pt-4 pt-md-0 px-0 ps-md-4">
               <div v-if="anime?.description" class="pb-4">
                 <h2 class="text-white">Description</h2>
-                <!-- eslint-disable-next-line vue/no-v-html-->
+                <!-- eslint-disable-next-line vue/no-v-html -->
                 <h6 class="mb-0 fw-normal" v-html="anime.description" />
               </div>
               <div class="d-flex justify-content-start align-items-start anime-row flex-wrap m-0">
                 <h6 v-if="anime.status" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
-                  <span class="text-primary">Status:</span>&nbsp; {{ anime.status.toLowerCase().replace(/_/g," ") }}
+                  <span class="text-primary">Status:</span>&nbsp; {{ anime.status.toLowerCase().replace(/_/g, " ") }}
                 </h6>
                 <h6 v-if="anime.startDate?.year" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0">
                   <span class="text-primary">Release Date:</span>&nbsp; {{ anime.startDate.year ? formatDate(anime.startDate.year, anime.startDate.month, anime.startDate.day) : "TBA" }}
@@ -136,7 +136,7 @@ useHead({
                 <h6 class="text-primary">External Links:</h6>
                 <div class="d-flex flex-wrap gap-2 align-items-end">
                   <div v-for="(site, i) of externalLinks" :key="i">
-                    <a v-if="site?.url" :href="site.url" target="_blank" class="d-block p-2 rounded" :style="{'background-color': site.color ? site.color : 'var(--bs-secondary)'}" :title="site.site">
+                    <a v-if="site?.url" :href="site.url" target="_blank" class="d-block p-2 rounded" :style="{ 'background-color': site.color ? site.color : 'var(--bs-secondary)' }" :title="site.site">
                       <Icon v-if="!site?.icon" name="ph:globe-simple-bold" class="text-white" style="font-size: 33px;" />
                       <img v-else :src="site.icon" class="pe-none" style="width: 33px;">
                     </a>

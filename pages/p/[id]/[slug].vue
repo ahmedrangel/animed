@@ -79,7 +79,7 @@ useHead({
                     <span class="text-primary">Blood Type:</span>&nbsp; {{ staff.bloodType }}
                   </h6>
                 </div>
-                <!-- eslint-disable-next-line vue/no-v-html-->
+                <!-- eslint-disable-next-line vue/no-v-html -->
                 <span v-if="staff.description" class="staff-description" v-html="fixStaffDescription(staff.description)" />
               </div>
             </div>

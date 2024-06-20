@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps({
   id: { type: String, required: true },
-  video: { type: String, required: true },
+  video: { type: String, required: true }
 });
 
 const clickHandler = (e: Event) => {
