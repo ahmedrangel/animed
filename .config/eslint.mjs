@@ -34,6 +34,7 @@ export default withNuxt([{
     "@typescript-eslint/no-dynamic-delete": ["off"],
     "@typescript-eslint/ban-ts-comment": ["off"],
     "vue/html-indent": ["error", 2],
-    "vue/multiline-html-element-content-newline": ["error", { ignores: [] }]
+    "vue/multiline-html-element-content-newline": ["error", { ignores: [] }],
+    "@stylistic/no-extra-semi": "error"
   }
 }]);

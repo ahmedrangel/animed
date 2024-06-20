@@ -20,7 +20,7 @@ const orderItems = (edges: Record<string, any>[]) => {
     for (const c of edges) {
       if (c.node.startDate.year === y) {
         orderedCharacters.value[prop].push(c);
-      };
+      }
     }
   }
 };
