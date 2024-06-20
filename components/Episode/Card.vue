@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps({
-  data: { type: Object, required: true },
+  data: { type: Object, required: true }
 });
 
 const ep = props.data;

@@ -33,9 +33,9 @@ export enum Licensor {
   HULU = 7,
   NETFLIX = 10,
   HIDIVE = 20,
-  AMAZON = 21,
+  AMAZON = 21
 }
 
 export enum Language {
-  JAPANESE = "JAPANESE",
+  JAPANESE = "JAPANESE"
 }

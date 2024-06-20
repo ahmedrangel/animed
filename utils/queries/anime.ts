@@ -35,8 +35,8 @@ export const queryAnime = (options?: Record<string, any>) => {
         { edges: [
           "isMain",
           { node: ["id", "name"] }
-        ]}
-      ]},
+        ] }
+      ] },
       { externalLinks: ["site", "url", "icon", "color"] },
       { streamingEpisodes: ["site", "title", "thumbnail", "url"] },
       { operation: "characters",
@@ -51,8 +51,8 @@ export const queryAnime = (options?: Record<string, any>) => {
             { node: [
               "id",
               { name: ["userPreferred"] },
-              { image: ["large"] },
-            ]},
+              { image: ["large"] }
+            ] },
             { operation: "voiceActors",
               variables: {
                 staffLanguage: { name: "language", type: "StaffLanguage", value: options?.language },
@@ -65,7 +65,7 @@ export const queryAnime = (options?: Record<string, any>) => {
                 "languageV2"
               ]
             }
-          ]}
+          ] }
         ]
       },
       { operation: "staff",
@@ -79,15 +79,15 @@ export const queryAnime = (options?: Record<string, any>) => {
             { node: [
               "id",
               { name: ["userPreferred"] },
-              { image: ["large"] },
-            ]}
-          ]}
+              { image: ["large"] }
+            ] }
+          ] }
         ]
       },
       { operation: "recommendations",
         variables: {
           perPageRecommendation: { name: "perPage", type: "Int", value: 6 },
-          recommendationSort: { name: "sort", type: "[RecommendationSort]", value: [Sort.RATING_DESC, Sort.ID] },
+          recommendationSort: { name: "sort", type: "[RecommendationSort]", value: [Sort.RATING_DESC, Sort.ID] }
         },
         fields: [
           { nodes: [
@@ -99,8 +99,8 @@ export const queryAnime = (options?: Record<string, any>) => {
               { startDate: ["year", "month", "day"] },
               { coverImage: ["extraLarge"] },
               "averageScore"
-            ]}
-          ]}
+            ] }
+          ] }
         ]
       }
     ]
@@ -149,8 +149,8 @@ export const queryAnimeCharacters = (options?: Record<string, any>) => {
             { node: [
               "id",
               { name: ["userPreferred"] },
-              { image: ["large"] },
-            ]},
+              { image: ["large"] }
+            ] },
             { operation: "voiceActors",
               variables: {
                 staffLanguage: { name: "language", type: "StaffLanguage", value: options?.language },
@@ -163,7 +163,7 @@ export const queryAnimeCharacters = (options?: Record<string, any>) => {
                 "languageV2"
               ]
             }
-          ]}
+          ] }
         ]
       }
     ]

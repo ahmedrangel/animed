@@ -8,7 +8,7 @@ const loading = ref(false) as Ref<boolean>;
 const count = ref(1) as Ref<number>;
 const input = ref("input") as unknown as Ref<HTMLElement>;
 
-watch(query, async() => {
+watch(query, async () => {
   loading.value = true;
   if (debounce.value) {
     clearTimeout(debounce.value);
@@ -40,7 +40,7 @@ useSeoMeta({
   ogImage: SITE.url + SITE.og_card,
   // Twitter
   twitterCard: "summary_large_image",
-  twitterTitle: "Search | " + SITE.name,
+  twitterTitle: "Search | " + SITE.name
 });
 
 useHead({

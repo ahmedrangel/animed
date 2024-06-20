@@ -1,5 +1,5 @@
-import { Format, Licensor, Sort, Status } from "../../enums/anilist";
 import * as gql from "gql-query-builder";
+import { Format, Licensor, Sort, Status } from "../../enums/anilist";
 
 export const queryExplore = (options?: Record<string, any> | null) => {
   const multiQuery = (options: Record<string, any>) => {
@@ -38,6 +38,6 @@ export const queryExplore = (options?: Record<string, any> | null) => {
   const queryNewly = multiQuery({ alias: "newly", ...options, sort: Sort.START_DATE_DESC, status_in: [Status.AIRING, Status.FINISHED] });
   const queryTopRated = multiQuery({ alias: "top", ...options, sort: Sort.SCORE_DESC });
   const queryTrending = multiQuery({ alias: "trending", ...options, sort: [Sort.TRENDING_DESC, Sort.POPULARITY_DESC] });
-  const query = gql.query([ queryNewly, queryTopRated, queryTrending ]);
+  const query = gql.query([queryNewly, queryTopRated, queryTrending]);
   return JSON.stringify(query);
 };

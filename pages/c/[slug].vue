@@ -2,7 +2,7 @@
 const { params } = useRoute();
 const { slug } = params;
 
-const exists = categories.find((c) => fixSlug(c.name) === slug) || null;
+const exists = categories.find(c => fixSlug(c.name) === slug) || null;
 
 if (!exists) {
   throw createError({
@@ -29,7 +29,7 @@ useSeoMeta({
   ogImage: SITE.url + SITE.og_card,
   // Twitter
   twitterCard: "summary_large_image",
-  twitterTitle: data.value.category + " | Categories | " + SITE.name,
+  twitterTitle: data.value.category + " | Categories | " + SITE.name
 });
 
 useHead({
@@ -39,9 +39,9 @@ useHead({
 const upcoming = ref();
 const loading = ref();
 
-onMounted(async() => {
-  const cat_title = categories.find((c) => fixSlug(c.name) === slug)?.name || null;
-  const cat_type = categories.find((c) => fixSlug(c.name) === slug)?.type || null;
+onMounted(async () => {
+  const cat_title = categories.find(c => fixSlug(c.name) === slug)?.name || null;
+  const cat_type = categories.find(c => fixSlug(c.name) === slug)?.type || null;
   const option = slug ? cat_type === "genre" ? { genres: [cat_title], slug } : { tags: [cat_title], slug } : null;
   loading.value = true;
   upcoming.value = { preview: await getUpcoming(option) };

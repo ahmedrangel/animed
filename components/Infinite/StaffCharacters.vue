@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps({
-  data: { type: Object, required: true },
+  data: { type: Object, required: true }
 });
 
 const staff = props.data as Record<string, any>;
@@ -9,7 +9,7 @@ const count = ref(2) as Ref<number>;
 const lastRow = ref("lastRow") as unknown as Ref<HTMLElement[]>;
 const hasNextPage = ref(staff.characterMedia.pageInfo.hasNextPage);
 
-const charactersYears = staff.characterMedia.edges.map((edge: Record<string, any>) => edge.node.startDate.year ) as string[];
+const charactersYears = staff.characterMedia.edges.map((edge: Record<string, any>) => edge.node.startDate.year) as string[];
 const orderedCharacters = ref({}) as Record<string, any>;
 const uniqueYears = ref([...new Set(charactersYears)]) as Ref<string[]>;
 
@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
             <h5 class="mb-1 text-primary">{{ c.characters[0].name?.userPreferred }}</h5>
             <template v-if="c?.node">
               <NuxtLink :to="`/a/${c.node?.id}/${fixSlug(c.node?.title.romaji)}`" class="text-white">
-                <h6 class="mb-0 fw-normal">{{ c.node?.title?.english ? c.node?.title?.english : c.node?.title?.romaji }} <span class="badge bg-secondary align-middle">{{ c.node?.format?.replace(/_/g," ") }}</span></h6>
+                <h6 class="mb-0 fw-normal">{{ c.node?.title?.english ? c.node?.title?.english : c.node?.title?.romaji }} <span class="badge bg-secondary align-middle">{{ c.node?.format?.replace(/_/g, " ") }}</span></h6>
               </NuxtLink>
               <small class="text-muted d-block mb-1 fw-light">{{ c.node?.title?.romaji }}</small>
             </template>

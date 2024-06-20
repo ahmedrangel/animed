@@ -18,7 +18,7 @@ useSeoMeta({
   ogImage: SITE.url + SITE.og_card,
   // Twitter
   twitterCard: "summary_large_image",
-  twitterTitle: SITE.name,
+  twitterTitle: SITE.name
 });
 
 useHead({
@@ -28,7 +28,7 @@ useHead({
 const upcoming = ref();
 const loading = ref();
 
-onMounted(async() => {
+onMounted(async () => {
   loading.value = true;
   upcoming.value = { preview: await getUpcoming() };
   loading.value = false;
