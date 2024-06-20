@@ -64,7 +64,8 @@ export default defineNuxtConfig({
   },
   eslint: {
     config: {
-      autoInit: false
+      autoInit: false,
+      stylistic: true
     }
   },
   sitemap: {
