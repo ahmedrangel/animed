@@ -1,7 +1,15 @@
 <script setup lang="ts">
 const { params } = useRoute();
 const { id, slug } = params;
-const { data: data } = await useFetch("/api/people/" + id) as Record<string, any>;
+const { data: data, error } = await useFetch("/api/people/" + id) as Record<string, any>;
+
+if (error.value) {
+  throw createError({
+    statusCode: error.value.statusCode,
+    message: error.value.data.error,
+    fatal: true
+  });
+}
 
 const _slug = fixSlug(data.value.name.userPreferred);
 if (String(slug).toLowerCase() !== _slug) {

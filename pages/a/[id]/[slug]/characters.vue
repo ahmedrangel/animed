@@ -1,8 +1,15 @@
 <script setup lang="ts">
 const { params } = useRoute();
 const { id, slug } = params;
-const { data: data } = await useFetch("/api/anime/" + id + "/characters") as Record<string, any>;
-const anime = data.value;
+const { data: data, error } = await useFetch("/api/anime/" + id + "/characters") as Record<string, any>;
+
+if (error.value) {
+  throw createError({
+    statusCode: error.value.statusCode,
+    message: error.value.data.error,
+    fatal: true
+  });
+}
 
 const _slug = fixSlug(data.value?.title.romaji);
 if (slug !== _slug) {
@@ -12,6 +19,8 @@ if (slug !== _slug) {
     fatal: true
   });
 }
+
+const anime = data.value;
 
 const streamingEpisodes = sortEpisodes(anime?.streamingEpisodes)?.slice(0, 6) || [];
 

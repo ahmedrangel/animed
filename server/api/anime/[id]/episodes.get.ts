@@ -1,11 +1,11 @@
-import { botRateLimitHandler } from "~/server/utils/helpers";
-
 export default defineEventHandler(async (event) => {
-  if (await botRateLimitHandler(event)) {
-    throw createError({
+  const limited = await botRateLimitHandler(event);
+  if (limited) {
+    return new Response(JSON.stringify({ error: "Too many requests" }), {
       status: 429,
-      fatal: true,
-      message: "Too many requests"
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
     });
   }
 

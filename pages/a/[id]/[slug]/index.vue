@@ -1,7 +1,15 @@
 <script setup lang="ts">
 const { params } = useRoute();
 const { id, slug } = params;
-const { data: data } = await useFetch("/api/anime/" + id) as Record<string, any>;
+const { data: data, error } = await useFetch("/api/anime/" + id) as Record<string, any>;
+
+if (error.value) {
+  throw createError({
+    statusCode: error.value.statusCode,
+    message: error.value.data.error,
+    fatal: true
+  });
+}
 
 const _slug = fixSlug(data.value?.title?.romaji);
 if (String(slug).toLowerCase() !== _slug) {
