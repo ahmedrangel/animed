@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  const userAgent = event.headers.get("user-agent");
+  const userAgent = cloudflare.req.headers.get("user-agent");
   const limited = await botRateLimitHandler(userAgent);
   if (limited)
     throw createError({ statusCode: 429, statusMessage: "Too many requests" });
