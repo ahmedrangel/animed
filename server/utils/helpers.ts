@@ -27,7 +27,35 @@ export const animeFlvRelationLogic = (aflvArr: Record<string, any>[], anilistObj
   }
 };
 
-export const RATE_LIMIT_MAX_REQ = 2;
-export const RATE_LIMIT_TIME_FRAME = 1000 * 60 * 5;
+const RATE_LIMIT_MAX_REQ = 2;
+const RATE_LIMIT_TIME_FRAME = 1000 * 60 * 5;
 
-export const knownBots = ["facebookexternalhit"];
+const knownBots = ["facebookexternalhit"];
+
+export const botRateLimitHandler = async (agent: string | null) => {
+  const RATE_LIMIT_KV = process.env.ANIMED_BOT_RATE_LIMIT_BUCKET as any;
+  const now = Date.now() as number;
+  const botName = knownBots.find(bot => agent?.includes(bot));
+  if (!botName) return false;
+  console.info("Bot: " + botName);
+
+  const rawBotRecord = await RATE_LIMIT_KV.get(botName);
+
+  const botRecord = JSON.parse(rawBotRecord);
+
+  const count = botRecord.count || 0;
+  const lastReq = botRecord.lastReq;
+
+  if ((now - lastReq) > RATE_LIMIT_TIME_FRAME) {
+    await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: 0, lastReq: now }));
+    return false;
+  }
+  else if (count > RATE_LIMIT_MAX_REQ) {
+    console.info("Limited: " + botName);
+    await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: 0, lastReq: now }));
+    return true;
+  }
+
+  await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: count + 1, lastReq: now }));
+  return false;
+};
