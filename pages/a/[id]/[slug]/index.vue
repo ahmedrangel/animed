@@ -6,7 +6,7 @@ const { data: data, error } = await useFetch("/api/anime/" + id) as Record<strin
 if (error.value) {
   throw createError({
     statusCode: error.value.statusCode,
-    message: error.value.data.error,
+    message: error.value.statusMessage,
     fatal: true
   });
 }

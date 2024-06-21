@@ -1,11 +1,10 @@
 export default defineEventHandler(async (event) => {
   const limited = await botRateLimitHandler(event);
+  console.log(limited);
   if (limited) {
-    return new Response(JSON.stringify({ error: "Too many requests" }), {
-      status: 429,
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8"
-      }
+    throw createError({
+      statusCode: 429,
+      statusMessage: "Too many requests"
     });
   }
 
