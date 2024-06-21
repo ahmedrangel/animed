@@ -1,14 +1,7 @@
 import { Language } from "~/enums/anilist";
 
 export default defineEventHandler(async (event) => {
-  const limited = await botRateLimitHandler(event);
-  if (limited) {
-    throw createError({
-      statusCode: 429,
-      statusMessage: "Too many requests"
-    });
-  }
-
+  await botRateLimitHandler(event);
   const { cloudflare } = event.context;
   const { href: reqURL } = getRequestURL(event);
   let cacheManager = {

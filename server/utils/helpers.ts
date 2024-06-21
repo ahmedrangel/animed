@@ -39,7 +39,7 @@ export const botRateLimitHandler = async (event: H3Event) => {
   const userAgent = event.headers.get("user-agent") || "" as string;
   const now = Date.now() as number;
   const botName = knownBots.find(bot => userAgent.includes(bot));
-  if (!botName) return false;
+  if (!botName) return;
 
   const rawBotRecord = await RATE_LIMIT_KV.get(botName);
 
@@ -50,16 +50,16 @@ export const botRateLimitHandler = async (event: H3Event) => {
 
   if ((now - lastReq) > RATE_LIMIT_TIME_FRAME) {
     await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: 0, lastReq: now }));
-    return false;
   }
 
   if (count > RATE_LIMIT_MAX_REQ) {
     console.info("Limited: " + botName);
     await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: 0, lastReq: now }));
-    return true;
+    throw createError({
+      statusCode: 429,
+      statusMessage: "Too many requests"
+    });
   }
 
   await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: count + 1, lastReq: now }));
-
-  return false;
 };
