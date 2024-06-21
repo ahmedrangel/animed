@@ -32,7 +32,7 @@ const RATE_LIMIT_TIME_FRAME = 1000 * 60 * 5;
 
 const knownBots = ["facebookexternalhit"];
 
-export const botRateLimitHandler = async (agent: string | null) => {
+export const botRateLimitHandler = async (agent: string | undefined) => {
   const RATE_LIMIT_KV = process.env.ANIMED_BOT_RATE_LIMIT_BUCKET as any;
   const now = Date.now() as number;
   const botName = knownBots.find(bot => agent?.includes(bot));
