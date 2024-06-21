@@ -36,7 +36,7 @@ export const botRateLimitHandler = async (agent: string | null) => {
   const RATE_LIMIT_KV = process.env.ANIMED_BOT_RATE_LIMIT_BUCKET as any;
   const now = Date.now() as number;
   const botName = knownBots.find(bot => agent?.includes(bot));
-  if (!botName) return;
+  if (!botName) return false;
   console.info("Bot: " + botName);
 
   const rawBotRecord = await RATE_LIMIT_KV.get(botName);
