@@ -3,7 +3,7 @@ import { Language } from "~/enums/anilist";
 export default defineEventHandler(async (event) => {
   const userAgent = event.headers.get("user-agent");
   const limited = await botRateLimitHandler(userAgent);
-  if (limited)
+  if (limited && !import.meta.dev)
     throw createError({ statusCode: 429, statusMessage: "Too many requests" });
 
   const { cloudflare } = event.context;
