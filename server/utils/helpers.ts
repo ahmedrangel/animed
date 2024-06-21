@@ -36,25 +36,30 @@ const knownBots = ["facebookexternalhit"];
 
 export const botRateLimitHandler = async (event: H3Event) => {
   const RATE_LIMIT_KV = process.env.ANIMED_BOT_RATE_LIMIT_BUCKET as any;
-  const userAgent = event.headers.get("user-agent") as string;
+  const userAgent = event.headers.get("user-agent") || "" as string;
   const now = Date.now() as number;
   const botName = knownBots.find(bot => userAgent.includes(bot));
   if (!botName) return false;
 
   const rawBotRecord = await RATE_LIMIT_KV.get(botName);
 
-  let botRecord = rawBotRecord ? JSON.parse(rawBotRecord) : { count: 0, lastReq: now };
+  const botRecord = JSON.parse(rawBotRecord);
 
-  if (now - botRecord.lastReq > RATE_LIMIT_TIME_FRAME) {
-    botRecord = { count: 0, lastReq: now };
+  let count = botRecord.count || 0;
+  const lastReq = botRecord.lastReq;
+
+  if ((now - lastReq) > RATE_LIMIT_TIME_FRAME) {
+    await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: 0, lastReq: now }));
+    return false;
   }
 
-  botRecord.count++;
-  await RATE_LIMIT_KV.put(botName, JSON.stringify(botRecord));
+  count = count + 1;
+  await RATE_LIMIT_KV.put(botName, JSON.stringify({ count, lastReq: now }));
 
-  if (botRecord.count > RATE_LIMIT_MAX_REQ) {
+  if (count > RATE_LIMIT_MAX_REQ) {
     console.info("Limited: " + botName);
     return true;
   }
+
   return false;
 };
