@@ -1,11 +1,6 @@
 import { Language } from "~/enums/anilist";
 
 export default defineEventHandler(async (event) => {
-  const userAgent = event.headers.get("user-agent");
-  const limited = await botRateLimitHandler(userAgent);
-  if (limited && !import.meta.dev)
-    throw createError({ statusCode: 429, statusMessage: "Too many requests" });
-
   const { cloudflare } = event.context;
   const { href: reqURL } = getRequestURL(event);
   let cacheManager = {
@@ -26,6 +21,11 @@ export default defineEventHandler(async (event) => {
       return response;
     }
   }
+
+  const userAgent = event.headers.get("user-agent");
+  const limited = await botRateLimitHandler(userAgent);
+  if (limited)
+    throw createError({ statusCode: 429, statusMessage: "Too many requests" });
 
   const { id } = getRouterParams(event);
   const { data } = await getAnimeInfo({ id: Number(id), language: Language.JAPANESE });
