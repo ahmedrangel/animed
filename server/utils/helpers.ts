@@ -58,6 +58,7 @@ export const botRateLimitHandler = async (event: H3Event) => {
 
   if (count > RATE_LIMIT_MAX_REQ) {
     console.info("Limited: " + botName);
+    await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: 0, lastReq: now }));
     return true;
   }
 
