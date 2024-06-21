@@ -219,9 +219,17 @@ img {
   border: none;
 }
 
+.modal-content {
+  max-width: 975px;
+}
+
 .modal-dialog {
-  max-width: 800px;
+  max-width: 100%;
   margin: 30px auto;
+}
+
+.modal-dialog-centered {
+  justify-content: center;
 }
 
 .modal-body {
