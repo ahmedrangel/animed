@@ -1,5 +1,3 @@
-import type { H3Event } from "h3";
-
 export { categories } from "~/utils/categories";
 export { fixSlug } from "~/utils/helpers";
 export { getAnimeInfo, getNewlyReleased, getPopular, getTopRated, getAnimeSlug, getAnimeCharacters, getAnimeEpisodes, getStaff, getStaffSlug, getExplore, getUpcoming } from "~/utils/anilist.client";
@@ -34,11 +32,10 @@ const RATE_LIMIT_TIME_FRAME = 1000 * 60 * 5;
 
 const knownBots = ["facebookexternalhit"];
 
-export const botRateLimitHandler = async (event: H3Event) => {
+export const botRateLimitHandler = async (agent: string | null) => {
   const RATE_LIMIT_KV = process.env.ANIMED_BOT_RATE_LIMIT_BUCKET as any;
-  const userAgent = event.headers.get("user-agent") || "" as string;
   const now = Date.now() as number;
-  const botName = knownBots.find(bot => userAgent.includes(bot));
+  const botName = knownBots.find(bot => agent?.includes(bot));
   if (!botName) return;
   console.info("Bot: " + botName);
 

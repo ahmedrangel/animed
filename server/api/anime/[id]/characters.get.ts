@@ -1,5 +1,9 @@
 export default defineEventHandler(async (event) => {
-  await botRateLimitHandler(event);
+  const userAgent = event.headers.get("user-agent");
+  const limited = await botRateLimitHandler(userAgent);
+  if (limited)
+    throw createError({ statusCode: 429, statusMessage: "Too many requests" });
+
   const { cloudflare } = event.context;
   const { href: reqURL } = getRequestURL(event);
   let cacheManager = {
@@ -9,9 +13,6 @@ export default defineEventHandler(async (event) => {
 
   // Check cache
   if (!import.meta.dev) {
-    const isLimited = await botRateLimitHandler(event);
-    if (isLimited)
-      throw createError({ statusCode: 429, statusMessage: "Too many requests" });
     const cacheKey = new Request(reqURL, cloudflare.req);
     // @ts-expect-error
     const cache = caches.default;
