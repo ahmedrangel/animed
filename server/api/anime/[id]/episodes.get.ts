@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
   const userAgent = getHeaders(event)["user-agent"];
   const limited = await botRateLimitHandler(userAgent);
   if (limited)
-    throw createError({ statusCode: 429, statusMessage: "Too many requests" });
+    return new Response(null, { status: 429, statusText: "Too many requests" });
 
   const { id } = getRouterParams(event);
   const { data } = await getAnimeEpisodes({ id: Number(id) });
