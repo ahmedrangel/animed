@@ -86,7 +86,7 @@ useHead({
             </div>
           </div>
           <div id="details" class="pt-3 pb-4 d-flex align-items-start anime-row mx-0 flex-wrap px-0">
-            <img id="cover" :src="anime?.coverImage?.extraLarge" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 img-fluid px-0" style="max-width: 400px;" :alt="anime.title.romaji" :title="anime.title.romaji">
+            <img id="cover" :src="anime?.coverImage?.extraLarge" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 img-fluid px-0" style="max-width: 400px;" :alt="anime.title.romaji" :title="anime.title.romaji" data-aos="fade-in">
             <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-9 pt-4 pt-md-0 px-0 ps-md-4">
               <div v-if="anime?.description" class="pb-4">
                 <h2 class="text-white">Description</h2>
@@ -146,7 +146,7 @@ useHead({
               <div v-if="anime?.trailer?.site === 'youtube'">
                 <div class="col-12 col-lg-12 col-xl-6">
                   <h6 class="text-primary">Trailer:</h6>
-                  <div class="ratio ratio-16x9">
+                  <div class="ratio ratio-16x9" data-aos="fade-in">
                     <iframe id="embed" width="1280" height="720" :src="'https://youtube.com/embed/' + anime.trailer.id" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope;" />
                   </div>
                 </div>
@@ -162,7 +162,7 @@ useHead({
             </div>
             <div class="d-flex justify-content-start align-items-start anime-row flex-wrap gx-0 gx-lg-3 gy-1 m-0">
               <div v-for="(c, i) of anime?.characters?.edges" :key="i" class="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-3">
-                <div class="d-flex align-items-start anime-row row-cols-auto g-2 bg-secondary rounded m-0 text-nowrap overflow-auto">
+                <div class="d-flex align-items-start anime-row row-cols-auto g-2 bg-secondary rounded m-0 text-nowrap overflow-auto" data-aos="fade-in">
                   <div class="col ps-0 mt-0" style="max-width: 100px;">
                     <img :src="c.node.image.large" class="img-fluid rounded-start" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
                   </div>

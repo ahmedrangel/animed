@@ -31,6 +31,7 @@
     "eslint": "^9.5.0",
     "gql-query-builder": "^3.8.0",
     "nuxt": "^3.12.2",
+    "nuxt-aos": "^1.2.4",
     "nuxt-icon": "^0.6.10",
     "nuxt-primevue": "^3.0.0",
     "stylelint-config-standard": "^36.0.0"

@@ -7,7 +7,7 @@ const ep = props.data;
 </script>
 
 <template>
-  <a class="episode-card" :href="ep.url">
+  <a class="episode-card" :href="ep.url" data-aos="fade-in">
     <div class="bg-secondary text-white rounded">
       <div class="bg-dark overflow-hidden position-relative rounded rounded-bottom-0">
         <img class="img-fluid rounded rounded-bottom-0 scale-on-hover w-100" :src="ep.thumbnail" :alt="ep.title" :title="ep.title">

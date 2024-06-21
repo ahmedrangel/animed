@@ -73,7 +73,7 @@ onBeforeUnmount(() => {
       <div class="d-flex flex-wrap p-0 justify-content-start anime-row g-3">
         <template v-for="(c, j) of orderedCharacters[y ? String(y) : 'TBA']" :key="j">
           <div class="position-relative col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2 justify-content-center">
-            <div class="character-element image overflow-hidden mb-2 w-100 position-relative">
+            <div class="character-element image overflow-hidden mb-2 w-100 position-relative" data-aos="fade-in">
               <img :class="`ci-${y}_${j}`" class="character-image img-fluid scale-on-hover h-100 w-100 position-absolute object-fit-cover" :src="c.characters[0].image.large" :alt="c.characters[0].name?.userPreferred" :title="c.characters[0].name?.userPreferred">
               <img :class="`coa-${y}_${j}`" class="character-on-anime scale-full-on-hover img-fluid bottom-0 end-0 position-absolute border-start border-top border-2" :src="c.node.coverImage.large" width="90px" :alt="c.node?.title?.romaji" :title="c.node?.title?.romaji">
             </div>

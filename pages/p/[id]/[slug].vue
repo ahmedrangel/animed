@@ -49,7 +49,7 @@ useHead({
             <h6 v-if="staff.name?.alternative" class="mb-1 text-muted">{{ staff.name?.alternative.join(", ") }}</h6>
           </div>
           <div id="details" class="pt-3 pb-4 d-flex align-items-start justify-content-center anime-row mx-0 flex-wrap px-0">
-            <img id="cover" :src="staff?.image?.large" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-2 img-fluid px-0" style="max-width: 300px;" :alt="staff.name.userPreferred" :title="staff.name.userPreferred">
+            <img id="cover" :src="staff?.image?.large" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-2 img-fluid px-0" style="max-width: 300px;" :alt="staff.name.userPreferred" :title="staff.name.userPreferred" data-aos="fade-in">
             <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-10 pt-4 pt-md-0 px-0 ps-md-4">
               <div class="pb-4">
                 <h2 class="text-white">Description</h2>
