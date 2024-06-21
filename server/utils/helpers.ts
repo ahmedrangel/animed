@@ -45,7 +45,7 @@ export const botRateLimitHandler = async (event: H3Event) => {
 
   const botRecord = JSON.parse(rawBotRecord);
 
-  let count = botRecord.count || 0;
+  const count = botRecord.count || 0;
   const lastReq = botRecord.lastReq;
 
   if ((now - lastReq) > RATE_LIMIT_TIME_FRAME) {
@@ -53,14 +53,13 @@ export const botRateLimitHandler = async (event: H3Event) => {
     return false;
   }
 
-  count = count + 1;
-  await RATE_LIMIT_KV.put(botName, JSON.stringify({ count, lastReq: now }));
-
   if (count > RATE_LIMIT_MAX_REQ) {
     console.info("Limited: " + botName);
     await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: 0, lastReq: now }));
     return true;
   }
+
+  await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: count + 1, lastReq: now }));
 
   return false;
 };
