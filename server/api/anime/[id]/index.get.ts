@@ -2,9 +2,30 @@ import { Language } from "~/enums/anilist";
 
 export default defineEventHandler(async (event) => {
   const userAgent = event.headers.get("user-agent");
-  const limited = await botRateLimitHandler(userAgent);
-  if (limited && !import.meta.dev)
-    throw createError({ statusCode: 429, statusMessage: "Too many requests" });
+  const RATE_LIMIT_KV = process.env.ANIMED_BOT_RATE_LIMIT_BUCKET as any;
+  const now = Date.now() as number;
+  const botName = knownBots.find(bot => userAgent?.includes(bot));
+  if (botName) {
+    console.info("Bot: " + botName);
+
+    const rawBotRecord = await RATE_LIMIT_KV.get(botName);
+
+    const botRecord = JSON.parse(rawBotRecord);
+
+    const count = botRecord.count || 0;
+    const lastReq = botRecord.lastReq;
+
+    if ((now - lastReq) > RATE_LIMIT_TIME_FRAME) {
+      await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: 0, lastReq: now }));
+    }
+    else if (count > RATE_LIMIT_MAX_REQ) {
+      console.info("Limited: " + botName);
+      await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: 0, lastReq: now }));
+      throw createError({ statusCode: 429, statusMessage: "Too many requests" });
+    }
+
+    await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: count + 1, lastReq: now }));
+  }
 
   const { cloudflare } = event.context;
   const { href: reqURL } = getRequestURL(event);
