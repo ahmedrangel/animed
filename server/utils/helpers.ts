@@ -50,8 +50,7 @@ export const botRateLimitHandler = async (agent: string | null) => {
     await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: 0, lastReq: now }));
     return false;
   }
-
-  if (count > RATE_LIMIT_MAX_REQ) {
+  else if (count > RATE_LIMIT_MAX_REQ) {
     console.info("Limited: " + botName);
     await RATE_LIMIT_KV.put(botName, JSON.stringify({ count: 0, lastReq: now }));
     return true;
