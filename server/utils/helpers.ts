@@ -30,7 +30,7 @@ export const animeFlvRelationLogic = (aflvArr: Record<string, any>[], anilistObj
 };
 
 const RATE_LIMIT_MAX_REQ = 2;
-const RATE_LIMIT_TIME_FRAME = 1000 * 60;
+const RATE_LIMIT_TIME_FRAME = 1000 * 60 * 5;
 
 const knownBots = ["facebookexternalhit"];
 
