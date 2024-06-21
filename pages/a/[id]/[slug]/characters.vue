@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { params } = useRoute();
 const { id, slug } = params;
-const { data: data, error } = await useFetch("/api/anime/" + id + "/characters") as Record<string, any>;
+const { data: data, error } = await useFetch("/api/anime/" + id + "/characters", { retry: 0 }) as Record<string, any>;
 
 if (error.value) {
   throw createError({
