@@ -34,7 +34,7 @@
     "nuxt-aos": "^1.2.4",
     "nuxt-icon": "^0.6.10",
     "nuxt-primevue": "^3.0.0",
-    "stylelint-config-standard": "^36.0.0"
+    "stylelint-config-standard": "^36.0.1"
   },
   "dependencies": {
     "@nuxtjs/google-fonts": "^3.2.0",
