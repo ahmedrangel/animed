@@ -11,4 +11,4 @@ export default defineCachedEventHandler(async (event) => {
   const response = data;
 
   if (response) return response;
-}, { maxAge: 43200 }); // 12h cache
+}, { maxAge: !import.meta.dev ? 43200 : 0 }); // 12h cache
