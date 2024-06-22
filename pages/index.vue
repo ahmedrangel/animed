@@ -2,7 +2,9 @@
 const { data: data } = await useFetch("/api/explore") as Record<string, any>;
 
 const trendings = data.value.preview?.trending?.media;
-const animes_with_banner = trendings.filter((el: Record<string, string>) => el?.bannerImage);
+const animes_with_banner = trendings.filter((el: Record<string, string>) => {
+  if (el?.bannerImage) return el.bannerImage;
+});
 
 const random_anime = useState("random-anime", () => {
   return animes_with_banner?.length ? getRandomObject(animes_with_banner) : getRandomObject(trendings);
