@@ -1,5 +1,3 @@
-import { getExplore } from "~/utils/anilist.client";
-
 export default defineEventHandler(async (event) => {
   const { cloudflare } = event.context;
   const { href: reqURL } = getRequestURL(event);
