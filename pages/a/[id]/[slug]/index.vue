@@ -144,7 +144,7 @@ useHead({
                 <h6 class="text-primary">External Links:</h6>
                 <div class="d-flex flex-wrap gap-2 align-items-end">
                   <div v-for="(site, i) of externalLinks" :key="i">
-                    <a v-if="site?.url" :href="site.url" target="_blank" class="d-block p-2 rounded" :style="{ 'background-color': site.color ? site.color : 'var(--bs-secondary)' }" :title="site.site">
+                    <a v-if="site?.url" :href="site.url" target="_blank" class="d-flex align-items-center justify-content-center p-2 rounded" :style="{ 'background-color': site.color ? site.color : 'var(--bs-secondary)' }" :title="site.site">
                       <Icon v-if="!site?.icon" name="ph:globe-simple-bold" class="text-white" style="font-size: 33px;" />
                       <img v-else :src="site.icon" class="pe-none" style="width: 33px;">
                     </a>
