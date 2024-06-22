@@ -37,7 +37,7 @@ export default defineNuxtConfig({
     "primevue/resources/themes/aura-dark-green/theme.css"
   ],
   modules: [
-    "nuxt-icon",
+    "@nuxt/icon",
     "@nuxtjs/color-mode",
     "@nuxtjs/sitemap",
     "@nuxtjs/google-fonts",
