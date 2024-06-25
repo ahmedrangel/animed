@@ -39,6 +39,7 @@ export const queryAnime = (options?: Record<string, any>) => {
       ] },
       { externalLinks: ["site", "url", "icon", "color"] },
       { streamingEpisodes: ["site", "title", "thumbnail", "url"] },
+      { tags: ["name"] },
       { operation: "characters",
         variables: {
           perPageCharacters: { name: "perPage", type: "Int", value: 9 },

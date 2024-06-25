@@ -72,6 +72,11 @@ useSeoMeta({
 useHead({
   link: [{ rel: "canonical", href: SITE.url + `/a/${id}/${slug}` }]
 });
+
+const animeGenres = anime?.genres;
+const animeTags = anime?.tags.map((t: Record<string, string>) => t.name);
+
+const genres = [...animeGenres, ...animeTags];
 </script>
 
 <template>
@@ -130,13 +135,14 @@ useHead({
                   <span class="text-primary">Producers:</span>&nbsp; {{ getProducers(anime.studios) }}
                 </h6>
               </div>
-              <div v-if="anime.genres">
+              <div v-if="anime.genres || anime.tags">
                 <h6 class="mb-2">
                   <span class="text-primary">Genres:</span>&nbsp;
-                  <span v-for="(genre, i) of anime.genres" :key="i" class="mx-1">
-                    <NuxtLink :to="`/c/${fixSlug(genre)}`">
-                      <span class="badge bg-secondary align-middle fw-normal">{{ genre }}</span>
+                  <span v-for="(genre, i) of genres" :key="i" class="mx-1">
+                    <NuxtLink v-if="categories.some(c => c.name.toLowerCase() === genre.toLowerCase())" :to="`/c/${fixSlug(genre)}`">
+                      <span class="badge bg-secondary align-middle fw-normal my-1">{{ genre }}</span>
                     </NuxtLink>
+                    <span v-else class="badge bg-secondary align-middle fw-normal my-1">{{ genre }}</span>
                   </span>
                 </h6>
               </div>
