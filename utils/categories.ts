@@ -34,5 +34,7 @@ export const categories = [
   { name: "Parody", type: "tag" },
   { name: "Military", type: "tag" },
   { name: "Martial Arts", type: "tag" },
-  { name: "Demons", type: "tag" }
+  { name: "Demons", type: "tag" },
+  { name: "Angels", type: "tag" },
+  { name: "Vampire", type: "tag" }
 ];
