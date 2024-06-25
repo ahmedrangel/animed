@@ -23,6 +23,9 @@
     "lint:stylelint": "stylelint \"**/*.css\" --fix --config .config/stylelint.json"
   },
   "devDependencies": {
+    "@iconify-json/ph": "^1.1.13",
+    "@iconify-json/simple-icons": "^1.1.107",
+    "@iconify-json/solar": "^1.1.9",
     "@nuxt/eslint": "^0.3.13",
     "@nuxt/icon": "^1.0.0",
     "@nuxtjs/color-mode": "^3.4.1",
