@@ -68,23 +68,22 @@ export const queryAnime = (options?: Record<string, any>) => {
             }
           ] }
         ]
-      },
+      }, /*
       { operation: "staff",
         variables: {
           staffSort: { name: "sort", type: "[StaffSort]", value: [Sort.RELEVANCE, Sort.ID] }
         },
         fields: [
           { edges: [
-            "id",
             "role",
             { node: [
               "id",
               { name: ["userPreferred"] },
-              { image: ["large"] }
+              { image: ["medium"] }
             ] }
           ] }
         ]
-      },
+      }, */
       { operation: "recommendations",
         variables: {
           perPageRecommendation: { name: "perPage", type: "Int", value: 6 },
