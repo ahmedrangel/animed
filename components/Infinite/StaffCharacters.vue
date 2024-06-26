@@ -77,10 +77,16 @@ onBeforeUnmount(() => {
               <img :class="`ci-${y}_${j}`" class="character-image img-fluid scale-on-hover h-100 w-100 position-absolute object-fit-cover" :src="c.characters[0]?.image?.large" :alt="c.characters[0]?.name?.userPreferred" :title="c.characters[0].name?.userPreferred">
               <img :class="`coa-${y}_${j}`" class="character-on-anime scale-full-on-hover img-fluid bottom-0 end-0 position-absolute border-start border-top border-2" :src="c.node.coverImage.large" width="90px" :alt="c.node?.title?.romaji" :title="c.node?.title?.romaji">
             </div>
-            <h5 class="mb-1 text-primary">{{ c.characters[0]?.name?.userPreferred }}</h5>
+            <h5 class="mb-2 text-primary">
+              {{ c.characters[0]?.name?.userPreferred }}
+              <span class="badge bg-light align-middle text-capitalize py-1 px-2 text-dark" style="font-size: .65em;">{{ c.characterRole.toLowerCase() }}</span>
+            </h5>
             <template v-if="c?.node">
               <NuxtLink :to="`/a/${c.node?.id}/${fixSlug(c.node?.title.romaji)}`" class="text-white">
-                <h6 class="mb-0 fw-normal">{{ c.node?.title?.english ? c.node?.title?.english : c.node?.title?.romaji }} <span class="badge bg-secondary align-middle">{{ c.node?.format?.replace(/_/g, " ") }}</span></h6>
+                <h6 class="mb-0 fw-normal">
+                  {{ c.node?.title?.english ? c.node?.title?.english : c.node?.title?.romaji }}
+                  <span class="badge bg-secondary align-middle py-1 px-2">{{ c.node?.format?.replace(/_/g, " ") }}</span>
+                </h6>
               </NuxtLink>
               <small class="text-muted d-block mb-1 fw-light">{{ c.node?.title?.romaji }}</small>
             </template>
