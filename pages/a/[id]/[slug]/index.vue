@@ -73,8 +73,8 @@ useHead({
   link: [{ rel: "canonical", href: SITE.url + `/a/${id}/${slug}` }]
 });
 
-const animeGenres = anime?.genres;
-const animeTags = anime?.tags.map((t: Record<string, string>) => t.name);
+const animeGenres = anime?.genres || [];
+const animeTags = anime?.tags?.map((t: Record<string, string>) => t.name) || [];
 
 const genres = [...animeGenres, ...animeTags];
 </script>
