@@ -312,3 +312,7 @@ input:focus-visible {
 .character-element:hover .character-on-anime {
   opacity: .4;
 }
+
+#back-to-top:hover {
+  background-color: var(--bs-link-hover-color)!important;
+}
