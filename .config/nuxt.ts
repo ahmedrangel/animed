@@ -60,7 +60,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     prerender: {
-      routes: ["/sitemap.xml"]
+      routes: ["/c", "/search", "/sitemap.xml"]
     }
   },
   eslint: {
@@ -70,7 +70,7 @@ export default defineNuxtConfig({
     }
   },
   sitemap: {
-    dynamicUrlsApiEndpoint: "/__sitemap",
+    sources: ["/api/__sitemap"],
     xslColumns: [
       { label: "URL", width: "65%" },
       { label: "Priority", select: "sitemap:priority", width: "12.5%" },
