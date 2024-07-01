@@ -101,5 +101,8 @@ export default defineNuxtConfig({
     families: {
       Rubik: [300, 400, 500, 600, 700]
     }
+  },
+  experimental: {
+    typedPages: true
   }
 });

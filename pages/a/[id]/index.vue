@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { params } = useRoute();
+const { params } = useRoute("a-id");
 const { id } = params;
 const { data: data } = await useFetch("/api/anime/" + id + "/slug") as Record<string, any>;
 const slug = fixSlug(data.value?.slug);

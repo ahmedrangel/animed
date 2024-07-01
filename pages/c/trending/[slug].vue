@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: "no-footer" });
 
-const { params } = useRoute();
+const { params } = useRoute("c-trending-slug");
 const { slug } = params;
 
 const exists = categories.find(c => fixSlug(c.name) === slug) || null;

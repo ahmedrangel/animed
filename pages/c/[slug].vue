@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { params } = useRoute();
+const { params } = useRoute("c-slug");
 const { slug } = params;
 
 const exists = categories.find(c => fixSlug(c.name) === slug) || null;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { params } = useRoute();
+const { params } = useRoute("p-id-slug");
 const { id, slug } = params;
 const { data: data, error } = await useFetch("/api/people/" + id, { retry: 0 }) as Record<string, any>;
 
@@ -12,7 +12,7 @@ if (error.value) {
 }
 
 const _slug = fixSlug(data.value.name.userPreferred);
-if (String(slug).toLowerCase() !== _slug) {
+if (slug.toLowerCase() !== _slug) {
   throw createError({
     statusCode: 404,
     message: `People not found: '${slug}'`,
