@@ -8,7 +8,7 @@ const anime = props.data;
 
 <template>
   <NuxtLink :to="`/a/${anime.id}/${fixSlug(anime.title.romaji)}`" class="text-white">
-    <div class="position-relative" data-aos="fade-in">
+    <div v-ripple class="position-relative" data-aos="fade-in">
       <span v-if="anime.status === 'RELEASING'" class="pe-none badge bg-dark position-absolute top-0 end-0 z-1 p-1 mt-1 me-1 d-flex align-items-center">
         <SpinnerGrowing class="me-1 text-danger" style="width: 1em; height: 1em; animation-duration: 1.4s;" />
         <span>Airing</span>
