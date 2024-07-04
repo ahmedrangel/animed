@@ -97,7 +97,8 @@ export default defineNuxtConfig({
     },
     autoImport: false,
     components: {
-      prefix: "Prime"
+      prefix: "Prime",
+      include: ["Button"]
     }
   },
   googleFonts: {
