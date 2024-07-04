@@ -13,8 +13,7 @@
   --bs-border-color: rgb(48 51 55);
   --bs-link-color-rgb: var(--bs-primary-rgb);
   --bs-link-hover-color-rgb: 247, 212, 109;
-  --bs-link-hover-color: #ffca2c;
-  
+  --bs-link-hover-color: #ffca2c; 
 }
 
 *::-webkit-scrollbar {
@@ -42,4 +41,14 @@ section ::-webkit-scrollbar-track {
 
 *::-webkit-scrollbar-thumb:hover {
   background-color: var(--bs-primary);
+}
+
+.btn {
+  background: var(--bs-primary);
+  border: 1px solid var(--bs-primary);
+}
+
+.btn:not(:disabled):hover {
+  background: var(--bs-link-hover-color);
+  border: 1px solid var(--bs-link-hover-color);
 }

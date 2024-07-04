@@ -1,6 +1,8 @@
 import { SITE } from "../utils/info";
+import { Ripple } from "../utils/primevue";
 
 export default defineNuxtConfig({
+  compatibilityDate: "2024-07-04",
   app: {
     pageTransition: { name: "fade", mode: "out-in" },
     layoutTransition: { name: "fade", mode: "out-in" },
@@ -33,15 +35,14 @@ export default defineNuxtConfig({
     "~/assets/css/main.css",
     "~/assets/css/transitions.css",
     "~/assets/css/theme.css",
-    "~/assets/css/categories.css",
-    "primevue/resources/themes/aura-dark-green/theme.css"
+    "~/assets/css/categories.css"
   ],
   modules: [
     "@nuxt/icon",
     "@nuxtjs/color-mode",
     "@nuxtjs/sitemap",
     "@nuxtjs/google-fonts",
-    "nuxt-primevue",
+    "@primevue/nuxt-module",
     "@nuxt/eslint",
     "nuxt-aos"
   ],
@@ -85,14 +86,18 @@ export default defineNuxtConfig({
   primevue: {
     usePrimeVue: true,
     options: {
-      ripple: true
+      ripple: true,
+      theme: {
+        preset: {
+          directives: {
+            ripple: Ripple
+          }
+        }
+      }
     },
+    autoImport: false,
     components: {
-      prefix: "Prime",
-      include: ["Button"] /* Used as <PrimeButton /> */
-    },
-    directives: {
-      include: ["Ripple"]
+      prefix: "Prime"
     }
   },
   googleFonts: {
