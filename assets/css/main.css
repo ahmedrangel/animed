@@ -1,7 +1,4 @@
 /* main.css */
-@layer bootstrap, theme, primevue;
-@import "bootstrap/dist/css/bootstrap.min.css" layer(bootstrap);
-@import "~/assets/css/theme.css" layer(theme);
 
 .row>* {
   width: 0;

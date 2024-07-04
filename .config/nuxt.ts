@@ -96,7 +96,7 @@ export default defineNuxtConfig({
         options: {
           cssLayer: {
             name: "primevue",
-            order: "bootstrap, theme, primevue"
+            order: "primevue"
           }
         }
       }
