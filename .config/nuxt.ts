@@ -92,6 +92,12 @@ export default defineNuxtConfig({
           directives: {
             ripple: Ripple
           }
+        },
+        options: {
+          cssLayer: {
+            name: "primevue",
+            order: "bootstrap, theme, primevue"
+          }
         }
       }
     },

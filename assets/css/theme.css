@@ -42,13 +42,3 @@ section ::-webkit-scrollbar-track {
 *::-webkit-scrollbar-thumb:hover {
   background-color: var(--bs-primary);
 }
-
-.p-button {
-  background: var(--bs-primary)!important;
-  border: 1px solid var(--bs-primary)!important;
-}
-
-.p-button:not(:disabled):hover {
-  background: var(--bs-link-hover-color)!important;
-  border: 1px solid var(--bs-link-hover-color)!important;
-}
