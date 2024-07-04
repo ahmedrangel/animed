@@ -11,15 +11,9 @@ importers:
       '@nuxtjs/google-fonts':
         specifier: ^3.2.0
         version: 3.2.0(magicast@0.3.4)(rollup@4.18.0)
-      '@primevue/themes':
-        specifier: ^4.0.0
-        version: 4.0.0(@primeuix/styled@0.0.5)
       bootstrap:
         specifier: ^5.3.3
         version: 5.3.3(@popperjs/core@2.11.8)
-      primevue:
-        specifier: ^4.0.0
-        version: 4.0.0(@primeuix/utils@0.0.5)(vue@3.4.31(typescript@5.5.3))
     devDependencies:
       '@nuxt/eslint':
         specifier: ^0.3.13
@@ -1186,12 +1180,6 @@ packages:
   '@primevue/nuxt-module@4.0.0':
     resolution: {integrity: sha512-9R8rarSY6kxsHVyfo9Pbx3+75mTFyDkYJs5XPDIzZFLXu2ZaodaZvNhwQ8I9ZAYis5UNy4yIjCsWnmXaOSW0+w==}
     engines: {node: '>=12.11.0'}
-
-  '@primevue/themes@4.0.0':
-    resolution: {integrity: sha512-y1HKYTuWma3T8NM9xVsLeJJeFWMxLIdJqNvQ+l8CnASgU+GH+KxMXOpPXqTAiJ2zpPmBL5VwpCCJWX93DjjvMQ==}
-    engines: {node: '>=12.11.0'}
-    peerDependencies:
-      '@primeuix/styled': ^0.0.5
 
   '@protobufjs/aspromise@1.1.2':
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
@@ -6181,10 +6169,6 @@ snapshots:
       - rollup
       - supports-color
       - vue
-
-  '@primevue/themes@4.0.0(@primeuix/styled@0.0.5)':
-    dependencies:
-      '@primeuix/styled': 0.0.5
 
   '@protobufjs/aspromise@1.1.2': {}
 
