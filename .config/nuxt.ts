@@ -17,7 +17,8 @@ export default defineNuxtConfig({
       },
       meta: [
         { name: "robots", content: "index, follow" },
-        { property: "og:ttl", content: "604800" }
+        { property: "og:ttl", content: "604800" },
+        { name: "darkreader-lock", content: "darkreader" }
       ],
       link: [
         { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
