@@ -161,7 +161,7 @@ const genres = [...animeGenres, ...animeTags];
                 <div class="col-12 col-lg-12 col-xl-6">
                   <h6 class="text-primary">Trailer:</h6>
                   <div class="ratio ratio-16x9" data-aos="fade-in">
-                    <iframe id="embed" width="1280" height="720" :src="'https://youtube.com/embed/' + anime.trailer.id" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope;" />
+                    <iframe id="embed" width="1280" height="720" :src="'https://youtube.com/embed/' + anime.trailer.id" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope;" allowfullscreen />
                   </div>
                 </div>
               </div>

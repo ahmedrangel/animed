@@ -35,7 +35,7 @@ onBeforeUnmount(() => {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
           <!-- 16:9 aspect ratio -->
           <div class="ratio ratio-16x9">
-            <iframe id="embed" width="1280" height="720" :src="props.video + '?enablejsapi=1'" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope;" />
+            <iframe id="embed" width="1280" height="720" :src="props.video + '?enablejsapi=1'" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope;" allowfullscreen />
           </div>
         </div>
       </div>
