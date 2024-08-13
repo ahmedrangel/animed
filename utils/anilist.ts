@@ -1,10 +1,10 @@
-import { API, Sort, Status } from "../enums/anilist";
 import { queryAnime, queryAnimeCharacters, queryAnimeSlug, queryAnimeEpisodes } from "./queries/anime";
+import { queryExplore } from "./queries/explore";
 import { queryFilter } from "./queries/filter";
 import { queryStaff, queryStaffSlug } from "./queries/staff";
-import { queryExplore } from "./queries/explore";
+import { API, Sort, Status } from "~~/enums/anilist";
 
-export const getQuery = async (options?: Record<string, any> | null) => {
+export const getSearch = async (options?: Record<string, any> | null) => {
   const { data } = await $fetch(API.GRAPHQL, {
     method: "POST",
     body: queryFilter({ ...options, sort: Sort.SEARCH_MATCH })
@@ -78,7 +78,7 @@ export const getList = async (type: string, options?: Record<string, any>) => {
     case "upcoming":
       return await getUpcoming(options);
     default:
-      return await getQuery(options);
+      return await getSearch(options);
   }
 };
 

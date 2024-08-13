@@ -16,7 +16,7 @@ watch(query, async () => {
   }
   if (query.value.length > 0) {
     debounce.value = setTimeout(async () => {
-      result.value = await getQuery({ search: query.value });
+      result.value = await getSearch({ search: query.value });
       loading.value = false;
     }, 1000);
   }

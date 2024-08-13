@@ -1,5 +1,5 @@
 import * as gql from "gql-query-builder";
-import { Sort } from "~/enums/anilist";
+import { Sort } from "~~/enums/anilist";
 
 export const queryStaff = (options?: Record<string, any>) => {
   for (const key in options) {

@@ -1,3 +1,6 @@
+import { getAnimeSlug } from "~~/utils/anilist";
+import { fixSlug } from "~/utils/helpers";
+
 export default defineCachedEventHandler(async (event) => {
   const { id } = getRouterParams(event);
   const data = await getAnimeSlug(Number(id));

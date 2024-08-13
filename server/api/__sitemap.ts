@@ -1,6 +1,3 @@
-import { categories } from "~/utils/categories";
-import { fixSlug } from "~/utils/helpers";
-
 export default defineEventHandler(() => {
   const routeRules = [] as Record<string, any>;
   for (const c of categories) {

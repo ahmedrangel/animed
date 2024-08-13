@@ -1,5 +1,5 @@
 import * as gql from "gql-query-builder";
-import { Format, Licensor, Sort, Status } from "../../enums/anilist";
+import { Format, Licensor, Sort, Status } from "~~/enums/anilist";
 
 export const queryExplore = (options?: Record<string, any> | null) => {
   const multiQuery = (options: Record<string, any>) => {

@@ -1,5 +1,5 @@
 import * as gql from "gql-query-builder";
-import { Format, Licensor } from "../../enums/anilist";
+import { Format, Licensor } from "~~/enums/anilist";
 
 export const queryFilter = (options?: Record<string, any>) => {
   for (const key in options) {

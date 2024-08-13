@@ -1,8 +1,9 @@
-import { SITE } from "../utils/info";
-import { Ripple } from "../utils/primevue";
+import { SITE } from "../app/utils/info";
+import { Ripple } from "../app/utils/primevue";
 
 export default defineNuxtConfig({
-  compatibilityDate: "2024-07-04",
+  future: { compatibilityVersion: 4 },
+  compatibilityDate: "2024-08-13",
   app: {
     pageTransition: { name: "fade", mode: "out-in" },
     layoutTransition: { name: "fade", mode: "out-in" },

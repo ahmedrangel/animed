@@ -1,5 +1,5 @@
 import * as gql from "gql-query-builder";
-import { Sort } from "~/enums/anilist";
+import { Sort } from "~~/enums/anilist";
 
 export const queryAnime = (options?: Record<string, any>) => {
   for (const key in options) {
@@ -56,7 +56,7 @@ export const queryAnime = (options?: Record<string, any>) => {
             ] },
             { operation: "voiceActors",
               variables: {
-                staffLanguage: { name: "language", type: "StaffLanguage", value: options?.language },
+                staffLanguage: { name: "language", type: "StaffLanguage", value: options?.staffLanguage },
                 staffSort: { name: "sort", type: "[StaffSort]", value: [Sort.RELEVANCE, Sort.ID] }
               },
               fields: [
@@ -153,7 +153,7 @@ export const queryAnimeCharacters = (options?: Record<string, any>) => {
             ] },
             { operation: "voiceActors",
               variables: {
-                staffLanguage: { name: "language", type: "StaffLanguage", value: options?.language },
+                staffLanguage: { name: "language", type: "StaffLanguage", value: options?.staffLanguage },
                 staffSort: { name: "sort", type: "[StaffSort]", value: [Sort.RELEVANCE, Sort.ID] }
               },
               fields: [
