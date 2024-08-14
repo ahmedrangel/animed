@@ -2,29 +2,18 @@
 definePageMeta({ layout: "no-footer" });
 
 const query = ref() as Ref<string>;
-const debounce = ref(null as any);
 const result = ref() as Ref<Record<string, any> | null>;
 const loading = ref(false) as Ref<boolean>;
 const count = ref(1) as Ref<number>;
 const input = ref("input") as unknown as Ref<HTMLElement>;
 
-watch(query, async () => {
-  loading.value = true;
-  if (debounce.value) {
-    clearTimeout(debounce.value);
-    debounce.value = null;
-  }
-  if (query.value.length > 0) {
-    debounce.value = setTimeout(async () => {
-      result.value = await getSearch({ search: query.value });
-      loading.value = false;
-    }, 1000);
-  }
-  else {
-    result.value = null;
-    loading.value = false;
-  }
-});
+watch(query, () => loading.value = true);
+
+watchDebounced(query, async () => {
+  if (query.value.length > 0) result.value = await getSearch({ search: query.value });
+  else result.value = null;
+  loading.value = false;
+}, { debounce: 1000 });
 
 onMounted(() => {
   input.value.focus();

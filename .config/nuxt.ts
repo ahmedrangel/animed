@@ -46,7 +46,8 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "@primevue/nuxt-module",
     "@nuxt/eslint",
-    "nuxt-aos"
+    "nuxt-aos",
+    "@vueuse/nuxt"
   ],
   runtimeConfig: {},
   features: {

@@ -29,6 +29,7 @@
     "@nuxtjs/sitemap": "^5.3.5",
     "@primevue/nuxt-module": "^4.0.4",
     "@types/bootstrap": "^5.2.10",
+    "@vueuse/nuxt": "^10.11.1",
     "date-fns": "^3.6.0",
     "eslint": "^9.9.0",
     "gql-query-builder": "^3.8.0",
