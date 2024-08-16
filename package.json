@@ -18,7 +18,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "npm run lint:eslint && npm run lint:stylelint",
+    "lint": "pnpm run lint:eslint && pnpm run lint:stylelint",
     "lint:eslint": "eslint --fix --config .config/eslint.mjs",
     "lint:stylelint": "stylelint \"**/*.css\" --fix --config .config/stylelint.json"
   },
@@ -29,7 +29,7 @@
     "@nuxtjs/sitemap": "^5.3.5",
     "@primevue/nuxt-module": "^4.0.4",
     "@types/bootstrap": "^5.2.10",
-    "@vueuse/nuxt": "^10.11.1",
+    "@vueuse/nuxt": "^11.0.0",
     "date-fns": "^3.6.0",
     "eslint": "^9.9.0",
     "gql-query-builder": "^3.8.0",
