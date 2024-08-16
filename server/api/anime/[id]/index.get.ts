@@ -13,7 +13,7 @@ export default defineCachedEventHandler(async (event) => {
   const animeflv = await getAflvSearch(encodeURIComponent(obj?.title?.english || obj?.title?.native));
   if (animeflv?.length) {
     const foundRelation = animeFlvRelationLogic(animeflv, obj);
-    foundRelation ? obj.externalLinks.push(foundRelation) : null;
+    if (foundRelation) obj.externalLinks.push(foundRelation);
   }
 
   const response = obj;
