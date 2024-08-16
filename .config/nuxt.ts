@@ -50,6 +50,7 @@ export default defineNuxtConfig({
     "nuxt-aos",
     "@vueuse/nuxt"
   ],
+  icon: { mode: "svg", serverBundle: "remote" },
   runtimeConfig: {},
   features: {
     inlineStyles: false
