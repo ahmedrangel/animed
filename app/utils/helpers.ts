@@ -106,3 +106,7 @@ export const fixStaffDescription = (text: string) => {
     .replaceAll("<span><span", "<span class=\"mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize\"><span")
     .replaceAll("\n", "");
 };
+
+export const fixSlug = (name: string) => {
+  return name?.replace(/ /g, "-")?.replace(/[^a-zA-Z0-9-]/g, "")?.toLowerCase();
+};
