@@ -88,6 +88,10 @@ const toggleMoreThemes = () => {
   openings.value = moreThemes.value ? themes.openings : openings.value.slice(0, 10);
   endings.value = moreThemes.value ? themes.endings : endings.value.slice(0, 10);
 };
+
+const fixTheme = (text: string) => {
+  return text.replace(/"/g, "").replace(/(\d+|\w+): /g, "");
+};
 </script>
 
 <template>
@@ -230,7 +234,9 @@ const toggleMoreThemes = () => {
                 <hr>
                 <ol class="small mb-0">
                   <li v-for="(op, i) of openings" :key="i" class="mb-2">
-                    <h6 class="mb-0 fw-light">{{ op.replace(/\"/g, "").replace(/(\d+|\w+): /g, "") }}</h6>
+                    <a :href="`https://www.youtube.com/results?search_query=${encodeURIComponent(fixTheme(op))}`" target="_blank">
+                      <h6 class="mb-0 fw-light">{{ fixTheme(op) }}</h6>
+                    </a>
                   </li>
                 </ol>
               </div>
@@ -239,11 +245,13 @@ const toggleMoreThemes = () => {
                 <hr>
                 <ol class="small mb-0">
                   <li v-for="(en, i) of endings" :key="i" class="mb-2">
-                    <h6 class="mb-0 fw-light">{{ en.replace(/\"/g, "").replace(/(\d+|\w+): /g, "") }}</h6>
+                    <a :href="`https://www.youtube.com/results?search_query=${encodeURIComponent(fixTheme(en))}`" target="_blank">
+                      <h6 class="mb-0 fw-light">{{ fixTheme(en) }}</h6>
+                    </a>
                   </li>
                 </ol>
               </div>
-              <a v-if="themes?.endings.length > 10 || themes?.endings.length > 10" href="javascript:void(0)" class="ms-auto" role="button" @click="toggleMoreThemes()">
+              <a v-if="themes?.endings.length > 10 || themes?.endings.length > 10" class="ms-auto" role="button" @click="toggleMoreThemes()">
                 <div class="d-flex align-items-center gap-1">
                   <Icon v-if="!moreThemes" name="ph:caret-down-bold" />
                   <Icon v-else name="ph:caret-up-bold" />
