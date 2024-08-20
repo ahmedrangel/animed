@@ -227,9 +227,9 @@ const fixTheme = (text: string) => {
               </template>
             </div>
           </div>
-          <div v-if="themes" id="themes">
+          <div v-if="openings.length || endings.length" id="themes" class="pb-2">
             <div class="d-flex anime-row flex-wrap g-2">
-              <div v-if="themes?.openings" class="col-6 mt-0 mb-2">
+              <div v-if="themes?.openings" class="col-6 m-0">
                 <h2 class="mb-2">Openings:</h2>
                 <hr>
                 <ol class="small mb-0" data-aos="fade-in">
@@ -240,7 +240,7 @@ const fixTheme = (text: string) => {
                   </li>
                 </ol>
               </div>
-              <div v-if="themes?.endings" class="col-6 mt-0 mb-2">
+              <div v-if="themes?.endings" class="col-6 m-0">
                 <h2 class="mb-2">Endings:</h2>
                 <hr>
                 <ol class="small mb-0" data-aos="fade-in">
@@ -261,8 +261,8 @@ const fixTheme = (text: string) => {
             </div>
           </div>
           <template v-if="recommendations.preview?.recommendations?.media?.length">
-            <hr class="my-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
+            <hr class="pb-4 m-0">
+            <div class="d-flex justify-content-between align-items-center">
               <h2 class="mb-2">Recommendations</h2>
             </div>
             <AnimePreviewList :data="recommendations" />
