@@ -77,6 +77,17 @@ const animeGenres = anime?.genres || [];
 const animeTags = anime?.tags?.map((t: Record<string, string>) => t.name) || [];
 
 const genres = [...animeGenres, ...animeTags];
+
+const themes = anime.idMal ? await getAnimeThemes(anime.idMal) : null;
+const openings = ref(themes?.openings.slice(0, 10));
+const endings = ref(themes?.endings.slice(0, 10));
+const moreThemes = ref(false);
+
+const toggleMoreThemes = () => {
+  moreThemes.value = !moreThemes.value;
+  openings.value = moreThemes.value ? themes.openings : openings.value.slice(0, 10);
+  endings.value = moreThemes.value ? themes.endings : endings.value.slice(0, 10);
+};
 </script>
 
 <template>
@@ -197,14 +208,14 @@ const genres = [...animeGenres, ...animeTags];
               </div>
             </div>
           </div>
-          <div v-if="streamingEpisodes[0]" id="episodes">
+          <div v-if="streamingEpisodes[0]" id="episodes" class="pb-4">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <h2 class="text-white mb-0">Episodes</h2>
               <NuxtLink :to="`/a/${id}/${slug}/episodes`">
                 <h6 class="mb-0 text-muted">See more</h6>
               </NuxtLink>
             </div>
-            <div class="d-flex justify-content-start align-items-start anime-row flex-wrap m-0 g-2">
+            <div class="d-flex anime-row flex-wrap g-2">
               <template v-for="(ep, i) of streamingEpisodes" :key="i">
                 <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-2 mb-2">
                   <EpisodeCard :data="ep" />
@@ -212,8 +223,37 @@ const genres = [...animeGenres, ...animeTags];
               </template>
             </div>
           </div>
+          <div v-if="themes" id="themes">
+            <div class="d-flex anime-row flex-wrap g-2">
+              <div v-if="themes?.openings" class="col-6 mt-0 mb-2">
+                <h2 class="mb-2">Openings:</h2>
+                <hr>
+                <ol class="small mb-0">
+                  <li v-for="(op, i) of openings" :key="i" class="mb-2">
+                    <h6 class="mb-0 fw-light">{{ op.replace(/\"/g, "").replace(/(\d+|\w+): /g, "") }}</h6>
+                  </li>
+                </ol>
+              </div>
+              <div v-if="themes?.endings" class="col-6 mt-0 mb-2">
+                <h2 class="mb-2">Endings:</h2>
+                <hr>
+                <ol class="small mb-0">
+                  <li v-for="(en, i) of endings" :key="i" class="mb-2">
+                    <h6 class="mb-0 fw-light">{{ en.replace(/\"/g, "").replace(/(\d+|\w+): /g, "") }}</h6>
+                  </li>
+                </ol>
+              </div>
+              <a v-if="themes?.endings.length > 10 || themes?.endings.length > 10" href="javascript:void(0)" class="ms-auto" role="button" @click="toggleMoreThemes()">
+                <div class="d-flex align-items-center gap-1">
+                  <Icon v-if="!moreThemes" name="ph:caret-down-bold" />
+                  <Icon v-else name="ph:caret-up-bold" />
+                  <span>{{ !moreThemes ? 'More' : 'Less' }} theme songs</span>
+                </div>
+              </a>
+            </div>
+          </div>
           <template v-if="recommendations.preview?.recommendations?.media?.length">
-            <hr class="my-5">
+            <hr class="my-4">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <h2 class="mb-2">Recommendations</h2>
             </div>
