@@ -7,10 +7,10 @@ const ep = props.data;
 </script>
 
 <template>
-  <a class="episode-card" :href="ep.url" data-aos="fade-in">
-    <div class="bg-secondary text-white rounded">
-      <div class="bg-dark overflow-hidden position-relative rounded rounded-bottom-0">
-        <img class="img-fluid rounded rounded-bottom-0 scale-on-hover w-100" :src="ep.thumbnail" :alt="ep.title" :title="ep.title">
+  <div class="h-100">
+    <a class="episode-card bg-secondary d-block rounded h-100 text-white" :href="ep.url" data-aos="fade-in">
+      <div class="bg-dark overflow-hidden position-relative rounded-bottom-0">
+        <img class="img-fluid rounded-bottom-0 scale-on-hover w-100" :src="ep.thumbnail" :alt="ep.title" :title="ep.title">
         <span class="position-absolute top-50 start-50 translate-middle mb-0 invisible pe-none text-white"><Icon name="ci:external-link" /></span>
       </div>
       <h6 class="p-3 m-0 fw-normal">
@@ -24,6 +24,6 @@ const ep = props.data;
           </span>
         </span>
       </h6>
-    </div>
-  </a>
+    </a>
+  </div>
 </template>

@@ -65,7 +65,7 @@ useHead({
           </div>
           <div v-if="streamingEpisodes[0]" id="episodes">
             <h2 class="text-white mb-2">Episodes</h2>
-            <div class="d-flex justify-content-start align-items-start anime-row flex-wrap m-0 g-2">
+            <div class="d-flex anime-row flex-wrap m-0 g-2">
               <template v-for="(ep, i) of streamingEpisodes" :key="i">
                 <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3 mb-2">
                   <EpisodeCard :data="ep" />
