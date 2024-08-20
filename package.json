@@ -23,13 +23,13 @@
     "lint:stylelint": "stylelint \"**/*.css\" --fix --config .config/stylelint.json"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^0.5.0",
+    "@nuxt/eslint": "^0.5.1",
     "@nuxt/icon": "^1.4.5",
-    "@nuxtjs/color-mode": "^3.4.2",
+    "@nuxtjs/color-mode": "^3.4.4",
     "@nuxtjs/sitemap": "^5.3.5",
     "@primevue/nuxt-module": "^4.0.4",
     "@types/bootstrap": "^5.2.10",
-    "@vueuse/nuxt": "^11.0.0",
+    "@vueuse/nuxt": "^11.0.1",
     "date-fns": "^3.6.0",
     "eslint": "^9.9.0",
     "gql-query-builder": "^3.8.0",
@@ -40,5 +40,8 @@
   "dependencies": {
     "@nuxtjs/google-fonts": "^3.2.0",
     "bootstrap": "^5.3.3"
+  },
+  "resolutions": {
+    "vue-router": "4.4.0"
   }
 }
