@@ -234,7 +234,7 @@ const fixTheme = (text: string) => {
                 <hr>
                 <ol class="small mb-0" data-aos="fade-in">
                   <li v-for="(op, i) of openings" :key="i" class="mb-2">
-                    <a :href="`https://www.youtube.com/results?search_query=${encodeURIComponent(fixTheme(op))}`" target="_blank">
+                    <a :href="`https://www.youtube.com/results?search_query=${encodeURIComponent(fixTheme(op).replace(/\(eps.*?\)/g, ''))}`" target="_blank">
                       <h6 class="mb-0 fw-light">{{ fixTheme(op) }}</h6>
                     </a>
                   </li>
@@ -245,7 +245,7 @@ const fixTheme = (text: string) => {
                 <hr>
                 <ol class="small mb-0" data-aos="fade-in">
                   <li v-for="(en, i) of endings" :key="i" class="mb-2">
-                    <a :href="`https://www.youtube.com/results?search_query=${encodeURIComponent(fixTheme(en))}`" target="_blank">
+                    <a :href="`https://www.youtube.com/results?search_query=${encodeURIComponent(fixTheme(en).replace(/\(eps.*?\)/g, ''))}`" target="_blank">
                       <h6 class="mb-0 fw-light">{{ fixTheme(en) }}</h6>
                     </a>
                   </li>
