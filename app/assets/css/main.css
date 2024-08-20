@@ -326,3 +326,7 @@ input:focus-visible {
   background: var(--bs-link-hover-color);
   border: 1px solid var(--bs-link-hover-color);
 }
+
+#themes a:hover {
+  text-decoration: underline!important;
+}

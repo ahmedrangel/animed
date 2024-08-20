@@ -12,8 +12,8 @@
   --bs-secondary-rgb: 45, 45, 45;
   --bs-border-color: rgb(48 51 55);
   --bs-link-color-rgb: var(--bs-primary-rgb);
-  --bs-link-hover-color-rgb: 247, 212, 109;
-  --bs-link-hover-color: #ffca2c; 
+  --bs-link-hover-color-rgb: 255, 207, 63;
+  --bs-link-hover-color: #ffcf3f; 
 }
 
 *::-webkit-scrollbar {
