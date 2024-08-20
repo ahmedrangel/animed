@@ -232,7 +232,7 @@ const fixTheme = (text: string) => {
               <div v-if="themes?.openings" class="col-6 mt-0 mb-2">
                 <h2 class="mb-2">Openings:</h2>
                 <hr>
-                <ol class="small mb-0">
+                <ol class="small mb-0" data-aos="fade-in">
                   <li v-for="(op, i) of openings" :key="i" class="mb-2">
                     <a :href="`https://www.youtube.com/results?search_query=${encodeURIComponent(fixTheme(op))}`" target="_blank">
                       <h6 class="mb-0 fw-light">{{ fixTheme(op) }}</h6>
@@ -243,7 +243,7 @@ const fixTheme = (text: string) => {
               <div v-if="themes?.endings" class="col-6 mt-0 mb-2">
                 <h2 class="mb-2">Endings:</h2>
                 <hr>
-                <ol class="small mb-0">
+                <ol class="small mb-0" data-aos="fade-in">
                   <li v-for="(en, i) of endings" :key="i" class="mb-2">
                     <a :href="`https://www.youtube.com/results?search_query=${encodeURIComponent(fixTheme(en))}`" target="_blank">
                       <h6 class="mb-0 fw-light">{{ fixTheme(en) }}</h6>
