@@ -25,7 +25,7 @@ export const animeFlvRelationLogic = (aflvArr: Record<string, any>[], anilistObj
 const RATE_LIMIT_MAX_REQ = 2;
 const RATE_LIMIT_TIME_FRAME = 1000 * 60 * 5;
 
-const knownBots = ["facebookexternalhit", "GoogleOther", "bingbot", "Googlebot", "GPTBot"];
+const knownBots = ["facebookexternalhit", "GoogleOther", "bingbot", "Googlebot", "GPTBot", "Bytespider", "SemrushBot", "Amazonbot"];
 
 export const botRateLimitHandler = async (agent: string | undefined) => {
   const RATE_LIMIT_KV = process.env.ANIMED_BOT_RATE_LIMIT_BUCKET as any;
@@ -49,10 +49,6 @@ export const botRateLimitHandler = async (agent: string | undefined) => {
   const lastReq = botRecord.lastReq;
   const diff = now - lastReq;
   if (diff < RATE_LIMIT_TIME_FRAME && count >= RATE_LIMIT_MAX_REQ) {
-    await RATE_LIMIT_KV.put(botName, JSON.stringify({
-      count: count + 1,
-      lastReq
-    }));
     return true;
   }
   else if (diff >= RATE_LIMIT_TIME_FRAME) {
