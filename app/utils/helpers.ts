@@ -112,5 +112,8 @@ export const fixSlug = (name: string) => {
 };
 
 export const distanceToNow = (date: number) => {
-  if (date) return formatDistanceToNow(date * 1000, { addSuffix: true });
+  const string = formatDistanceToNow(date * 1000, { addSuffix: true });
+  if (date) return string.replace(/years?|months?|weeks?|days?|hours?|minutes?|seconds?/g, (match) => {
+    return match[0] + (match.startsWith("mo") ? "o" : "");
+  });
 };
