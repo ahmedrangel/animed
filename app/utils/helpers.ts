@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 
 export const getRating = (percent: number) => {
   if (!percent) return 0;
@@ -109,4 +109,8 @@ export const fixStaffDescription = (text: string) => {
 
 export const fixSlug = (name: string) => {
   return name?.replace(/ /g, "-")?.replace(/[^a-zA-Z0-9-]/g, "")?.toLowerCase();
+};
+
+export const distanceToNow = (date: number) => {
+  if (date) return formatDistanceToNow(date * 1000, { addSuffix: true });
 };

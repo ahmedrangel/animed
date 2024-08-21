@@ -36,9 +36,9 @@ export const queryFilter = (options?: Record<string, any>) => {
           "format",
           "status",
           "episodes",
-          "isAdult",
           "averageScore",
-          { trailer: ["id", "site"] }
+          { trailer: ["id", "site"] },
+          { nextAiringEpisode: ["airingAt"] }
         ]
       }]
   });

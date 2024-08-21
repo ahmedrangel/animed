@@ -30,7 +30,8 @@ export const queryExplore = (options?: Record<string, any> | null) => {
             "format",
             "status",
             "averageScore",
-            { trailer: ["id", "site"] }
+            { trailer: ["id", "site"] },
+            { nextAiringEpisode: ["airingAt"] }
           ]
         }]
     };
