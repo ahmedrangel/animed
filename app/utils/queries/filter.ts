@@ -9,7 +9,7 @@ export const queryFilter = (options?: Record<string, any>) => {
     operation: "Page",
     variables: {
       page: { type: "Int", value: options?.page || 1 },
-      perPage: { type: "Int", value: 20 }
+      perPage: { type: "Int", value: options?.perPage || 20 }
     },
     fields: [
       { pageInfo: ["hasNextPage"] },

@@ -30,8 +30,8 @@ export default defineEventHandler(async (event) => {
   const { slug } = getQuery(event);
   const cat_title = categories.find(c => fixSlug(c.name) === slug)?.name || null;
   const cat_type = categories.find(c => fixSlug(c.name) === slug)?.type || null;
-  const option = slug ? cat_type === "genre" ? { genres: [cat_title], slug, category: cat_title } : { tags: [cat_title], slug, category: cat_title } : null as Record<string, any> | null;
-  const data = await getExplore(option) as Record<string, any>;
+  const option = slug ? cat_type === "genre" ? { genres: [cat_title] } : { tags: [cat_title] } : null as Record<string, any> | null;
+  const data = await getExplore({ ...option, slug, category: cat_title, perPage: 12 }) as Record<string, any>;
   const response = new Response(JSON.stringify(data), {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",

@@ -7,7 +7,7 @@ export const queryExplore = (options?: Record<string, any> | null) => {
       operation: `${options.alias}: Page`,
       variables: {
         [`${options.alias}_page`]: { name: "page", type: "Int", value: 1 },
-        [`${options.alias}_perPage`]: { name: "perPage", type: "Int", value: 20 }
+        [`${options.alias}_perPage`]: { name: "perPage", type: "Int", value: options?.perPage || 20 }
       },
       fields: [
         { operation: "media",

@@ -32,7 +32,7 @@ const loading = ref();
 
 onMounted(async () => {
   loading.value = true;
-  upcoming.value = { preview: await getUpcoming() };
+  upcoming.value = { preview: await getUpcoming({ perPage: 12 }) };
   loading.value = false;
 });
 
