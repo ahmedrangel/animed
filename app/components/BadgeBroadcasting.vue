@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps({
-  airingDate: { type: Number, required: true }
+  airingDate: { type: Number, required: false }
 });
 </script>
 
