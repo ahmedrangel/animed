@@ -1,4 +1,4 @@
-import * as gql from "gql-query-builder";
+import { gqlQuery } from "gql-payload";
 import { Format, Licensor, Sort, Status } from "~~/enums/anilist";
 
 export const queryExplore = (options?: Record<string, any> | null) => {
@@ -21,17 +21,9 @@ export const queryExplore = (options?: Record<string, any> | null) => {
             [`${options.alias}_tag_in`]: { name: "tag_in", type: "[String]", value: options?.tags }
           },
           fields: [
-            "id",
-            { title: ["romaji", "english"] },
-            { coverImage: ["extraLarge"] },
-            "bannerImage",
-            { startDate: ["year", "month", "day"] },
-            "description",
-            "format",
-            "status",
-            "averageScore",
-            { trailer: ["id", "site"] },
-            { nextAiringEpisode: ["airingAt"] }
+            { operation: "mediaFields",
+              namedFragment: true
+            }
           ]
         }]
     };
@@ -39,6 +31,25 @@ export const queryExplore = (options?: Record<string, any> | null) => {
   const queryNewly = multiQuery({ alias: "newly", ...options, sort: Sort.START_DATE_DESC, status_in: [Status.AIRING, Status.FINISHED] });
   const queryTopRated = multiQuery({ alias: "top", ...options, sort: Sort.SCORE_DESC });
   const queryTrending = multiQuery({ alias: "trending", ...options, sort: [Sort.TRENDING_DESC, Sort.POPULARITY_DESC] });
-  const query = gql.query([queryNewly, queryTopRated, queryTrending]);
+  const query = gqlQuery([queryNewly, queryTopRated, queryTrending], null, {
+    fragment: [{
+      name: "mediaFields",
+      on: "Media",
+      fields: [
+        "id",
+        { title: ["romaji", "english"] },
+        { coverImage: ["extraLarge"] },
+        "bannerImage",
+        { startDate: ["year", "month", "day"] },
+        "description",
+        "format",
+        "status",
+        "averageScore",
+        { trailer: ["id", "site"] },
+        { nextAiringEpisode: ["airingAt"] }
+      ]
+    }]
+  });
+
   return JSON.stringify(query);
 };

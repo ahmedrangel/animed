@@ -1,11 +1,11 @@
-import * as gql from "gql-query-builder";
+import { gqlQuery } from "gql-payload";
 import { Format, Licensor } from "~~/enums/anilist";
 
 export const queryFilter = (options?: Record<string, any>) => {
   for (const key in options) {
     if (!options[key]) delete options[key];
   }
-  const query = gql.query({
+  const query = gqlQuery({
     operation: "Page",
     variables: {
       page: { type: "Int", value: options?.page || 1 },

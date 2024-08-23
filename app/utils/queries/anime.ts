@@ -1,11 +1,11 @@
-import * as gql from "gql-query-builder";
+import { gqlQuery } from "gql-payload";
 import { Sort } from "~~/enums/anilist";
 
 export const queryAnime = (options?: Record<string, any>) => {
   for (const key in options) {
     if (!options[key]) delete options[key];
   }
-  const query = gql.query({
+  const query = gqlQuery({
     operation: "Media",
     variables: { id: Number(options?.id) },
     fields: [
@@ -109,7 +109,7 @@ export const queryAnime = (options?: Record<string, any>) => {
 };
 
 export const queryAnimeSlug = (id: number) => {
-  const query = gql.query({
+  const query = gqlQuery({
     operation: "Media",
     variables: { id },
     fields: [
@@ -124,7 +124,7 @@ export const queryAnimeCharacters = (options?: Record<string, any>) => {
   for (const key in options) {
     if (!options[key]) delete options[key];
   }
-  const query = gql.query({
+  const query = gqlQuery({
     operation: "Media",
     variables: { id: Number(options?.id) },
     fields: [
@@ -175,7 +175,7 @@ export const queryAnimeEpisodes = (options?: Record<string, any>) => {
   for (const key in options) {
     if (!options[key]) delete options[key];
   }
-  const query = gql.query({
+  const query = gqlQuery({
     operation: "Media",
     variables: { id: Number(options?.id) },
     fields: [

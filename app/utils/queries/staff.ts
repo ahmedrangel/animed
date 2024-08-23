@@ -1,4 +1,4 @@
-import * as gql from "gql-query-builder";
+import { gqlQuery } from "gql-payload";
 import { Sort } from "~~/enums/anilist";
 
 export const queryStaff = (options?: Record<string, any>) => {
@@ -29,7 +29,7 @@ export const queryStaff = (options?: Record<string, any>) => {
     }
     return ["id"];
   };
-  const query = gql.query({
+  const query = gqlQuery({
     operation: "Staff",
     variables: {
       id: Number(options?.id)
@@ -68,7 +68,7 @@ export const queryStaff = (options?: Record<string, any>) => {
 };
 
 export const queryStaffSlug = (id: number) => {
-  const query = gql.query({
+  const query = gqlQuery({
     operation: "Staff",
     variables: {
       id: Number(id)
