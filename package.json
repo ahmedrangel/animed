@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "^0.5.2",
-    "@nuxt/icon": "^1.4.8",
+    "@nuxt/icon": "^1.4.10",
     "@nuxtjs/color-mode": "^3.4.4",
     "@nuxtjs/sitemap": "^5.3.5",
     "@primevue/nuxt-module": "^4.0.5",
