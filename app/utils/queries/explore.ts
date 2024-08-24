@@ -31,8 +31,8 @@ export const queryExplore = (options?: Record<string, any> | null) => {
   const queryNewly = multiQuery({ alias: "newly", ...options, sort: Sort.START_DATE_DESC, status_in: [Status.AIRING, Status.FINISHED] });
   const queryTopRated = multiQuery({ alias: "top", ...options, sort: Sort.SCORE_DESC });
   const queryTrending = multiQuery({ alias: "trending", ...options, sort: [Sort.TRENDING_DESC, Sort.POPULARITY_DESC] });
-  const query = gqlQuery([queryNewly, queryTopRated, queryTrending], null, {
-    fragment: [{
+  const query = gqlQuery([queryNewly, queryTopRated, queryTrending], {
+    fragments: [{
       name: "mediaFields",
       on: "Media",
       fields: [
