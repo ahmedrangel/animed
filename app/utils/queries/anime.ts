@@ -105,7 +105,7 @@ export const queryAnime = (options?: Record<string, any>) => {
       }
     ]
   });
-  return JSON.stringify(query);
+  return query;
 };
 
 export const queryAnimeSlug = (id: number) => {
@@ -117,7 +117,7 @@ export const queryAnimeSlug = (id: number) => {
       { title: ["romaji"] }
     ]
   });
-  return JSON.stringify(query);
+  return query;
 };
 
 export const queryAnimeCharacters = (options?: Record<string, any>) => {
@@ -168,7 +168,7 @@ export const queryAnimeCharacters = (options?: Record<string, any>) => {
       }
     ]
   });
-  return JSON.stringify(query);
+  return query;
 };
 
 export const queryAnimeEpisodes = (options?: Record<string, any>) => {
@@ -188,5 +188,5 @@ export const queryAnimeEpisodes = (options?: Record<string, any>) => {
       { streamingEpisodes: ["site", "title", "thumbnail", "url"] }
     ]
   });
-  return JSON.stringify(query);
+  return query;
 };

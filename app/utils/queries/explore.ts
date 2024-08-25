@@ -51,5 +51,5 @@ export const queryExplore = (options?: Record<string, any> | null) => {
     }]
   });
 
-  return JSON.stringify(query);
+  return query;
 };

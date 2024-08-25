@@ -64,7 +64,7 @@ export const queryStaff = (options?: Record<string, any>) => {
       }
     ]
   });
-  return JSON.stringify(query);
+  return query;
 };
 
 export const queryStaffSlug = (id: number) => {
@@ -78,5 +78,5 @@ export const queryStaffSlug = (id: number) => {
       { name: ["userPreferred"] }
     ]
   });
-  return JSON.stringify(query);
+  return query;
 };

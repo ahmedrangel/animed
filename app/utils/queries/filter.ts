@@ -35,12 +35,11 @@ export const queryFilter = (options?: Record<string, any>) => {
           "description",
           "format",
           "status",
-          "episodes",
           "averageScore",
           { trailer: ["id", "site"] },
           { nextAiringEpisode: ["airingAt"] }
         ]
       }]
   });
-  return JSON.stringify(query);
+  return query;
 };
