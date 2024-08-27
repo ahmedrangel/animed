@@ -23,7 +23,7 @@
     "lint:stylelint": "stylelint \"**/*.css\" --fix --config .config/stylelint.json"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^0.5.2",
+    "@nuxt/eslint": "^0.5.3",
     "@nuxt/icon": "^1.4.10",
     "@nuxtjs/color-mode": "^3.4.4",
     "@nuxtjs/sitemap": "^5.3.5",
