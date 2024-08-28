@@ -1,4 +1,4 @@
-import { gqlQuery } from "gql-payload";
+import { gqlQuery, type FieldsOption } from "gql-payload";
 import { Sort } from "~~/enums/anilist";
 
 export const queryStaff = (options?: Record<string, any>) => {
@@ -6,7 +6,7 @@ export const queryStaff = (options?: Record<string, any>) => {
     if (!options[key]) delete options[key];
   }
 
-  const generalFields = (page: number) => {
+  const generalFields = (page: number): FieldsOption => {
     if (!page || page === 1) {
       return [
         "id",

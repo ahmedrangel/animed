@@ -1,8 +1,8 @@
-import { gqlQuery } from "gql-payload";
+import { gqlQuery, type GqlPayloadOptions } from "gql-payload";
 import { Format, Licensor, Sort, Status } from "~~/enums/anilist";
 
 export const queryExplore = (options?: Record<string, any> | null) => {
-  const multiQuery = (options: Record<string, any>) => {
+  const multiQuery = (options: Record<string, any>): GqlPayloadOptions => {
     return {
       operation: `${options.alias}: Page`,
       variables: {
