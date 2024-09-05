@@ -48,7 +48,8 @@ export default defineNuxtConfig({
     "@primevue/nuxt-module",
     "@nuxt/eslint",
     "nuxt-aos",
-    "@vueuse/nuxt"
+    "@vueuse/nuxt",
+    "@nuxt/scripts"
   ],
   icon: { mode: "svg", serverBundle: "remote" },
   runtimeConfig: {},

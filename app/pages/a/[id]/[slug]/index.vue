@@ -175,9 +175,7 @@ const fixTheme = (text: string) => {
               <div v-if="anime?.trailer?.site === 'youtube'">
                 <div class="col-12 col-lg-12 col-xl-6">
                   <h6 class="text-primary">Trailer:</h6>
-                  <div class="ratio ratio-16x9" data-aos="fade-in">
-                    <iframe id="embed" width="1280" height="720" :src="'https://youtube.com/embed/' + anime.trailer.id" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope;" allowfullscreen />
-                  </div>
+                  <VideoContainer :video-id="anime.trailer.id" />
                 </div>
               </div>
             </div>
