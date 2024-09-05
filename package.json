@@ -23,8 +23,8 @@
     "lint:stylelint": "stylelint \"**/*.css\" --fix --config .config/stylelint.json"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^0.5.3",
-    "@nuxt/icon": "^1.5.0",
+    "@nuxt/eslint": "^0.5.5",
+    "@nuxt/icon": "^1.5.1",
     "@nuxt/scripts": "^0.8.3",
     "@nuxtjs/color-mode": "^3.4.4",
     "@nuxtjs/sitemap": "^5.3.5",
@@ -34,7 +34,7 @@
     "date-fns": "^3.6.0",
     "eslint": "^9.9.1",
     "gql-payload": "^2.1.0",
-    "nuxt": "^3.13.0",
+    "nuxt": "^3.13.1",
     "nuxt-aos": "^1.2.5",
     "stylelint-config-standard": "^36.0.1"
   },
