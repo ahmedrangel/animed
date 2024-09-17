@@ -31,7 +31,7 @@
     "@primevue/nuxt-module": "^4.0.7",
     "@types/bootstrap": "^5.2.10",
     "@vueuse/nuxt": "^11.1.0",
-    "date-fns": "^4.0.0",
+    "date-fns": "^4.1.0",
     "eslint": "^9.10.0",
     "gql-payload": "^2.1.0",
     "nuxt": "^3.13.2",
