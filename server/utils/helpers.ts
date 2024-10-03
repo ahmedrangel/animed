@@ -25,7 +25,7 @@ export const animeFlvRelationLogic = (aflvArr: Record<string, any>[], anilistObj
 const RATE_LIMIT_MAX_REQ = 2;
 const RATE_LIMIT_TIME_FRAME = 1000 * 60 * 5;
 
-const knownBots = ["facebookexternalhit", "GoogleOther", "bingbot", "Googlebot", "GPTBot", "Bytespider", "SemrushBot", "Amazonbot", "meta-externalagent", "YandexBot", "ClaudeBot"];
+const knownBots = ["facebookexternalhit", "GoogleOther", "bingbot", "Googlebot", "GPTBot", "Bytespider", "SemrushBot", "Amazonbot", "meta-externalagent", "YandexBot", "ClaudeBot", "OAI-SearchBot"];
 
 export const botRateLimitHandler = async (agent: string | undefined) => {
   const RATE_LIMIT_KV = process.env.ANIMED_BOT_RATE_LIMIT_BUCKET as any;
