@@ -1,6 +1,6 @@
 export default defineCachedEventHandler(async (event) => {
-  const userAgent = getHeaders(event)["user-agent"] || "";
-  const isBot = knownBots?.includes(userAgent);
+  const userAgent = getHeaders(event)["user-agent"];
+  const isBot = knownBots.find(bot => userAgent?.includes(bot)) ? true : false;
   const limited = await botRateLimitHandler(userAgent);
   if (limited)
     return new Response(null, { status: 429, statusText: "Too many requests" });
