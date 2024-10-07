@@ -51,7 +51,13 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxt/scripts"
   ],
-  icon: { mode: "svg", serverBundle: "remote" },
+  icon: {
+    mode: "svg",
+    clientBundle: {
+      scan: true,
+      sizeLimitKb: 2048
+    }
+  },
   runtimeConfig: {},
   features: {
     inlineStyles: false
