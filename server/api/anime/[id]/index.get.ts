@@ -1,5 +1,6 @@
 export default defineCachedEventHandler(async (event) => {
-  const userAgent = getHeaders(event)["user-agent"];
+  const userAgent = getHeaders(event)["user-agent"] || "";
+  const isBot = knownBots?.includes(userAgent);
   const limited = await botRateLimitHandler(userAgent);
   if (limited)
     return new Response(null, { status: 429, statusText: "Too many requests" });
@@ -10,10 +11,12 @@ export default defineCachedEventHandler(async (event) => {
   const slug = fixSlug(obj.title.romaji);
   obj.slug = slug;
 
-  const animeflv = await getAflvSearch(encodeURIComponent(obj?.title?.english || obj?.title?.native));
-  if (animeflv?.length) {
-    const foundRelation = animeFlvRelationLogic(animeflv, obj);
-    if (foundRelation) obj.externalLinks.push(foundRelation);
+  if (!isBot) {
+    const animeflv = await getAflvSearch(encodeURIComponent(obj?.title?.english || obj?.title?.native));
+    if (animeflv?.length) {
+      const foundRelation = animeFlvRelationLogic(animeflv, obj);
+      if (foundRelation) obj.externalLinks.push(foundRelation);
+    }
   }
 
   const response = obj;
