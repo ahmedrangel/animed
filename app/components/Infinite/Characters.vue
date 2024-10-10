@@ -3,7 +3,7 @@ const props = defineProps({
   data: { type: Object, required: true }
 });
 
-const result = props.data as Record<string, any>;
+const result = props.data as Anime;
 const nexted = ref(false) as Ref<boolean>;
 const count = ref(2) as Ref<number>;
 const lastRow = ref("lastRow") as unknown as Ref<HTMLElement[]>;
@@ -20,7 +20,7 @@ for (const l of result.characters.edges) {
 const currentLanguage = ref(languages[0] === "Japanese" ? languages[0] : "Japanese");
 
 const scrollHandler = async () => {
-  if (onScreen(lastRow.value[0] as HTMLElement) && !nexted.value && count.value && hasNextPage.value) {
+  if (onScreen(lastRow.value[0]!) && !nexted.value && count.value && hasNextPage.value) {
     nexted.value = true;
     const next = await getAnimeCharacters({ id: result.id, page: count.value }) as Record<string, any>;
     result.characters.edges.push(...next.data.Media.characters.edges);
@@ -86,7 +86,7 @@ onBeforeUnmount(() => {
         </div>
       </template>
       <span v-if="i === result?.characters?.edges?.length - 1" ref="lastRow" class="m-0 p-0" />
-      <SpinnerLoading v-if="i === result.characters.edges - 1 && nexted" class="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-3" />
+      <SpinnerLoading v-if="i === result?.characters?.edges?.length - 1 && nexted" class="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-3" />
     </template>
   </div>
 </template>
