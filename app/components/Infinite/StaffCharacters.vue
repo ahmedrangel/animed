@@ -42,7 +42,7 @@ const mouseListeners = (set: string[]) => {
 };
 
 const scrollHandler = async () => {
-  if (onScreen(lastRow.value[0]) && !nexted.value && count.value && hasNextPage.value) {
+  if (onScreen(lastRow.value[0]!) && !nexted.value && count.value && hasNextPage.value) {
     nexted.value = true;
     const next = await getStaff({ id: staff.id, page: count.value }) as Record<string, any>;
     const nextYears = next.data.Staff.characterMedia.edges.map((edge: Record<string, any>) => edge.node.startDate.year) as string[];
