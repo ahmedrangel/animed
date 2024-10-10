@@ -1,12 +1,12 @@
 import { gqlQuery, type FieldsOption } from "gql-payload";
 import { Sort } from "~~/enums/anilist";
 
-export const queryStaff = (options?: Record<string, any>) => {
+export const queryStaff = (options?: QueryOptions) => {
   for (const key in options) {
-    if (!options[key]) delete options[key];
+    if (!options[key as keyof QueryOptions]) delete options[key as keyof QueryOptions];
   }
 
-  const generalFields = (page: number): FieldsOption => {
+  const generalFields = (page: QueryOptions["page"]): FieldsOption => {
     if (!page || page === 1) {
       return [
         "id",
@@ -67,7 +67,7 @@ export const queryStaff = (options?: Record<string, any>) => {
   return query;
 };
 
-export const queryStaffSlug = (id: number) => {
+export const queryStaffSlug = (id: QueryOptions["id"]) => {
   const query = gqlQuery({
     operation: "Staff",
     variables: {

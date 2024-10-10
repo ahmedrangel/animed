@@ -2,7 +2,7 @@
 definePageMeta({ layout: "no-footer" });
 
 const query = ref() as Ref<string>;
-const result = ref() as Ref<Record<string, any> | null>;
+const result = ref() as Ref<{ data: AnimeList } | null>;
 const loading = ref(false) as Ref<boolean>;
 const input = ref() as Ref<HTMLElement>;
 

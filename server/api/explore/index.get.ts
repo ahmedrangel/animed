@@ -27,11 +27,11 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  const { slug } = getQuery(event);
-  const cat_title = categories.find(c => fixSlug(c.name) === slug)?.name || null;
+  const { slug } = getQuery(event) as { slug?: string };
+  const cat_title = categories.find(c => fixSlug(c.name) === slug)?.name;
   const cat_type = categories.find(c => fixSlug(c.name) === slug)?.type || null;
-  const option = slug ? cat_type === "genre" ? { genres: [cat_title] } : { tags: [cat_title] } : null as Record<string, any> | null;
-  const data = await getExplore({ ...option, slug, category: cat_title, perPage: 12 }) as Record<string, any>;
+  const option = slug ? cat_type === "genre" ? { genres: cat_title ? [cat_title] : null } : { tags: cat_title ? [cat_title] : null } : null;
+  const data = await getExplore({ ...option, slug, category: cat_title, perPage: 12 });
   const response = new Response(JSON.stringify(data), {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",

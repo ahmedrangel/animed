@@ -1,9 +1,9 @@
 import { gqlQuery } from "gql-payload";
 import { Sort } from "~~/enums/anilist";
 
-export const queryAnime = (options?: Record<string, any>) => {
+export const queryAnime = (options?: QueryOptions) => {
   for (const key in options) {
-    if (!options[key]) delete options[key];
+    if (!options[key as keyof QueryOptions]) delete options[key as keyof QueryOptions];
   }
   const query = gqlQuery({
     operation: "Media",
@@ -106,7 +106,7 @@ export const queryAnime = (options?: Record<string, any>) => {
   return query;
 };
 
-export const queryAnimeSlug = (id: number) => {
+export const queryAnimeSlug = (id: QueryOptions["id"]) => {
   const query = gqlQuery({
     operation: "Media",
     variables: { id },
@@ -118,9 +118,9 @@ export const queryAnimeSlug = (id: number) => {
   return query;
 };
 
-export const queryAnimeCharacters = (options?: Record<string, any>) => {
+export const queryAnimeCharacters = (options?: QueryOptions) => {
   for (const key in options) {
-    if (!options[key]) delete options[key];
+    if (!options[key as keyof QueryOptions]) delete options[key as keyof QueryOptions];
   }
   const query = gqlQuery({
     operation: "Media",
@@ -143,7 +143,6 @@ export const queryAnimeCharacters = (options?: Record<string, any>) => {
           { edges: [
             "id",
             "role",
-            "name",
             { node: [
               "id",
               { name: ["userPreferred"] },
@@ -169,9 +168,9 @@ export const queryAnimeCharacters = (options?: Record<string, any>) => {
   return query;
 };
 
-export const queryAnimeEpisodes = (options?: Record<string, any>) => {
+export const queryAnimeEpisodes = (options?: QueryOptions) => {
   for (const key in options) {
-    if (!options[key]) delete options[key];
+    if (!options[key as keyof QueryOptions]) delete options[key as keyof QueryOptions];
   }
   const query = gqlQuery({
     operation: "Media",

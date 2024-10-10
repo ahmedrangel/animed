@@ -50,7 +50,7 @@ export const fixDescription = (text: string) => {
   return { text: text as string, more: false as boolean };
 };
 
-export const sortEpisodes = (episodes: any[]) => {
+export const sortEpisodes = (episodes: AnimeEpisodes[]) => {
   episodes?.sort((a, b) => {
     const matchA = a?.title.match(/\d+/g);
     const matchB = b?.title.match(/\d+/g);
@@ -63,7 +63,7 @@ export const sortEpisodes = (episodes: any[]) => {
   return episodes;
 };
 
-export const noVaInLanguage = (actors: Array<Record<string, any>>, language: string) => {
+export const noVaInLanguage = (actors: StaffInfo[], language: string) => {
   for (const va of actors) {
     if (va.languageV2 === language) {
       return false;
@@ -117,3 +117,5 @@ export const distanceToNow = (date: number) => {
     return match[0] + (match.startsWith("mo") ? "o" : "");
   });
 };
+
+export type { FetchError } from "ofetch";

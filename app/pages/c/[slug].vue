@@ -11,9 +11,9 @@ if (!exists) {
     fatal: true
   });
 }
-const { data: data } = await useFetch("/api/explore?slug=" + slug) as Record<string, any>;
-const newlies = data.value.preview.newly.media;
-const animes_with_banner = newlies.filter((el: Record<string, string>) => el.bannerImage);
+const { data: data }: { data: Ref<AnimePreviewList> } = await useFetch("/api/explore?slug=" + slug);
+const newlies = data.value?.preview.newly!.media;
+const animes_with_banner = newlies?.filter(el => el.bannerImage);
 
 const random_anime = useState(`random-anime-${slug}`, () => {
   return animes_with_banner?.length ? getRandomObject(animes_with_banner) : getRandomObject(newlies);
@@ -36,15 +36,22 @@ useHead({
   link: [{ rel: "canonical", href: SITE.url + `/c/${slug}` }]
 });
 
-const upcoming = ref();
-const loading = ref();
+const upcoming: Ref<AnimePreviewList | undefined> = ref();
+const loading: Ref<boolean> = ref(false);
 
 onMounted(async () => {
-  const cat_title = categories.find(c => fixSlug(c.name) === slug)?.name || null;
-  const cat_type = categories.find(c => fixSlug(c.name) === slug)?.type || null;
-  const option = slug ? cat_type === "genre" ? { genres: [cat_title], slug } : { tags: [cat_title], slug } : null;
+  const cat_title = categories.find(c => fixSlug(c.name) === slug)!.name;
+  const cat_type = categories.find(c => fixSlug(c.name) === slug)?.type;
+  const option = cat_type === "genre" ? { genres: [cat_title] } : { tags: [cat_title] };
   loading.value = true;
-  upcoming.value = { preview: await getUpcoming(option) };
+  upcoming.value = {
+    preview: {
+      upcoming: {
+        ...(await getUpcoming({ ...option, slug, perPage: 12 })).data,
+        route: `/c/upcoming/${slug}`
+      }
+    }
+  };
   loading.value = false;
 });
 

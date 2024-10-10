@@ -6,13 +6,13 @@ const props = defineProps({
 const result = props.data as Anime;
 const nexted = ref(false) as Ref<boolean>;
 const count = ref(2) as Ref<number>;
-const lastRow = ref("lastRow") as unknown as Ref<HTMLElement[]>;
+const lastRow = ref() as Ref<HTMLElement[]>;
 const hasNextPage = ref(result.characters.pageInfo.hasNextPage);
 
 const languages = [] as string[];
 for (const l of result.characters.edges) {
   for (const va of l.voiceActors) {
-    if (!languages.includes(va.languageV2))
+    if (va.languageV2 && !languages.includes(va.languageV2))
       languages.push(va.languageV2);
   }
 }

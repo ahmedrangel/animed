@@ -19,7 +19,7 @@ class Bootstrap {
       if (e.key !== "Escape") return;
       const modals = document.querySelectorAll(".modal.show");
       if (!modals.length) return;
-      const id = modals[modals.length - 1].id;
+      const id = modals[modals.length - 1]?.id;
       const instance = Modal.getInstance("#" + id);
       if (instance) instance.hide();
     });

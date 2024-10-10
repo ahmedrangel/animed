@@ -3,7 +3,7 @@ const props = defineProps({
   data: { type: Object, required: true }
 });
 
-const ep = props.data;
+const ep = props.data as AnimeEpisodes;
 </script>
 
 <template>

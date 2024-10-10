@@ -5,9 +5,7 @@ export default defineCachedEventHandler(async (event) => {
     return new Response(null, { status: 429, statusText: "Too many requests" });
 
   const { id } = getRouterParams(event);
-  const { data } = await getAnimeEpisodes({ id: Number(id) });
-  const obj = data.Media;
-
+  const obj = await getAnimeEpisodes({ id: Number(id) });
   const response = obj;
 
   if (response) return response;

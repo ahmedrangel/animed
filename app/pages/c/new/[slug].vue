@@ -14,7 +14,7 @@ if (!exists) {
   });
 }
 
-const { data: result } = await useFetch("/api/explore/newly?slug=" + slug) as Record<string, any>;
+const { data: result }: { data: Ref<AnimeList> } = await useFetch("/api/explore/newly?slug=" + slug);
 
 useSeoMeta({
   title: `${result.value.title} ${result.value.category}` + " | Categories | " + SITE.name,

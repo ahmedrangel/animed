@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { params } = useRoute("a-id-slug-episodes");
 const { id, slug } = params;
-const { data: data, error } = await useFetch("/api/anime/" + id + "/episodes", { retry: 0 }) as Record<string, any>;
+const { data: data, error }: { data: Ref<Anime>, error: Ref<FetchError> } = await useFetch("/api/anime/" + id + "/episodes", { retry: 0 });
 
 if (error.value) {
   throw createError({
@@ -58,9 +58,9 @@ useHead({
             <div class="d-flex align-items-center position-relative">
               <div class="stars d-flex align-items-center" style="height: 25px;">
                 <img class="position-absolute" src="/images/stars.webp" width="100" style="opacity: 0.5">
-                <img src="/images/stars-filled.webp" width="100" :style="{ 'clip-path': 'inset(0px ' + (100-anime.averageScore) + '% 0px 0px) ' }">
+                <img src="/images/stars-filled.webp" width="100" :style="{ 'clip-path': 'inset(0px ' + (100 - (anime.averageScore || 0)) + '% 0px 0px) ' }">
               </div>
-              <small class="ms-2 mb-0 text-white">{{ getRating(anime.averageScore) }}</small>
+              <small class="ms-2 mb-0 text-white">{{ getRating(anime.averageScore || 0) }}</small>
             </div>
           </div>
           <div v-if="streamingEpisodes[0]" id="episodes">

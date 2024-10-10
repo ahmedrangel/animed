@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: "no-footer" });
 
-const { data: result } = await useFetch("/api/explore/rated") as Record<string, any>;
+const { data: result }: { data: Ref<AnimeList> } = await useFetch("/api/explore/rated");
 
 useSeoMeta({
   title: `${result.value.title}` + " | Categories | " + SITE.name,

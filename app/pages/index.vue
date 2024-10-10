@@ -1,8 +1,16 @@
 <script setup lang="ts">
-const { data: data } = await useFetch("/api/explore") as Record<string, any>;
+const { data: data, error }: { data: Ref<AnimePreviewList>, error: Ref<FetchError> } = await useFetch("/api/explore");
 
-const trendings = data.value.preview?.trending?.media;
-const animes_with_banner = trendings.filter((el: Record<string, string>) => {
+if (error.value) {
+  throw createError({
+    statusCode: error.value.statusCode,
+    message: error.value.statusMessage,
+    fatal: true
+  });
+}
+
+const trendings = data.value.preview?.trending!.media;
+const animes_with_banner = trendings?.filter((el) => {
   if (el?.bannerImage) return el.bannerImage;
 });
 
@@ -27,12 +35,19 @@ useHead({
   link: [{ rel: "canonical", href: SITE.url }]
 });
 
-const upcoming = ref();
-const loading = ref();
+const upcoming: Ref<AnimePreviewList | undefined> = ref();
+const loading: Ref<boolean> = ref(false);
 
 onMounted(async () => {
   loading.value = true;
-  upcoming.value = { preview: await getUpcoming({ perPage: 12 }) };
+  upcoming.value = {
+    preview: {
+      upcoming: {
+        ...(await getUpcoming({ perPage: 12 })).data,
+        route: "/c/upcoming"
+      }
+    }
+  };
   loading.value = false;
 });
 

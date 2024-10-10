@@ -6,7 +6,7 @@ const props = defineProps({
 const staff = props.data as Record<string, any>;
 const nexted = ref(false) as Ref<boolean>;
 const count = ref(2) as Ref<number>;
-const lastRow = ref("lastRow") as unknown as Ref<HTMLElement[]>;
+const lastRow = ref() as Ref<HTMLElement[]>;
 const hasNextPage = ref(staff.characterMedia.pageInfo.hasNextPage);
 
 const charactersYears = staff.characterMedia.edges.map((edge: Record<string, any>) => edge.node.startDate.year) as string[];

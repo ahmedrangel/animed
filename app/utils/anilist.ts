@@ -10,66 +10,65 @@ const callAnilistGQL = async (options: { method?: "GET" | "POST" | "OPTIONS", he
     method: method || "POST",
     headers: headers || { "Content-Type": "application/json", "Accept": "application/json" },
     body
-  }).catch(() => null);
+  }).catch(() => null) as Record<string, any>;
 };
 
-export const getSearch = async (options?: Record<string, any> | null) => {
+export const getSearch = async (options?: QueryOptions | null) => {
   const { data } = await callAnilistGQL({
     body: queryFilter({ ...options, sort: Sort.SEARCH_MATCH })
-  }) as Record<string, any>;
+  });
   data.type = "search";
-  return { data: data.Page };
+  return { data: data.Page } as { data: AnimeList };
 };
 
-export const getNewlyReleased = async (options?: Record<string, any> | null) => {
+export const getNewlyReleased = async (options?: QueryOptions | null) => {
   const { data } = await callAnilistGQL({
     body: queryFilter({ ...options, sort: Sort.START_DATE_DESC, status_in: [Status.AIRING, Status.FINISHED] })
-  }) as Record<string, any>;
+  });
   data.Page.title = "Newly Released";
-  return { data: data.Page };
+  return { data: data.Page } as { data: AnimeList };
 };
 
-export const getPopular = async (options?: Record<string, any> | null) => {
+export const getPopular = async (options?: QueryOptions | null) => {
   const { data } = await callAnilistGQL({
     body: queryFilter({ ...options, sort: [Sort.TRENDING_DESC, Sort.POPULARITY_DESC] })
-  }) as Record<string, any>;
+  });
   data.Page.title = "Trending";
-  return { data: data.Page };
+  return { data: data.Page } as { data: AnimeList };
 };
 
-export const getTopRated = async (options?: Record<string, any> | null) => {
+export const getTopRated = async (options?: QueryOptions | null) => {
   const { data } = await callAnilistGQL({
     body: queryFilter({ ...options, sort: Sort.SCORE_DESC })
-  }) as Record<string, any>;
+  });
   data.Page.title = "Top Rated";
-  return { data: data.Page };
+  return { data: data.Page } as { data: AnimeList };
 };
 
-export const getAnimeInfo = async (options?: Record<string, any>) => {
+export const getAnimeInfo = async (options?: QueryOptions) => {
   const { data } = await callAnilistGQL({
     body: queryAnime(options)
-  }) as Record<string, any>;
-  return { data };
+  });
+  return data.Media as Anime;
 };
 
 export const getAnimeSlug = async (id: number) => {
   const { data } = await callAnilistGQL({
     body: queryAnimeSlug(id)
-  }) as Record<string, any>;
-  return data;
+  });
+  return data.Media;
 };
 
-export const getUpcoming = async (options?: Record<string, any> | null) => {
+export const getUpcoming = async (options?: QueryOptions | null) => {
   const todayYear = new Date().getFullYear();
   const { data } = await callAnilistGQL({
     body: queryFilter({ ...options, sort: Sort.START_DATE, status_in: [Status.NOT_YET_RELEASED], startDate_greater: `${todayYear}0000` })
-  }) as Record<string, any>;
+  });
   data.Page.title = "Upcoming";
-  data.Page.route = `/c/upcoming${options?.slug ? `/${options.slug}` : ""}`;
-  return { data: data.Page };
+  return { data: data.Page } as { data: AnimeList };
 };
 
-export const getList = async (type: string, options?: Record<string, any>) => {
+export const getList = async (type: string, options?: QueryOptions) => {
   switch (type) {
     case "new":
       return await getNewlyReleased(options);
@@ -84,43 +83,43 @@ export const getList = async (type: string, options?: Record<string, any>) => {
   }
 };
 
-export const getAnimeCharacters = async (options?: Record<string, any>) => {
+export const getAnimeCharacters = async (options?: QueryOptions) => {
   const { data } = await callAnilistGQL({
     body: queryAnimeCharacters(options)
-  }) as Record<string, any>;
-  return { data };
+  });
+  return data.Media;
 };
 
-export const getAnimeEpisodes = async (options?: Record<string, any>) => {
+export const getAnimeEpisodes = async (options?: QueryOptions) => {
   const { data } = await callAnilistGQL({
     body: queryAnimeEpisodes(options)
-  }) as Record<string, any>;
-  return { data };
+  });
+  return data.Media;
 };
 
-export const getStaff = async (options?: Record<string, any>) => {
+export const getStaff = async (options?: QueryOptions) => {
   const { data } = await callAnilistGQL({
     body: queryStaff({ ...options })
-  }).catch(e => console.info(e)) as Record<string, any>;
+  });
   return { data };
 };
 
 export const getStaffSlug = async (id: number) => {
   const { data } = await callAnilistGQL({
     body: queryStaffSlug(id)
-  }) as Record<string, any>;
+  });
   return data;
 };
 
-export const getExplore = async (options?: Record<string, any> | null) => {
+export const getExplore = async (options?: QueryOptions | null) => {
   const { data } = await callAnilistGQL({
     body: queryExplore(options)
-  }) as Record<string, any>;
+  });
   data.newly.title = "Newly Released";
   data.newly.route = `/c/new${options?.slug ? `/${options.slug}` : ""}`;
   data.trending.title = "Trending";
   data.trending.route = `/c/trending${options?.slug ? `/${options.slug}` : ""}`;
   data.top.title = "Top Rated";
   data.top.route = `/c/top-rated${options?.slug ? `/${options.slug}` : ""}`;
-  return { preview: data, category: options?.category };
+  return { preview: data, category: options?.category } as AnimePreviewList;
 };

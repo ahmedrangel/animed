@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { params } = useRoute("a-id-slug");
 const { id, slug } = params;
-const { data: data, error } = await useFetch("/api/anime/" + id, { retry: 0 }) as Record<string, any>;
+const { data: data, error }: { data: Ref<Anime>, error: Ref<FetchError> } = await useFetch("/api/anime/" + id, { retry: 0 });
 
 if (error.value) {
   throw createError({
@@ -23,7 +23,7 @@ if (slug.toLowerCase() !== _slug) {
 const anime = data.value;
 
 const externalLinks = ref(anime?.externalLinks
-  .filter((e: { site: string }) => {
+  .filter((e) => {
     const site = e?.site.toLowerCase();
     return site !== "youtube" && site !== "funimation";
   }));
@@ -37,7 +37,7 @@ if (anime.idMal) {
   });
 }
 
-externalLinks.value.sort((a: Record<string, string>, b: Record<string, string>) => {
+externalLinks.value.sort((a, b) => {
   return a?.site === "Official Site" ? -1 : b?.site === "Official Site" ? 1 : 0;
 });
 
@@ -48,7 +48,7 @@ const seoDescription = fixSeoDescription(anime?.description?.replace(/<[^>]*>/g,
 const recommendations = {
   preview: {
     recommendations: {
-      media: anime?.recommendations?.nodes?.map((r: Record<string, any>) => r.mediaRecommendation)
+      media: anime?.recommendations?.nodes?.map(r => r.mediaRecommendation)
     }
   }
 };
@@ -74,9 +74,9 @@ useHead({
 });
 
 const animeGenres = anime?.genres || [];
-const animeTags = anime?.tags?.map((t: Record<string, string>) => t.name) || [];
+const animeTags = anime?.tags?.map(t => t.name) || [];
 
-const genres = [...animeGenres, ...animeTags];
+const genres = [...animeGenres, ...animeTags] as string[];
 
 const themes = anime.idMal ? await getAnimeThemes(anime.idMal) : null;
 const openings = ref(themes?.openings.slice(0, 10));
@@ -85,8 +85,8 @@ const moreThemes = ref(false);
 
 const toggleMoreThemes = () => {
   moreThemes.value = !moreThemes.value;
-  openings.value = moreThemes.value ? themes.openings : openings.value.slice(0, 10);
-  endings.value = moreThemes.value ? themes.endings : endings.value.slice(0, 10);
+  openings.value = moreThemes.value && themes ? themes.openings : openings.value?.slice(0, 10);
+  endings.value = moreThemes.value && themes ? themes.endings : endings.value?.slice(0, 10);
 };
 
 const fixTheme = (text: string) => {
@@ -108,9 +108,9 @@ const fixTheme = (text: string) => {
             <div class="d-flex align-items-center position-relative">
               <div class="stars d-flex align-items-center" style="height: 25px;">
                 <img class="position-absolute" src="/images/stars.webp" width="100" style="opacity: 0.5">
-                <img src="/images/stars-filled.webp" width="100" :style="{ 'clip-path': 'inset(0px ' + (100-anime?.averageScore) + '% 0px 0px) ' }">
+                <img src="/images/stars-filled.webp" width="100" :style="{ 'clip-path': 'inset(0px ' + (100 - (anime.averageScore || 0)) + '% 0px 0px) ' }">
               </div>
-              <small class="ms-2 mb-0 text-white">{{ getRating(anime.averageScore) }}</small>
+              <small class="ms-2 mb-0 text-white">{{ getRating(anime.averageScore || 0) }}</small>
             </div>
           </div>
           <div id="details" class="pt-3 pb-4 d-flex align-items-start anime-row mx-0 flex-wrap px-0">
@@ -199,7 +199,7 @@ const fixTheme = (text: string) => {
                   </div>
                   <div class="col text-end mt-0 py-1">
                     <small v-if="c.voiceActors[0]" class="d-block">
-                      <NuxtLink :to="`/p/${c.voiceActors[0]?.id}/${fixSlug(c.voiceActors[0]?.name.userPreferred)}`">{{ c.voiceActors[0]?.name.userPreferred }}</NuxtLink>
+                      <NuxtLink :to="`/p/${c.voiceActors[0]?.id}/${fixSlug(c.voiceActors[0]?.name.userPreferred!)}`">{{ c.voiceActors[0]?.name.userPreferred }}</NuxtLink>
                     </small>
                     <small class="text-capitalize text-muted">{{ c.voiceActors[0]?.languageV2 }}</small>
                   </div>
@@ -225,7 +225,7 @@ const fixTheme = (text: string) => {
               </template>
             </div>
           </div>
-          <div v-if="openings.length || endings.length" id="themes" class="pb-2">
+          <div v-if="openings?.length || endings?.length" id="themes" class="pb-2">
             <div class="d-flex anime-row flex-wrap g-2">
               <div v-if="themes?.openings" class="col-6 m-0">
                 <h2 class="mb-2">Openings:</h2>
@@ -249,7 +249,7 @@ const fixTheme = (text: string) => {
                   </li>
                 </ol>
               </div>
-              <a v-if="themes?.endings.length > 10 || themes?.endings.length > 10" class="ms-auto" role="button" @click="toggleMoreThemes()">
+              <a v-if="themes && (themes?.endings.length > 10 || themes?.endings.length > 10)" class="ms-auto" role="button" @click="toggleMoreThemes()">
                 <div class="d-flex align-items-center gap-1">
                   <Icon v-if="!moreThemes" name="ph:caret-down-bold" />
                   <Icon v-else name="ph:caret-up-bold" />

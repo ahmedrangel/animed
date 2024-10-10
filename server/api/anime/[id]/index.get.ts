@@ -6,8 +6,7 @@ export default defineCachedEventHandler(async (event) => {
     return new Response(null, { status: 429, statusText: "Too many requests" });
 
   const { id } = getRouterParams(event);
-  const { data } = await getAnimeInfo({ id: Number(id) });
-  const obj = data.Media;
+  const obj = await getAnimeInfo({ id: Number(id) });
   const slug = fixSlug(obj.title.romaji);
   obj.slug = slug;
 

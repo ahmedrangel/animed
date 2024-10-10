@@ -3,10 +3,10 @@ const props = defineProps({
   data: { type: Object, required: true },
   query: { type: String, required: false, default: null }
 });
-const result = props.data as Record<string, any>;
+const result = props.data as AnimeList;
 const nexted = ref(false) as Ref<boolean>;
 const count = ref(2) as Ref<number>;
-const lastRow = ref("lastRow") as unknown as Ref<HTMLElement[]>;
+const lastRow = ref() as Ref<HTMLElement[]>;
 const hasNextPage = ref(result.pageInfo.hasNextPage);
 const cat_title = categories.find(c => fixSlug(c.name) === fixSlug(result?.category))?.name || null;
 const cat_type = categories.find(c => fixSlug(c.name) === fixSlug(result?.category))?.type || null;
