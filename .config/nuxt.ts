@@ -3,7 +3,7 @@ import { Ripple } from "../app/utils/primevue";
 
 export default defineNuxtConfig({
   future: { compatibilityVersion: 4 },
-  compatibilityDate: "2024-08-13",
+  compatibilityDate: "2024-10-11",
   app: {
     pageTransition: { name: "fade", mode: "out-in" },
     layoutTransition: { name: "fade", mode: "out-in" },
