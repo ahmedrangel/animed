@@ -33,8 +33,9 @@ onBeforeUnmount(() => {
       <div class="modal-content">
         <div class="modal-body">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
-          <!-- 16:9 aspect ratio -->
-          <VideoContainer :id="props.video" :video-id="props.video" />
+          <ClientOnly>
+            <VideoContainer :id="props.video" :video-id="props.video" />
+          </ClientOnly>
         </div>
       </div>
     </div>
