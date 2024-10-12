@@ -8,13 +8,13 @@ const nexted = ref(false) as Ref<boolean>;
 const count = ref(2) as Ref<number>;
 const lastRow = ref() as Ref<HTMLElement[]>;
 const hasNextPage = ref(result.pageInfo.hasNextPage);
-const cat_title = categories.find(c => fixSlug(c.name) === fixSlug(result?.category))?.name || null;
+const cat_title = categories.find(c => fixSlug(c.name) === fixSlug(result?.category))?.name;
 const cat_type = categories.find(c => fixSlug(c.name) === fixSlug(result?.category))?.type || null;
 
 const scrollHandler = async () => {
   if (onScreen(lastRow.value[0]!) && !nexted.value && count.value && hasNextPage.value) {
     nexted.value = true;
-    const tag_or_genre = result?.category ? cat_type === "genre" ? { genres: [cat_title] } : { tags: [cat_title] } : null;
+    const tag_or_genre = result?.category ? cat_type === "genre" ? { genres: cat_title ? [cat_title] : null } : { tags: cat_title ? [cat_title] : null } : null;
     const next = await getList(result.type, { page: count.value, search: props?.query, ...tag_or_genre }) as Record<string, any>;
     result.media.push(...next.data.media);
     nexted.value = false;
