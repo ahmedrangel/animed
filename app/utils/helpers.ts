@@ -88,7 +88,7 @@ export const getRandomObject = (obj: Record<string, any>) => {
 
 export const fixEpisodeTitle = (text: string) => {
   const spliced = text.split(" - ");
-  const episode = spliced[0]?.replace("Episode", "EP");
+  const episode = spliced[0]?.replace("Episode ", "E");
   const title = spliced[1];
   return { episode, title };
 };
