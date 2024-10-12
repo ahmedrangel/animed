@@ -41,6 +41,7 @@ export default defineNuxtConfig({
     "~/assets/css/categories.css"
   ],
   modules: [
+    "@nuxt/scripts",
     "@nuxt/icon",
     "@nuxtjs/color-mode",
     "@nuxtjs/sitemap",
@@ -48,8 +49,7 @@ export default defineNuxtConfig({
     "@primevue/nuxt-module",
     "@nuxt/eslint",
     "nuxt-aos",
-    "@vueuse/nuxt",
-    "@nuxt/scripts"
+    "@vueuse/nuxt"
   ],
   icon: {
     mode: "svg",

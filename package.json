@@ -35,12 +35,12 @@
     "eslint": "^9.12.0",
     "gql-payload": "^2.1.0",
     "nuxt": "^3.13.2",
-    "nuxt-aos": "^1.2.5",
     "stylelint-config-standard": "^36.0.1"
   },
   "dependencies": {
     "@nuxtjs/google-fonts": "^3.2.0",
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "nuxt-aos": "^1.2.5"
   },
   "resolutions": {
     "vue-router": "4.4.5"
