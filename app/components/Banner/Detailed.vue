@@ -9,7 +9,7 @@ const toRoute = `/a/${anime?.id}/${fixSlug(anime?.title?.romaji)}`;
 </script>
 
 <template>
-  <VideoModal v-if="anime?.trailer?.site === 'youtube'" id="verModal" :video="`https://youtube.com/embed/${anime?.trailer?.id}`" />
+  <VideoModal v-if="anime?.trailer?.site === 'youtube'" id="verModal" :video="anime?.trailer?.id" />
   <div class="banner p-0 position-relative d-flex align-items-center p-0 w-100 overflow-hidden border-bottom">
     <span id="blur" class="position-absolute top-0 w-100 h-100 bg-secondary" :style="{ backgroundImage: anime?.bannerImage ? `url(${anime?.bannerImage})` : 'none' }" data-aos="zoom-out" data-aos-duration="3000" />
     <span id="front" class="d-flex justify-content-center px-4 pt-5 pt-md-0 pt-lg-0" data-aos="fade-in" data-aos-duration="2000">

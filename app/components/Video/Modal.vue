@@ -6,9 +6,9 @@ const props = defineProps({
 
 const clickHandler = (e: Event) => {
   const target = e.target as Node;
-  const iframe = document.querySelector("#embed") as HTMLIFrameElement;
-  if (!iframe?.contains(target)) {
-    iframe.contentWindow?.postMessage("{\"event\":\"command\",\"func\":\"stopVideo\",\"args\":\"\"}", "*");
+  const iframe = document.querySelector(`#${props.video} iframe`) as HTMLIFrameElement | null;
+  if (iframe && !iframe?.contains(target)) {
+    ytPlayerApi.stopVideo(iframe);
   }
 };
 
@@ -34,9 +34,7 @@ onBeforeUnmount(() => {
         <div class="modal-body">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
           <!-- 16:9 aspect ratio -->
-          <div class="ratio ratio-16x9">
-            <iframe id="embed" width="1280" height="720" :src="props.video + '?enablejsapi=1'" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope;" allowfullscreen />
-          </div>
+          <VideoContainer :id="props.video" :video-id="props.video" />
         </div>
       </div>
     </div>

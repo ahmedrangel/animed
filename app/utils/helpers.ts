@@ -107,7 +107,7 @@ export const fixStaffDescription = (text: string) => {
     .replaceAll("\n", "");
 };
 
-export const fixSlug = (name: string) => {
+export const fixSlug = (name: string | null) => {
   return name?.replace(/ /g, "-")?.replace(/[^a-zA-Z0-9-]/g, "")?.toLowerCase();
 };
 
@@ -119,3 +119,7 @@ export const distanceToNow = (date: number) => {
 };
 
 export type { FetchError } from "ofetch";
+
+export const ytPlayerApi = {
+  stopVideo: (iframe: HTMLIFrameElement) => iframe.contentWindow?.postMessage(JSON.stringify({ event: "command", func: "stopVideo", args: "" }), "*")
+};
