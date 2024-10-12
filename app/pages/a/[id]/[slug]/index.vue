@@ -175,7 +175,9 @@ const fixTheme = (text: string) => {
               <div v-if="anime?.trailer?.site === 'youtube'">
                 <div class="col-12 col-lg-12 col-xl-6">
                   <h6 class="text-primary">Trailer:</h6>
-                  <VideoContainer :video-id="anime.trailer.id" />
+                  <ClientOnly>
+                    <VideoContainer :video-id="anime.trailer.id" />
+                  </ClientOnly>
                 </div>
               </div>
             </div>
