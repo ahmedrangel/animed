@@ -225,7 +225,7 @@ img {
 
 .modal-dialog {
   max-width: 100%;
-  margin: 30px auto;
+  margin: 20px auto;
 }
 
 .modal-dialog-centered {
@@ -233,13 +233,7 @@ img {
 }
 
 .modal-body {
-  padding:0;
-}
-
-.btn-close {
-  position:absolute;
-  right:-30px;
-  top:0;
+  padding: 0;
 }
 
 .modal.show {

@@ -31,8 +31,10 @@ onBeforeUnmount(() => {
   <div :id="props.id" class="modal fade w-100 p-0" tabindex="-1" role="dialog" :aria-labelledby="props.id" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-body">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+        <div class="modal-body px-0 px-sm-2">
+          <div class="text-end mb-2">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+          </div>
           <ClientOnly>
             <VideoContainer :id="props.video" :video-id="props.video" />
           </ClientOnly>
