@@ -13,11 +13,7 @@ if (!exists) {
 }
 const { data: data }: { data: Ref<AnimePreviewList> } = await useFetch("/api/explore?slug=" + slug);
 const newlies = data.value?.preview.newly!.media;
-const animes_with_banner = newlies?.filter(el => el.bannerImage);
-
-const random_anime = useState(`random-anime-${slug}`, () => {
-  return animes_with_banner?.length ? getRandomObject(animes_with_banner) : getRandomObject(newlies);
-});
+const animesWithBanner = newlies?.filter(el => el.bannerImage) || newlies;
 
 useSeoMeta({
   title: data.value.category + " | Categories | " + SITE.name,
@@ -54,16 +50,12 @@ onMounted(async () => {
   };
   loading.value = false;
 });
-
-onBeforeUnmount(() => {
-  clearNuxtState(`random-anime-${slug}`);
-});
 </script>
 
 <template>
   <main>
     <section id="preview">
-      <BannerDetailed :anime="random_anime" />
+      <BannerDetailed :anime="animesWithBanner" />
       <AnimePreviewList :data="data" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />
       <AnimePreviewList v-if="upcoming" :data="upcoming" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />
       <SpinnerLoading v-if="loading" />

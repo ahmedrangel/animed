@@ -42,12 +42,16 @@ export const getProducers = (studios: Record<string, any>) => {
 };
 
 export const fixDescription = (text: string) => {
-  const limit = 1000;
+  const limit = 900;
+  text = text
+    .replace(/<br>/g, "")
+    .replace(/(\(Source:.*?\)).*/s, "$1");
+
   if (text?.length > limit) {
     text = text.substring(0, limit) + "...";
-    return { text: text as string, more: true as boolean };
+    return { text, more: true as boolean };
   }
-  return { text: text as string, more: false as boolean };
+  return { text, more: false as boolean };
 };
 
 export const sortEpisodes = (episodes: AnimeEpisodes[]) => {

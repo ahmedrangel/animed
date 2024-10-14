@@ -9,8 +9,9 @@ import Toast from "bootstrap/js/dist/toast";
 import Tab from "bootstrap/js/dist/tab";
 
 class Bootstrap {
-  hideModal (id: HTMLElement) {
-    const instance = Modal.getInstance(id);
+  hideModal (id: HTMLElement | string) {
+    const el = typeof id === "string" ? `#${id}` : id;
+    const instance = Modal.getInstance(el);
     if (instance) instance.hide();
   }
 
@@ -25,10 +26,17 @@ class Bootstrap {
     });
   }
 
-  showModal (id: HTMLElement) {
-    const modal = new Modal(id);
+  showModal (id: HTMLElement | string) {
+    const element = typeof id === "string" ? document.querySelector(`#${id}`) : id;
+    if (!element) return null;
+    const instance = Modal.getInstance(element);
+    if (instance) {
+      instance.show();
+      return element;
+    }
+    const modal = new Modal(element);
     modal.show();
-    return id;
+    return element;
   }
 
   showToast (id: HTMLElement) {
@@ -66,7 +74,10 @@ class Bootstrap {
 
 const bootstrap = new Bootstrap();
 
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.hook("app:suspense:resolve", () => {
+    bootstrap.startAllCarousel();
+  });
   return {
     provide: { bootstrap }
   };

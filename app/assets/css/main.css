@@ -146,7 +146,7 @@ img {
 
   #info {
   width: 95%!important;
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
   left: 2%;
   }
 
@@ -323,4 +323,8 @@ input:focus-visible {
 
 #themes a:hover {
   text-decoration: underline!important;
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: white!important;
 }
