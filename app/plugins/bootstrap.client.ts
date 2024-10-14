@@ -74,10 +74,7 @@ class Bootstrap {
 
 const bootstrap = new Bootstrap();
 
-export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.hook("app:suspense:resolve", () => {
-    bootstrap.startAllCarousel();
-  });
+export default defineNuxtPlugin(() => {
   return {
     provide: { bootstrap }
   };

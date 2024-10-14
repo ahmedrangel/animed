@@ -10,6 +10,11 @@ const animeArray = useState(route.path, () => (props.anime as Anime[]).sort(() =
   description: el.description ? fixDescription(el.description).text : null
 })));
 
+onMounted(() => {
+  const { $bootstrap } = useNuxtApp();
+  $bootstrap.startAllCarousel();
+});
+
 onBeforeUnmount(() => {
   clearNuxtState(route.path);
 });
