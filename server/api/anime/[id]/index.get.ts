@@ -11,7 +11,7 @@ export default defineCachedEventHandler(async (event) => {
   obj.slug = slug;
 
   if (!isBot) {
-    const animeflv = await getAflvSearch(encodeURIComponent(obj?.title?.english || obj?.title?.native));
+    const animeflv = await getAflvSearch(encodeURIComponent(obj?.title?.english || obj?.title?.native), userAgent);
     if (animeflv?.length) {
       const foundRelation = animeFlvRelationLogic(animeflv, obj);
       if (foundRelation) obj.externalLinks.push(foundRelation);
