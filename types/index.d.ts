@@ -122,7 +122,7 @@ declare global {
     }[];
     characters: AnimeCharacters;
     recommendations: AnimeRecommendations | null;
-    slug: string;
+    slug?: string;
   }
 
   interface AnimeThemes {
