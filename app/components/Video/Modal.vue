@@ -35,9 +35,7 @@ onBeforeUnmount(() => {
           <div class="text-end mb-2">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
           </div>
-          <ClientOnly>
-            <VideoContainer :id="props.video" :video-id="props.video" />
-          </ClientOnly>
+          <VideoContainer :id="props.video" :video-id="props.video" />
         </div>
       </div>
     </div>
