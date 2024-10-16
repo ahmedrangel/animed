@@ -12,3 +12,7 @@ if (!slug) {
 }
 navigateTo(`/a/${id}/${slug}`, { redirectCode: 301, replace: false });
 </script>
+
+<template>
+  <main />
+</template>
