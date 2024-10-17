@@ -65,7 +65,10 @@ img {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  opacity: .75;
+}
+
+#preview #blur {
+  filter: brightness(.75)
 }
 
 #anime-page #blur {
