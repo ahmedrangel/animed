@@ -9,7 +9,7 @@ if (error.value) {
   });
 }
 
-const trendings = data.value.preview?.trending!.media;
+const trendings = data.value.preview?.trending?.media || data.value.preview?.newly?.media || data.value.preview.top?.media as Anime[];
 const animesWithBanner = trendings?.filter(el => el.bannerImage) || trendings;
 
 useSeoMeta({

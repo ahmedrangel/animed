@@ -11,8 +11,18 @@ if (!exists) {
     fatal: true
   });
 }
-const { data: data }: { data: Ref<AnimePreviewList> } = await useFetch("/api/explore?slug=" + slug);
-const newlies = data.value?.preview.newly!.media;
+
+const { data: data, error }: { data: Ref<AnimePreviewList>, error: Ref<FetchError> } = await useFetch("/api/explore?slug=" + slug);
+
+if (error.value) {
+  throw createError({
+    statusCode: error.value.statusCode,
+    message: error.value.statusMessage,
+    fatal: true
+  });
+}
+
+const newlies = data.value?.preview.newly?.media || data.value.preview?.trending?.media || data.value.preview?.newly?.media as Anime[];
 const animesWithBanner = newlies?.filter(el => el.bannerImage) || newlies;
 
 useSeoMeta({
