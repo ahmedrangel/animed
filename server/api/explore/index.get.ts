@@ -7,6 +7,7 @@ export default defineCachedEventHandler(async (event) => {
   return response;
 }, {
   maxAge: !import.meta.dev ? 43200 : 1,
+  swr: true,
   shouldInvalidateCache: async (event) => {
     if (!import.meta.dev) {
       const { cloudflare } = event.context;
