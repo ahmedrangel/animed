@@ -132,15 +132,17 @@ img {
 
 @media only screen and (width <= 767px) {
   .banner {
-    align-items: flex-end!important;
     height: auto;
     justify-content: center;
+  }
+
+  #front {
+    padding-bottom: 180px;
   }
 
   #front img {
     width: 60%;
     height: auto;
-    padding-bottom: 180px;
     margin-right: 0!important;
   }
 
@@ -148,6 +150,7 @@ img {
   width: 95%!important;
   padding-bottom: 2rem;
   left: 2%;
+  bottom: 0;
   }
 
   #info h2 {

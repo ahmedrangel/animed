@@ -26,12 +26,12 @@ onBeforeUnmount(() => {
       <div class="carousel-indicators mb-0">
         <button v-for="(a, i) of animeArray" :key="i" type="button" :data-bs-target="`#detailed-banner .carousel`" :data-bs-slide-to="i" :class="{ active: !i }" aria-current="true" :aria-label="`${a.title} ${i + 1}`" />
       </div>
-      <div class="carousel-inner">
+      <div class="carousel-inner d-flex">
         <template v-for="(a, i) of animeArray" :key="i">
           <VideoModal v-if="a?.trailer?.site === 'youtube'" :id="`verModal-${a.id}`" :video="a.trailer.id" />
-          <div class="banner p-0 position-relative d-flex align-items-center p-0 w-100 carousel-item" :class="{ active: !i }" data-bs-interval="10000">
+          <div class="banner p-0 position-relative d-flex align-items-start align-items-md-center p-0 w-100 carousel-item" :class="{ active: !i }" data-bs-interval="10000">
             <span id="blur" class="position-absolute top-0 w-100 h-100 bg-secondary" :style="{ backgroundImage: a?.bannerImage ? `url(${a?.bannerImage})` : 'none' }" data-aos="zoom-out" data-aos-duration="3000" />
-            <span id="front" class="d-flex justify-content-center px-4 pt-5 pt-md-0 pt-lg-0" data-aos="fade-in" data-aos-duration="2000">
+            <span id="front" class="text-center px-4 pt-2 pt-md-0" data-aos="fade-in" data-aos-duration="2000">
               <img class="shadow" :src="a?.coverImage?.extraLarge" :alt="a?.title?.romaji" :title="a?.title?.romaji">
             </span>
             <div id="overlay" class="position-absolute w-100 top-0" />
