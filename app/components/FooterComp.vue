@@ -1,3 +1,10 @@
+<script setup lang="ts">
+const $pwa = ref<PWA>();
+onMounted(() => {
+  $pwa.value = useNuxtApp().$pwa;
+});
+</script>
+
 <template>
   <div class="px-2 px-xl-5 py-5 w-100 border-top">
     <div class="d-flex align-items-center mb-2">
@@ -13,10 +20,17 @@
       </div>
       <h6 class="mb-0 fw-normal">This project uses the AniList API but is not endorsed or certified by AniList.&nbsp;</h6>
     </div>
-    <a target="_blank" :href="SITE.github" class="d-inline-flex" title="GitHub Repository">
-      <h2 class="mb-0 text-muted">
-        <Icon name="simple-icons:github" />
-      </h2>
-    </a>
+    <div class="d-flex align-items-center gap-2">
+      <a target="_blank" :href="SITE.github" title="GitHub Repository">
+        <h2 class="mb-0 text-muted">
+          <Icon name="simple-icons:github" />
+        </h2>
+      </a>
+      <a v-if="!$pwa?.installed" @click="$pwa?.install">
+        <h2 role="button" class="mb-0 text-muted" title="Install PWA">
+          <Icon name="mdi:monitor-arrow-down-variant" />
+        </h2>
+      </a>
+    </div>
   </div>
 </template>

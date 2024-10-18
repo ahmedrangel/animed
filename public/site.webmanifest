@@ -1,19 +1,43 @@
 {
     "name": "Animed",
     "short_name": "Animed",
-    "icons": [
-        {
-            "src": "/android-chrome-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/android-chrome-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ],
+    "description": "TV anime discovery app.",
     "theme_color": "#0c0c0c",
     "background_color": "#0c0c0c",
-    "display": "standalone"
+    "display": "standalone",
+    "start_url": "/",
+    "icons": [
+      {
+        "src": "/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "/images/screenshots/anime-website.jpg",
+        "sizes": "1919x1079",
+        "form_factor": "wide"
+      },
+      {
+        "src": "/images/screenshots/anime-website-2.jpg",
+        "sizes": "1919x1079",
+        "form_factor": "wide"
+      },
+      {
+        "src": "/images/screenshots/anime-website-3.jpg",
+        "sizes": "1919x1079",
+        "form_factor": "wide"
+      },
+      {
+        "src": "/images/screenshots/anime-website-4.jpg",
+        "sizes": "1919x1079",
+        "form_factor": "wide"
+      }
+    ]
 }

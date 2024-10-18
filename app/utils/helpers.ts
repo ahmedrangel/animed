@@ -127,3 +127,5 @@ export type { FetchError } from "ofetch";
 export const ytPlayerApi = {
   stopVideo: (iframe: HTMLIFrameElement) => iframe.contentWindow?.postMessage(JSON.stringify({ event: "command", func: "stopVideo", args: "" }), "*")
 };
+
+export type { PWA } from "~/plugins/pwa";

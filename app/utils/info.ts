@@ -4,5 +4,6 @@ export const SITE = {
   domain,
   github: "https://github.com/ahmedrangel/animed",
   name: "Animed",
-  og_card: "/images/og-card.png"
+  og_card: "/images/og-card.png",
+  description: "TV anime discovery app."
 };
