@@ -74,6 +74,13 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       routes: ["/c", "/search", "/sitemap.xml"]
+    },
+    cloudflare: {
+      pages: {
+        routes: {
+          exclude: ["/images/*"]
+        }
+      }
     }
   },
   eslint: {
