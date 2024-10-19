@@ -1,8 +1,6 @@
 <script setup lang="ts">
 // Must meet web manifest requirements for desktop
-type UserChoice = Promise<{
-  outcome: "accepted" | "dismissed";
-}>;
+type UserChoice = Promise<{ outcome: "accepted" | "dismissed" }>;
 
 interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<UserChoice>;
