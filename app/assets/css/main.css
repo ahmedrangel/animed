@@ -220,16 +220,16 @@ img {
   width: 72px!important;
 }
 
-.modal-content, .modal-header {
+#videoModal .modal-content, #videoModal.modal-header {
   background-color: transparent;
   border: none;
 }
 
-.modal-content {
+#videoModal .modal-content {
   max-width: 975px;
 }
 
-.modal-dialog {
+#videoModal .modal-dialog {
   max-width: 100%;
   margin: 20px auto;
 }
@@ -238,12 +238,8 @@ img {
   justify-content: center;
 }
 
-.modal-body {
+#videoModal .modal-body {
   padding: 0;
-}
-
-.modal.show {
-  display: inline-table!important;
 }
 
 input {

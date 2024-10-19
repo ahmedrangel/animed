@@ -1,7 +1,3 @@
-export const sleep = async (ms: number) => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-};
-
 export const animeFlvRelationLogic = (aflvArr: Record<string, any>[], anilistObj: Record<string, any>) => {
   for (const aflv of aflvArr) {
     if (aflv?.type === "Anime"

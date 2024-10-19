@@ -127,3 +127,7 @@ export type { FetchError } from "ofetch";
 export const ytPlayerApi = {
   stopVideo: (iframe: HTMLIFrameElement) => iframe.contentWindow?.postMessage(JSON.stringify({ event: "command", func: "stopVideo", args: "" }), "*")
 };
+
+export const sleep = async (ms: number) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
