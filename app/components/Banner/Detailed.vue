@@ -7,7 +7,7 @@ const route = useRoute();
 const showVideo = ref(false);
 const videoId = ref("");
 
-const animeArray = useState(route.path, () => [...props.anime].sort(() => Math.random() - 0.5).map(el => ({
+const animeArray = useState(route.path, () => props.anime.toSorted(() => Math.random() - 0.5).map(el => ({
   ...el,
   description: el.description ? fixDescription(el.description).text : null
 })));
