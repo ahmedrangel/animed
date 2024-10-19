@@ -1,9 +1,7 @@
 <script setup lang="ts">
-const props = defineProps({
-  anime: { type: Object, required: true }
+defineProps({
+  anime: { type: Object as () => Anime, required: true }
 });
-
-const { anime } = props as { anime: Anime };
 </script>
 
 <template>

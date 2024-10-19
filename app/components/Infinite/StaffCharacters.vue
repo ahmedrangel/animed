@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const props = defineProps({
-  data: { type: Object, required: true }
+  data: { type: Object as () => Record<string, any>, required: true }
 });
 
-const staff = props.data as Record<string, any>;
+const staff = props.data;
 const nexted = ref(false) as Ref<boolean>;
 const count = ref(2) as Ref<number>;
 const lastRow = ref() as Ref<HTMLElement[]>;

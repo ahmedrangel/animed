@@ -1,13 +1,13 @@
 <script setup lang="ts">
 const props = defineProps({
-  anime: { type: Array, required: true }
+  anime: { type: Array as () => Anime[], required: true }
 });
 
 const route = useRoute();
 const showVideo = ref(false);
 const videoId = ref("");
 
-const animeArray = useState(route.path, () => (props.anime as Anime[]).sort(() => Math.random() - 0.5).map(el => ({
+const animeArray = useState(route.path, () => [...props.anime].sort(() => Math.random() - 0.5).map(el => ({
   ...el,
   description: el.description ? fixDescription(el.description).text : null
 })));

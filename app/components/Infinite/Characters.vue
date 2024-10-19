@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const props = defineProps({
-  data: { type: Object, required: true }
+  data: { type: Object as () => Anime, required: true }
 });
 
-const result = props.data as Anime;
+const result = props.data;
 const nexted = ref(false) as Ref<boolean>;
 const count = ref(2) as Ref<number>;
 const lastRow = ref() as Ref<HTMLElement[]>;
