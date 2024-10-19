@@ -4,7 +4,7 @@ const props = defineProps({
 });
 
 const route = useRoute();
-const showVideo = ref(false);
+const videoModal = useModalController("videoModal");
 const videoId = ref("");
 
 const animeArray = useState(route.path, () => props.anime.toSorted(() => Math.random() - 0.5).map(el => ({
@@ -14,7 +14,7 @@ const animeArray = useState(route.path, () => props.anime.toSorted(() => Math.ra
 
 const openVideoModal = (trailer: string) => {
   videoId.value = trailer;
-  useModalController("videoModal", showVideo).show();
+  videoModal.value.show();
 };
 
 onMounted(() => {
@@ -29,7 +29,9 @@ onBeforeUnmount(() => {
 
 <template>
   <div id="detailed-banner">
-    <VideoModal v-if="showVideo" :video="videoId" />
+    <ModalController v-model="videoModal" id="videoModal">
+      <VideoContainer :video-id="videoId" />
+    </ModalController>
     <div class="carousel slide carousel-fade overflow-hidden border-bottom" data-bs-ride="carousel">
       <div class="carousel-indicators mb-0">
         <button v-for="(a, i) of animeArray" :key="i" type="button" :data-bs-target="`#detailed-banner .carousel`" :data-bs-slide-to="i" :class="{ active: !i }" aria-current="true" :aria-label="`${a.title} ${i + 1}`" />
