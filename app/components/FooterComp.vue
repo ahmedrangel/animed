@@ -19,13 +19,13 @@
           <Icon name="simple-icons:github" />
         </h2>
       </a>
-      <PWA>
+      <InstallPWA>
         <a>
           <h2 role="button" class="mb-0 text-muted" title="Install PWA">
             <Icon name="mdi:monitor-arrow-down-variant" />
           </h2>
         </a>
-      </PWA>
+      </InstallPWA>
     </div>
   </div>
 </template>
