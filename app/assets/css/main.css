@@ -220,16 +220,16 @@ img {
   width: 72px!important;
 }
 
-#videoModal .modal-content, #videoModal.modal-header {
+#video-modal .modal-content, #video-modal.modal-header {
   background-color: transparent;
   border: none;
 }
 
-#videoModal .modal-content {
+#video-modal .modal-content {
   max-width: 975px;
 }
 
-#videoModal .modal-dialog {
+#video-modal .modal-dialog {
   max-width: 100%;
   margin: 20px auto;
 }
@@ -238,7 +238,7 @@ img {
   justify-content: center;
 }
 
-#videoModal .modal-body {
+#video-modal .modal-body {
   padding: 0;
 }
 

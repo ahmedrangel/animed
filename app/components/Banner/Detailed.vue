@@ -4,7 +4,7 @@ const props = defineProps({
 });
 
 const route = useRoute();
-const videoModal = useModalController("videoModal");
+const videoModal = useModalController("video-modal");
 const videoId = ref("");
 
 const animeArray = useState(route.path, () => props.anime.toSorted(() => Math.random() - 0.5).map(el => ({
@@ -29,7 +29,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div id="detailed-banner">
-    <ModalController v-model="videoModal" id="videoModal">
+    <ModalController id="video-modal" v-model="videoModal">
       <VideoContainer :video-id="videoId" />
     </ModalController>
     <div class="carousel slide carousel-fade overflow-hidden border-bottom" data-bs-ride="carousel">
