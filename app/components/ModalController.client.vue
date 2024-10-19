@@ -15,7 +15,7 @@ defineProps({
 </script>
 
 <template>
-  <div :id="id" v-if="modelValue.isVisible" class="modal fade" tabindex="-1" :aria-labelledby="id" aria-hidden="true">
+  <div v-if="modelValue.isVisible" :id="id" class="modal fade" tabindex="-1" :aria-labelledby="id" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" :class="{ 'modal-lg': lg, 'modal-fullscreen': fullscreen }">
       <div class="modal-content">
         <div v-if="title" class="modal-header">
