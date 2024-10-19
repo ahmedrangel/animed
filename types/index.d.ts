@@ -140,9 +140,9 @@ declare global {
   }
 
   interface AnimePreviewListInfo {
-    media: Anime[];
-    title: string;
-    route: string;
+    media?: Anime[];
+    title?: string;
+    route?: string;
   }
 
   interface AnimePreviewList {

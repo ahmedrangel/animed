@@ -45,7 +45,7 @@ const streamingEpisodes = sortEpisodes(anime?.streamingEpisodes)?.slice(0, 6) ||
 
 const seoDescription = fixSeoDescription(anime?.description?.replace(/<[^>]*>/g, "") || "").text;
 
-const recommendations = {
+const recommendations: AnimePreviewList = {
   preview: {
     recommendations: {
       media: anime?.recommendations?.nodes?.map(r => r.mediaRecommendation)
