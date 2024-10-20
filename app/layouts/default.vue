@@ -3,6 +3,9 @@
     <div>
       <Suspense>
         <slot />
+        <template #fallaback>
+          <slot />
+        </template>
       </Suspense>
     </div>
     <FooterComp />
