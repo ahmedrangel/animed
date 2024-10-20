@@ -1,3 +1,5 @@
+import type { H3Event } from "h3";
+
 export const animeFlvRelationLogic = (aflvArr: Record<string, any>[], anilistObj: Record<string, any>) => {
   for (const aflv of aflvArr) {
     if (aflv?.type === "Anime"
@@ -75,4 +77,24 @@ export const botRateLimitHandler = async (agent: string | undefined) => {
     lastReq: now
   }));
   return false;
+};
+
+export const shouldInvalidateCacheByConditionHandler = (event: H3Event, condition: boolean) => {
+  if (condition) {
+    console.info("Cache invalidated due to not matching required properties!");
+    event.node.res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0");
+    event.node.res.setHeader("Pragma", "no-cache");
+    event.node.res.setHeader("Expires", "0");
+    event.node.res.setHeader("Surrogate-Control", "no-store");
+    const uniqueId = Date.now().toString();
+    event.node.res.setHeader("X-Response-ID", uniqueId);
+    return true;
+  }
+  return false;
+};
+
+export const getCachedItemBody = async (itemKey: string) => {
+  const storage = useStorage("cache");
+  const cache = await storage.getItem(itemKey.replace(/-/g, "")) as CacheEntry<{ body: any }>;
+  return cache?.value?.body;
 };

@@ -1,3 +1,5 @@
+const cacheName = "getExplore";
+
 export default defineCachedEventHandler(async (event) => {
   const { slug } = getQuery(event) as { slug?: string };
   const cat_title = categories.find(c => fixSlug(c.name) === slug)?.name;
@@ -6,32 +8,14 @@ export default defineCachedEventHandler(async (event) => {
   const response = await getExplore({ ...option, slug, category: cat_title, perPage: 12 });
   return response;
 }, {
-  maxAge: !import.meta.dev ? 43200 : 1,
+  maxAge: 43200,
   swr: true,
-  name: "getExplore",
-  getKey: (event) => {
-    const { slug } = getQuery(event) as { slug?: string };
-    return slug ? slug : "default";
-  },
+  name: cacheName,
+  getKey: event => getQuery(event)?.slug as string || "index",
   shouldInvalidateCache: async (event) => {
-    const { slug } = getQuery(event) as { slug?: string };
-    const cacheKey = slug ? slug : "default";
-    const storageKey = `nitro:handlers:getExplore:${cacheKey}.json`;
-    const storage = useStorage("cache");
-    const cache = await storage.getItem(storageKey) as CacheEntry<{ body: AnimePreviewList }>;
-    const response = cache?.value?.body;
-    if (response) {
-      if (!response.preview?.newly?.media?.length || !response.preview?.top?.media?.length || !response.preview?.trending?.media?.length) {
-        console.info("Cache invalidated due to not matching required properties!");
-        event.node.res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0");
-        event.node.res.setHeader("Pragma", "no-cache");
-        event.node.res.setHeader("Expires", "0");
-        event.node.res.setHeader("Surrogate-Control", "no-store");
-        const uniqueId = Date.now().toString();
-        event.node.res.setHeader("X-Response-ID", uniqueId);
-        return true;
-      }
-    }
-    return false;
+    const cacheKey = (getQuery(event)?.slug as string || "index");
+    const body: AnimePreviewList = await getCachedItemBody(`nitro:handlers:${cacheName}:${cacheKey}.json`);
+    const condition = !body || !body.preview?.newly?.media?.length || !body.preview?.top?.media?.length || !body.preview?.trending?.media?.length;
+    return shouldInvalidateCacheByConditionHandler(event, condition);
   }
 });
