@@ -19,7 +19,7 @@ export default defineCachedEventHandler(async (event) => {
     const storageKey = `nitro:handlers:getExplore:${cacheKey}.json`;
     const storage = useStorage("cache");
     const cache = await storage.getItem(storageKey) as CacheEntry<{ body: AnimePreviewList }>;
-    const response = cache.value?.body;
+    const response = cache?.value?.body;
     if (response) {
       if (!response.preview?.newly?.media?.length || !response.preview?.top?.media?.length || !response.preview?.trending?.media?.length) {
         console.info("Cache invalidated due to not matching required properties!");

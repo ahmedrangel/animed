@@ -6,7 +6,7 @@ export {};
 
 declare global {
   type FetchError = F | undefined;
-  type CacheEntry<T> = C<T>;
+  type CacheEntry<T> = C<T> | undefined;
 
   interface AnimeTitle {
     romaji: string;
