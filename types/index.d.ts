@@ -1,10 +1,12 @@
 import type { FetchError as F } from "ofetch";
+import type { CacheEntry as C } from "nitropack/runtime/types";
 import type { Sort, Status } from "~~/enums/anilist";
 
 export {};
 
 declare global {
   type FetchError = F | undefined;
+  type CacheEntry<T> = C<T>;
 
   interface AnimeTitle {
     romaji: string;
