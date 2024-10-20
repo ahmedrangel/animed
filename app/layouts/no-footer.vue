@@ -1,5 +1,7 @@
 <template>
   <div id="layout" class="col px-0">
-    <slot />
+    <Suspense>
+      <slot />
+    </Suspense>
   </div>
 </template>
