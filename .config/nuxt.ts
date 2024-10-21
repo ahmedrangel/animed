@@ -136,8 +136,5 @@ export default defineNuxtConfig({
   },
   experimental: {
     typedPages: true
-  },
-  hub: {
-    cache: true
   }
 });
