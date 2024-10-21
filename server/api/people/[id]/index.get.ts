@@ -1,3 +1,6 @@
+const cacheGroup = "getStaffInfo";
+const cacheName = "index";
+
 export default defineCachedEventHandler(async (event) => {
   const userAgent = getHeaders(event)["user-agent"];
   const limited = await botRateLimitHandler(userAgent);
@@ -7,8 +10,17 @@ export default defineCachedEventHandler(async (event) => {
   const { id } = getRouterParams(event);
   const { data } = await getStaff({ id: Number(id) });
   const obj = data.Staff;
-
-  const response = obj;
-
-  if (response) return response;
-}, { maxAge: !import.meta.dev ? 43200 : 1, varies: ["user-agent"] });// 12h cache
+  return obj;
+}, {
+  maxAge: 43200,
+  varies: ["user-agent"],
+  group: cacheGroup,
+  name: cacheName,
+  getKey: event => getRouterParams(event).id,
+  shouldInvalidateCache: async (event) => {
+    const cacheKey = getRouterParams(event).id;
+    const body = await getCachedItemBody(`${cacheGroup}:${cacheName}:${cacheKey}.json`);
+    const invalidate = body && !body?.id;
+    return shouldInvalidateCacheByConditionHandler(event, invalidate);
+  }
+});

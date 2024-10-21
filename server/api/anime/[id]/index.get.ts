@@ -1,3 +1,6 @@
+const cacheGroup = "getAnimeInfo";
+const cacheName = "index";
+
 export default defineCachedEventHandler(async (event) => {
   const userAgent = getHeaders(event)["user-agent"];
   const isBot = knownBots.find(bot => userAgent?.includes(bot)) ? true : false;
@@ -18,7 +21,18 @@ export default defineCachedEventHandler(async (event) => {
     }
   }
 
-  const response = obj;
-
-  if (response) return response;
-}, { maxAge: !import.meta.dev ? 43200 : 1, varies: ["user-agent"] }); // 12h cache
+  return obj;
+}, {
+  maxAge: 43200,
+  varies: ["user-agent"],
+  swr: true,
+  group: cacheGroup,
+  name: cacheName,
+  getKey: event => getRouterParams(event).id,
+  shouldInvalidateCache: async (event) => {
+    const cacheKey = getRouterParams(event).id;
+    const body: Anime = await getCachedItemBody(`${cacheGroup}:${cacheName}:${cacheKey}.json`);
+    const invalidate = body && !body?.id;
+    return shouldInvalidateCacheByConditionHandler(event, invalidate);
+  }
+});

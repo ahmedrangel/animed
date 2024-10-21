@@ -32,13 +32,11 @@ export default defineCachedEventHandler(async (event) => {
   maxAge: 43200, // 12h cache
   swr: true,
   name: cacheName,
-  getKey: (event) => {
-    return (getQuery(event)?.slug as string || "index") + `${getRouterParams(event).type as string}`;
-  },
+  getKey: event => (getQuery(event)?.slug as string || "index") + `${getRouterParams(event).type as string}`,
   shouldInvalidateCache: async (event) => {
     const cacheKey = (getQuery(event)?.slug as string || "index") + `${getRouterParams(event).type as string}`;
     const body: AnimeList = await getCachedItemBody(`nitro:handlers:${cacheName}:${cacheKey}.json`);
-    const condition = body && !body?.media?.length;
-    return shouldInvalidateCacheByConditionHandler(event, condition);
+    const invalidate = body && !body?.media?.length;
+    return shouldInvalidateCacheByConditionHandler(event, invalidate);
   }
 });

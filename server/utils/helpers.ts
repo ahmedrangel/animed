@@ -79,8 +79,9 @@ export const botRateLimitHandler = async (agent: string | undefined) => {
   return false;
 };
 
-export const shouldInvalidateCacheByConditionHandler = (event: H3Event, condition: boolean) => {
-  if (!condition) return false;
+export const shouldInvalidateCacheByConditionHandler = (event: H3Event, invalidate: boolean) => {
+  console.log(invalidate)
+  if (!invalidate) return invalidate;
   console.info("Cache invalidated due to not matching required properties!");
   event.node.res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0");
   event.node.res.setHeader("Pragma", "no-cache");
@@ -88,7 +89,7 @@ export const shouldInvalidateCacheByConditionHandler = (event: H3Event, conditio
   event.node.res.setHeader("Surrogate-Control", "no-store");
   const uniqueId = Date.now().toString();
   event.node.res.setHeader("X-Response-ID", uniqueId);
-  return true;
+  return invalidate;
 };
 
 export const getCachedItemBody = async (itemKey: string) => {
