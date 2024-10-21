@@ -36,7 +36,8 @@
     "eslint": "^9.13.0",
     "gql-payload": "^2.1.0",
     "nuxt": "^3.13.2",
-    "stylelint-config-standard": "^36.0.1"
+    "stylelint-config-standard": "^36.0.1",
+    "wrangler": "^3.81.0"
   },
   "dependencies": {
     "@nuxtjs/google-fonts": "^3.2.0",
