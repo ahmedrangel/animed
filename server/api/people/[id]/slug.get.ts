@@ -9,6 +9,7 @@ export default defineCachedEventHandler(async (event) => {
   return obj;
 }, {
   maxAge: 604800, // 1w cache
+  swr: true,
   varies: ["user-agent"],
   group: cacheGroup,
   name: cacheName,
