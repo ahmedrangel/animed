@@ -9,3 +9,5 @@ scripts/*.js
 *.sqlite3
 /*.sql
 .vscode
+
+.data
