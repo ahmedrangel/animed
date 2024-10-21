@@ -15,7 +15,7 @@ export default defineCachedEventHandler(async (event) => {
   shouldInvalidateCache: async (event) => {
     const cacheKey = (getQuery(event)?.slug as string || "index");
     const body: AnimePreviewList = await getCachedItemBody(`nitro:handlers:${cacheName}:${cacheKey}.json`);
-    const condition = !body || !body.preview?.newly?.media?.length || !body.preview?.top?.media?.length || !body.preview?.trending?.media?.length;
+    const condition = body && (!body.preview?.newly?.media?.length || !body.preview?.top?.media?.length || !body.preview?.trending?.media?.length);
     return shouldInvalidateCacheByConditionHandler(event, condition);
   }
 });

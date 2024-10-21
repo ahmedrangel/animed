@@ -30,6 +30,7 @@ export default defineCachedEventHandler(async (event) => {
   return data;
 }, {
   maxAge: 43200, // 12h cache
+  swr: true,
   name: cacheName,
   getKey: (event) => {
     return (getQuery(event)?.slug as string || "index") + `${getRouterParams(event).type as string}`;
@@ -37,7 +38,7 @@ export default defineCachedEventHandler(async (event) => {
   shouldInvalidateCache: async (event) => {
     const cacheKey = (getQuery(event)?.slug as string || "index") + `${getRouterParams(event).type as string}`;
     const body: AnimeList = await getCachedItemBody(`nitro:handlers:${cacheName}:${cacheKey}.json`);
-    const condition = !body || !body?.media?.length;
+    const condition = body && !body?.media?.length;
     return shouldInvalidateCacheByConditionHandler(event, condition);
   }
 });
