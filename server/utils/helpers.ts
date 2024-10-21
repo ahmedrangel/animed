@@ -80,7 +80,6 @@ export const botRateLimitHandler = async (agent: string | undefined) => {
 };
 
 export const shouldInvalidateCacheByConditionHandler = (event: H3Event, invalidate: boolean) => {
-  console.log(invalidate)
   if (!invalidate) return invalidate;
   console.info("Cache invalidated due to not matching required properties!");
   event.node.res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0");
