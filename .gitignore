@@ -11,3 +11,4 @@ scripts/*.js
 .vscode
 
 .data
+.wrangler
