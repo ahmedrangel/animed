@@ -49,8 +49,7 @@ export default defineNuxtConfig({
     "@primevue/nuxt-module",
     "@nuxt/eslint",
     "nuxt-aos",
-    "@vueuse/nuxt",
-    "@nuxthub/core"
+    "@vueuse/nuxt"
   ],
   icon: {
     mode: "svg",
@@ -136,12 +135,5 @@ export default defineNuxtConfig({
   },
   experimental: {
     typedPages: true
-  },
-  hub: {
-    cache: true,
-    bindings: {
-      compatibilityDate: "2024-10-20",
-      compatibilityFlags: ["nodejs_compat"]
-    }
   }
 });
