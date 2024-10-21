@@ -26,6 +26,7 @@
     "@nuxt/eslint": "^0.6.0",
     "@nuxt/icon": "^1.5.6",
     "@nuxt/scripts": "^0.9.5",
+    "@nuxthub/core": "^0.7.34",
     "@nuxtjs/color-mode": "^3.5.1",
     "@nuxtjs/sitemap": "^6.1.2",
     "@primevue/nuxt-module": "^4.1.1",
