@@ -1,15 +1,15 @@
 <script setup lang="ts">
 const props = defineProps({
-  data: { type: Object as () => Record<string, any>, required: true }
+  staffId: { type: Number, required: true }
 });
 
-const staff = props.data;
-const nexted = ref(false) as Ref<boolean>;
-const count = ref(2) as Ref<number>;
+const id = props.staffId;
+const nexted = ref(false);
+const count = ref(1) as Ref<number>;
 const lastRow = ref() as Ref<HTMLElement[]>;
-const hasNextPage = ref(staff.characterMedia.pageInfo.hasNextPage);
+const hasNextPage = ref(false);
 
-const charactersYears = staff.characterMedia.edges.map((edge: Record<string, any>) => edge.node.startDate.year) as string[];
+const charactersYears = [] as string[];
 const orderedCharacters = ref({}) as Record<string, any>;
 const uniqueYears = ref([...new Set(charactersYears)]) as Ref<string[]>;
 
@@ -25,8 +25,6 @@ const orderItems = (edges: Record<string, any>[]) => {
   }
 };
 
-orderItems(staff.characterMedia.edges);
-
 const mouseListeners = (set: string[]) => {
   for (const y of set) {
     let j = 0;
@@ -41,22 +39,27 @@ const mouseListeners = (set: string[]) => {
   }
 };
 
+const getNextMedia = async () => {
+  nexted.value = true;
+  const next = await getStaffCharacters({ id, page: count.value }) as Record<string, any>;
+  const nextYears = next.data.Staff.characterMedia.edges.map((edge: Record<string, any>) => edge.node.startDate.year) as string[];
+  charactersYears.push(...nextYears);
+  uniqueYears.value = [...new Set(charactersYears)];
+  orderItems(next.data.Staff.characterMedia.edges);
+  count.value = count.value + 1;
+  hasNextPage.value = next.data.Staff.characterMedia.pageInfo.hasNextPage;
+  nexted.value = false;
+  nextTick(() => mouseListeners([...new Set(nextYears)]));
+};
+
 const scrollHandler = async () => {
   if (onScreen(lastRow.value[0]!) && !nexted.value && count.value && hasNextPage.value) {
-    nexted.value = true;
-    const next = await getStaff({ id: staff.id, page: count.value }) as Record<string, any>;
-    const nextYears = next.data.Staff.characterMedia.edges.map((edge: Record<string, any>) => edge.node.startDate.year) as string[];
-    charactersYears.push(...nextYears);
-    uniqueYears.value = [...new Set(charactersYears)];
-    orderItems(next.data.Staff.characterMedia.edges);
-    count.value = count.value + 1;
-    hasNextPage.value = next.data.Staff.characterMedia.pageInfo.hasNextPage;
-    nexted.value = false;
-    nextTick(() => mouseListeners([...new Set(nextYears)]));
+    await getNextMedia();
   }
 };
 
-onMounted(() => {
+onMounted(async () => {
+  await getNextMedia();
   addEventListener("scroll", scrollHandler);
   mouseListeners(uniqueYears.value);
 });
@@ -68,6 +71,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div id="characters">
+    <SpinnerLoading v-if="nexted && !uniqueYears.length" class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2" />
     <template v-for="(y, i) of uniqueYears" :key="i">
       <h1 class="mb-4">{{ y ? String(y) : "TBA" }}</h1>
       <div class="d-flex flex-wrap p-0 justify-content-start anime-row g-3">

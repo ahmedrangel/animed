@@ -8,7 +8,7 @@ export default defineCachedEventHandler(async (event) => {
     return new Response(null, { status: 429, statusText: "Too many requests" });
 
   const { id } = getRouterParams(event);
-  const { data } = await getStaff({ id: Number(id) });
+  const { data } = await getStaff(Number(id));
   const obj = data.Staff;
   return obj;
 }, {

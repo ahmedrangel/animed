@@ -93,7 +93,7 @@ useHead({
             </div>
           </div>
           <hr class="my-4">
-          <InfiniteStaffCharacters :data="staff" />
+          <InfiniteStaffCharacters :staff-id="staff.id" />
         </div>
       </div>
     </section>

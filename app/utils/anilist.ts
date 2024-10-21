@@ -1,7 +1,7 @@
 import { queryAnime, queryAnimeCharacters, queryAnimeSlug, queryAnimeEpisodes } from "./queries/anime";
 import { queryExplore } from "./queries/explore";
 import { queryFilter } from "./queries/filter";
-import { queryStaff, queryStaffSlug } from "./queries/staff";
+import { queryStaff, queryStaffCharacters, queryStaffSlug } from "./queries/staff";
 import { API, Sort, Status } from "~~/enums/anilist";
 
 const callAnilistGQL = async (options: { method?: "GET" | "POST" | "OPTIONS", headers?: HeadersInit, body?: Record<string, any> }) => {
@@ -97,9 +97,16 @@ export const getAnimeEpisodes = async (options?: QueryOptions) => {
   return data.Media;
 };
 
-export const getStaff = async (options?: QueryOptions) => {
+export const getStaff = async (id: number) => {
   const { data } = await callAnilistGQL({
-    body: queryStaff({ ...options })
+    body: queryStaff(id)
+  });
+  return { data };
+};
+
+export const getStaffCharacters = async (options?: QueryOptions) => {
+  const { data } = await callAnilistGQL({
+    body: queryStaffCharacters({ ...options })
   });
   return { data };
 };
