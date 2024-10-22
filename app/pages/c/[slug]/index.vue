@@ -2,6 +2,8 @@
 const { params } = useRoute("c-slug");
 const { slug } = params;
 
+if (slug === "all") navigateTo("/", { redirectCode: 301 });
+
 const exists = categories.find(c => fixSlug(c.name) === slug) || null;
 
 if (!exists) {
@@ -54,7 +56,7 @@ onMounted(async () => {
     preview: {
       upcoming: {
         ...(await getUpcoming({ ...option, slug, perPage: 12 })).data,
-        route: `/c/upcoming/${slug}`
+        route: `/c/${slug}/upcoming`
       }
     }
   };
@@ -64,7 +66,7 @@ onMounted(async () => {
 
 <template>
   <main>
-    <section id="preview">
+    <section v-if="exists && data" id="preview">
       <BannerDetailed :anime="animesWithBanner" />
       <AnimePreviewList :data="data" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />
       <AnimePreviewList v-if="upcoming" :data="upcoming" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />

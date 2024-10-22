@@ -38,7 +38,7 @@ onMounted(async () => {
     preview: {
       upcoming: {
         ...(await getUpcoming({ perPage: 12 })).data,
-        route: "/c/upcoming"
+        route: "/c/all/upcoming"
       }
     }
   };

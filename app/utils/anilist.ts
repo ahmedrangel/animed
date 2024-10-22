@@ -123,10 +123,10 @@ export const getExplore = async (options?: QueryOptions | null) => {
     body: queryExplore(options)
   });
   data.newly.title = "Newly Released";
-  data.newly.route = `/c/new${options?.slug ? `/${options.slug}` : ""}`;
+  data.newly.route = `/c/${options?.slug ? options.slug : "all"}/new`;
   data.trending.title = "Trending";
-  data.trending.route = `/c/trending${options?.slug ? `/${options.slug}` : ""}`;
+  data.trending.route = `/c/${options?.slug ? options.slug : "all"}/trending`;
   data.top.title = "Top Rated";
-  data.top.route = `/c/top-rated${options?.slug ? `/${options.slug}` : ""}`;
+  data.top.route = `/c/${options?.slug ? options.slug : "all"}/top-rated`;
   return { preview: data, category: options?.category } as AnimePreviewList;
 };

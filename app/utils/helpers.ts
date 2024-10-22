@@ -129,3 +129,10 @@ export const ytPlayerApi = {
 export const sleep = async (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
+
+export const availablePageTypes = [
+  { name: "new", routeType: "newly" },
+  { name: "top-rated", routeType: "rated" },
+  { name: "trending", routeType: "popular" },
+  { name: "upcoming", routeType: "upcoming" }
+];
