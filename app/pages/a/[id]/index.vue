@@ -10,7 +10,7 @@ if (!slug) {
     fatal: true
   });
 }
-navigateTo(`/a/${id}/${slug}`, { redirectCode: 301, replace: false });
+navigateTo(`/a/${id}/${slug}`, { redirectCode: 301 });
 </script>
 
 <template>
