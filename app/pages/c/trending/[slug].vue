@@ -1,6 +1,4 @@
 <script setup lang="ts">
-definePageMeta({ layout: "no-footer" });
-
 const { params } = useRoute("c-trending-slug");
 const { slug } = params;
 

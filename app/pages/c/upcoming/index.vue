@@ -1,6 +1,4 @@
 <script setup lang="ts">
-definePageMeta({ layout: "no-footer" });
-
 const { data: result }: { data: Ref<AnimeList> } = await useFetch("/api/explore/upcoming");
 
 useSeoMeta({
