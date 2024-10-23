@@ -41,41 +41,30 @@ export const knownBots = [
 ];
 
 export const botRateLimitHandler = async (agent: string | undefined) => {
-  const RATE_LIMIT_KV = process.env.ANIMED_BOT_RATE_LIMIT_BUCKET as any;
+  const KV = hubKV();
   const now = Date.now() as number;
   const botName = knownBots.find(bot => agent?.includes(bot));
   if (!botName) return false;
   console.info("Bot: " + botName);
-
-  const rawBotRecord = await RATE_LIMIT_KV.get(botName);
-  if (!rawBotRecord) {
-    await RATE_LIMIT_KV.put(botName, JSON.stringify({
-      count: 1,
-      lastReq: now
-    }));
+  const keyName = `RateLimitBucket:${botName}`.replace(/-/g, "");
+  const botRecord = await KV.get(keyName) as { count: number, lastReq: number };
+  if (!botRecord) {
+    await KV.set(keyName, { count: 1, lastReq: now });
     return false;
   }
 
-  const botRecord = JSON.parse(rawBotRecord);
-
-  const count = botRecord.count || 0;
-  const lastReq = botRecord.lastReq;
+  const count = botRecord?.count || 0;
+  const lastReq = botRecord?.lastReq;
   const diff = now - lastReq;
   if (diff < RATE_LIMIT_TIME_FRAME && count >= RATE_LIMIT_MAX_REQ) {
     return true;
   }
   else if (diff >= RATE_LIMIT_TIME_FRAME) {
-    await RATE_LIMIT_KV.put(botName, JSON.stringify({
-      count: 1,
-      lastReq: now
-    }));
+    await KV.set(keyName, { count: 1, lastReq: now });
     return false;
   }
 
-  await RATE_LIMIT_KV.put(botName, JSON.stringify({
-    count: count + 1,
-    lastReq: now
-  }));
+  await KV.set(keyName, { count: count + 1, lastReq: now });
   return false;
 };
 
