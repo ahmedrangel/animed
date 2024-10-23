@@ -138,6 +138,7 @@ export default defineNuxtConfig({
     typedPages: true
   },
   hub: {
+    kv: true,
     cache: true,
     bindings: {
       compatibilityDate: "2024-10-20",
