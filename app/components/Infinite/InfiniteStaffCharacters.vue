@@ -10,15 +10,15 @@ const lastRow = ref() as Ref<HTMLElement[]>;
 const hasNextPage = ref(false);
 
 const charactersYears = [] as string[];
-const orderedCharacters = ref({}) as Record<string, any>;
+const orderedCharacters = ref({}) as Ref<Record<string, StaffCharacters["edges"]>>;
 const uniqueYears = ref([...new Set(charactersYears)]) as Ref<string[]>;
 
-const orderItems = (edges: Record<string, any>[]) => {
+const orderItems = (edges: StaffCharacters["edges"]) => {
   for (const y of uniqueYears.value) {
     const prop = y ? String(y) : "TBA";
     if (!orderedCharacters.value[prop]?.length) orderedCharacters.value[prop] = [];
     for (const c of edges) {
-      if (c.node.startDate.year === y) {
+      if (String(c.node.startDate.year) === String(y)) {
         orderedCharacters.value[prop].push(c);
       }
     }
@@ -28,7 +28,7 @@ const orderItems = (edges: Record<string, any>[]) => {
 const mouseListeners = (set: string[]) => {
   for (const y of set) {
     let j = 0;
-    for (const _c of orderedCharacters.value[y ? String(y) : "TBA"]) {
+    for (const _c of orderedCharacters.value[y ? String(y) : "TBA"]!) {
       const index = `${y}_${j}`;
       const coa = document.querySelector(`.coa-${index}`) as HTMLElement;
       const ci = document.querySelector(`.ci-${index}`) as HTMLElement;
@@ -41,13 +41,13 @@ const mouseListeners = (set: string[]) => {
 
 const getNextMedia = async () => {
   nexted.value = true;
-  const next = await getStaffCharacters({ id, page: count.value }) as Record<string, any>;
-  const nextYears = next.data.Staff.characterMedia.edges.map((edge: Record<string, any>) => edge.node.startDate.year) as string[];
+  const next = await getStaffCharacters({ id, page: count.value });
+  const nextYears = next.edges.map((edge: Record<string, any>) => edge.node.startDate.year) as string[];
   charactersYears.push(...nextYears);
   uniqueYears.value = [...new Set(charactersYears)];
-  orderItems(next.data.Staff.characterMedia.edges);
+  orderItems(next.edges);
   count.value = count.value + 1;
-  hasNextPage.value = next.data.Staff.characterMedia.pageInfo.hasNextPage;
+  hasNextPage.value = next.pageInfo.hasNextPage;
   nexted.value = false;
   nextTick(() => mouseListeners([...new Set(nextYears)]));
 };
@@ -79,7 +79,7 @@ onBeforeUnmount(() => {
           <div v-if="c.characters[0]?.name" class="position-relative col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2 justify-content-center">
             <div class="character-element image overflow-hidden mb-2 w-100 position-relative" data-aos="fade-in">
               <img :class="`ci-${y}_${j}`" class="character-image img-fluid scale-on-hover h-100 w-100 position-absolute object-fit-cover" :src="c.characters[0]?.image?.large" :alt="c.characters[0]?.name?.userPreferred" :title="c.characters[0].name?.userPreferred">
-              <img :class="`coa-${y}_${j}`" class="character-on-anime scale-full-on-hover img-fluid bottom-0 end-0 position-absolute border-start border-top border-2" :src="c.node.coverImage.large" width="90px" :alt="c.node?.title?.romaji" :title="c.node?.title?.romaji">
+              <img :class="`coa-${y}_${j}`" class="character-on-anime scale-full-on-hover img-fluid bottom-0 end-0 position-absolute border-start border-top border-2" :src="c.node?.coverImage?.large" width="90px" :alt="c.node?.title?.romaji" :title="c.node?.title?.romaji">
             </div>
             <h5 class="mb-2 text-primary">
               {{ c.characters[0]?.name?.userPreferred }}
@@ -95,11 +95,11 @@ onBeforeUnmount(() => {
               <small class="text-muted d-block mb-1 fw-light">{{ c.node?.title?.romaji }}</small>
             </template>
           </div>
-          <span v-if="j === orderedCharacters[y ? String(y) : 'TBA']?.length - 1 && y === uniqueYears[uniqueYears?.length - 1]"
+          <span v-if="j === orderedCharacters[y ? String(y) : 'TBA']?.length! - 1 && y === uniqueYears[uniqueYears?.length - 1]"
                 ref="lastRow"
                 class="m-0 p-0"
           />
-          <SpinnerLoading v-if="j === orderedCharacters[y ? String(y) : 'TBA']?.length - 1 && y === uniqueYears[uniqueYears?.length - 1] && nexted" class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2" />
+          <SpinnerLoading v-if="j === orderedCharacters[y ? String(y) : 'TBA']?.length! - 1 && y === uniqueYears[uniqueYears?.length - 1] && nexted" class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2" />
         </template>
       </div>
       <hr v-if="y !== uniqueYears[uniqueYears?.length - 1]" class="my-4">

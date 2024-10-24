@@ -22,11 +22,11 @@ const currentLanguage = ref(languages[0] === "Japanese" ? languages[0] : "Japane
 const scrollHandler = async () => {
   if (onScreen(lastRow.value[0]!) && !nexted.value && count.value && hasNextPage.value) {
     nexted.value = true;
-    const next = await getAnimeCharacters({ id: result.id, page: count.value }) as Record<string, any>;
-    result.characters.edges.push(...next.data.Media.characters.edges);
+    const next = await getAnimeCharacters({ id: result.id, page: count.value });
+    result.characters.edges.push(...next.characters.edges);
     nexted.value = false;
     count.value = count.value + 1;
-    hasNextPage.value = next.data.Media.characters.pageInfo.hasNextPage;
+    hasNextPage.value = next.characters.pageInfo.hasNextPage;
   }
 };
 

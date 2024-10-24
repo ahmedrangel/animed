@@ -1,8 +1,7 @@
 <script setup lang="ts">
 const { params } = useRoute("p-id-slug");
 const { id, slug } = params;
-const { data: data, error } = await useFetch("/api/people/" + id) as Record<string, any>;
-
+const { data: data, error }: { data: Ref<StaffInfo>, error: Ref<FetchError> } = await useFetch("/api/people/" + id);
 if (error.value) {
   throw createError({
     statusCode: error.value.statusCode,
@@ -77,7 +76,7 @@ useHead({
                   <h6 v-if="staff?.languageV2" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
                     <span class="text-primary">Language:</span>&nbsp; {{ staff.languageV2 }}
                   </h6>
-                  <h6 v-if="staff?.yearsActive[0]" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
+                  <h6 v-if="staff?.yearsActive?.length" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">
                     <span class="text-primary">Years Active:</span>&nbsp; {{ staff.yearsActive[0] }} - {{ staff.yearsActive[1] ? staff.yearsActive[1] : "Present" }}
                   </h6>
                   <h6 v-if="staff?.homeTown" class="mb-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mt-0 p-0 text-capitalize">

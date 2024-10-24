@@ -1,6 +1,6 @@
 import type { H3Event } from "h3";
 
-export const animeFlvRelationLogic = (aflvArr: Record<string, any>[], anilistObj: Record<string, any>) => {
+export const animeFlvRelationLogic = (aflvArr: Record<string, any>[], anilistObj: Anime): AnimeExternalLinks | undefined => {
   for (const aflv of aflvArr) {
     if (aflv?.type === "Anime"
       && (

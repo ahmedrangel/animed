@@ -16,9 +16,10 @@ declare global {
 
   interface AnimeCoverImage {
     extraLarge: string;
+    large?: string;
   }
 
-  interface AnimeDate {
+  interface DateOptions {
     year: number;
     month: number;
     day: number;
@@ -54,9 +55,18 @@ declare global {
 
   interface StaffInfo {
     id: number;
-    name: NameOptions;
-    image: ImageOptions;
+    age?: number;
+    bloodType?: string | null;
+    dateOfBirth?: DateOptions;
+    dateOfDeath?: DateOptions;
+    description?: string;
+    gender?: string;
+    homeTown?: string;
+    image: StaffImageOptions;
     languageV2?: string;
+    name: NameOptions;
+    primaryOccupations?: string[];
+    yearsActive?: number[];
   }
 
   interface AnimeCharacters {
@@ -79,7 +89,7 @@ declare global {
     alternative?: string[];
   }
 
-  interface ImageOptions {
+  interface StaffImageOptions {
     large?: string;
     medium?: string;
   }
@@ -90,14 +100,21 @@ declare global {
     }[];
   }
 
+  interface AnimeExternalLinks {
+    site: string;
+    url?: string | null;
+    icon: string | null;
+    color: string;
+  }
+
   interface Anime {
     id: number;
     idMal: number;
     title: AnimeTitle;
     coverImage: AnimeCoverImage;
     bannerImage: string | null;
-    startDate: AnimeDate;
-    endDate: AnimeDate;
+    startDate: DateOptions;
+    endDate: DateOptions;
     description: string;
     season: "WINTER" | "SPRING" | "SUMMER" | "FALL";
     seasonYear: number;
@@ -112,12 +129,7 @@ declare global {
     trailer: AnimeTrailer;
     nextAiringEpisode: AnimeNextAiringEpisode | null;
     studios: AnimeStudiosEdge;
-    externalLinks: {
-      site: string;
-      url: string | null;
-      icon: string | null;
-      color: string;
-    }[];
+    externalLinks: AnimeExternalLinks[];
     streamingEpisodes: AnimeEpisodes[];
     tags: {
       name: string;
@@ -169,5 +181,17 @@ declare global {
     startDate_lesser?: string;
     slug?: string | null;
     category?: string | null;
+  }
+
+  interface StaffCharacters {
+    edges: {
+      characterRole: "MAIN" | "SUPPORTING" | "BACKGROUND";
+      characters: {
+        image: StaffImageOptions;
+        name: NameOptions;
+      }[];
+      node: Anime;
+    }[];
+    pageInfo: PageInfo;
   }
 }

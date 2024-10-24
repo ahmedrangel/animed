@@ -3,10 +3,9 @@ const cacheName = "slug";
 
 export default defineCachedEventHandler(async (event) => {
   const { id } = getRouterParams(event);
-  const data = await getStaffSlug(Number(id));
-  const slug = fixSlug(data.Staff.name.userPreferred);
-  const obj = { id, slug };
-  return obj;
+  const name = await getStaffSlug(Number(id));
+  const slug = fixSlug(name);
+  return { id, slug };
 }, {
   maxAge: 604800, // 1w cache
   swr: true,
