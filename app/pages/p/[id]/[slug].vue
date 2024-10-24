@@ -91,7 +91,6 @@ useHead({
               </div>
             </div>
           </div>
-          <hr class="my-4">
           <InfiniteStaffCharacters :staff-id="staff.id" />
         </div>
       </div>
