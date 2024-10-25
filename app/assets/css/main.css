@@ -178,7 +178,7 @@ img {
   }
 
   .modal.show {
-    padding-bottom: 8rem!important;
+    padding-bottom: 6rem!important;
   }
 
   #preview h3 {
@@ -231,7 +231,7 @@ img {
 
 #video-modal .modal-dialog {
   max-width: 100%;
-  margin: 20px auto;
+  margin: 20px 0;
 }
 
 .modal-dialog-centered {
