@@ -24,10 +24,10 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "^0.6.0",
-    "@nuxt/icon": "^1.5.6",
+    "@nuxt/icon": "^1.5.7",
     "@nuxt/scripts": "^0.9.5",
-    "@nuxthub/core": "^0.7.36",
-    "@nuxtjs/color-mode": "^3.5.1",
+    "@nuxthub/core": "^0.7.37",
+    "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/sitemap": "^6.1.2",
     "@primevue/nuxt-module": "^4.1.1",
     "@types/bootstrap": "^5.2.10",
@@ -37,7 +37,7 @@
     "gql-payload": "^2.1.0",
     "nuxt": "^3.13.2",
     "stylelint-config-standard": "^36.0.1",
-    "wrangler": "^3.82.0"
+    "wrangler": "^3.83.0"
   },
   "dependencies": {
     "@nuxtjs/google-fonts": "^3.2.0",
