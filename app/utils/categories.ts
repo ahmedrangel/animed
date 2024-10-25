@@ -36,5 +36,11 @@ export const categories = [
   { name: "Martial Arts", type: "tag" },
   { name: "Demons", type: "tag" },
   { name: "Angels", type: "tag" },
-  { name: "Vampire", type: "tag" }
-];
+  { name: "Vampire", type: "tag" },
+  { name: "Villainess", type: "tag" },
+  { name: "Elf", type: "tag" },
+  { name: "Succubus", type: "tag" },
+  { name: "Tomboy", type: "tag" },
+  { name: "Food", type: "tag" },
+  { name: "Dragons", type: "tag" }
+] as { name: string, type: "genre" | "tag" }[];
