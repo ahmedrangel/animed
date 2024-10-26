@@ -41,7 +41,7 @@ onBeforeUnmount(() => {
 
 <template>
   <h2 class="text-white mb-2">Characters</h2>
-  <select v-model="currentLanguage" class="form-select mb-2 p-3" aria-label="Default select example">
+  <select v-if="languages.length" v-model="currentLanguage" class="form-select mb-2 p-3" aria-label="Default select example">
     <option v-for="(lang, i) of languages" :key="i">
       {{ lang }}
     </option>
