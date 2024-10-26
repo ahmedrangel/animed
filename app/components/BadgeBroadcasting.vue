@@ -16,7 +16,7 @@ defineProps({
     </span>
     <span v-if="airingDate && (airingDate * 1000 > Date.now())" class="badge bg-dark p-1 d-flex">
       <div class="d-flex justify-content-end align-items-center gap-1">
-        <span class="d-block">New ep: {{ distanceToNow(airingDate) }}</span>
+        <span class="d-block">Next EP: {{ distanceToNow(airingDate) }}</span>
       </div>
     </span>
   </div>
