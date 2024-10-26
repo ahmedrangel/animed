@@ -1,5 +1,5 @@
 import { gqlQuery } from "gql-payload";
-import { Sort } from "~~/enums/anilist";
+import { Language, Sort } from "~~/enums/anilist";
 
 export const queryAnime = (options?: QueryOptions) => {
   for (const key in options) {
@@ -54,7 +54,7 @@ export const queryAnime = (options?: QueryOptions) => {
             ] },
             { operation: "voiceActors",
               variables: {
-                staffLanguage: { name: "language", type: "StaffLanguage", value: options?.staffLanguage },
+                staffLanguage: { name: "language", type: "StaffLanguage", value: options?.staffLanguage || Language.JAPANESE },
                 staffSort: { name: "sort", type: "[StaffSort]", value: [Sort.RELEVANCE, Sort.ID] }
               },
               fields: [
