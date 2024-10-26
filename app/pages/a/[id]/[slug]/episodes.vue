@@ -21,6 +21,15 @@ if (slug !== _slug) {
 }
 
 const anime = data.value;
+
+if (!anime.streamingEpisodes.length) {
+  throw createError({
+    statusCode: 404,
+    message: `Episodes for '${slug}' not found`,
+    fatal: true
+  });
+}
+
 const streamingEpisodes = sortEpisodes(anime.streamingEpisodes);
 
 useSeoMeta({
