@@ -51,7 +51,7 @@ useHead({
         <BannerBasic v-if="anime" :anime="anime" />
         <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
           <AnimeMenu :anime-id="String(id)" :slug="String(slug)" />
-          <div class="py-4 px-0">
+          <div class="pt-4 pb-3 px-0">
             <h4 class="mb-1 text-primary">{{ anime.title.romaji }} <span class="badge bg-secondary align-middle">{{ anime.format.replace(/_/g, " ") }}</span></h4>
             <h6 v-if="anime.title.english" class="mb-1">{{ anime.title.english }}</h6>
             <h6 v-if="anime.title.native" class="mb-1">{{ anime.title.native }}</h6>
