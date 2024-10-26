@@ -99,7 +99,7 @@ const fixTheme = (text: string) => {
     <section id="anime-page">
       <div class="col px-0 pb-5">
         <BannerBasic v-if="anime" :anime="anime" />
-        <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
+        <div class="px-2 pt-4 pb-2 pt-lg-5 px-lg-5 px-xl-5 w-100">
           <AnimeMenu :anime-id="String(id)" :slug="String(slug)" :episodes="streamingEpisodes[0] ? true : false" />
           <div class="pt-4 px-0">
             <h4 class="mb-1 text-primary">{{ anime.title.romaji }} <span class="badge bg-secondary align-middle">{{ anime?.format?.replace(/_/g, " ") }}</span></h4>
@@ -112,8 +112,14 @@ const fixTheme = (text: string) => {
               </div>
               <small class="ms-2 mb-0 text-white">{{ getRating(anime.averageScore || 0) }}</small>
             </div>
+            <span v-if="anime.nextAiringEpisode?.airingAt && (anime.nextAiringEpisode?.airingAt * 1000 > Date.now())" class="mt-1 d-inline-block p-1 rounded bg-secondary">
+              <h6 class="d-flex align-items-center justify-content-center gap-1 m-0">
+                <Icon class="text-info" name="mdi:broadcast" />
+                <span class="text-center">Next Episode · <span class="text-primary">E{{ anime.nextAiringEpisode?.episode }}</span> · {{ useTimeAgo(anime.nextAiringEpisode.airingAt * 1000) }}</span>
+              </h6>
+            </span>
           </div>
-          <div id="details" class="pt-3 pb-4 d-flex align-items-start anime-row mx-0 flex-wrap px-0">
+          <div id="details" class="pt-2 pb-4 d-flex align-items-start anime-row mx-0 flex-wrap px-0">
             <img id="cover" :src="anime?.coverImage?.extraLarge" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 img-fluid px-0" style="max-width: 400px;" :alt="anime.title.romaji" :title="anime.title.romaji" data-aos="fade-in">
             <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-9 pt-4 pt-md-0 px-0 ps-md-4">
               <div v-if="anime?.description" class="pb-4">
