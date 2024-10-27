@@ -193,9 +193,9 @@ const fixTheme = (text: string) => {
                 <h6 class="mb-0 text-muted">See more</h6>
               </NuxtLink>
             </div>
-            <div class="d-flex justify-content-start align-items-start anime-row flex-wrap gx-0 gx-lg-3 gy-1 m-0">
-              <div v-for="(c, i) of anime?.characters?.edges" :key="i" class="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-3">
-                <div class="d-flex align-items-start anime-row row-cols-auto g-2 bg-secondary rounded m-0 text-nowrap overflow-auto" data-aos="fade-in">
+            <div class="d-flex anime-row flex-wrap gx-0 gx-lg-4 gy-4 pt-2 px-1">
+              <div v-for="(c, i) of anime?.characters?.edges" :key="i" class="col-12 col-lg-6 col-xl-6 col-xxl-4">
+                <div class="d-flex align-items-start anime-row row-cols-auto g-2 bg-secondary rounded text-nowrap overflow-auto" data-aos="fade-in">
                   <div class="col ps-0 mt-0" style="max-width: 100px;">
                     <img :src="c.node.image.large" class="img-fluid rounded-start rounded-end-0" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
                   </div>

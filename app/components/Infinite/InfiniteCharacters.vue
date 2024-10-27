@@ -46,12 +46,12 @@ onBeforeUnmount(() => {
       {{ lang }}
     </option>
   </select>
-  <div v-if="result" class="d-flex justify-content-start align-items-start anime-row flex-wrap gx-0 gx-lg-3 gy-1 m-0">
+  <div v-if="result" class="d-flex justify-content-start align-items-start anime-row flex-wrap gx-0 gx-lg-4 gy-4 px-1 pt-3">
     <template v-for="(c, i) of result.characters.edges" :key="i">
       <template v-for="(va, j) of c.voiceActors" :key="j">
         <template v-if="va.languageV2 === currentLanguage">
-          <div class="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-3" data-aos="fade-in">
-            <div class="d-flex align-items-start anime-row row-cols-auto g-2 bg-secondary rounded m-0 text-nowrap overflow-auto">
+          <div class="col-12 col-lg-6 col-xl-6 col-xxl-4" data-aos="fade-in">
+            <div class="d-flex align-items-start anime-row row-cols-auto g-2 bg-secondary rounded text-nowrap overflow-auto">
               <div class="col ps-0 mt-0" style="max-width: 100px;">
                 <img :src="c.node.image.large" class="img-fluid rounded-start rounded-end-0" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
               </div>
