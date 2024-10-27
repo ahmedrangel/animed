@@ -72,7 +72,7 @@ useHead({
               <small class="ms-2 mb-0 text-white">{{ getRating(anime.averageScore || 0) }}</small>
             </div>
           </div>
-          <div v-if="streamingEpisodes[0]" id="episodes">
+          <div v-if="streamingEpisodes.length" id="episodes">
             <h2 class="text-white mb-2">Episodes</h2>
             <div class="d-flex anime-row flex-wrap g-2">
               <template v-for="(ep, i) of streamingEpisodes" :key="i">
