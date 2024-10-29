@@ -23,10 +23,14 @@
     "lint:stylelint": "stylelint \"**/*.css\" --fix --config .config/stylelint.json"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^0.6.0",
-    "@nuxt/icon": "^1.5.7",
+    "@iconify-json/ci": "^1.2.1",
+    "@iconify-json/mdi": "^1.2.1",
+    "@iconify-json/ph": "^1.2.1",
+    "@iconify-json/simple-icons": "^1.2.10",
+    "@nuxt/eslint": "^0.6.1",
+    "@nuxt/icon": "^1.6.1",
     "@nuxt/scripts": "^0.9.5",
-    "@nuxthub/core": "^0.7.37",
+    "@nuxthub/core": "^0.8.3",
     "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/sitemap": "^6.1.2",
     "@primevue/nuxt-module": "^4.1.1",
@@ -47,5 +51,5 @@
   "resolutions": {
     "vue-router": "4.4.5"
   },
-  "packageManager": "pnpm@9.12.2"
+  "packageManager": "pnpm@9.12.3"
 }
