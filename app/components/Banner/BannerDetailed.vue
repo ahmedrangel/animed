@@ -63,7 +63,7 @@ onBeforeUnmount(() => {
               </h6>
               <PrimeButton v-if="a?.trailer?.site === 'youtube'" class="btn text-dark mt-1" title="Watch Trailer" @click="openVideoModal(a.trailer.id)">
                 <div class="d-flex justify-content-center align-items-center py-1 px-2">
-                  <Icon name="solar:play-bold" />&nbsp;&nbsp;
+                  <Icon name="ph:play-fill" />&nbsp;&nbsp;
                   <span class="h6 mb-0">Watch Trailer</span>
                 </div>
               </PrimeButton>
