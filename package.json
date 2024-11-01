@@ -30,18 +30,18 @@
     "@nuxt/eslint": "^0.6.1",
     "@nuxt/icon": "^1.6.1",
     "@nuxt/scripts": "^0.9.5",
-    "@nuxthub/core": "^0.8.3",
+    "@nuxthub/core": "^0.8.4",
     "@nuxtjs/color-mode": "^3.5.2",
-    "@nuxtjs/sitemap": "^6.1.2",
+    "@nuxtjs/sitemap": "^6.1.4",
     "@primevue/nuxt-module": "^4.1.1",
     "@types/bootstrap": "^5.2.10",
-    "@vueuse/nuxt": "^11.1.0",
+    "@vueuse/nuxt": "^11.2.0",
     "date-fns": "^4.1.0",
     "eslint": "^9.13.0",
     "gql-payload": "^2.1.0",
     "nuxt": "^3.13.2",
     "stylelint-config-standard": "^36.0.1",
-    "wrangler": "^3.83.0"
+    "wrangler": "^3.84.1"
   },
   "dependencies": {
     "@nuxtjs/google-fonts": "^3.2.0",
