@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps({
-  data: { type: Object as () => AnimeEpisodes, required: true }
+  data: { type: Object as PropType<AnimeEpisodes>, required: true }
 });
 </script>
 

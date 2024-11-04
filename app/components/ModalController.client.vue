@@ -6,7 +6,7 @@ interface ControllerModalModel {
 }
 
 defineProps({
-  modelValue: { type: Object as () => ControllerModalModel, required: true },
+  modelValue: { type: Object as PropType<ControllerModalModel>, required: true },
   id: { type: String, required: true },
   title: { type: String, default: "" },
   lg: { type: Boolean, default: false },

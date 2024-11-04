@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps({
-  anime: { type: Array as () => Anime[], required: true }
+  anime: { type: Array as PropType<Anime[]>, required: true }
 });
 
 const route = useRoute();

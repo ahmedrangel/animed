@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps({
-  data: { type: Object as () => AnimePreviewList, required: true }
+  data: { type: Object as PropType<AnimePreviewList>, required: true }
 });
 const preview_keys = Object.keys(props.data?.preview);
 </script>

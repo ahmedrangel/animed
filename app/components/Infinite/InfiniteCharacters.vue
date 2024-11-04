@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps({
-  data: { type: Object as () => Anime, required: true }
+  data: { type: Object as PropType<Anime>, required: true }
 });
 
 const result = props.data;
