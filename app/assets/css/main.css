@@ -1,4 +1,7 @@
 /* main.css */
+body {
+  line-height: inherit;
+}
 
 .row>* {
   width: 0;
