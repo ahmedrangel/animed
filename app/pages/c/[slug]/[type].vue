@@ -18,16 +18,16 @@ const path = `/c/${slug}/${pageType?.name}`;
 const { data: result }: { data: Ref<AnimeList> } = await useFetch(`/api/explore/${route}`);
 
 useSeoMeta({
-  title: `${result.value.title} ${result.value.category}` + " | Categories | " + SITE.name,
+  title: `${result.value.title} ${result.value.category || ""}` + " | Categories | " + SITE.name,
   // Open Graph
   ogType: "website",
-  ogTitle: `${result.value.title} ${result.value.category}` + " | Categories | " + SITE.name,
+  ogTitle: `${result.value.title} ${result.value.category || ""}` + " | Categories | " + SITE.name,
   ogSiteName: SITE.name,
   ogUrl: SITE.url + path,
   ogImage: SITE.url + SITE.og_card,
   // Twitter
   twitterCard: "summary_large_image",
-  twitterTitle: `${result.value.title} ${result.value.category}` + " | Categories | " + SITE.name
+  twitterTitle: `${result.value.title} ${result.value.category || ""}` + " | Categories | " + SITE.name
 });
 
 useHead({
