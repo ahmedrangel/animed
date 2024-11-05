@@ -94,6 +94,7 @@ export const queryAnime = (options?: QueryOptions) => {
               { title: ["romaji", "english", "native"] },
               "format",
               "status",
+              { nextAiringEpisode: ["airingAt", "timeUntilAiring", "episode"] },
               { startDate: ["year", "month", "day"] },
               { coverImage: ["extraLarge"] },
               "averageScore"
