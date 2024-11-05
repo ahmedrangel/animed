@@ -45,7 +45,7 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxtjs/color-mode",
     "@nuxtjs/sitemap",
-    "@nuxtjs/google-fonts",
+    "@nuxt/fonts",
     "@primevue/nuxt-module",
     "@nuxt/eslint",
     "nuxt-aos",
@@ -127,12 +127,13 @@ export default defineNuxtConfig({
       include: ["Button"]
     }
   },
-  googleFonts: {
-    display: "swap",
-    download: true,
-    families: {
-      Rubik: [300, 400, 500, 600, 700]
-    }
+  fonts: {
+    defaults: {
+      weights: [300, 400, 500, 600, 700]
+    },
+    families: [
+      { name: "Rubik", provider: "google" }
+    ]
   },
   experimental: {
     typedPages: true
