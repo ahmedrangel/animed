@@ -5,15 +5,13 @@
   --bs-dark-rgb: 0, 0, 0;
   --bs-body-bg: #0c0c0c;
   --bs-dark-bg-rbg: 8, 8, 8;
-  --font-rubik: "Rubik";
-  --bs-body-font-family: var(--font-rubik);
-  --font-family: var(--font-rubik);
   --bs-secondary: #2d2d2d;
   --bs-secondary-rgb: 45, 45, 45;
   --bs-border-color: rgb(48 51 55);
   --bs-link-color-rgb: var(--bs-primary-rgb);
   --bs-link-hover-color-rgb: 255, 207, 63;
-  --bs-link-hover-color: #ffcf3f; 
+  --bs-link-hover-color: #ffcf3f;
+  --bs-body-font-family: Rubik;
 }
 
 *::-webkit-scrollbar {

@@ -45,12 +45,12 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxtjs/color-mode",
     "@nuxtjs/sitemap",
-    "@nuxt/fonts",
     "@primevue/nuxt-module",
     "@nuxt/eslint",
     "nuxt-aos",
     "@vueuse/nuxt",
-    "@nuxthub/core"
+    "@nuxthub/core",
+    "@nuxt/fonts"
   ],
   icon: {
     mode: "svg",
@@ -128,12 +128,12 @@ export default defineNuxtConfig({
     }
   },
   fonts: {
-    defaults: {
-      weights: [300, 400, 500, 600, 700]
-    },
     families: [
-      { name: "Rubik", provider: "google" }
-    ]
+      { name: "Rubik", provider: "google", global: true }
+    ],
+    experimental: {
+      disableLocalFallbacks: true
+    }
   },
   experimental: {
     typedPages: true

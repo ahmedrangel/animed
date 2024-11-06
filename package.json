@@ -28,6 +28,7 @@
     "@iconify-json/ph": "^1.2.1",
     "@iconify-json/simple-icons": "^1.2.10",
     "@nuxt/eslint": "^0.6.1",
+    "@nuxt/fonts": "^0.10.2",
     "@nuxt/icon": "^1.6.1",
     "@nuxt/scripts": "^0.9.5",
     "@nuxthub/core": "^0.8.5",
@@ -44,7 +45,6 @@
     "wrangler": "^3.84.1"
   },
   "dependencies": {
-    "@nuxt/fonts": "^0.10.2",
     "bootstrap": "^5.3.3",
     "nuxt-aos": "^1.2.5"
   },
