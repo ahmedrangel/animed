@@ -2,6 +2,10 @@
 defineProps({
   data: { type: Object as PropType<AnimeEpisodes>, required: true }
 });
+
+useHead({
+  link: [{ rel: "preconnect", href: "https://img1.ak.crunchyroll.com" }]
+});
 </script>
 
 <template>
