@@ -2,6 +2,7 @@ import { queryAnime, queryAnimeCharacters, queryAnimeSlug, queryAnimeEpisodes } 
 import { queryExplore } from "./queries/explore";
 import { queryFilter } from "./queries/filter";
 import { queryStaff, queryStaffCharacters, queryStaffSlug } from "./queries/staff";
+import { SITE } from "./info";
 import { API, Sort, Status } from "~~/enums/anilist";
 
 const callAnilistGQL = async (options: { method?: "GET" | "POST" | "OPTIONS", headers?: HeadersInit, body?: { variables: any, query: string } }) => {
