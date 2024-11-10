@@ -6,11 +6,18 @@ import { API, Sort, Status } from "~~/enums/anilist";
 
 const callAnilistGQL = async (options: { method?: "GET" | "POST" | "OPTIONS", headers?: HeadersInit, body?: { variables: any, query: string } }) => {
   const { method, headers, body } = options;
-  return await $fetch(API.GRAPHQL, {
+  const { data, errors } = await $fetch(API.GRAPHQL, {
     method: method || "POST",
     headers: headers || { "Content-Type": "application/json", "Accept": "application/json" },
     body
-  }).catch(() => null) as { data: Record<string, any> };
+  }).catch(e => e.data) as { data: Record<string, any>, errors: { message: string, status: number }[] };
+  if (errors.length) {
+    const error = errors.map((el) => {
+      return { status: el.status, message: el.message };
+    });
+    throw createError({ statusMessage: JSON.stringify(error) });
+  }
+  return { data };
 };
 
 export const getSearch = async (options?: QueryOptions | null): Promise<{ data: AnimeList }> => {
