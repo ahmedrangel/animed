@@ -1,5 +1,5 @@
-import { SITE } from "../app/utils/info";
-import { Ripple } from "../app/utils/primevue";
+import { SITE } from "../shared/utils/info";
+import { Ripple } from "../server/utils/primevue";
 
 export default defineNuxtConfig({
   future: { compatibilityVersion: 4 },
@@ -125,7 +125,9 @@ export default defineNuxtConfig({
     components: {
       prefix: "Prime",
       include: ["Button"]
-    }
+    },
+    directives: { include: ["Ripple"] },
+    composables: { exclude: "*" }
   },
   fonts: {
     families: [

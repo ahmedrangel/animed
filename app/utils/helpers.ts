@@ -7,14 +7,6 @@ export const getRating = (percent: number) => {
   return format;
 };
 
-export const formatRating = (rating: number) => {
-  if (rating >= 1000000)
-    return (rating / 1000000).toFixed(2) + "m";
-  else if (rating >= 1000)
-    return (rating / 1000).toFixed(1) + "k";
-  return rating.toString();
-};
-
 export const onScreen = (el: HTMLElement) => {
   const rect = el.getBoundingClientRect();
   return (rect.top >= 0 && rect.left >= 0 && rect.bottom <= window.innerHeight && rect.right <= window.innerWidth);
@@ -85,11 +77,6 @@ export const fixSeoDescription = (text: string) => {
   return { text: text as string, more: false as boolean };
 };
 
-export const getRandomObject = (obj: Record<string, any>) => {
-  const index = Math.floor(Math.random() * obj.length);
-  return obj[index];
-};
-
 export const fixEpisodeTitle = (text: string) => {
   const spliced = text.split(" - ");
   const episode = spliced[0]?.replace("Episode ", "E");
@@ -111,19 +98,11 @@ export const fixStaffDescription = (text: string) => {
     .replaceAll("\n", "");
 };
 
-export const fixSlug = (name?: string | null) => {
-  return name?.replace(/ /g, "-")?.normalize("NFD").replace(/[^a-zA-Z0-9-]/g, "")?.toLowerCase();
-};
-
 export const distanceToNow = (date: number) => {
   const string = formatDistanceToNow(date * 1000, { addSuffix: true });
   if (date) return string.replace(/years?|months?|weeks?|days?|hours?|minutes?|seconds?/g, (match) => {
     return match[0] + (match.startsWith("mo") ? "o" : "");
   }).replace(/about/g, "");
-};
-
-export const ytPlayerApi = {
-  stopVideo: (iframe: HTMLIFrameElement) => iframe.contentWindow?.postMessage(JSON.stringify({ event: "command", func: "stopVideo", args: "" }), "*")
 };
 
 export const sleep = async (ms: number) => {
