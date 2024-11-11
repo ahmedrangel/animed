@@ -2,7 +2,7 @@
 definePageMeta({ layout: "no-footer" });
 
 const query = ref() as Ref<string>;
-const result = ref() as Ref<{ data: AnimeList } | null>;
+const result = ref() as Ref<AnimeList | null>;
 const loading = ref(false) as Ref<boolean>;
 const input = ref() as Ref<HTMLElement>;
 
@@ -23,7 +23,6 @@ useSeoMeta({
   // Open Graph
   ogType: "website",
   ogTitle: "Search | " + SITE.name,
-  ogSiteName: SITE.name,
   ogUrl: SITE.url + "/search",
   ogImage: SITE.url + SITE.og_card,
   // Twitter
@@ -47,7 +46,7 @@ useHead({
         <h2 class="text-muted mb-0 w-100 text-center mt-5">Type something to search...</h2>
       </div>
       <SpinnerLoading v-if="loading" class="mt-5" />
-      <InfiniteList v-if="result && !loading" :data="result.data" :query="query" />
+      <InfiniteList v-if="result && !loading" :data="result" :query="query" />
     </section>
   </main>
 </template>

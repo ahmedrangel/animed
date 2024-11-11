@@ -127,13 +127,16 @@ export const queryAnimeCharacters = (options?: QueryOptions) => {
     operation: "Media",
     variables: { id: Number(options?.id) },
     fields: [
-      "id",
-      { title: ["romaji", "english", "native"] },
-      { coverImage: ["extraLarge"] },
-      "bannerImage",
-      "format",
-      "averageScore",
-      { streamingEpisodes: ["title"] },
+      ...options?.withInfo ? [
+        "id",
+        { title: ["romaji", "english", "native"] },
+        { coverImage: ["extraLarge"] },
+        "bannerImage",
+        "format",
+        "averageScore",
+        { streamingEpisodes: ["title"] },
+        { nextAiringEpisode: ["airingAt", "timeUntilAiring", "episode"] }
+      ] : [],
       { operation: "characters",
         variables: {
           page: { type: "Int", value: options?.page || 1 },
@@ -183,7 +186,8 @@ export const queryAnimeEpisodes = (options?: QueryOptions) => {
       "bannerImage",
       "format",
       "averageScore",
-      { streamingEpisodes: ["site", "title", "thumbnail", "url"] }
+      { streamingEpisodes: ["site", "title", "thumbnail", "url"] },
+      { nextAiringEpisode: ["airingAt", "timeUntilAiring", "episode"] }
     ]
   });
   return query;

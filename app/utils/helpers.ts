@@ -109,9 +109,19 @@ export const sleep = async (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
 
-export const availablePageTypes = [
-  { name: "new", routeType: "newly" },
-  { name: "top-rated", routeType: "rated" },
-  { name: "trending", routeType: "popular" },
-  { name: "upcoming", routeType: "upcoming" }
+export const availablePageTypes: { name: ListType, routeType: string, title: string }[] = [
+  { name: "new", routeType: "newly", title: "Newly Released" },
+  { name: "top-rated", routeType: "rated", title: "Top Rated" },
+  { name: "trending", routeType: "popular", title: "Trending" },
+  { name: "upcoming", routeType: "upcoming", title: "Upcoming" }
 ];
+
+export const isSameRouteNavigation = () => {
+  const { $lastRoute } = useNuxtApp();
+  const route = useRoute();
+  const isSamePath = route.fullPath.toString() === $lastRoute?.value.fullPath.toString();
+  if (isSamePath) return false;
+
+  const isSameRoute = JSON.stringify(route.params) === JSON.stringify($lastRoute?.value.params);
+  return isSameRoute;
+};

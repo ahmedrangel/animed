@@ -7,7 +7,6 @@ useSeoMeta({
   ogType: "website",
   ogTitle: "Categories | " + SITE.name,
   ogUrl: SITE.url + "/c",
-  ogSiteName: SITE.name,
   ogImage: SITE.url + SITE.og_card,
   // Twitter
   twitterCard: "summary_large_image",

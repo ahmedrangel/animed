@@ -15,7 +15,7 @@ declare global {
   }
 
   interface AnimeCoverImage {
-    extraLarge: string;
+    extraLarge?: string;
     large?: string;
   }
 
@@ -148,21 +148,20 @@ declare global {
     pageInfo: PageInfo;
     media: Anime[];
     title: string;
-    type: string;
-    category: string | null;
     slug: string | null;
   }
+
+  type ListType = "new" | "top-rated" | "trending" | "upcoming" | "recommendations";
 
   interface AnimePreviewListInfo {
     media?: Anime[];
     title?: string;
     route?: string;
+    type: ListType;
   }
 
   interface AnimePreviewList {
-    preview: {
-      [k: string]: AnimePreviewListInfo;
-    };
+    preview: AnimePreviewListInfo[];
     category?: string | null;
   }
 
@@ -181,6 +180,7 @@ declare global {
     startDate_lesser?: string;
     slug?: string | null;
     category?: string | null;
+    withInfo?: boolean;
   }
 
   interface StaffCharacters {
@@ -193,5 +193,20 @@ declare global {
       node: Anime;
     }[];
     pageInfo: PageInfo;
+  }
+
+  interface AFlvRequest {
+    success: boolean;
+    data: {
+      currentPage: number;
+      hasNextPage: boolean;
+      foundPages: number;
+      media: {
+        title: string;
+        slug: string;
+        url: string;
+        type: string;
+      }[];
+    };
   }
 }

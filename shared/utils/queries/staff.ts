@@ -1,7 +1,8 @@
 import { gqlQuery } from "gql-payload";
 import { Sort } from "~~/enums/anilist";
 
-export const queryStaff = (id: QueryOptions["id"]) => {
+export const queryStaff = (options: QueryOptions) => {
+  const { id } = options;
   const query = gqlQuery({
     operation: "Staff",
     variables: {

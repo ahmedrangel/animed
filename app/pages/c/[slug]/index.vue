@@ -14,63 +14,60 @@ if (!exists) {
   });
 }
 
-const { data: data, error }: { data: Ref<AnimePreviewList>, error: Ref<FetchError> } = await useFetch("/api/explore?slug=" + slug);
-
-if (error.value) {
-  throw createError({
-    statusCode: error.value.statusCode,
-    message: error.value.statusMessage,
-    fatal: true
-  });
-}
-
-const newlies = data.value?.preview.newly?.media || data.value.preview?.trending?.media || data.value.preview?.newly?.media as Anime[];
-const animesWithBanner = newlies?.filter(el => el.bannerImage) || newlies;
+const category = exists.name;
+const newlies = ref<Anime[] | undefined>([]);
+const animesWithBanner = ref<Anime[]>([]);
+const loading: Ref<boolean> = ref(true);
+const previewData = ref<AnimePreviewList>({ preview: [], category });
 
 useSeoMeta({
-  title: data.value.category + " | Categories | " + SITE.name,
+  title: category + " | Categories | " + SITE.name,
   // Open Graph
   ogType: "website",
-  ogTitle: data.value.category + " | Categories | " + SITE.name,
-  ogSiteName: SITE.name,
+  ogTitle: category + " | Categories | " + SITE.name,
   ogUrl: SITE.url + `/c/${slug}`,
   ogImage: SITE.url + SITE.og_card,
   // Twitter
   twitterCard: "summary_large_image",
-  twitterTitle: data.value.category + " | Categories | " + SITE.name
+  twitterTitle: category + " | Categories | " + SITE.name
 });
 
 useHead({
   link: [{ rel: "canonical", href: SITE.url + `/c/${slug}` }]
 });
 
-const upcoming: Ref<AnimePreviewList | undefined> = ref();
-const loading: Ref<boolean> = ref(false);
+const data = computed({
+  get () {
+    return previewData.value;
+  },
+  set () {
+    if (data.value.preview.length && !animesWithBanner.value.length) {
+      newlies.value = data.value?.preview?.find(el => el.type === "new")?.media || data.value?.preview?.find(el => el.type === "trending")?.media || data.value?.preview?.find(el => el.type === "top-rated")?.media || [];
+      animesWithBanner.value = newlies.value?.filter(el => el.bannerImage) as Anime[] || newlies.value;
+    }
+  }
+});
 
 onMounted(async () => {
   const cat_title = categories.find(c => fixSlug(c.name) === slug)!.name;
   const cat_type = categories.find(c => fixSlug(c.name) === slug)?.type;
-  const option = cat_type === "genre" ? { genres: [cat_title] } : { tags: [cat_title] };
-  loading.value = true;
-  upcoming.value = {
-    preview: {
-      upcoming: {
-        ...(await getUpcoming({ ...option, slug, perPage: 12 })).data,
-        route: `/c/${slug}/upcoming`
-      }
-    }
-  };
+  const options = cat_type === "genre" ? { genres: [cat_title] } : { tags: [cat_title] };
+  for (const type of availablePageTypes) {
+    const list = await getPreviewList(type.name, { ...options, slug, perPage: 12 });
+    previewData.value.preview.push(list);
+    data.value = previewData.value;
+  }
   loading.value = false;
 });
 </script>
 
 <template>
-  <main>
-    <section v-if="exists && data" id="preview">
-      <BannerDetailed :anime="animesWithBanner" />
-      <AnimePreviewList :data="data" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />
-      <AnimePreviewList v-if="upcoming" :data="upcoming" class="px-2 pt-4 pt-lg-5 px-xl-5 w-100" />
-      <SpinnerLoading v-if="loading" />
+  <main v-if="exists">
+    <section id="preview">
+      <SpinnerLoading v-if="loading && !animesWithBanner.length" style="height: 100vh;" />
+      <BannerDetailed v-if="animesWithBanner.length" :anime="animesWithBanner" />
+      <AnimePreviewList v-if="data.preview.length" :data="data" class="px-2 py-4 py-lg-5 px-xl-5 w-100" />
+      <SpinnerLoading v-if="loading && data.preview.length" class="py-5" />
     </section>
   </main>
 </template>

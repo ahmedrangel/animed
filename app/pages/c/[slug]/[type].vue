@@ -3,7 +3,8 @@ const { params } = useRoute("c-slug-type");
 const { type, slug } = params;
 const pageType = availablePageTypes.find(t => t.name === type);
 const isAllCategories = slug === "all";
-const exists = ((categories.find(c => fixSlug(c.name) === slug) || isAllCategories) && pageType) || null;
+const existsCategory = categories.find(c => fixSlug(c.name) === slug);
+const exists = ((existsCategory || isAllCategories) && pageType) || null;
 
 if (!exists) {
   throw createError({
@@ -13,21 +14,19 @@ if (!exists) {
   });
 }
 
-const route = isAllCategories ? `${pageType?.routeType}` : `${pageType?.routeType}?slug=${slug}`;
+const category = existsCategory?.name;
 const path = `/c/${slug}/${pageType?.name}`;
-const { data: result }: { data: Ref<AnimeList> } = await useFetch(`/api/explore/${route}`);
 
 useSeoMeta({
-  title: `${result.value.title} ${result.value.category || ""}` + " | Categories | " + SITE.name,
+  title: `${pageType?.title} ${category || ""}` + " | Categories | " + SITE.name,
   // Open Graph
   ogType: "website",
-  ogTitle: `${result.value.title} ${result.value.category || ""}` + " | Categories | " + SITE.name,
-  ogSiteName: SITE.name,
+  ogTitle: `${pageType?.title} ${category || ""}` + " | Categories | " + SITE.name,
   ogUrl: SITE.url + path,
   ogImage: SITE.url + SITE.og_card,
   // Twitter
   twitterCard: "summary_large_image",
-  twitterTitle: `${result.value.title} ${result.value.category || ""}` + " | Categories | " + SITE.name
+  twitterTitle: `${pageType?.title} ${category || ""}` + " | Categories | " + SITE.name
 });
 
 useHead({
@@ -37,8 +36,8 @@ useHead({
 
 <template>
   <main>
-    <section v-if="exists && result" :id="pageType?.name">
-      <InfiniteList :data="result" />
+    <section v-if="exists" :id="pageType?.name">
+      <InfiniteList :type="pageType?.name" :category="category" />
     </section>
   </main>
 </template>

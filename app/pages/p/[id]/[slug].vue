@@ -1,40 +1,35 @@
 <script setup lang="ts">
 const { params } = useRoute("p-id-slug");
 const { id, slug } = params;
-const { data: data, error }: { data: Ref<StaffInfo>, error: Ref<FetchError> } = await useFetch("/api/people/" + id);
-if (error.value) {
-  throw createError({
-    statusCode: error.value.statusCode,
-    message: error.value.statusMessage,
-    fatal: true
-  });
-}
 
-const _slug = fixSlug(data.value.name.userPreferred);
-if (slug.toLowerCase() !== _slug) {
-  throw createError({
-    statusCode: 404,
-    message: `People not found: '${slug}'`,
-    fatal: true
-  });
-}
+const staff = ref<StaffInfo>();
+const seoTitle = ref<string>(SITE.name);
+const seoDescription = ref<string>();
+const seoImage = ref<string>();
+const loading = ref<boolean>(true);
 
-const staff = data.value;
+onMounted(async () => {
+  staff.value = await getStaff({ id: Number(id), slug });
+  loading.value = false;
+
+  seoTitle.value = staff.value.name.userPreferred + " | " + SITE.name;
+  seoDescription.value = staff.value.name.userPreferred;
+  seoImage.value = staff.value.image.large;
+});
 
 useSeoMeta({
-  title: staff.name.userPreferred + " | " + SITE.name,
-  description: staff.name.userPreferred,
+  title: seoTitle,
+  description: seoDescription,
   // Open Graph
   ogType: "website",
-  ogTitle: staff.name.userPreferred + " | " + SITE.name,
-  ogDescription: staff.name.userPreferred,
-  ogSiteName: SITE.name,
+  ogTitle: seoTitle,
+  ogDescription: seoDescription,
   ogUrl: SITE.url + `/p/${id}/${slug}`,
-  ogImage: staff.image.large,
+  ogImage: seoImage,
   // Twitter
   twitterCard: "summary",
-  twitterTitle: staff.name.userPreferred + " | " + SITE.name,
-  twitterDescription: staff.name.userPreferred
+  twitterTitle: seoTitle,
+  twitterDescription: seoDescription
 });
 
 useHead({
@@ -45,7 +40,8 @@ useHead({
 <template>
   <main>
     <section id="people-page">
-      <div class="col px-0 pb-5">
+      <SpinnerLoading v-if="loading" style="height: 100vh;" />
+      <div v-if="staff" class="col px-0 pb-5">
         <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
           <div class="pt-4 px-0">
             <div class="d-flex align-items-center gap-2">

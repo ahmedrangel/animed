@@ -1,5 +1,5 @@
 import { SITE } from "../shared/utils/info";
-import { Ripple } from "../server/utils/primevue";
+import { Ripple } from "../app/utils/primevue";
 
 export default defineNuxtConfig({
   future: { compatibilityVersion: 4 },
@@ -19,7 +19,8 @@ export default defineNuxtConfig({
       meta: [
         { name: "robots", content: "index, follow" },
         { property: "og:ttl", content: "604800" },
-        { name: "darkreader-lock", content: "darkreader" }
+        { name: "darkreader-lock", content: "darkreader" },
+        { name: "og:site_name", content: SITE.name }
       ],
       link: [
         { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },

@@ -1,25 +1,5 @@
 import type { H3Event } from "h3";
 
-export const animeFlvRelationLogic = (aflvArr: Record<string, any>[], anilistObj: Anime): AnimeExternalLinks | undefined => {
-  for (const aflv of aflvArr) {
-    if (aflv?.type === "Anime"
-      && (
-        aflv?.slug?.replace("-tv", "") === anilistObj?.slug
-        || aflv?.title?.toLowerCase()?.replace(/[^\w]/g, "") === anilistObj?.title?.english?.toLowerCase()?.replace(/[^\w]/g, "")
-        || aflv?.title?.toLowerCase()?.replace(/[^\w]/g, "") === anilistObj?.title?.romaji?.toLowerCase()?.replace(/[^\w]/g, "")
-        || anilistObj?.title?.english?.toLowerCase()?.replace(/[^\w]/g, "").includes(aflv?.title?.toLowerCase()?.replace(/[^\w]/g, ""))
-        || anilistObj?.title?.romaji?.toLowerCase()?.replace(/[^\w]/g, "").includes(aflv?.title?.toLowerCase()?.replace(/[^\w]/g, ""))
-      )) {
-      return {
-        site: "AnimeFLV",
-        url: aflv?.url,
-        icon: "/images/aflv.png",
-        color: "#2f353a"
-      };
-    }
-  }
-};
-
 const RATE_LIMIT_MAX_REQ = 2;
 const RATE_LIMIT_TIME_FRAME = 1000 * 60 * 5;
 
