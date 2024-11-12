@@ -3,8 +3,8 @@ const cacheName = "id";
 
 export default defineCachedEventHandler(async (event) => {
   const userAgent = getHeaders(event)["user-agent"];
-  console.log(userAgent);
   const limited = await botRateLimitHandler(userAgent);
+  console.log(limited);
   if (limited)
     return new Response(null, { status: 429, statusText: "Too many requests" });
 
