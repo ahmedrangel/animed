@@ -47,16 +47,16 @@ const sharedInfoHandler = (value: Anime) => {
 
 const { isCrawler } = useDetectCrawler(useRequestHeaders(["User-Agent"]));
 if (isCrawler) {
-  const { data: data } = await useFetch<Anime>(`/api/anime/${id}/episodes`);
-  if (data.value?.slug?.toLowerCase() !== slug) {
+  const data = await $fetch<Anime>(`/api/anime/${id}/episodes`);
+  if (data?.slug?.toLowerCase() !== slug) {
     throw createError({
       statusCode: 404,
       message: `Anime not found: '${slug}'`,
       fatal: true
     });
   }
-  anime.value = data.value;
-  sharedInfoHandler(data.value);
+  anime.value = data;
+  sharedInfoHandler(data);
 }
 
 onMounted(async () => {
