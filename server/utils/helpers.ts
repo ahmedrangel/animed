@@ -5,6 +5,7 @@ const RATE_LIMIT_TIME_FRAME = 1000 * 60 * 5;
 
 export const botRateLimitHandler = async (agent: string | undefined) => {
   const botName = limitedBots.find(bot => agent?.includes(bot));
+  console.info("Bot: ", botName);
   if (!botName) return false;
   const KV = hubKV();
   const now = Date.now() as number;

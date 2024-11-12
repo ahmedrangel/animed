@@ -4,8 +4,7 @@ const cacheName = "episodes";
 export default defineCachedEventHandler(async (event) => {
   const userAgent = getHeaders(event)["user-agent"];
   const limited = await botRateLimitHandler(userAgent);
-  if (limited)
-    return new Response(null, { status: 429, statusText: "Too many requests" });
+  if (limited) return new Response(null, { status: 429, statusText: "Too many requests" });
 
   const { id } = getRouterParams(event);
   const data = await getAnimeEpisodes({ id: Number(id) });
