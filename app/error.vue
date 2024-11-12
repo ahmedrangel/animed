@@ -1,5 +1,6 @@
 <script setup>
 const { statusCode, statusMessage, message } = useError().value;
+console.info(statusCode, statusMessage, message);
 </script>
 
 <template>
