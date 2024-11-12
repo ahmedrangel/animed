@@ -3,27 +3,10 @@ import type { H3Event } from "h3";
 const RATE_LIMIT_MAX_REQ = 2;
 const RATE_LIMIT_TIME_FRAME = 1000 * 60 * 5;
 
-export const knownBots = [
-  "facebookexternalhit",
-  "GoogleOther",
-  "bingbot",
-  "Googlebot",
-  "GPTBot",
-  "Bytespider",
-  "SemrushBot",
-  "Amazonbot",
-  "meta-externalagent",
-  "YandexBot",
-  "ClaudeBot",
-  "OAI-SearchBot",
-  "DotBot",
-  "BacklinksExtendedBot"
-];
-
 export const botRateLimitHandler = async (agent: string | undefined) => {
   const KV = hubKV();
   const now = Date.now() as number;
-  const botName = knownBots.find(bot => agent?.includes(bot));
+  const botName = limitedBots.find(bot => agent?.includes(bot));
   if (!botName) return false;
   console.info("Bot: " + botName);
   const keyName = `RateLimitBucket:${botName}`.replace(/-/g, "");

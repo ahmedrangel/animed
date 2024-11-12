@@ -23,19 +23,35 @@ const animeFormat = ref(statedInfo.value?.format);
 const animeScore = ref(statedInfo.value?.averageScore);
 const animeNextAiring = ref(statedInfo.value?.nextAiringEpisode);
 
+const sharedInfoHandler = (value: Anime) => {
+  animeTitles.value = value?.title;
+  animeBanner.value = value?.bannerImage;
+  animeEpisodes.value = value?.streamingEpisodes;
+  animeFormat.value = value?.format;
+  animeScore.value = value?.averageScore;
+  animeNextAiring.value = value?.nextAiringEpisode;
+  seoTitle.value = value.title.romaji + " | " + SITE.name;
+  seoImage.value = value.coverImage?.extraLarge;
+};
+
+const { isCrawler } = useDetectCrawler();
+if (isCrawler) {
+  const { data: data } = await useFetch<Anime>(`/api/anime/${id}/characters`);
+  if (data.value?.slug?.toLowerCase() !== slug) {
+    throw createError({
+      statusCode: 404,
+      message: `Anime not found: '${slug}'`,
+      fatal: true
+    });
+  }
+  anime.value = data.value;
+  sharedInfoHandler(data.value);
+}
+
 onMounted(async () => {
   anime.value = await getAnimeCharacters({ id: Number(id), slug, withInfo: true });
-  animeTitles.value = anime.value?.title;
-  animeBanner.value = anime.value?.bannerImage;
-  animeEpisodes.value = anime.value?.streamingEpisodes;
-  animeFormat.value = anime.value?.format;
-  animeScore.value = anime.value?.averageScore;
-  animeNextAiring.value = anime.value?.nextAiringEpisode;
-
+  sharedInfoHandler(anime.value);
   loading.value = false;
-
-  seoTitle.value = anime.value.title.romaji + " | " + SITE.name;
-  seoImage.value = anime.value.coverImage?.extraLarge;
 
   if (anime.value) {
     useState(`${id}-info`, () => {
@@ -76,7 +92,7 @@ useHead({
     <section id="anime-page">
       <SpinnerLoading v-if="loading && !isSameRoute" style="height: 100vh;" />
       <div class="col px-0 pb-5">
-        <BannerBasic v-if="statedInfo || anime" :anime="statedInfo || anime" :aos="Boolean(statedInfo.bannerImage ? false : true)" />
+        <BannerBasic v-if="statedInfo || anime" :anime="statedInfo || anime" :aos="Boolean(statedInfo?.bannerImage ? false : true)" />
         <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
           <AnimeMenu v-if="animeEpisodes" :anime-id="String(id)" :slug="String(slug)" :episodes="Boolean(animeEpisodes?.length)" />
           <div v-if="anime || statedInfo" class="pt-4 pb-3 px-0">

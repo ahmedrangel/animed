@@ -67,31 +67,50 @@ const streamingEpisodes = computed({
   }
 });
 
-onMounted(async () => {
-  anime.value = await getAnimeInfo({ id: Number(id), slug });
-  animeTitles.value = anime.value?.title;
-  animeBanner.value = anime.value?.bannerImage;
-  animeEpisodes.value = anime.value?.streamingEpisodes;
-  animeFormat.value = anime.value?.format;
-  animeScore.value = anime.value?.averageScore;
-  animeNextAiring.value = anime.value?.nextAiringEpisode;
-
-  externalLinks.value = anime.value?.externalLinks;
-  streamingEpisodes.value = anime.value?.streamingEpisodes;
+const sharedInfoHandler = (value: Anime) => {
+  animeTitles.value = value?.title;
+  animeBanner.value = value?.bannerImage;
+  animeEpisodes.value = value?.streamingEpisodes;
+  animeFormat.value = value?.format;
+  animeScore.value = value?.averageScore;
+  animeNextAiring.value = value?.nextAiringEpisode;
+  externalLinks.value = value?.externalLinks;
+  streamingEpisodes.value = value?.streamingEpisodes;
 
   recommendations.value = {
     preview: [
       {
-        media: anime.value?.recommendations?.nodes?.map(r => r.mediaRecommendation),
+        media: value?.recommendations?.nodes?.map(r => r.mediaRecommendation),
         type: "recommendations"
       }
     ]
   };
 
-  const animeGenres = anime.value?.genres || [];
-  const animeTags = anime.value?.tags?.map(t => t.name) || [];
+  const animeGenres = value?.genres || [];
+  const animeTags = value?.tags?.map(t => t.name) || [];
   genres.value = [...animeGenres, ...animeTags] as string[];
 
+  seoDescription.value = fixSeoDescription(value?.description?.replace(/<[^>]*>/g, "") || "").text;
+  seoTitle.value = value?.title?.romaji + " | " + SITE.name;
+};
+
+const { isCrawler } = useDetectCrawler();
+if (isCrawler) {
+  const { data: data } = await useFetch<Anime>(`/api/anime/${id}`);
+  if (data.value?.slug?.toLowerCase() !== slug) {
+    throw createError({
+      statusCode: 404,
+      message: `Anime not found: '${slug}'`,
+      fatal: true
+    });
+  }
+  anime.value = data.value;
+  sharedInfoHandler(data.value);
+}
+
+onMounted(async () => {
+  anime.value = await getAnimeInfo({ id: Number(id), slug });
+  sharedInfoHandler(anime.value);
   loading.value = false;
 
   const animeflv = await getAflvSearch(encodeURIComponent(anime.value?.title?.english || anime.value?.title?.native));
@@ -103,9 +122,6 @@ onMounted(async () => {
   themes.value = anime.value.idMal ? await getAnimeThemes(anime.value.idMal) : null;
   openings.value = themes.value?.openings.slice(0, 10);
   endings.value = themes.value?.endings.slice(0, 10);
-
-  seoDescription.value = fixSeoDescription(anime.value?.description?.replace(/<[^>]*>/g, "") || "").text;
-  seoTitle.value = anime.value?.title?.romaji + " | " + SITE.name;
 
   if (anime.value) {
     useState(`${id}-info`, () => {
