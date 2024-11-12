@@ -94,7 +94,7 @@ const sharedInfoHandler = (value: Anime) => {
   seoTitle.value = value?.title?.romaji + " | " + SITE.name;
 };
 
-const { isCrawler } = useDetectCrawler();
+const { isCrawler } = useDetectCrawler(useRequestHeaders(["User-Agent"]));
 if (isCrawler) {
   const { data: data } = await useFetch<Anime>(`/api/anime/${id}`);
   if (data.value?.slug?.toLowerCase() !== slug) {

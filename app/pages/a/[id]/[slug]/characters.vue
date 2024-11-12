@@ -34,7 +34,7 @@ const sharedInfoHandler = (value: Anime) => {
   seoImage.value = value.coverImage?.extraLarge;
 };
 
-const { isCrawler } = useDetectCrawler();
+const { isCrawler } = useDetectCrawler(useRequestHeaders(["User-Agent"]));
 if (isCrawler) {
   const { data: data } = await useFetch<Anime>(`/api/anime/${id}/characters`);
   if (data.value?.slug?.toLowerCase() !== slug) {
