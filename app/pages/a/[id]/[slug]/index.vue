@@ -94,10 +94,11 @@ const sharedInfoHandler = (value: Anime) => {
   seoTitle.value = value?.title?.romaji + " | " + SITE.name;
 };
 
-const { isCrawler } = useDetectCrawler(useRequestHeaders(["User-Agent"]));
+const userAgent = useRequestHeaders(["User-Agent"])["user-agent"];
+const { isCrawler } = useDetectCrawler(userAgent);
 if (isCrawler) {
-  const data = await $fetch<Anime>(`/api/anime/${id}`);
-  if (data?.slug?.toLowerCase() !== slug) {
+  const data = await $fetch<Anime>(`/api/anime/${id}`, { headers: { "User-Agent": userAgent || "" } });
+  if (data.slug && data?.slug?.toLowerCase() !== slug) {
     throw createError({
       statusCode: 404,
       message: `Anime not found: '${slug}'`,
