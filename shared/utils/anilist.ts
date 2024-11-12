@@ -10,6 +10,7 @@ const callAnilistGQL = async (options: { method?: "GET" | "POST" | "OPTIONS", he
     headers: headers || { "Content-Type": "application/json", "Accept": "application/json", "Referer": SITE.url },
     body
   }).catch(e => e.data) as { data: Record<string, any>, errors: { message: string, status: number }[] };
+  console.log(response);
   const { errors } = response || {};
   if (errors?.length) {
     const error = errors.map((el) => {

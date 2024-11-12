@@ -4,9 +4,7 @@ const cacheName = "id";
 export default defineCachedEventHandler(async (event) => {
   const userAgent = getHeaders(event)["user-agent"];
   const limited = await botRateLimitHandler(userAgent);
-  console.log(limited);
-  if (limited)
-    return new Response(null, { status: 429, statusText: "Too many requests" });
+  if (limited) return new Response(null, { status: 429, statusText: "Too many requests" });
 
   const { id } = getRouterParams(event);
   const data = await getAnimeInfo({ id: Number(id) });
