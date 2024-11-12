@@ -4,11 +4,10 @@ const RATE_LIMIT_MAX_REQ = 2;
 const RATE_LIMIT_TIME_FRAME = 1000 * 60 * 5;
 
 export const botRateLimitHandler = async (agent: string | undefined) => {
-  const KV = hubKV();
-  const now = Date.now() as number;
   const botName = limitedBots.find(bot => agent?.includes(bot));
   if (!botName) return false;
-  console.info("Bot: " + botName);
+  const KV = hubKV();
+  const now = Date.now() as number;
   const keyName = `RateLimitBucket:${botName}`.replace(/-/g, "");
   const botRecord = await KV.get(keyName) as { count: number, lastReq: number };
   if (!botRecord) {
