@@ -16,6 +16,5 @@ export const limitedBots = [
 ];
 
 export const unlimitedBots = [
-  "Discordbot",
-  "Mozilla"
+  "Discordbot"
 ];
