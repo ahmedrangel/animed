@@ -63,20 +63,17 @@ if (isCrawler) {
 onMounted(async () => {
   anime.value = statedInfo.value?.streamingEpisodes ? statedInfo.value : await getAnimeEpisodes({ id: Number(id), slug });
   sharedInfoHandler(anime.value);
+  useState(`${id}-info`, () => {
+    return {
+      title: anime.value?.title,
+      bannerImage: anime.value?.bannerImage,
+      averageScore: anime.value?.averageScore,
+      format: anime.value?.format,
+      nextAiringEpisode: anime.value?.nextAiringEpisode,
+      streamingEpisodes: anime.value?.streamingEpisodes
+    };
+  });
   loading.value = false;
-
-  if (anime.value) {
-    useState(`${id}-info`, () => {
-      return {
-        title: anime.value?.title,
-        bannerImage: anime.value?.bannerImage,
-        averageScore: anime.value?.averageScore,
-        format: anime.value?.format,
-        nextAiringEpisode: anime.value?.nextAiringEpisode,
-        streamingEpisodes: anime.value?.streamingEpisodes
-      };
-    });
-  }
 });
 
 useSeoMeta({

@@ -112,6 +112,16 @@ if (isCrawler) {
 onMounted(async () => {
   anime.value = await getAnimeInfo({ id: Number(id), slug });
   sharedInfoHandler(anime.value);
+  useState(`${id}-info`, () => {
+    return {
+      title: anime.value?.title,
+      bannerImage: anime.value?.bannerImage,
+      averageScore: anime.value?.averageScore,
+      format: anime.value?.format,
+      nextAiringEpisode: anime.value?.nextAiringEpisode,
+      streamingEpisodes: anime.value?.streamingEpisodes
+    };
+  });
   loading.value = false;
 
   const animeflv = await getAflvSearch(encodeURIComponent(anime.value?.title?.english || anime.value?.title?.native));
@@ -123,19 +133,6 @@ onMounted(async () => {
   themes.value = anime.value.idMal ? await getAnimeThemes(anime.value.idMal) : null;
   openings.value = themes.value?.openings.slice(0, 10);
   endings.value = themes.value?.endings.slice(0, 10);
-
-  if (anime.value) {
-    useState(`${id}-info`, () => {
-      return {
-        title: anime.value?.title,
-        bannerImage: anime.value?.bannerImage,
-        averageScore: anime.value?.averageScore,
-        format: anime.value?.format,
-        nextAiringEpisode: anime.value?.nextAiringEpisode,
-        streamingEpisodes: anime.value?.streamingEpisodes
-      };
-    });
-  }
 });
 
 useSeoMeta({
