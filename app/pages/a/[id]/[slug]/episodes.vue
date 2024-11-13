@@ -1,12 +1,8 @@
 <script setup lang="ts">
-const isSameRoute = isSameRouteNavigation();
-if (isSameRoute) {
-  definePageMeta({
-    layout: "default",
-    pageTransition: false,
-    layoutTransition: false
-  });
-}
+const { lastRoute, currentRoute } = useNavigationRoute();
+const fromSameRoute = fromSameRouteParams(lastRoute, currentRoute);
+if (fromSameRoute) definePageMeta({ pageTransition: false, layoutTransition: false });
+
 const { params } = useRoute("a-id-slug-episodes");
 const { id, slug } = params;
 
@@ -99,7 +95,7 @@ useHead({
 <template>
   <main>
     <section id="anime-page">
-      <SpinnerLoading v-if="loading && !isSameRoute" style="height: 100vh;" />
+      <SpinnerLoading v-if="loading && !fromSameRoute" style="height: 100vh;" />
       <div class="col px-0 pb-5">
         <BannerBasic v-if="statedInfo || anime" :anime="statedInfo || anime" :aos="Boolean(statedInfo?.bannerImage ? false : true)" />
         <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">

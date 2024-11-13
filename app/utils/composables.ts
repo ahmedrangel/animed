@@ -18,3 +18,10 @@ export const useModalController = (id: string) => {
     hide: () => $bootstrap.hideModal(id)
   });
 };
+
+export const useNavigationRoute = () => {
+  const { $lastRoute } = useNuxtApp();
+  const currentRoute = useRoute();
+  const lastRoute = $lastRoute?.value;
+  return { lastRoute, currentRoute };
+};

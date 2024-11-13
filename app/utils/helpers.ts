@@ -1,4 +1,5 @@
 import { format, formatDistanceToNow } from "date-fns";
+import type { RouteLocationNormalizedGeneric } from "vue-router";
 
 export const getRating = (percent: number) => {
   if (!percent) return 0;
@@ -116,12 +117,6 @@ export const availablePageTypes: { name: ListType, routeType: string, title: str
   { name: "upcoming", routeType: "upcoming", title: "Upcoming" }
 ];
 
-export const isSameRouteNavigation = () => {
-  const { $lastRoute } = useNuxtApp();
-  const route = useRoute();
-  const isSamePath = route.fullPath.toString() === $lastRoute?.value.fullPath.toString();
-  if (isSamePath) return false;
-
-  const isSameRoute = JSON.stringify(route.params) === JSON.stringify($lastRoute?.value.params);
-  return isSameRoute;
+export const fromSameRouteParams = (last: RouteLocationNormalizedGeneric, current: RouteLocationNormalizedGeneric) => {
+  return JSON.stringify(last?.params) === JSON.stringify(current.params) && last.fullPath !== current.fullPath;
 };
