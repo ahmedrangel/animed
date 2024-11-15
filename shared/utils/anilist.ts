@@ -3,24 +3,34 @@ import { queryFilter } from "./queries/filter";
 import { queryStaff, queryStaffCharacters, queryStaffSlug } from "./queries/staff";
 import { API, Sort, Status } from "~~/enums/anilist";
 
-const callAnilistGQL = async (options: { method?: "GET" | "POST" | "OPTIONS", headers?: HeadersInit, body?: { variables: any, query: string } }) => {
-  const { method, headers, body } = options;
-  const response = await $fetch(API.GRAPHQL, {
+const callAnilistGQL = async (options: { method?: "POST", headers?: HeadersInit, body?: GqlFetchBody, cacheKey?: string }): Promise<{ data: Record<string, any> }> => {
+  const { method, headers, body, cacheKey } = options;
+  const now = Date.now();
+  const ttl = 43200 * 1000;
+  const expires = now + ttl;
+
+  const storage = useIDBStorage();
+  const cached = cacheKey ? await storage.getItem<StorageValueIDB>(cacheKey) : null;
+  if (cached?.body && cacheKey) {
+    if (cached?.expires && cached.expires > now) {
+      return { data: cached.body };
+    }
+    else {
+      await storage.removeItem(cacheKey);
+    }
+  }
+
+  const response = await $fetch<{ data: Record<string, any> }>(API.GRAPHQL, {
     method: method || "POST",
     headers: headers || { "Content-Type": "application/json", "Accept": "application/json", "Referer": SITE.url },
     body
-  }).catch(e => e.data) as { data: Record<string, any>, errors: { message: string, status: number }[] };
-  const { errors } = response || {};
-  if (errors?.length) {
-    const error = errors.map((el) => {
-      return { status: el.status, message: el.message };
-    });
-    throw createError({ statusMessage: JSON.stringify(error) });
-  }
-  return response;
+  }).catch(() => null);
+
+  if (response?.data && cacheKey) storage.setItem(cacheKey, { body: response.data, expires });
+  return { data: response?.data || {} };
 };
 
-export const getSearch = async (options?: QueryOptions | null): Promise<AnimeList> => {
+export const getSearch = async (options?: QueryOptions): Promise<AnimeList> => {
   const { data } = await callAnilistGQL({
     body: queryFilter({ ...options, sort: Sort.SEARCH_MATCH })
   });
@@ -28,23 +38,26 @@ export const getSearch = async (options?: QueryOptions | null): Promise<AnimeLis
   return data.Page;
 };
 
-export const getNewlyReleased = async (options?: QueryOptions | null): Promise<AnimeList> => {
+export const getNewlyReleased = async (options?: QueryOptions, cacheKey?: string): Promise<AnimeList> => {
   const { data } = await callAnilistGQL({
-    body: queryFilter({ ...options, sort: Sort.START_DATE_DESC, status_in: [Status.AIRING, Status.FINISHED] })
+    body: queryFilter({ ...options, sort: Sort.START_DATE_DESC, status_in: [Status.AIRING, Status.FINISHED] }),
+    cacheKey
   });
   return data.Page;
 };
 
-export const getPopular = async (options?: QueryOptions | null): Promise< AnimeList> => {
+export const getPopular = async (options?: QueryOptions, cacheKey?: string): Promise< AnimeList> => {
   const { data } = await callAnilistGQL({
-    body: queryFilter({ ...options, sort: [Sort.TRENDING_DESC, Sort.POPULARITY_DESC] })
+    body: queryFilter({ ...options, sort: [Sort.TRENDING_DESC, Sort.POPULARITY_DESC] }),
+    cacheKey
   });
   return data.Page;
 };
 
-export const getTopRated = async (options?: QueryOptions | null): Promise<AnimeList> => {
+export const getTopRated = async (options?: QueryOptions, cacheKey?: string): Promise<AnimeList> => {
   const { data } = await callAnilistGQL({
-    body: queryFilter({ ...options, sort: Sort.SCORE_DESC })
+    body: queryFilter({ ...options, sort: Sort.SCORE_DESC }),
+    cacheKey
   });
   return data.Page;
 };
@@ -75,24 +88,25 @@ export const getAnimeSlug = async (id: number): Promise<Anime> => {
   return data.Media;
 };
 
-export const getUpcoming = async (options?: QueryOptions | null): Promise<AnimeList> => {
+export const getUpcoming = async (options?: QueryOptions, cacheKey?: string): Promise<AnimeList> => {
   const todayYear = new Date().getFullYear();
   const { data } = await callAnilistGQL({
-    body: queryFilter({ ...options, sort: Sort.START_DATE, status_in: [Status.NOT_YET_RELEASED], startDate_greater: `${todayYear}0000` })
+    body: queryFilter({ ...options, sort: Sort.START_DATE, status_in: [Status.NOT_YET_RELEASED], startDate_greater: `${todayYear}0000` }),
+    cacheKey
   });
   return data.Page;
 };
 
-export const getList = async (type: string, options?: QueryOptions) => {
+export const getList = async (type: string, options?: QueryOptions, cacheKey?: string) => {
   switch (type) {
     case "new":
-      return await getNewlyReleased(options);
+      return await getNewlyReleased(options, cacheKey);
     case "trending":
-      return await getPopular(options);
+      return await getPopular(options, cacheKey);
     case "top-rated":
-      return await getTopRated(options);
+      return await getTopRated(options, cacheKey);
     case "upcoming":
-      return await getUpcoming(options);
+      return await getUpcoming(options, cacheKey);
     default:
       return await getSearch(options);
   }
@@ -177,12 +191,15 @@ export const getStaffSlug = async (id: number): Promise<string> => {
 };
 
 export const getPreviewList = async (type: ListType, options: QueryOptions = {}): Promise<AnimePreviewListInfo> => {
-  const list = await getList(type, options);
   const { slug } = options;
-  return {
+  const _slug = slug ? slug : "all";
+  const cacheKey = `preview-${type}-${_slug}`;
+  const list = await getList(type, options, cacheKey);
+  const response = {
     ...list,
     title: availablePageTypes.find(el => el.name === type)?.title,
     type,
-    route: `/c/${slug ? slug : "all"}/${type}`
+    route: `/c/${_slug}/${type}`
   };
+  return response;
 };

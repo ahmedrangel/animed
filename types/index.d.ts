@@ -209,4 +209,14 @@ declare global {
       }[];
     };
   }
+
+  interface GqlFetchBody {
+    query: string;
+    variables?: Record<string, any>;
+  }
+
+  interface StorageValueIDB {
+    body: Record<string, any>;
+    expires: number;
+  }
 }
