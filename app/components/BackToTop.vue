@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const scrolled = ref(false);
-const maxScroll = 600;
+const maxScroll = 200;
 
 const topFunction = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
