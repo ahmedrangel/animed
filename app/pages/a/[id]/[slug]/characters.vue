@@ -110,7 +110,7 @@ useHead({
           <div v-if="anime && anime?.characters?.edges[0]" id="characters" class="pb-4">
             <InfiniteCharacters :data="anime" />
           </div>
-          <SpinnerLoading v-if="fromSameRoute" />
+          <SpinnerLoading v-if="loading && fromSameRoute" />
         </div>
       </div>
     </section>

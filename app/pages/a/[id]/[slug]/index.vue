@@ -340,7 +340,7 @@ const fixTheme = (text: string) => {
               <AnimePreviewList :data="recommendations" />
             </template>
           </div>
-          <SpinnerLoading v-if="fromSameRoute" />
+          <SpinnerLoading v-if="loading && fromSameRoute" />
         </div>
       </div>
     </section>
