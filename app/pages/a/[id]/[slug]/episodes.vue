@@ -128,7 +128,7 @@ useHead({
               </template>
             </div>
           </div>
-          <SpinnerLoading v-else />
+          <SpinnerLoading v-if="fromSameRoute" />
         </div>
       </div>
     </section>
