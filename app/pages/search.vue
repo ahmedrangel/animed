@@ -1,6 +1,4 @@
 <script setup lang="ts">
-definePageMeta({ layout: "no-footer" });
-
 const query = ref() as Ref<string>;
 const result = ref() as Ref<AnimeList | null>;
 const loading = ref(false) as Ref<boolean>;
