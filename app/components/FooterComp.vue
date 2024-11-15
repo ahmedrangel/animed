@@ -1,7 +1,7 @@
 <template>
-  <div class="px-2 px-xl-5 py-5 w-100 border-top">
+  <div class="px-4 px-lg-5 py-5 w-100 border-top bg-dark">
     <div class="d-flex align-items-center mb-2">
-      <img src="/images/animed.svg" class="pe-none" height="40" :title="SITE.domain">&nbsp;&nbsp;
+      <img src="/images/animed.svg" class="pe-none" height="36" :title="SITE.domain">&nbsp;&nbsp;
       <h5 class="mb-0">{{ SITE.domain.toUpperCase() }}</h5>
     </div>
     <div class="text-muted mb-2">

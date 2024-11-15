@@ -134,6 +134,10 @@ img {
   .character-on-anime {
     width: 80px!important;
   }
+
+  #layout {
+    margin-bottom: 58px;
+  }
 }
 
 @media only screen and (width <= 767px) {

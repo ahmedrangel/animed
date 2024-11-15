@@ -1,5 +1,5 @@
 <template>
-  <div id="layout" class="d-flex flex-column col px-0 pb-5 mb-4 pb-lg-0 mb-lg-0">
+  <div id="layout" class="col d-flex flex-column px-0 mb-lg-0">
     <div class="flex-grow-1">
       <slot />
     </div>
