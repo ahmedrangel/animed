@@ -194,12 +194,18 @@ export const getPreviewList = async (type: ListType, options: QueryOptions = {})
   const { slug } = options;
   const _slug = slug ? slug : "all";
   const cacheKey = `preview-${type}-${_slug}`;
-  const list = await getList(type, options, cacheKey);
-  const response = {
+  let list = await getList(type, options, cacheKey);
+
+  if (!list.media?.length) {
+    const storage = useIDBStorage();
+    await storage.removeItem(cacheKey);
+    list = await getList(type, options);
+  }
+
+  return {
     ...list,
     title: availablePageTypes.find(el => el.name === type)?.title,
     type,
     route: `/c/${_slug}/${type}`
   };
-  return response;
 };
