@@ -74,11 +74,12 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.hook("app:mounted", async () => {
     const expirationStore = createStore(cacheExpiration.dbName, cacheExpiration.storeName);
     const expirationEntries = await entries(expirationStore);
+    console.log(expirationEntries)
     const now = new Date().getTime();
     for (const [key, value] of expirationEntries) {
       if (Number(value) < now) {
-        await useIdbStorage("cache").removeItem(String(key).replace(cacheExpiration.base, ""));
-        await useIdbStorage("expiration").removeItem(String(key).replace(cacheExpiration.base, ""));
+        await useIdbStorage("cache")?.removeItem(String(key).replace(cacheExpiration.base + ":", ""));
+        await useIdbStorage("expiration")?.removeItem(String(key).replace(cacheExpiration.base + ":", ""));
       }
     }
   });
