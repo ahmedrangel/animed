@@ -26,6 +26,14 @@ export const useNavigationRoute = () => {
   return { lastRoute, currentRoute };
 };
 
+export const useDetectCrawler = (userAgent: string | undefined) => {
+  const botName = [...limitedBots, ...unlimitedBots].find(bot => userAgent?.includes(bot));
+  if (botName) {
+    return { userAgent, isCrawler: true };
+  }
+  return { userAgent, isCrawler: false };
+};
+
 export const useIdbStorage = (name: "cache" | "expiration") => {
   const { $storage, $storageExpirations } = useNuxtApp();
   return name === "expiration" ? $storageExpirations : $storage;

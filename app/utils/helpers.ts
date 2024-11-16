@@ -110,6 +110,26 @@ export const sleep = async (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
 
+export const animeFlvRelationLogic = (aflvArr: AFlvRequest["data"]["media"], anilistObj: Anime): AnimeExternalLinks | undefined => {
+  for (const aflv of aflvArr) {
+    if (aflv?.type === "Anime"
+      && (
+        aflv?.slug?.replace("-tv", "") === anilistObj?.slug
+        || aflv?.title?.toLowerCase()?.replace(/[^\w]/g, "") === anilistObj?.title?.english?.toLowerCase()?.replace(/[^\w]/g, "")
+        || aflv?.title?.toLowerCase()?.replace(/[^\w]/g, "") === anilistObj?.title?.romaji?.toLowerCase()?.replace(/[^\w]/g, "")
+        || anilistObj?.title?.english?.toLowerCase()?.replace(/[^\w]/g, "").includes(aflv?.title?.toLowerCase()?.replace(/[^\w]/g, ""))
+        || anilistObj?.title?.romaji?.toLowerCase()?.replace(/[^\w]/g, "").includes(aflv?.title?.toLowerCase()?.replace(/[^\w]/g, ""))
+      )) {
+      return {
+        site: "AnimeFLV",
+        url: aflv?.url,
+        icon: "/images/aflv.png",
+        color: "#2f353a"
+      };
+    }
+  }
+};
+
 export const availablePageTypes: { name: ListType, routeType: string, title: string }[] = [
   { name: "new", routeType: "newly", title: "Newly Released" },
   { name: "top-rated", routeType: "rated", title: "Top Rated" },

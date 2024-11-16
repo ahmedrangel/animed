@@ -1,6 +1,6 @@
-import { queryAnime, queryAnimeCharacters, queryAnimeSlug, queryAnimeEpisodes } from "./queries/anime";
-import { queryFilter } from "./queries/filter";
-import { queryStaff, queryStaffCharacters, queryStaffSlug } from "./queries/staff";
+import { queryAnime, queryAnimeCharacters, queryAnimeSlug, queryAnimeEpisodes } from "../../app/utils/queries/anime";
+import { queryFilter } from "../../app/utils/queries/filter";
+import { queryStaff, queryStaffCharacters, queryStaffSlug } from "../../app/utils/queries/staff";
 import { API, Sort, Status } from "~~/enums/anilist";
 
 const callAnilistGQL = async (options: { method?: "POST", headers?: HeadersInit, body?: GqlFetchBody, cacheKey?: string }): Promise<{ data: Record<string, any> }> => {
