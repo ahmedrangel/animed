@@ -193,7 +193,7 @@ export const getStaffSlug = async (id: number): Promise<string> => {
 export const getPreviewList = async (type: ListType, options: QueryOptions = {}): Promise<AnimePreviewListInfo> => {
   const { slug } = options;
   const _slug = slug ? slug : "all";
-  const cacheKey = `preview-${type}-${_slug}`;
+  const cacheKey = `preview:${type}:${_slug}`;
   let list = await getList(type, options, cacheKey);
 
   if (!list.media?.length) {
