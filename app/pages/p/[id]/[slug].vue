@@ -40,7 +40,9 @@ useHead({
 <template>
   <main>
     <section id="people-page">
-      <SpinnerLoading v-if="loading" style="height: 100vh;" />
+      <Transition name="fade">
+        <SpinnerFullScreenLoading v-if="loading" />
+      </Transition>
       <div v-if="staff" class="col px-0 pb-5">
         <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
           <div class="pt-4 px-0">

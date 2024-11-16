@@ -48,7 +48,9 @@ onBeforeUnmount(() => {
 
 <template>
   <div>
-    <SpinnerLoading v-if="loading && !media.length" style="height: 100vh;" />
+    <Transition name="fade">
+      <SpinnerFullScreenLoading v-if="loading && !media.length" />
+    </Transition>
     <div class="px-2 py-5 px-xl-5 w-100">
       <div v-if="typeTitle" class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="mb-0">{{ typeTitle }}&nbsp;<NuxtLink :to="`/c/${category}`">{{ category }}</NuxtLink></h3>

@@ -84,7 +84,9 @@ useHead({
 <template>
   <main>
     <section id="anime-page">
-      <SpinnerLoading v-if="loading && !fromSameRoute" style="height: 100vh;" />
+      <Transition name="fade">
+        <SpinnerFullScreenLoading v-if="loading && !fromSameRoute" />
+      </Transition>
       <div class="col px-0 pb-5">
         <BannerBasic v-if="statedInfo || anime" :anime="statedInfo || anime" :aos="!fromSameRoute" />
         <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
