@@ -33,8 +33,3 @@ export const useDetectCrawler = (userAgent: string | undefined) => {
   }
   return { userAgent, isCrawler: false };
 };
-
-export const useIdbStorage = (name: "cache" | "expiration") => {
-  const { $storage, $storageExpirations } = useNuxtApp();
-  return name === "expiration" ? $storageExpirations : $storage;
-};

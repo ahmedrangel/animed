@@ -8,15 +8,15 @@ const callAnilistGQL = async (options: { method?: "POST", headers?: HeadersInit,
   const storage = useIdbStorage("cache");
   const storageExpirations = useIdbStorage("expiration");
 
-  const cached = cacheKey ? await storage.getItem<Record<string, any>>(cacheKey) : null;
-  const cachedExpiration = cacheKey ? await storageExpirations.getItem<string>(cacheKey) : null;
+  const cached = cacheKey ? await storage?.getItem<Record<string, any>>(cacheKey) : null;
+  const cachedExpiration = cacheKey ? await storageExpirations?.getItem<string>(cacheKey) : null;
   if (cached && cacheKey) {
     if (cachedExpiration && Number(cachedExpiration) > Date.now()) {
       return { data: cached };
     }
     else {
-      await storage.removeItem(cacheKey);
-      await storageExpirations.removeItem(cacheKey);
+      await storage?.removeItem(cacheKey);
+      await storageExpirations?.removeItem(cacheKey);
     }
   }
 
@@ -27,8 +27,8 @@ const callAnilistGQL = async (options: { method?: "POST", headers?: HeadersInit,
   }).catch(() => null);
 
   if (response?.data && cacheKey) {
-    await storage.setItem(cacheKey, response.data);
-    await storageExpirations.setItem(cacheKey, Date.now() + (43200 * 1000));
+    await storage?.setItem(cacheKey, response.data);
+    await storageExpirations?.setItem(cacheKey, Date.now() + (43200 * 1000));
   }
 
   return { data: response?.data || {} };
@@ -201,8 +201,8 @@ export const getPreviewList = async (type: ListType, options: QueryOptions = {})
   let list = await getList(type, options, cacheKey);
 
   if (!list.media?.length) {
-    await useIdbStorage("cache").removeItem(cacheKey);
-    await useIdbStorage("expiration").removeItem(cacheKey);
+    await useIdbStorage("cache")?.removeItem(cacheKey);
+    await useIdbStorage("expiration")?.removeItem(cacheKey);
     list = await getList(type, options, cacheKey);
   }
 
