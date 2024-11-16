@@ -74,7 +74,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.hook("app:mounted", async () => {
     const expirationStore = createStore(cacheExpiration.dbName, cacheExpiration.storeName);
     const expirationEntries = await entries(expirationStore);
-    console.log(expirationEntries)
+    console.info("Cache enabled: IndexedDB");
     const now = new Date().getTime();
     for (const [key, value] of expirationEntries) {
       if (Number(value) < now) {
