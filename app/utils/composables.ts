@@ -25,3 +25,8 @@ export const useNavigationRoute = () => {
   const lastRoute = $lastRoute?.value;
   return { lastRoute, currentRoute };
 };
+
+export const useIdbStorage = (name: "cache" | "expiration") => {
+  const { $storage, $storageExpirations } = useNuxtApp();
+  return name === "expiration" ? $storageExpirations : $storage;
+};

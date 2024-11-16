@@ -5,18 +5,18 @@ import { API, Sort, Status } from "~~/enums/anilist";
 
 const callAnilistGQL = async (options: { method?: "POST", headers?: HeadersInit, body?: GqlFetchBody, cacheKey?: string }): Promise<{ data: Record<string, any> }> => {
   const { method, headers, body, cacheKey } = options;
-  const now = Date.now();
-  const ttl = 43200 * 1000;
-  const expires = now + ttl;
+  const storage = useIdbStorage("cache");
+  const storageExpirations = useIdbStorage("expiration");
 
-  const storage = useIDBStorage();
-  const cached = cacheKey ? await storage.getItem<StorageValueIDB>(cacheKey) : null;
-  if (cached?.body && cacheKey) {
-    if (cached?.expires && cached.expires > now) {
-      return { data: cached.body };
+  const cached = cacheKey ? await storage.getItem<Record<string, any>>(cacheKey) : null;
+  const cachedExpiration = cacheKey ? await storageExpirations.getItem<string>(cacheKey) : null;
+  if (cached && cacheKey) {
+    if (cachedExpiration && Number(cachedExpiration) > Date.now()) {
+      return { data: cached };
     }
     else {
       await storage.removeItem(cacheKey);
+      await storageExpirations.removeItem(cacheKey);
     }
   }
 
@@ -26,7 +26,11 @@ const callAnilistGQL = async (options: { method?: "POST", headers?: HeadersInit,
     body
   }).catch(() => null);
 
-  if (response?.data && cacheKey) storage.setItem(cacheKey, { body: response.data, expires });
+  if (response?.data && cacheKey) {
+    await storage.setItem(cacheKey, response.data);
+    await storageExpirations.setItem(cacheKey, Date.now() + (43200 * 1000));
+  }
+
   return { data: response?.data || {} };
 };
 
@@ -197,9 +201,9 @@ export const getPreviewList = async (type: ListType, options: QueryOptions = {})
   let list = await getList(type, options, cacheKey);
 
   if (!list.media?.length) {
-    const storage = useIDBStorage();
-    await storage.removeItem(cacheKey);
-    list = await getList(type, options);
+    await useIdbStorage("cache").removeItem(cacheKey);
+    await useIdbStorage("expiration").removeItem(cacheKey);
+    list = await getList(type, options, cacheKey);
   }
 
   return {
