@@ -7,24 +7,24 @@
     <div class="text-muted mb-2">
       <div class="d-flex align-items-center mb-2">
         <h6 class="mb-0 fw-normal">Data provided by&nbsp;</h6>
-        <a target="_blank" href="https://anilist.co">
+        <NuxtLink target="_blank" to="https://anilist.co">
           <img src="/images/anilist-logo.svg" class="pe-none" height="40" title="AniList">
-        </a>
+        </NuxtLink>
       </div>
       <h6 class="mb-0 fw-normal">This project uses the AniList API but is not endorsed or certified by AniList.&nbsp;</h6>
     </div>
     <div class="d-flex align-items-center gap-2">
-      <a target="_blank" :href="SITE.github" title="GitHub Repository">
+      <NuxtLink target="_blank" :to="SITE.github" title="GitHub Repository">
         <h2 class="mb-0 text-muted">
           <Icon name="simple-icons:github" />
         </h2>
-      </a>
+      </NuxtLink>
       <InstallPWA>
-        <a>
+        <NuxtLink>
           <h2 role="button" class="mb-0 text-muted" title="Install PWA">
             <Icon name="mdi:monitor-arrow-down-variant" />
           </h2>
-        </a>
+        </NuxtLink>
       </InstallPWA>
     </div>
   </div>

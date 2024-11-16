@@ -239,10 +239,10 @@ const fixTheme = (text: string) => {
                   <h6 class="text-primary">External Links:</h6>
                   <div class="d-flex flex-wrap gap-2 align-items-end">
                     <div v-for="(site, i) of externalLinks" :key="i">
-                      <a v-if="site?.url" :href="site.url" target="_blank" class="d-flex align-items-center justify-content-center p-2 rounded" :style="{ 'background-color': site.color ? site.color : 'var(--bs-secondary)' }" :title="site.site" style="width: 50px; height: 50px">
+                      <NuxtLink v-if="site?.url" :to="site.url" target="_blank" class="d-flex align-items-center justify-content-center p-2 rounded" :style="{ 'background-color': site.color ? site.color : 'var(--bs-secondary)' }" :title="site.site" style="width: 50px; height: 50px">
                         <Icon v-if="!site?.icon" name="ph:globe-simple-bold" class="text-white" style="font-size: 33px;" />
                         <img v-else :src="site.icon" class="pe-none" style="width: 33px;">
-                      </a>
+                      </NuxtLink>
                     </div>
                   </div>
                 </div>
@@ -306,9 +306,9 @@ const fixTheme = (text: string) => {
                   <hr>
                   <ol class="small mb-0" data-aos="fade-in">
                     <li v-for="(op, i) of openings" :key="i" class="mb-2">
-                      <a :href="`https://www.youtube.com/results?search_query=${encodeURIComponent(fixTheme(op).replace(/\(eps.*?\)/g, ''))}`" target="_blank">
+                      <NuxtLink :to="`https://www.youtube.com/results?search_query=${encodeURIComponent(fixTheme(op).replace(/\(eps.*?\)/g, ''))}`" target="_blank">
                         <h6 class="mb-0 fw-light">{{ fixTheme(op) }}</h6>
-                      </a>
+                      </NuxtLink>
                     </li>
                   </ol>
                 </div>
@@ -317,19 +317,19 @@ const fixTheme = (text: string) => {
                   <hr>
                   <ol class="small mb-0" data-aos="fade-in">
                     <li v-for="(en, i) of endings" :key="i" class="mb-2">
-                      <a :href="`https://www.youtube.com/results?search_query=${encodeURIComponent(fixTheme(en).replace(/\(eps.*?\)/g, ''))}`" target="_blank">
+                      <NuxtLink :to="`https://www.youtube.com/results?search_query=${encodeURIComponent(fixTheme(en).replace(/\(eps.*?\)/g, ''))}`" target="_blank">
                         <h6 class="mb-0 fw-light">{{ fixTheme(en) }}</h6>
-                      </a>
+                      </NuxtLink>
                     </li>
                   </ol>
                 </div>
-                <a v-if="themes && (themes?.endings.length > 10 || themes?.endings.length > 10)" class="ms-auto" role="button" @click="toggleMoreThemes()">
+                <NuxtLink v-if="themes && (themes?.endings.length > 10 || themes?.endings.length > 10)" class="ms-auto" role="button" @click="toggleMoreThemes()">
                   <div class="d-flex align-items-center gap-1">
                     <Icon v-if="!moreThemes" name="ph:caret-down-bold" />
                     <Icon v-else name="ph:caret-up-bold" />
                     <span>{{ !moreThemes ? 'More' : 'Less' }} theme songs</span>
                   </div>
-                </a>
+                </NuxtLink>
               </div>
             </div>
             <template v-if="recommendations?.preview?.[0]?.media?.length">
