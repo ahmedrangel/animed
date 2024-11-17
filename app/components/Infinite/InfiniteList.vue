@@ -48,24 +48,24 @@ onBeforeUnmount(() => {
 
 <template>
   <div>
-    <Transition name="fade">
+    <TransitionGroup name="fade">
       <SpinnerFullScreenLoading v-if="loading && !media.length" />
-    </Transition>
-    <div class="px-2 py-5 px-xl-5 w-100">
-      <div v-if="typeTitle" class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="mb-0">{{ typeTitle }}&nbsp;<NuxtLink :to="`/c/${category}`">{{ category }}</NuxtLink></h3>
-      </div>
-      <div class="d-flex flex-wrap p-0 justify-content-start anime-row g-1">
-        <template v-for="(anime, i) of media" :key="i">
-          <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2 d-flex justify-content-center">
-            <div class="mb-1 w-100" :class="i === 0 ? 'me-1' : 'mx-1'">
-              <AnimeCard :data="anime" />
+      <div v-else class="px-2 py-5 px-xl-5 w-100">
+        <div v-if="typeTitle" class="d-flex justify-content-between align-items-center mb-3">
+          <h3 class="mb-0">{{ typeTitle }}&nbsp;<NuxtLink :to="`/c/${category}`">{{ category }}</NuxtLink></h3>
+        </div>
+        <div class="d-flex flex-wrap p-0 justify-content-start anime-row g-1">
+          <template v-for="(anime, i) of media" :key="i">
+            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2 d-flex justify-content-center">
+              <div class="mb-1 w-100" :class="i === 0 ? 'me-1' : 'mx-1'">
+                <AnimeCard :data="anime" />
+              </div>
             </div>
-          </div>
-          <span v-if="i === media?.length - 11" ref="lastRow" class="m-0 p-0" />
-          <SpinnerLoading v-if="i === media?.length - 1 && nexted" class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2" />
-        </template>
+            <span v-if="i === media?.length - 11" ref="lastRow" class="m-0 p-0" />
+            <SpinnerLoading v-if="i === media?.length - 1 && nexted" class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2" />
+          </template>
+        </div>
       </div>
-    </div>
+    </TransitionGroup>
   </div>
 </template>

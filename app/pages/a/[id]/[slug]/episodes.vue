@@ -2,6 +2,7 @@
 const { lastRoute, currentRoute } = useNavigationRoute();
 const fromSameRoute = fromSameRouteParams(lastRoute, currentRoute);
 if (fromSameRoute) definePageMeta({ pageTransition: false, layoutTransition: false });
+else definePageMeta({ pageTransition: true, layoutTransition: true });
 
 const { params } = useRoute("a-id-slug-episodes");
 const { id, slug } = params;
@@ -29,6 +30,8 @@ const streamingEpisodes = computed({
   }
 });
 
+const animeEpisodesArray = [] as Anime["streamingEpisodes"];
+
 const sharedInfoHandler = (value: Anime) => {
   animeTitles.value = value.title;
   animeBanner.value = value.bannerImage;
@@ -39,6 +42,7 @@ const sharedInfoHandler = (value: Anime) => {
   streamingEpisodes.value = value.streamingEpisodes;
   seoTitle.value = value.title.romaji + " | " + SITE.name;
   seoImage.value = value.coverImage?.extraLarge;
+  animeEpisodesArray.push(...animeEpisodes.value);
 };
 
 const userAgent = useRequestHeaders(["User-Agent"])["user-agent"];
@@ -120,17 +124,19 @@ useHead({
               </h6>
             </span>
           </div>
-          <div v-if="animeEpisodes?.length" id="episodes">
-            <h2 class="text-white mb-2">Episodes</h2>
-            <div class="d-flex anime-row flex-wrap g-2">
-              <template v-for="(ep, i) of animeEpisodes" :key="i">
-                <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3 mb-2">
-                  <EpisodeCard :data="ep" />
-                </div>
-              </template>
+          <TransitionGroup name="fade">
+            <div v-if="animeEpisodesArray?.length" id="episodes">
+              <h2 class="text-white mb-2">Episodes</h2>
+              <div class="d-flex anime-row flex-wrap g-2">
+                <template v-for="(ep, i) of animeEpisodes" :key="i">
+                  <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3 mb-2">
+                    <EpisodeCard :data="ep" />
+                  </div>
+                </template>
+              </div>
             </div>
-          </div>
-          <SpinnerLoading v-if="loading && fromSameRoute" />
+            <SpinnerLoading v-if="loading && fromSameRoute" />
+          </TransitionGroup>
         </div>
       </div>
     </section>

@@ -2,6 +2,7 @@
 const { lastRoute, currentRoute } = useNavigationRoute();
 const fromSameRoute = fromSameRouteParams(lastRoute, currentRoute);
 if (fromSameRoute) definePageMeta({ pageTransition: false, layoutTransition: false });
+else definePageMeta({ pageTransition: true, layoutTransition: true });
 
 const { params } = useRoute("a-id-slug-characters");
 const { id, slug } = params;
@@ -109,10 +110,12 @@ useHead({
               </h6>
             </span>
           </div>
-          <div v-if="anime && anime?.characters?.edges[0]" id="characters" class="pb-4">
-            <InfiniteCharacters :data="anime" />
-          </div>
-          <SpinnerLoading v-if="loading && fromSameRoute" />
+          <TransitionGroup name="fade">
+            <div v-if="anime && anime?.characters?.edges[0]" id="characters" class="pb-4">
+              <InfiniteCharacters :data="anime" />
+            </div>
+            <SpinnerLoading v-if="loading && fromSameRoute" />
+          </TransitionGroup>
         </div>
       </div>
     </section>

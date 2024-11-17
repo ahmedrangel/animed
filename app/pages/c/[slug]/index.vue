@@ -64,12 +64,12 @@ onMounted(async () => {
 <template>
   <main v-if="exists">
     <section id="preview">
-      <Transition name="fade">
+      <TransitionGroup name="fade">
         <SpinnerFullScreenLoading v-if="loading && !animesWithBanner.length" />
-      </Transition>
-      <BannerDetailed v-if="animesWithBanner.length" :anime="animesWithBanner" />
-      <AnimePreviewList v-if="data.preview.length" :data="data" class="px-2 py-4 py-lg-5 px-xl-5 w-100" />
-      <SpinnerLoading v-if="loading && data.preview.length" class="py-5" />
+        <BannerDetailed v-if="animesWithBanner.length" :anime="animesWithBanner" />
+        <AnimePreviewList v-if="data.preview.length" :data="data" class="px-2 py-4 py-lg-5 px-xl-5 w-100" />
+        <SpinnerLoading v-if="loading && data.preview.length" class="py-5" />
+      </TransitionGroup>
     </section>
   </main>
 </template>
