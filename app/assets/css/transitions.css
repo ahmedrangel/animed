@@ -35,6 +35,11 @@
   opacity: 0;
 }
 
+.fade-leave-active {
+  position: absolute;
+  width: 100%;
+}
+
 .bounce-enter-active {
   animation: bounce-in 0.5s ease;
 }
