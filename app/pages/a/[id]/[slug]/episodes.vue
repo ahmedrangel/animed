@@ -2,7 +2,6 @@
 const { lastRoute, currentRoute } = useNavigationRoute();
 const fromSameRoute = fromSameRouteParams(lastRoute, currentRoute);
 if (fromSameRoute) definePageMeta({ pageTransition: false, layoutTransition: false });
-else definePageMeta({ pageTransition: true, layoutTransition: true });
 
 const { params } = useRoute("a-id-slug-episodes");
 const { id, slug } = params;
@@ -99,46 +98,46 @@ useHead({
 <template>
   <main>
     <section id="anime-page">
-      <Transition name="fade">
+      <TransitionGroup name="fade">
         <SpinnerFullScreenLoading v-if="loading && !fromSameRoute" />
-      </Transition>
-      <div class="col px-0 pb-5">
-        <BannerBasic v-if="statedInfo || anime" :anime="statedInfo || anime" :aos="!fromSameRoute" />
-        <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
-          <AnimeMenu v-if="animeEpisodes" :anime-id="String(id)" :slug="String(slug)" />
-          <div v-if="statedInfo || anime" :anime="statedInfo || anime" class="pt-4 pb-3 px-0">
-            <h4 class="mb-1 text-primary">{{ animeTitles.romaji }} <span class="badge bg-secondary align-middle">{{ animeFormat.replace(/_/g, " ") }}</span></h4>
-            <h6 v-if="animeTitles.english" class="mb-1">{{ animeTitles.english }}</h6>
-            <h6 v-if="animeTitles.native" class="mb-1">{{ animeTitles.native }}</h6>
-            <div class="d-flex align-items-center position-relative">
-              <div class="stars d-flex align-items-center" style="height: 25px;">
-                <img class="position-absolute" src="/images/stars.webp" width="100" style="opacity: 0.5">
-                <img src="/images/stars-filled.webp" width="100" :style="{ 'clip-path': 'inset(0px ' + (100 - (animeScore || 0)) + '% 0px 0px) ' }">
+        <div v-else class="col px-0 pb-5">
+          <BannerBasic v-if="statedInfo || anime" :anime="statedInfo || anime" :aos="!fromSameRoute" />
+          <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
+            <AnimeMenu v-if="animeEpisodes" :anime-id="String(id)" :slug="String(slug)" />
+            <div v-if="statedInfo || anime" :anime="statedInfo || anime" class="pt-4 pb-3 px-0">
+              <h4 class="mb-1 text-primary">{{ animeTitles.romaji }} <span class="badge bg-secondary align-middle">{{ animeFormat.replace(/_/g, " ") }}</span></h4>
+              <h6 v-if="animeTitles.english" class="mb-1">{{ animeTitles.english }}</h6>
+              <h6 v-if="animeTitles.native" class="mb-1">{{ animeTitles.native }}</h6>
+              <div class="d-flex align-items-center position-relative">
+                <div class="stars d-flex align-items-center" style="height: 25px;">
+                  <img class="position-absolute" src="/images/stars.webp" width="100" style="opacity: 0.5">
+                  <img src="/images/stars-filled.webp" width="100" :style="{ 'clip-path': 'inset(0px ' + (100 - (animeScore || 0)) + '% 0px 0px) ' }">
+                </div>
+                <small class="ms-2 mb-0 text-white">{{ getRating(animeScore || 0) }}</small>
               </div>
-              <small class="ms-2 mb-0 text-white">{{ getRating(animeScore || 0) }}</small>
+              <span v-if="animeNextAiring?.airingAt && (animeNextAiring?.airingAt * 1000 > Date.now())" class="mt-1 d-inline-block p-1 rounded bg-secondary">
+                <h6 class="d-flex align-items-center justify-content-center gap-1 m-0">
+                  <Icon class="text-info" name="mdi:broadcast" />
+                  <span class="text-center">Next Episode · <span class="text-primary">E{{ animeNextAiring?.episode }}</span> · {{ useTimeAgo(animeNextAiring.airingAt * 1000) }}</span>
+                </h6>
+              </span>
             </div>
-            <span v-if="animeNextAiring?.airingAt && (animeNextAiring?.airingAt * 1000 > Date.now())" class="mt-1 d-inline-block p-1 rounded bg-secondary">
-              <h6 class="d-flex align-items-center justify-content-center gap-1 m-0">
-                <Icon class="text-info" name="mdi:broadcast" />
-                <span class="text-center">Next Episode · <span class="text-primary">E{{ animeNextAiring?.episode }}</span> · {{ useTimeAgo(animeNextAiring.airingAt * 1000) }}</span>
-              </h6>
-            </span>
-          </div>
-          <TransitionGroup name="fade">
-            <div v-if="animeEpisodesArray?.length" id="episodes">
-              <h2 class="text-white mb-2">Episodes</h2>
-              <div class="d-flex anime-row flex-wrap g-2">
-                <template v-for="(ep, i) of animeEpisodes" :key="i">
-                  <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3 mb-2">
-                    <EpisodeCard :data="ep" />
-                  </div>
-                </template>
+            <Transition name="fade">
+              <div v-if="animeEpisodesArray?.length" id="episodes">
+                <h2 class="text-white mb-2">Episodes</h2>
+                <div class="d-flex anime-row flex-wrap g-2">
+                  <template v-for="(ep, i) of animeEpisodes" :key="i">
+                    <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3 mb-2">
+                      <EpisodeCard :data="ep" />
+                    </div>
+                  </template>
+                </div>
               </div>
-            </div>
+            </Transition>
             <SpinnerLoading v-if="loading && fromSameRoute" />
-          </TransitionGroup>
+          </div>
         </div>
-      </div>
+      </TransitionGroup>
     </section>
   </main>
 </template>
