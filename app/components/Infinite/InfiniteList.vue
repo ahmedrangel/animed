@@ -52,7 +52,7 @@ onBeforeUnmount(() => {
       <SpinnerFullScreenLoading v-if="loading && !media.length" />
       <div v-else class="px-2 py-5 px-xl-5 w-100">
         <div v-if="typeTitle" class="d-flex justify-content-between align-items-center mb-3">
-          <h3 class="mb-0">{{ typeTitle }}&nbsp;<NuxtLink :to="`/c/${category}`">{{ category }}</NuxtLink></h3>
+          <h3 class="mb-0">{{ typeTitle }}&nbsp;<NuxtLink :to="`/c/${fixSlug(category)}`">{{ category }}</NuxtLink></h3>
         </div>
         <div class="d-flex flex-wrap p-0 justify-content-start anime-row g-1">
           <template v-for="(anime, i) of media" :key="i">
