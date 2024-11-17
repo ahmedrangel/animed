@@ -12,7 +12,7 @@
   --bs-link-color-rgb: var(--bs-primary-rgb);
   --bs-link-hover-color-rgb: 255, 207, 63;
   --bs-link-hover-color: #ffcf3f;
-  --bs-body-font-family: Rubik;
+  --bs-body-font-family: rubik;
 }
 
 *::-webkit-scrollbar {
