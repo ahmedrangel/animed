@@ -32,11 +32,10 @@ export const indexedDbDriver = defineDriver((opts: DriverOptions) => {
     },
     setItem (key, value) {
       try {
-        return set(makeKey(key), JSON.parse(value), customStore);
+        value = JSON.parse(value);
       }
-      catch {
-        return set(makeKey(key), value, customStore);
-      }
+      catch { /* use string value */ }
+      return set(makeKey(key), value, customStore);
     },
     removeItem (key) {
       return del(makeKey(key), customStore);
