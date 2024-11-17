@@ -25,13 +25,13 @@
   transform: translate(-10px, 0);
 }
 
-.fade-enter-active,
-.fade-leave-active {
+.fade-enter-active, .fadepage-enter-active,
+.fade-leave-active, .fadepage-leave-active {
   transition: opacity 0.3s ease-in-out;
 }
 
-.fade-enter-from,
-.fade-leave-to {
+.fade-enter-from, .fadepage-enter-from,
+.fade-leave-to, .fadepage-leave-to {
   opacity: 0;
 }
 
