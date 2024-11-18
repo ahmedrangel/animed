@@ -64,7 +64,7 @@ onMounted(async () => {
       <TransitionGroup name="fade">
         <SpinnerFullScreenLoading v-if="loading && !schedules.length" />
         <div v-else class="px-2 py-4 px-xl-5 w-100 accordion border-0" data-aos="fade-in">
-          <div v-for="(day, i) of daysOfTheWeek" :key="i" class="py-3 accordion-item border-0">
+          <div v-for="(day, i) of daysOfTheWeek" :key="i" class="py-2 accordion-item border-0">
             <div class="fw-bold accordion-header user-select-none">
               <span class="accordion-button rounded-2" :class="{ collapsed: i === 0 }" type="button" data-bs-toggle="collapse" :data-bs-target="`#${formatDayName(day).toLowerCase()}`">
                 <h4 class="mb-0">{{ formatDayName(day) }}</h4>
@@ -72,7 +72,7 @@ onMounted(async () => {
             </div>
             <div :id="formatDayName(day).toLowerCase()" class="accordion-collapse collapse" :class="{ show: i !== 0 }">
               <div class="accordion-body p-0">
-                <div class="d-flex flex-wrap py-4 justify-content-start anime-row g-3 h-100">
+                <div class="d-flex flex-wrap py-3 justify-content-start anime-row g-3 h-100">
                   <template v-for="(schedule, j) of filterScheduleByDay(day)" :key="j">
                     <div class="col-xl-3 col-lg-4 col-sm-6 col-12 d-flex justify-content-center">
                       <div class="mb-0 w-100">
