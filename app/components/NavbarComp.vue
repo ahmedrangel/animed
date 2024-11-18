@@ -1,5 +1,11 @@
 <script setup lang="ts">
-const tabs = [
+import type { RouteNamedMap } from "vue-router/auto-routes";
+
+const tabs: {
+  name: string;
+  icon: string;
+  route: RouteNamedMap[keyof RouteNamedMap]["path"];
+}[] = [
   {
     name: "Home",
     icon: "ph:house-bold",
@@ -9,6 +15,11 @@ const tabs = [
     name: "Categories",
     icon: "ph:squares-four-bold",
     route: "/c"
+  },
+  {
+    name: "Airing Schedule",
+    icon: "ph:calendar-dots-bold",
+    route: "/schedule"
   },
   {
     name: "Search",

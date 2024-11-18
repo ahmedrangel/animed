@@ -181,6 +181,8 @@ declare global {
     slug?: string | null;
     category?: string | null;
     withInfo?: boolean;
+    airingAt_greater?: number;
+    airingAt_lesser?: number;
   }
 
   interface StaffCharacters {
@@ -213,5 +215,25 @@ declare global {
   interface GqlFetchBody {
     query: string;
     variables?: Record<string, any>;
+  }
+
+  interface ScheduleInfo {
+    id: number;
+    airingAt: number;
+    episode: number;
+    media: Anime;
+  }
+
+  interface AiringSchedules {
+    airingSchedules: ScheduleInfo[];
+    pageInfo: PageInfo;
+  }
+
+  interface AnilistRequest {
+    method?: "POST";
+    headers?: HeadersInit;
+    body?: GqlFetchBody;
+    cacheKey?: string;
+    swr?: boolean;
   }
 }

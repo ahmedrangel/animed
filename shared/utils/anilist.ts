@@ -1,17 +1,33 @@
-import { queryAnime, queryAnimeCharacters, queryAnimeSlug, queryAnimeEpisodes } from "../../app/utils/queries/anime";
-import { queryFilter } from "../../app/utils/queries/filter";
-import { queryStaff, queryStaffCharacters, queryStaffSlug } from "../../app/utils/queries/staff";
+import { queryAnime, queryAnimeCharacters, queryAnimeEpisodes, queryAnimeSlug, queryFilter, querySchedules, queryStaff, queryStaffCharacters, queryStaffSlug } from "~/utils/queries";
 import { API, Sort, Status } from "~~/enums/anilist";
 
-const callAnilistGQL = async (options: { method?: "POST", headers?: HeadersInit, body?: GqlFetchBody, cacheKey?: string }): Promise<{ data: Record<string, any> }> => {
-  const { method, headers, body, cacheKey } = options;
+const callAnilistGQL = async (options: AnilistRequest): Promise<{ data: Record<string, any> }> => {
+  const { method, headers, body, cacheKey, swr } = options;
   const storage = useIdbStorage("cache");
   const storageExpirations = useIdbStorage("expiration");
+
+  const fetchData = async () => {
+    const response = await $fetch<{ data: Record<string, any> }>(API.GRAPHQL, {
+      method: method || "POST",
+      headers: headers || { "Content-Type": "application/json", "Accept": "application/json", "Referer": SITE.url },
+      body
+    }).catch(() => null);
+    return response?.data;
+  };
 
   const cached = cacheKey ? await storage?.getItem<Record<string, any>>(cacheKey) : null;
   const cachedExpiration = cacheKey ? await storageExpirations?.getItem<string>(cacheKey) : null;
   if (cached && cacheKey) {
     if (cachedExpiration && Number(cachedExpiration) > Date.now()) {
+      if (swr) {
+        void (async () => {
+          const response = await fetchData();
+          if (response && JSON.stringify(response) !== JSON.stringify(cached)) {
+            await storage?.setItem(cacheKey, response);
+            await storageExpirations?.setItem(cacheKey, Date.now() + (43200 * 1000));
+          }
+        })();
+      }
       return { data: cached };
     }
     else {
@@ -20,18 +36,12 @@ const callAnilistGQL = async (options: { method?: "POST", headers?: HeadersInit,
     }
   }
 
-  const response = await $fetch<{ data: Record<string, any> }>(API.GRAPHQL, {
-    method: method || "POST",
-    headers: headers || { "Content-Type": "application/json", "Accept": "application/json", "Referer": SITE.url },
-    body
-  }).catch(() => null);
-
-  if (response?.data && cacheKey) {
+  const response = await fetchData();
+  if (response && cacheKey) {
     await storage?.setItem(cacheKey, response.data);
     await storageExpirations?.setItem(cacheKey, Date.now() + (43200 * 1000));
   }
-
-  return { data: response?.data || {} };
+  return { data: response || {} };
 };
 
 export const getSearch = async (options?: QueryOptions): Promise<AnimeList> => {
@@ -212,4 +222,15 @@ export const getPreviewList = async (type: ListType, options: QueryOptions = {})
     type,
     route: `/c/${_slug}/${type}`
   };
+};
+
+export const getSchedules = async (options: QueryOptions = {}): Promise<AiringSchedules> => {
+  const { page } = options;
+  const cacheKey = `schedule:${page}`;
+  const { data } = await callAnilistGQL({
+    body: querySchedules(options),
+    cacheKey: cacheKey,
+    swr: true
+  });
+  return data.Page;
 };

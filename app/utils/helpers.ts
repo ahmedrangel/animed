@@ -24,6 +24,14 @@ export const formatDate = (y?: number, m?: number, d?: number) => {
     return format(new Date(m - 1, d), "MMM") + " " + d;
 };
 
+export const formatDayName = (day: number) => {
+  return format(new Date(0, 0, day), "EEEE");
+};
+
+export const formatTime = (timestamp: number) => {
+  return format(new Date(timestamp * 1000), "p");
+};
+
 export const getStudios = (studios: Record<string, any>) => {
   return studios.edges.filter((edge: { isMain: boolean }) => edge.isMain === true)
     .map((edge: { node: { name: string } }) => edge.node.name).join(", ");
