@@ -38,7 +38,7 @@ const callAnilistGQL = async (options: AnilistRequest): Promise<{ data: Record<s
 
   const response = await fetchData();
   if (response && cacheKey) {
-    await storage?.setItem(cacheKey, response.data);
+    await storage?.setItem(cacheKey, response);
     await storageExpirations?.setItem(cacheKey, Date.now() + (43200 * 1000));
   }
   return { data: response || {} };
