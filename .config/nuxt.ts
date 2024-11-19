@@ -1,5 +1,4 @@
 import { SITE } from "../shared/utils/info";
-import { Ripple } from "../app/utils/primevue";
 
 export default defineNuxtConfig({
   future: { compatibilityVersion: 4 },
@@ -46,7 +45,6 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxtjs/color-mode",
     "@nuxtjs/sitemap",
-    "@primevue/nuxt-module",
     "@nuxt/eslint",
     "nuxt-aos",
     "@vueuse/nuxt",
@@ -103,32 +101,6 @@ export default defineNuxtConfig({
     "/": { sitemap: { priority: 1 } },
     "/*/**": { sitemap: { priority: 0.8, lastmod: new Date().toISOString() } },
     "/api/_nuxt_icon/**": { cache: { maxAge: 1.577e+7 } }
-  },
-  primevue: {
-    usePrimeVue: true,
-    options: {
-      ripple: true,
-      theme: {
-        preset: {
-          directives: {
-            ripple: Ripple
-          }
-        },
-        options: {
-          cssLayer: {
-            name: "primevue",
-            order: "primevue"
-          }
-        }
-      }
-    },
-    autoImport: false,
-    components: {
-      prefix: "Prime",
-      include: ["Button"]
-    },
-    directives: { include: ["Ripple"] },
-    composables: { exclude: "*" }
   },
   fonts: {
     families: [

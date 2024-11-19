@@ -41,3 +41,25 @@ section ::-webkit-scrollbar-track {
 *::-webkit-scrollbar-thumb:hover {
   background-color: var(--bs-primary);
 }
+
+[ripple] {
+  position: relative;
+  overflow: hidden;
+  &:before {
+      content: '';
+      position:absolute;
+      display: block;
+      background: white;      
+      border-radius: 50%;
+      pointer-events: none; 
+      top: calc(var(--y) * 1px);
+      left: calc(var(--x) * 1px);
+      width:  calc(var(--d) * 1px);
+      height: calc(var(--d) * 1px);
+      opacity: calc(var(--o, 1) * 0.3);                
+      transition: all calc(var(--t, 0) * 350ms) linear;   
+      transform: translate(-50%, -50%) scale(var(--s, 1));
+      transform-origin: center;
+      z-index: 5;
+  }
+}
