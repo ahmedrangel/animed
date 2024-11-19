@@ -18,7 +18,7 @@ watch(schedules.value, () => {
   for (const schedule of schedules.value) {
     if (schedule.airingAt) days.push(new Date(schedule.airingAt * 1000).getDay());
   }
-  daysOfTheWeek.value = [...new Set(days)].toSorted((a, b) => a - b);
+  daysOfTheWeek.value = [...new Set(days)];
 });
 
 const filterScheduleByDay = (day: number) => computed (() => {
