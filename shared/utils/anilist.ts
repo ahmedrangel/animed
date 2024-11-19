@@ -218,8 +218,10 @@ export const getPreviewList = async (type: ListType, options: QueryOptions = {})
   let list = await getList(type, options, cacheKey);
 
   if (!list.media?.length) {
-    await useIdbStorage("cache")?.removeItem(cacheKey);
-    await useIdbStorage("expiration")?.removeItem(cacheKey);
+    await Promise.all([
+      useIdbStorage("cache")?.removeItem(cacheKey),
+      useIdbStorage("expiration")?.removeItem(cacheKey)
+    ]);
     list = await getList(type, options, cacheKey);
   }
 

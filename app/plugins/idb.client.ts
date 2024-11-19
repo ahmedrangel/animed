@@ -77,8 +77,10 @@ export default defineNuxtPlugin((nuxtApp) => {
     const now = new Date().getTime();
     for (const [key, value] of expirationEntries) {
       if (Number(value) < now) {
-        await useIdbStorage("cache")?.removeItem(String(key).replace(cacheExpiration.base + ":", ""));
-        await useIdbStorage("expiration")?.removeItem(String(key).replace(cacheExpiration.base + ":", ""));
+        await Promise.all([
+          useIdbStorage("cache")?.removeItem(String(key).replace(cache.base + ":", "")),
+          useIdbStorage("expiration")?.removeItem(String(key).replace(cache.base + ":", ""))
+        ]);
       }
     }
   });
