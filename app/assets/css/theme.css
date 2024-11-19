@@ -13,6 +13,7 @@
   --bs-link-hover-color-rgb: 255, 207, 63;
   --bs-link-hover-color: #ffcf3f;
   --bs-body-font-family: rubik;
+  --bs-danger-rgb: 255, 103, 118;
 }
 
 *::-webkit-scrollbar {

@@ -44,7 +44,13 @@ const now = new Date().getTime() / 1000;
             <small class="ms-2 mb-0 text-white">{{ getRating(anime?.averageScore || 0) }}</small>
           </div>
         </div>
-        <small><span class="text-primary">EP {{ data.episode }}</span> · {{ now > data.airingAt ? "Aired" : "Airing" }} at {{ formatTime(data.airingAt) }}</small>
+        <small>
+          <span class="text-primary">EP {{ data.episode }}</span>
+          ·
+          <span v-if="now > data.airingAt" class="text-danger">Aired</span>
+          <span v-else>Airing</span>
+          at {{ formatTime(data.airingAt) }}
+        </small>
       </div>
     </div>
   </div>
