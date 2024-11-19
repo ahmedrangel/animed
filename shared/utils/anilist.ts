@@ -2,44 +2,51 @@ import { queryAnime, queryAnimeCharacters, queryAnimeEpisodes, queryAnimeSlug, q
 import { API, Sort, Status } from "~~/enums/anilist";
 
 const callAnilistGQL = async (options: AnilistRequest): Promise<{ data: Record<string, any> }> => {
-  const { method, headers, body, cacheKey, swr } = options;
+  const { method = "POST", headers, body, cacheKey, swr } = options;
   const storage = useIdbStorage("cache");
   const storageExpirations = useIdbStorage("expiration");
+  const expiration = Date.now() + (43200 * 1000);
 
   const fetchData = async () => {
     const response = await $fetch<{ data: Record<string, any> }>(API.GRAPHQL, {
-      method: method || "POST",
+      method,
       headers: headers || { "Content-Type": "application/json", "Accept": "application/json", "Referer": SITE.url },
       body
     }).catch(() => null);
     return response?.data;
   };
 
-  const cached = cacheKey ? await storage?.getItem<Record<string, any>>(cacheKey) : null;
-  const cachedExpiration = cacheKey ? await storageExpirations?.getItem<string>(cacheKey) : null;
-  if (cached && cacheKey) {
-    if (cachedExpiration && Number(cachedExpiration) > Date.now()) {
+  if (cacheKey) {
+    const [cached, cachedExpiration] = await Promise.all([
+      storage?.getItem<Record<string, any>>(cacheKey),
+      storageExpirations?.getItem<string>(cacheKey)
+    ]);
+    if (cached && cachedExpiration && Number(cachedExpiration) > Date.now()) {
       if (swr) {
         void (async () => {
           const response = await fetchData();
           if (response && JSON.stringify(response) !== JSON.stringify(cached)) {
-            await storage?.setItem(cacheKey, response);
-            await storageExpirations?.setItem(cacheKey, Date.now() + (43200 * 1000));
+            await Promise.all([
+              storage?.setItem(cacheKey, response),
+              storageExpirations?.setItem(cacheKey, expiration)
+            ]);
           }
         })();
       }
       return { data: cached };
     }
-    else {
-      await storage?.removeItem(cacheKey);
-      await storageExpirations?.removeItem(cacheKey);
-    }
+    await Promise.all([
+      storage?.removeItem(cacheKey),
+      storageExpirations?.removeItem(cacheKey)
+    ]);
   }
 
   const response = await fetchData();
   if (response && cacheKey) {
-    await storage?.setItem(cacheKey, response);
-    await storageExpirations?.setItem(cacheKey, Date.now() + (43200 * 1000));
+    await Promise.all([
+      storage?.setItem(cacheKey, response),
+      storageExpirations?.setItem(cacheKey, expiration)
+    ]);
   }
   return { data: response || {} };
 };
