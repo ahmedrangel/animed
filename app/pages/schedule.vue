@@ -55,6 +55,22 @@ onMounted(async () => {
     loading.value = false;
   }
 });
+
+useSeoMeta({
+  title: "Airing Schedule | " + SITE.name,
+  // Open Graph
+  ogType: "website",
+  ogTitle: "Airing Schedule | " + SITE.name,
+  ogUrl: SITE.url + "/schedule",
+  ogImage: SITE.url + SITE.og_card,
+  // Twitter
+  twitterCard: "summary_large_image",
+  twitterTitle: "Airing Schedule | " + SITE.name
+});
+
+useHead({
+  link: [{ rel: "canonical", href: SITE.url + "/schedule" }]
+});
 </script>
 
 <template>
