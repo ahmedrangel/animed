@@ -82,7 +82,7 @@ useHead({
         <div v-else class="px-2 py-4 px-xl-5 w-100 accordion border-0" data-aos="fade-in">
           <div v-for="(day, i) of daysOfTheWeek" :key="i" class="py-2 accordion-item border-0">
             <div class="fw-bold accordion-header user-select-none">
-              <span class="accordion-button rounded-2" :class="{ collapsed: i === 0 }" type="button" data-bs-toggle="collapse" :data-bs-target="`#${formatDayName(day).toLowerCase()}`">
+              <span class="accordion-button rounded-2" ripple :class="{ collapsed: i === 0 }" type="button" data-bs-toggle="collapse" :data-bs-target="`#${formatDayName(day).toLowerCase()}`">
                 <h4 class="mb-0">{{ formatDayName(day) }}</h4>
               </span>
             </div>

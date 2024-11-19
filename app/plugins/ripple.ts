@@ -1,6 +1,9 @@
 class Ripple {
   mountRipple () {
-    const selector = document.querySelectorAll<HTMLElement>("[ripple]");
+    const selector = [
+      ...document.querySelectorAll<HTMLElement>("[ripple]"),
+      ...document.querySelectorAll<HTMLElement>("[ripple-dark]")
+    ];
     for (const el of selector) {
       const handler = (e: MouseEvent | TouchEvent) => {
         const event = (e as TouchEvent).touches?.[0] || (e as MouseEvent);
@@ -11,9 +14,7 @@ class Ripple {
         el.style.cssText = `--t: 1; --o: 0; --d: ${d}; --x:${event.clientX - r.left}; --y:${event.clientY - r.top};`;
       };
 
-      el.addEventListener("click", handler);
-      el.addEventListener("contextmenu", handler);
-      el.addEventListener("touchstart", handler);
+      el.addEventListener("mousedown", handler);
     }
   }
 }

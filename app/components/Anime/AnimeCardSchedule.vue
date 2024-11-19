@@ -24,7 +24,7 @@ const now = new Date().getTime() / 1000;
       </span>
     </h6>
     <div class="d-flex bg-secondary rounded-2 overflow-hidden">
-      <NuxtLink :to="`/a/${anime.id}/${fixSlug(anime.title.romaji)}`" class="col-4 text-white position-relative">
+      <NuxtLink :to="`/a/${anime.id}/${fixSlug(anime.title.romaji)}`" ripple class="col-4 text-white position-relative">
         <span class="badge bg-dark align-middle position-absolute end-0 m-1 z-1 pe-none">{{ anime.format.replace(/_/g, " ") }}</span>
         <div class="overflow-hidden">
           <img class="img-fluid scale-on-hover h-100 w-100 object-fit-cover rounded-0" style="height: 140px!important;" :src="anime.coverImage.extraLarge" :alt="anime.title.romaji" :title="anime.title.romaji">
