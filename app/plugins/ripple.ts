@@ -5,6 +5,7 @@ class Ripple {
       ...document.querySelectorAll<HTMLElement>("[ripple-dark]")
     ];
     for (const el of selector) {
+      if (el.dataset.rippleBound) continue;
       const handler = (e: MouseEvent | TouchEvent) => {
         const event = (e as TouchEvent).touches?.[0] || (e as MouseEvent);
         const r = el.getBoundingClientRect();
@@ -12,9 +13,11 @@ class Ripple {
         el.style.cssText = "--s: 0; --o: 1;";
         void el.offsetTop;
         el.style.cssText = `--t: 1; --o: 0; --d: ${d}; --x:${event.clientX - r.left}; --y:${event.clientY - r.top};`;
+        el.addEventListener("transitionend", () => el.removeAttribute("style"), { once: true });
       };
 
       el.addEventListener("mousedown", handler);
+      el.dataset.rippleBound = "true";
     }
   }
 }
