@@ -1,4 +1,4 @@
-import { format, formatDistanceToNow } from "date-fns";
+import { format, formatDistanceToNowStrict } from "date-fns";
 import type { RouteLocationNormalizedGeneric } from "vue-router";
 
 export const getRating = (percent: number) => {
@@ -108,10 +108,10 @@ export const fixStaffDescription = (text: string) => {
 };
 
 export const distanceToNow = (date: number) => {
-  const string = formatDistanceToNow(date * 1000, { addSuffix: true });
+  const string = formatDistanceToNowStrict(date * 1000, { addSuffix: true });
   if (date) return string.replace(/years?|months?|weeks?|days?|hours?|minutes?|seconds?/g, (match) => {
     return match[0] + (match.startsWith("mo") ? "o" : "");
-  }).replace(/about/g, "");
+  });
 };
 
 export const sleep = async (ms: number) => {
