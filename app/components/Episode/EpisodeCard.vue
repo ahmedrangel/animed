@@ -1,7 +1,7 @@
 <script setup lang="ts">
-defineProps({
-  data: { type: Object as PropType<AnimeEpisodes>, required: true }
-});
+defineProps<{
+  data: AnimeEpisodes;
+}>();
 
 useHead({
   link: [{ rel: "preconnect", href: "https://img1.ak.crunchyroll.com" }]

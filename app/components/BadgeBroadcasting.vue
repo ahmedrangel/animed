@@ -1,7 +1,7 @@
 <script setup lang="ts">
-defineProps({
-  airingDate: { type: Number, required: false }
-});
+defineProps<{
+  airingDate?: number;
+}>();
 </script>
 
 <template>

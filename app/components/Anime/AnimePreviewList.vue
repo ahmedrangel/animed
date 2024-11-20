@@ -1,7 +1,7 @@
 <script setup lang="ts">
-defineProps({
-  data: { type: Object as PropType<AnimePreviewList>, required: true }
-});
+defineProps<{
+  data: AnimePreviewList;
+}>();
 </script>
 
 <template>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const props = defineProps({
-  animeId: { type: String, required: true },
-  slug: { type: String, required: true },
-  episodes: { type: Boolean, required: false, default: true }
-});
+const props = defineProps<{
+  animeId: string;
+  slug: string;
+  episodes?: boolean;
+}>();
 
 const tabs = [
   {

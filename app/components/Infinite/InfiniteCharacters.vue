@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const props = defineProps({
-  data: { type: Object as PropType<Anime>, required: true }
-});
+const props = defineProps<{
+  data: Anime;
+}>();
 
 const result = props.data;
 const nexted = ref(false) as Ref<boolean>;

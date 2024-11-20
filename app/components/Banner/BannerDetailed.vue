@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const props = defineProps({
-  anime: { type: Array as PropType<Anime[]>, required: true }
-});
+const props = defineProps<{
+  anime: Anime[];
+}>();
 
 const route = useRoute();
 const videoModal = useModalController("video-modal");

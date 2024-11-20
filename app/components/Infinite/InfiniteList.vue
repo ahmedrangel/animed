@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const props = defineProps({
-  type: { type: String as PropType<ListType>, required: false, default: null },
-  category: { type: String, required: false, default: null },
-  query: { type: String, required: false, default: null }
-});
+const props = defineProps<{
+  category?: string;
+  type: ListType;
+  query?: string;
+}>();
 
 const category = props.category;
 const type = props.type;

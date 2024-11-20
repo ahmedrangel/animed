@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const props = defineProps({
-  staffId: { type: Number, required: true }
-});
+const props = defineProps<{
+  staffId: number;
+}>();
 
 const id = props.staffId;
 const nexted = ref(false);

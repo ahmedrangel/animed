@@ -1,7 +1,7 @@
-<script setup>
-defineProps({
-  videoId: { type: String, required: true }
-});
+<script setup lang="ts">
+defineProps<{
+  videoId: string;
+}>();
 </script>
 
 <template>
