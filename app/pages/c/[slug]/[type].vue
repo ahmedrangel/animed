@@ -36,8 +36,8 @@ useHead({
 
 <template>
   <main>
-    <section v-if="exists" :id="pageType?.name">
-      <InfiniteList :type="pageType?.name" :category="category" />
+    <section v-if="exists && pageType?.name" :id="pageType.name">
+      <InfiniteList :type="pageType.name" :category="category" />
     </section>
   </main>
 </template>

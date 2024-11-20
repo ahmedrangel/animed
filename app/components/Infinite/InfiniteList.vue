@@ -1,12 +1,12 @@
 <script setup lang="ts">
 const props = defineProps<{
   category?: string;
-  type: ListType;
+  type?: ListType;
   query?: string;
 }>();
 
 const category = props.category;
-const type = props.type;
+const type = props.type || "search";
 const query = props.query;
 const typeTitle = availablePageTypes.find(t => t.name === type)?.title || null;
 const media = ref<AnimeList["media"]>([]);
