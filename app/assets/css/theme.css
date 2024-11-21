@@ -1,17 +1,17 @@
 :root, [data-bs-theme="dark"] {
-  --bs-primary: #ffc107;
+  --bs-primary: #fbbf24;
   --bs-primary-rgb: 255, 193, 7;
   --bs-dark: #000;
   --bs-dark-rgb: 0, 0, 0;
-  --bs-body-bg: #0c0c0c;
-  --bs-body-bg-rgb: 12, 12, 12;
-  --bs-dark-bg-rbg: 8, 8, 8;
-  --bs-secondary: #2d2d2d;
-  --bs-secondary-rgb: 45, 45, 45;
+  --bs-body-bg: #0d0d0d;
+  --bs-body-bg-rgb: 13, 13, 13;
+  --bs-dark-bg-rgb: 8, 8, 8;
+  --bs-secondary: #262626;
+  --bs-secondary-rgb: 38, 38, 38;
   --bs-border-color: rgb(48 51 55);
   --bs-link-color-rgb: var(--bs-primary-rgb);
-  --bs-link-hover-color-rgb: 255, 207, 63;
-  --bs-link-hover-color: #ffcf3f;
+  --bs-link-hover-color-rgb: 252, 211, 77;
+  --bs-link-hover-color: #fcd34d;
   --bs-body-font-family: rubik;
   --bs-danger-rgb: 255, 103, 118;
 }
