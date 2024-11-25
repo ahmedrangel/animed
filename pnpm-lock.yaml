@@ -21,8 +21,8 @@ importers:
         specifier: ^1.2.5
         version: 1.2.5(magicast@0.3.5)(rollup@4.27.3)(vite@5.4.11(@types/node@22.9.1)(terser@5.36.0))
       nuxt-ripple:
-        specifier: ^0.0.2
-        version: 0.0.2(magicast@0.3.5)(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3))
+        specifier: ^0.0.3
+        version: 0.0.3(magicast@0.3.5)(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3))
     devDependencies:
       '@iconify-json/ci':
         specifier: ^1.2.1
@@ -3706,8 +3706,8 @@ packages:
   nuxt-aos@1.2.5:
     resolution: {integrity: sha512-tNEXMOKijCg+SygLvjp2VbEy7yQcC6ertzI23bCa6DPlu134bfzSYUGOJRSFSKtYjnrqIW7MzLpqPTfTwd8A3Q==}
 
-  nuxt-ripple@0.0.2:
-    resolution: {integrity: sha512-zqi6mBFcadEfIFt0F/AUix7lIzV2eCRuR6lTHGYMlNPgEupJqZgxp1xN6kCkQp7b7gnY46FOCZhb/3dG7wqaOA==}
+  nuxt-ripple@0.0.3:
+    resolution: {integrity: sha512-m7S9DLzpgwwX+chrpSNCbsWhjjN+/u5xspDBV3F2KkJJzWVT1V1kvKDv2MK1tBJ20iVF2rPaGvOQoOT4gDm0Og==}
 
   nuxt-site-config-kit@2.2.21:
     resolution: {integrity: sha512-xO41Zf6bXlA9Zvj+fX7ftD+ITee4LfrkzHj85Gt4FpgwonFxzGO5pMBtAqIxXKJwuyT1z2wVAixHI+ov66wV0w==}
@@ -9429,7 +9429,7 @@ snapshots:
       - supports-color
       - vite
 
-  nuxt-ripple@0.0.2(magicast@0.3.5)(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3)):
+  nuxt-ripple@0.0.3(magicast@0.3.5)(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3)):
     dependencies:
       '@nuxt/kit': 3.14.1592(magicast@0.3.5)(rollup@4.27.3)
       '@vueuse/core': 11.3.0(vue@3.5.13(typescript@5.6.3))
