@@ -21,8 +21,8 @@ importers:
         specifier: ^1.2.5
         version: 1.2.5(magicast@0.3.5)(rollup@4.27.3)(vite@5.4.11(@types/node@22.9.1)(terser@5.36.0))
       nuxt-ripple:
-        specifier: ^0.0.1
-        version: 0.0.1(magicast@0.3.5)(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3))
+        specifier: ^0.0.2
+        version: 0.0.2(magicast@0.3.5)(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3))
     devDependencies:
       '@iconify-json/ci':
         specifier: ^1.2.1
@@ -34,8 +34,8 @@ importers:
         specifier: ^1.2.1
         version: 1.2.1
       '@iconify-json/simple-icons':
-        specifier: ^1.2.12
-        version: 1.2.12
+        specifier: ^1.2.13
+        version: 1.2.13
       '@nuxt/eslint':
         specifier: ^0.7.1
         version: 0.7.1(@vue/compiler-sfc@3.5.13)(eslint@9.14.0(jiti@2.4.0))(magicast@0.3.5)(rollup@4.27.3)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(terser@5.36.0))
@@ -61,8 +61,8 @@ importers:
         specifier: ^5.2.10
         version: 5.2.10
       '@vueuse/nuxt':
-        specifier: ^11.2.0
-        version: 11.2.0(magicast@0.3.5)(nuxt@3.14.1592(@parcel/watcher@2.5.0)(@types/node@22.9.1)(eslint@9.14.0(jiti@2.4.0))(idb-keyval@6.2.1)(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.27.3)(stylelint@16.10.0(typescript@5.6.3))(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(terser@5.36.0)))(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3))
+        specifier: ^11.3.0
+        version: 11.3.0(magicast@0.3.5)(nuxt@3.14.1592(@parcel/watcher@2.5.0)(@types/node@22.9.1)(eslint@9.14.0(jiti@2.4.0))(idb-keyval@6.2.1)(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.27.3)(stylelint@16.10.0(typescript@5.6.3))(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(terser@5.36.0)))(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3))
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -79,8 +79,8 @@ importers:
         specifier: ^36.0.1
         version: 36.0.1(stylelint@16.10.0(typescript@5.6.3))
       wrangler:
-        specifier: ^3.88.0
-        version: 3.88.0(@cloudflare/workers-types@4.20241112.0)
+        specifier: ^3.90.0
+        version: 3.90.0(@cloudflare/workers-types@4.20241112.0)
 
 packages:
 
@@ -286,8 +286,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@cloudflare/workers-shared@0.7.1':
-    resolution: {integrity: sha512-46cP5FCrl3TrvHeoHLb5SRuiDMKH5kc9Yvo36SAfzt8dqJI/qJRoY1GP3ioHn/gP7v2QIoUOTAzIl7Ml7MnfrA==}
+  '@cloudflare/workers-shared@0.8.0':
+    resolution: {integrity: sha512-1OvFkNtslaMZAJsaocTmbACApgmWv55uLpNj50Pn2MGcxdAjpqykXJFQw5tKc+lGV9TDZh9oO3Rsk17IEQDzIg==}
     engines: {node: '>=16.7.0'}
 
   '@cloudflare/workers-types@4.20241112.0':
@@ -990,8 +990,8 @@ packages:
   '@iconify-json/ri@1.2.3':
     resolution: {integrity: sha512-UVKofd5xkSevGd5K01pvO4NWsu+2C9spu+GxnMZUYymUiaWmpCAxtd22MFSpm6MGf0MP4GCwhDCo1Q8L8oZ9wg==}
 
-  '@iconify-json/simple-icons@1.2.12':
-    resolution: {integrity: sha512-lRNORrIdeLStShxAjN6FgXE1iMkaAgiAHZdP0P0GZecX91FVYW58uZnRSlXLlSx5cxMoELulkAAixybPA2g52g==}
+  '@iconify-json/simple-icons@1.2.13':
+    resolution: {integrity: sha512-rRQjMoIt/kPfaD+fnBC9YZQpso3hkn8xPeadl+YWhscJ5SVUCdB9oTeR9VIpt+/5Yi8vEkh2UOWFPq4lz3ee2A==}
 
   '@iconify-json/tabler@1.2.8':
     resolution: {integrity: sha512-xvi/UKhLiFRnutSo6xuHxvOGmskYEoC2St4WDVsU9WAW1DRG1EkBUk/Zy1TpeSsBKMQfyqtdjjx9Cf4ZezOK2w==}
@@ -1874,8 +1874,8 @@ packages:
   '@vueuse/metadata@11.3.0':
     resolution: {integrity: sha512-pwDnDspTqtTo2HwfLw4Rp6yywuuBdYnPYDq+mO38ZYKGebCUQC/nVj/PXSiK9HX5otxLz8Fn7ECPbjiRz2CC3g==}
 
-  '@vueuse/nuxt@11.2.0':
-    resolution: {integrity: sha512-4Mp1SXpXy8KRKY7lJqN4AuiMkun9IUVGt02t2SBk1hf/RVe4U6AIR2ukmHws0uYvjIGIhlGNv4o6ayTK/7ELWQ==}
+  '@vueuse/nuxt@11.3.0':
+    resolution: {integrity: sha512-FxtRTgFmsoASamR3lOftv/r11o1BojF9zir8obbTnKamVZdlQ5rgJ0hHgVbrgA6dlMuEx/PzwqAmiKNFdU4oCQ==}
     peerDependencies:
       nuxt: ^3.0.0
 
@@ -3548,8 +3548,8 @@ packages:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
 
-  miniflare@3.20241106.0:
-    resolution: {integrity: sha512-PjOoJKjUUofCueQskfhXlGvvHxZj36UAJAp1DnquMK88MFF50zCULblh0KXMSNM+bXeQYA94Gj06a7kfmBGxPw==}
+  miniflare@3.20241106.1:
+    resolution: {integrity: sha512-dM3RBlJE8rUFxnqlPCaFCq0E7qQqEQvKbYX7W/APGCK+rLcyLmEBzC4GQR/niXdNM/oV6gdg9AA50ghnn2ALuw==}
     engines: {node: '>=16.13'}
     hasBin: true
 
@@ -3706,8 +3706,8 @@ packages:
   nuxt-aos@1.2.5:
     resolution: {integrity: sha512-tNEXMOKijCg+SygLvjp2VbEy7yQcC6ertzI23bCa6DPlu134bfzSYUGOJRSFSKtYjnrqIW7MzLpqPTfTwd8A3Q==}
 
-  nuxt-ripple@0.0.1:
-    resolution: {integrity: sha512-1jqXzTr1hdyEMsU3JLmjz+t4Exu0eS5ojay3WkAzMpFAixuiaBvYXuFRDHPvwMQqGIPU43GTWYMsHEP91jdaMA==}
+  nuxt-ripple@0.0.2:
+    resolution: {integrity: sha512-zqi6mBFcadEfIFt0F/AUix7lIzV2eCRuR6lTHGYMlNPgEupJqZgxp1xN6kCkQp7b7gnY46FOCZhb/3dG7wqaOA==}
 
   nuxt-site-config-kit@2.2.21:
     resolution: {integrity: sha512-xO41Zf6bXlA9Zvj+fX7ftD+ITee4LfrkzHj85Gt4FpgwonFxzGO5pMBtAqIxXKJwuyT1z2wVAixHI+ov66wV0w==}
@@ -5069,8 +5069,8 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  wrangler@3.88.0:
-    resolution: {integrity: sha512-1yM5cgerjKkIBL9GOzIWhl8MsyEGNTsN4emJCiLLHJFz52TSNjJJlMbd1x0hX351mfy2MsGgUqKcx8iRL51PcQ==}
+  wrangler@3.90.0:
+    resolution: {integrity: sha512-E/6E9ORAl987+3kP8wDiE3L1lj9r4vQ32/dl5toIxIkSMssmPRQVdxqwgMxbxJrytbFNo8Eo6swgjd4y4nUaLg==}
     engines: {node: '>=16.17.0'}
     hasBin: true
     peerDependencies:
@@ -5414,7 +5414,7 @@ snapshots:
   '@cloudflare/workerd-windows-64@1.20241106.1':
     optional: true
 
-  '@cloudflare/workers-shared@0.7.1':
+  '@cloudflare/workers-shared@0.8.0':
     dependencies:
       mime: 3.0.0
       zod: 3.23.8
@@ -5845,7 +5845,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/simple-icons@1.2.12':
+  '@iconify-json/simple-icons@1.2.13':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -6004,7 +6004,7 @@ snapshots:
       '@unocss/reset': 0.62.4
       '@vueuse/core': 11.2.0(vue@3.5.13(typescript@5.6.3))
       '@vueuse/integrations': 11.2.0(change-case@5.4.4)(focus-trap@7.6.2)(idb-keyval@6.2.1)(vue@3.5.13(typescript@5.6.3))
-      '@vueuse/nuxt': 11.2.0(magicast@0.3.5)(nuxt@3.14.1592(@parcel/watcher@2.5.0)(@types/node@22.9.1)(eslint@9.14.0(jiti@2.4.0))(idb-keyval@6.2.1)(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.27.3)(stylelint@16.10.0(typescript@5.6.3))(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(terser@5.36.0)))(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3))
+      '@vueuse/nuxt': 11.3.0(magicast@0.3.5)(nuxt@3.14.1592(@parcel/watcher@2.5.0)(@types/node@22.9.1)(eslint@9.14.0(jiti@2.4.0))(idb-keyval@6.2.1)(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.27.3)(stylelint@16.10.0(typescript@5.6.3))(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(terser@5.36.0)))(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3))
       defu: 6.1.4
       focus-trap: 7.6.2
       splitpanes: 3.1.5
@@ -7343,11 +7343,11 @@ snapshots:
 
   '@vueuse/metadata@11.3.0': {}
 
-  '@vueuse/nuxt@11.2.0(magicast@0.3.5)(nuxt@3.14.1592(@parcel/watcher@2.5.0)(@types/node@22.9.1)(eslint@9.14.0(jiti@2.4.0))(idb-keyval@6.2.1)(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.27.3)(stylelint@16.10.0(typescript@5.6.3))(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(terser@5.36.0)))(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3))':
+  '@vueuse/nuxt@11.3.0(magicast@0.3.5)(nuxt@3.14.1592(@parcel/watcher@2.5.0)(@types/node@22.9.1)(eslint@9.14.0(jiti@2.4.0))(idb-keyval@6.2.1)(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.27.3)(stylelint@16.10.0(typescript@5.6.3))(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(terser@5.36.0)))(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3))':
     dependencies:
       '@nuxt/kit': 3.14.1592(magicast@0.3.5)(rollup@4.27.3)
-      '@vueuse/core': 11.2.0(vue@3.5.13(typescript@5.6.3))
-      '@vueuse/metadata': 11.2.0
+      '@vueuse/core': 11.3.0(vue@3.5.13(typescript@5.6.3))
+      '@vueuse/metadata': 11.3.0
       local-pkg: 0.5.1
       nuxt: 3.14.1592(@parcel/watcher@2.5.0)(@types/node@22.9.1)(eslint@9.14.0(jiti@2.4.0))(idb-keyval@6.2.1)(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.27.3)(stylelint@16.10.0(typescript@5.6.3))(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(terser@5.36.0))
       vue-demi: 0.14.10(vue@3.5.13(typescript@5.6.3))
@@ -9195,7 +9195,7 @@ snapshots:
 
   min-indent@1.0.1: {}
 
-  miniflare@3.20241106.0:
+  miniflare@3.20241106.1:
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       acorn: 8.14.0
@@ -9429,7 +9429,7 @@ snapshots:
       - supports-color
       - vite
 
-  nuxt-ripple@0.0.1(magicast@0.3.5)(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3)):
+  nuxt-ripple@0.0.2(magicast@0.3.5)(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3)):
     dependencies:
       '@nuxt/kit': 3.14.1592(magicast@0.3.5)(rollup@4.27.3)
       '@vueuse/core': 11.3.0(vue@3.5.13(typescript@5.6.3))
@@ -11038,10 +11038,10 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20241106.1
       '@cloudflare/workerd-windows-64': 1.20241106.1
 
-  wrangler@3.88.0(@cloudflare/workers-types@4.20241112.0):
+  wrangler@3.90.0(@cloudflare/workers-types@4.20241112.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.3.4
-      '@cloudflare/workers-shared': 0.7.1
+      '@cloudflare/workers-shared': 0.8.0
       '@esbuild-plugins/node-globals-polyfill': 0.2.3(esbuild@0.17.19)
       '@esbuild-plugins/node-modules-polyfill': 0.2.2(esbuild@0.17.19)
       blake3-wasm: 2.1.5
@@ -11049,7 +11049,7 @@ snapshots:
       date-fns: 4.1.0
       esbuild: 0.17.19
       itty-time: 1.0.6
-      miniflare: 3.20241106.0
+      miniflare: 3.20241106.1
       nanoid: 3.3.7
       path-to-regexp: 6.3.0
       resolve: 1.22.8
