@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
   <NuxtLink :to="`/a/${data.id}/${fixSlug(data.title.romaji)}`" class="text-white">
-    <div ripple class="position-relative" data-aos="fade-in">
+    <div v-ripple class="position-relative" data-aos="fade-in">
       <BadgeBroadcasting v-if="data.status === 'RELEASING'" :airing-date="data?.nextAiringEpisode?.airingAt" />
       <div class="image overflow-hidden mb-2 w-100 position-relative">
         <img class="img-fluid scale-on-hover h-100 w-100 position-absolute object-fit-cover" :src="data.coverImage.extraLarge" width="280" :alt="data.title.romaji" :title="data.title.romaji">

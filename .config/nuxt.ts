@@ -49,7 +49,8 @@ export default defineNuxtConfig({
     "nuxt-aos",
     "@vueuse/nuxt",
     "@nuxthub/core",
-    "@nuxt/fonts"
+    "@nuxt/fonts",
+    "nuxt-ripple"
   ],
   icon: {
     mode: "svg",
