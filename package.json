@@ -41,13 +41,13 @@
     "gql-payload": "^2.1.0",
     "nuxt": "^3.14.1592",
     "stylelint-config-standard": "^36.0.1",
-    "wrangler": "^3.90.0"
+    "wrangler": "^3.91.0"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
     "idb-keyval": "^6.2.1",
     "nuxt-aos": "^1.2.5",
-    "nuxt-ripple": "^0.0.6"
+    "nuxt-ripple": "^0.0.7"
   },
   "resolutions": {
     "vue-router": "4.4.5"
