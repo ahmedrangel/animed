@@ -267,7 +267,7 @@ const fixTheme = (text: string) => {
                     <div v-for="(c, i) of anime?.characters?.edges" :key="i" class="col-12 col-lg-6 col-xl-6 col-xxl-4">
                       <div class="d-flex align-items-start anime-row row-cols-auto g-2 bg-secondary rounded text-nowrap overflow-auto" data-aos="fade-in">
                         <div class="col ps-0 mt-0" style="max-width: 100px;">
-                          <img :src="c.node.image.large" class="img-fluid rounded-start rounded-end-0" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
+                          <img :src="c.node.image.medium" class="img-fluid rounded-start rounded-end-0" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
                         </div>
                         <div class="col text-start me-auto mt-0 py-1">
                           <small class="d-block text-primary">{{ c.node?.name.userPreferred }}</small>
@@ -280,7 +280,7 @@ const fixTheme = (text: string) => {
                           <small class="text-capitalize text-muted">{{ c.voiceActors[0]?.languageV2 }}</small>
                         </div>
                         <div class="col pe-0 mt-0">
-                          <img :src="c.voiceActors[0]?.image.large" class="img-fluid rounded-start-0 rounded-end" style="max-height: 90px;" :alt="c.voiceActors[0]?.name.userPreferred" :title="c.voiceActors[0]?.name.userPreferred">
+                          <img :src="c.voiceActors[0]?.image.medium" class="img-fluid rounded-start-0 rounded-end" style="max-height: 90px;" :alt="c.voiceActors[0]?.name.userPreferred" :title="c.voiceActors[0]?.name.userPreferred">
                         </div>
                       </div>
                     </div>

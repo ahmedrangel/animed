@@ -25,7 +25,7 @@ export const querySchedules = (options?: QueryOptions) => {
             "id",
             "idMal",
             { title: ["romaji", "english", "native"] },
-            { coverImage: ["extraLarge"] },
+            { coverImage: ["large"] },
             "bannerImage",
             { startDate: ["year", "month", "day"] },
             { endDate: ["year", "month", "day"] },

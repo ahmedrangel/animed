@@ -53,7 +53,7 @@ onBeforeUnmount(() => {
           <div class="col-12 col-lg-6 col-xl-6 col-xxl-4" data-aos="fade-in">
             <div class="d-flex align-items-start anime-row row-cols-auto g-2 bg-secondary rounded text-nowrap overflow-auto">
               <div class="col ps-0 mt-0" style="max-width: 100px;">
-                <img :src="c.node.image.large" class="img-fluid rounded-start rounded-end-0" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
+                <img :src="c.node.image?.large || c.node.image?.medium" class="img-fluid rounded-start rounded-end-0" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
               </div>
               <div class="col text-start me-auto mt-0 py-1">
                 <small class="d-block text-primary">{{ c.node?.name.userPreferred }}</small>
@@ -66,7 +66,7 @@ onBeforeUnmount(() => {
                 <small class="text-capitalize text-muted">{{ va.languageV2 }}</small>
               </div>
               <div class="col pe-0 mt-0">
-                <img :src="va.image.large" class="img-fluid rounded-start-0 rounded-end" style="max-height: 90px;" :alt="va.name.userPreferred" :title="va.name.userPreferred">
+                <img :src="va.image?.large || va.image.medium" class="img-fluid rounded-start-0 rounded-end" style="max-height: 90px;" :alt="va.name.userPreferred" :title="va.name.userPreferred">
               </div>
             </div>
           </div>

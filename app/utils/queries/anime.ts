@@ -50,7 +50,7 @@ export const queryAnime = (options?: QueryOptions) => {
             { node: [
               "id",
               { name: ["userPreferred"] },
-              { image: ["large"] }
+              { image: ["medium"] }
             ] },
             { operation: "voiceActors",
               variables: {
@@ -60,7 +60,7 @@ export const queryAnime = (options?: QueryOptions) => {
               fields: [
                 "id",
                 { name: ["userPreferred"] },
-                { image: ["large"] },
+                { image: ["medium"] },
                 "languageV2"
               ]
             }
@@ -150,7 +150,7 @@ export const queryAnimeCharacters = (options?: QueryOptions) => {
             { node: [
               "id",
               { name: ["userPreferred"] },
-              { image: ["large"] }
+              { image: ["medium"] }
             ] },
             { operation: "voiceActors",
               variables: {
@@ -160,7 +160,7 @@ export const queryAnimeCharacters = (options?: QueryOptions) => {
               fields: [
                 "id",
                 { name: ["userPreferred"] },
-                { image: ["large"] },
+                { image: ["medium"] },
                 "languageV2"
               ]
             }

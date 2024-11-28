@@ -9,7 +9,7 @@ defineProps<{
     <div class="position-relative" data-aos="fade-in">
       <BadgeBroadcasting v-if="data.status === 'RELEASING'" :airing-date="data?.nextAiringEpisode?.airingAt" />
       <div v-ripple class="image overflow-hidden mb-2 w-100 position-relative">
-        <img class="img-fluid scale-on-hover h-100 w-100 position-absolute object-fit-cover" :src="data.coverImage.extraLarge" width="280" :alt="data.title.romaji" :title="data.title.romaji">
+        <img class="img-fluid scale-on-hover h-100 w-100 position-absolute object-fit-cover" :src="data.coverImage?.extraLarge || data.coverImage?.large" width="280" :alt="data.title.romaji" :title="data.title.romaji">
       </div>
     </div>
     <h6 class="mb-1 fw-normal">{{ data.title?.english ? data.title?.english : data.title?.romaji }} <span class="badge bg-secondary align-middle">{{ data.format.replace(/_/g, " ") }}</span></h6>
