@@ -34,6 +34,7 @@ export const querySchedules = (options?: QueryOptions) => {
             "seasonYear",
             "format",
             "status",
+            "isAdult",
             "episodes",
             "duration",
             "genres",

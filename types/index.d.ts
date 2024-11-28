@@ -123,6 +123,7 @@ declare global {
     episodes: number;
     duration: number;
     genres: string[];
+    isAdult: boolean;
     source: "ORIGINAL" | "MANGA" | "LIGHT_NOVEL" | "VISUAL_NOVEL" | "VIDEO_GAME" | "NOVEL" | "DOUJINSHI" | "ANIME" | "WEB_NOVEL" | "LIVE_ACTION" | "GAME" | "COMIC" | "MULTIMEDIA_PROJECT" | "PICTURE_BOOK" | "OTHER";
     averageScore: number | null;
     countryOfOrigin: string;

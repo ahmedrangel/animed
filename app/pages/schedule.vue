@@ -24,7 +24,7 @@ watch(schedules.value, () => {
 const filterScheduleByDay = (day: number) => computed (() => {
   return schedules.value
     .toSorted((a, b) => a.airingAt - b.airingAt)
-    .filter(schedule => new Date(schedule.airingAt * 1000).getDay() === day);
+    .filter(schedule => new Date(schedule.airingAt * 1000).getDay() === day && !schedule.media.isAdult);
 }).value;
 
 const nearestAiringSchedule = computed(() => {
