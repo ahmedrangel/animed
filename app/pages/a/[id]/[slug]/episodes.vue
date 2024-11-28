@@ -103,7 +103,7 @@ useHead({
         <div v-else class="col px-0 pb-5">
           <BannerBasic v-if="statedInfo || anime" :anime="statedInfo || anime" :aos="!fromSameRoute" />
           <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
-            <AnimeMenu v-if="animeEpisodes" :anime-id="String(id)" :slug="String(slug)" />
+            <AnimeMenu v-if="animeEpisodes" :anime-id="String(id)" :slug="String(slug)" :episodes="Boolean(animeEpisodes?.length)" />
             <div v-if="statedInfo || anime" :anime="statedInfo || anime" class="pt-4 pb-3 px-0">
               <h4 class="mb-1 text-primary">{{ animeTitles.romaji }} <span class="badge bg-secondary align-middle">{{ animeFormat.replace(/_/g, " ") }}</span></h4>
               <h6 v-if="animeTitles.english" class="mb-1">{{ animeTitles.english }}</h6>
