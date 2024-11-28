@@ -1,19 +1,24 @@
 <script setup lang="ts">
-const query = ref() as Ref<string>;
-const result = ref() as Ref<AnimeList | null>;
-const loading = ref(false) as Ref<boolean>;
-const input = ref() as Ref<HTMLElement>;
+const query = ref<string>("");
+const search = ref(false);
+const loading = ref(false);
+const input = useTemplateRef("input");
 
-watch(query, () => loading.value = true);
+watch(query, () => {
+  if (query.value.length > 0) loading.value = true;
+  else {
+    loading.value = false;
+    search.value = false;
+  }
+});
 
-watchDebounced(query, async () => {
-  if (query.value.length > 0) result.value = await getSearch({ search: query.value });
-  else result.value = null;
+watchDebounced(query, () => {
+  if (query.value.length > 0) search.value = true;
   loading.value = false;
 }, { debounce: 1000 });
 
 onMounted(() => {
-  input.value.focus();
+  input.value?.focus();
 });
 
 useSeoMeta({
@@ -40,11 +45,13 @@ useHead({
         <h4><Icon name="ph:magnifying-glass" class="mx-4" /></h4>
         <input ref="input" v-model="query" type="text" class="w-100 py-3 border-0 bg-transparent" placeholder="Type to search...">
       </div>
-      <div v-if="!result && !loading">
-        <h2 class="text-muted mb-0 w-100 text-center mt-5">Type something to search...</h2>
-      </div>
-      <SpinnerLoading v-if="loading" class="mt-5" />
-      <InfiniteList v-if="result && !loading" :data="result" :query="query" />
+      <TransitionGroup name="fade">
+        <div v-if="!search && !loading">
+          <h2 class="text-muted mb-0 w-100 text-center mt-5">Type something to search...</h2>
+        </div>
+        <SpinnerLoading v-if="loading" class="mt-5" />
+        <InfiniteList v-if="search && !loading" :query="query" />
+      </TransitionGroup>
     </section>
   </main>
 </template>
