@@ -12,11 +12,5 @@ export default defineCachedEventHandler(async (event) => {
   varies: ["user-agent"],
   group: cacheGroup,
   name: cacheName,
-  getKey: event => getRouterParams(event).id,
-  shouldInvalidateCache: async (event) => {
-    const cacheKey = getRouterParams(event).id;
-    const body: { id: number, slug: string } = await getCachedItemBody(`${cacheGroup}:${cacheName}:${cacheKey}.json`);
-    const invalidate = body && !body?.id;
-    return shouldInvalidateCacheByConditionHandler(event, invalidate);
-  }
+  getKey: event => getRouterParams(event).id
 });
