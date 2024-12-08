@@ -8,7 +8,7 @@ export default defineCachedEventHandler(async (event) => {
   return { id, slug };
 }, {
   maxAge: 604800, // 1w cache
-  swr: true,
+  swr: false,
   group: cacheGroup,
   name: cacheName,
   getKey: event => getRouterParams(event).id,

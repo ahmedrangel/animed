@@ -17,7 +17,7 @@ export default defineCachedEventHandler(async (event) => {
 }, {
   maxAge: 43200, // 12 cache
   varies: ["user-agent"],
-  swr: true,
+  swr: false,
   group: cacheGroup,
   name: cacheName,
   getKey: event => getRouterParams(event).id,
