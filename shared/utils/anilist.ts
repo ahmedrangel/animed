@@ -27,8 +27,8 @@ const callAnilistGQL = async (options: AnilistRequest): Promise<{ data: Record<s
           const response = await fetchData();
           if (response && JSON.stringify(response) !== JSON.stringify(cached)) {
             await Promise.all([
-              storage?.setItem(cacheKey, response),
-              storageExpirations?.setItem(cacheKey, expiration)
+              storage?.setItemRaw(cacheKey, response),
+              storageExpirations?.setItemRaw(cacheKey, expiration)
             ]);
           }
         })();
@@ -44,8 +44,8 @@ const callAnilistGQL = async (options: AnilistRequest): Promise<{ data: Record<s
   const response = await fetchData();
   if (response && cacheKey) {
     await Promise.all([
-      storage?.setItem(cacheKey, response),
-      storageExpirations?.setItem(cacheKey, expiration)
+      storage?.setItemRaw(cacheKey, response),
+      storageExpirations?.setItemRaw(cacheKey, expiration)
     ]);
   }
   return { data: response || {} };
