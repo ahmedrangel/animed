@@ -4,6 +4,8 @@ export default defineNuxtConfig({
   future: { compatibilityVersion: 4 },
   compatibilityDate: "2024-10-11",
   app: {
+    pageTransition: { name: "fadepage", mode: "out-in" },
+    layoutTransition: { name: "fadepage", mode: "out-in" },
     head: {
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
@@ -110,8 +112,7 @@ export default defineNuxtConfig({
     }
   },
   experimental: {
-    typedPages: true,
-    viewTransition: true
+    typedPages: true
   },
   hub: {
     kv: true,
