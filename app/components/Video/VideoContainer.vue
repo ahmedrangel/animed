@@ -12,7 +12,7 @@ defineProps<{
       </div>
     </template>
     <template #placeholder="{ placeholder }">
-      <img :src="placeholder" class="h-100 w-100" style="object-fit: contain; scale: 134%">
+      <img :src="placeholder" class="h-100 w-100" style="object-fit: cover;">
     </template>
     <template #loading>
       <div class="spinner-border position-absolute top-50 start-50 translate-middle" role="status">
