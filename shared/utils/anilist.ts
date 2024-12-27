@@ -1,14 +1,14 @@
 import { queryAnime, queryAnimeCharacters, queryAnimeEpisodes, queryAnimeSlug, queryFilter, querySchedules, queryStaff, queryStaffCharacters, queryStaffSlug } from "~/utils/queries";
 import { API, Sort, Status } from "~~/enums/anilist";
 
-const callAnilistGQL = async (options: AnilistRequest): Promise<{ data: Record<string, any> }> => {
+const callAnilistGQL = async <T>(options: AnilistRequest): Promise<{ data: T }> => {
   const { method = "POST", headers, body, cacheKey, swr } = options;
   const storage = useIdbStorage("cache");
   const storageExpirations = useIdbStorage("expiration");
   const expiration = Date.now() + (43200 * 1000);
 
   const fetchData = async () => {
-    const response = await $fetch<{ data: Record<string, any> }>(API.GRAPHQL, {
+    const response = await $fetch<{ data: T }>(API.GRAPHQL, {
       method,
       headers: headers || { "Content-Type": "application/json", "Accept": "application/json", "Referer": SITE.url },
       body
@@ -17,9 +17,9 @@ const callAnilistGQL = async (options: AnilistRequest): Promise<{ data: Record<s
   };
 
   if (cacheKey) {
-    const [cached, cachedExpiration] = await Promise.all([
-      storage?.getItem<Record<string, any>>(cacheKey),
-      storageExpirations?.getItem<string>(cacheKey)
+    const [cached, cachedExpiration] = await Promise.all<[T, string]>([
+      storage?.getItem(cacheKey),
+      storageExpirations?.getItem(cacheKey)
     ]);
     if (cached && cachedExpiration && Number(cachedExpiration) > Date.now()) {
       if (swr) {
@@ -48,19 +48,18 @@ const callAnilistGQL = async (options: AnilistRequest): Promise<{ data: Record<s
       storageExpirations?.setItemRaw(cacheKey, expiration)
     ]);
   }
-  return { data: response || {} };
+  return { data: response || {} as T };
 };
 
 export const getSearch = async (options?: QueryOptions): Promise<AnimeList> => {
-  const { data } = await callAnilistGQL({
+  const { data } = await callAnilistGQL<{ Page: AnimeList }>({
     body: queryFilter({ ...options, sort: Sort.SEARCH_MATCH })
   });
-  data.Page.type = "search";
   return data.Page;
 };
 
 export const getNewlyReleased = async (options?: QueryOptions, cacheKey?: string): Promise<AnimeList> => {
-  const { data } = await callAnilistGQL({
+  const { data } = await callAnilistGQL<{ Page: AnimeList }>({
     body: queryFilter({ ...options, sort: Sort.START_DATE_DESC, status_in: [Status.AIRING, Status.FINISHED] }),
     cacheKey
   });
@@ -68,7 +67,7 @@ export const getNewlyReleased = async (options?: QueryOptions, cacheKey?: string
 };
 
 export const getPopular = async (options?: QueryOptions, cacheKey?: string): Promise< AnimeList> => {
-  const { data } = await callAnilistGQL({
+  const { data } = await callAnilistGQL<{ Page: AnimeList }>({
     body: queryFilter({ ...options, sort: [Sort.TRENDING_DESC, Sort.POPULARITY_DESC] }),
     cacheKey
   });
@@ -76,7 +75,7 @@ export const getPopular = async (options?: QueryOptions, cacheKey?: string): Pro
 };
 
 export const getTopRated = async (options?: QueryOptions, cacheKey?: string): Promise<AnimeList> => {
-  const { data } = await callAnilistGQL({
+  const { data } = await callAnilistGQL<{ Page: AnimeList }>({
     body: queryFilter({ ...options, sort: Sort.SCORE_DESC }),
     cacheKey
   });
@@ -84,7 +83,7 @@ export const getTopRated = async (options?: QueryOptions, cacheKey?: string): Pr
 };
 
 export const getAnimeInfo = async (options?: QueryOptions): Promise<Anime> => {
-  const { data } = await callAnilistGQL({
+  const { data } = await callAnilistGQL<{ Media: Anime }>({
     body: queryAnime(options)
   });
   const response = data.Media as Anime;
@@ -103,7 +102,7 @@ export const getAnimeInfo = async (options?: QueryOptions): Promise<Anime> => {
 };
 
 export const getAnimeSlug = async (id: number): Promise<Anime> => {
-  const { data } = await callAnilistGQL({
+  const { data } = await callAnilistGQL<{ Media: Anime }>({
     body: queryAnimeSlug(id)
   });
   return data.Media;
@@ -111,7 +110,7 @@ export const getAnimeSlug = async (id: number): Promise<Anime> => {
 
 export const getUpcoming = async (options?: QueryOptions, cacheKey?: string): Promise<AnimeList> => {
   const todayYear = new Date().getFullYear();
-  const { data } = await callAnilistGQL({
+  const { data } = await callAnilistGQL<{ Page: AnimeList }>({
     body: queryFilter({ ...options, sort: Sort.START_DATE, status_in: [Status.NOT_YET_RELEASED], startDate_greater: `${todayYear}0000` }),
     cacheKey
   });
@@ -134,7 +133,7 @@ export const getList = async (type: string, options?: QueryOptions, cacheKey?: s
 };
 
 export const getAnimeCharacters = async (options?: QueryOptions): Promise<Anime> => {
-  const { data } = await callAnilistGQL({
+  const { data } = await callAnilistGQL<{ Media: Anime }>({
     body: queryAnimeCharacters(options)
   });
 
@@ -152,7 +151,7 @@ export const getAnimeCharacters = async (options?: QueryOptions): Promise<Anime>
 };
 
 export const getAnimeEpisodes = async (options?: QueryOptions): Promise<Anime> => {
-  const { data } = await callAnilistGQL({
+  const { data } = await callAnilistGQL<{ Media: Anime }>({
     body: queryAnimeEpisodes(options)
   });
 
@@ -180,7 +179,7 @@ export const getAnimeEpisodes = async (options?: QueryOptions): Promise<Anime> =
 };
 
 export const getStaff = async (options: { id: number, slug: string }): Promise<StaffInfo> => {
-  const { data } = await callAnilistGQL({
+  const { data } = await callAnilistGQL<{ Staff: StaffInfo }>({
     body: queryStaff(options)
   });
   const response = data.Staff as StaffInfo;
@@ -198,14 +197,14 @@ export const getStaff = async (options: { id: number, slug: string }): Promise<S
 };
 
 export const getStaffCharacters = async (options?: QueryOptions): Promise<StaffCharacters> => {
-  const { data } = await callAnilistGQL({
+  const { data } = await callAnilistGQL<{ Staff: { characterMedia: StaffCharacters } }>({
     body: queryStaffCharacters({ ...options })
   });
   return data.Staff.characterMedia;
 };
 
 export const getStaffSlug = async (id: number): Promise<string> => {
-  const { data } = await callAnilistGQL({
+  const { data } = await callAnilistGQL<{ Staff: { name: { userPreferred: string } } }>({
     body: queryStaffSlug(id)
   });
   return data.Staff.name.userPreferred;
@@ -236,7 +235,7 @@ export const getPreviewList = async (type: ListType, options: QueryOptions = {})
 export const getSchedules = async (options: QueryOptions = {}): Promise<AiringSchedules> => {
   const { page } = options;
   const cacheKey = `schedule:${page}`;
-  const { data } = await callAnilistGQL({
+  const { data } = await callAnilistGQL<{ Page: AiringSchedules }>({
     body: querySchedules(options),
     cacheKey: cacheKey,
     swr: true
