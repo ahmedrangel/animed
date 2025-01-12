@@ -26,22 +26,22 @@
     "@iconify-json/ci": "^1.2.2",
     "@iconify-json/mdi": "^1.2.2",
     "@iconify-json/ph": "^1.2.2",
-    "@iconify-json/simple-icons": "^1.2.18",
-    "@nuxt/eslint": "^0.7.4",
+    "@iconify-json/simple-icons": "^1.2.19",
+    "@nuxt/eslint": "^0.7.5",
     "@nuxt/fonts": "^0.10.3",
     "@nuxt/icon": "^1.10.3",
     "@nuxt/scripts": "^0.9.5",
-    "@nuxthub/core": "^0.8.10",
+    "@nuxthub/core": "^0.8.11",
     "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/sitemap": "^7.0.1",
     "@types/bootstrap": "^5.2.10",
-    "@vueuse/nuxt": "^12.3.0",
+    "@vueuse/nuxt": "^12.4.0",
     "date-fns": "^4.1.0",
-    "eslint": "9.17.0",
+    "eslint": "9.18.0",
     "gql-payload": "^2.1.0",
-    "nuxt": "^3.15.0",
+    "nuxt": "^3.15.1",
     "stylelint-config-standard": "^36.0.1",
-    "wrangler": "^3.99.0"
+    "wrangler": "^3.101.0"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
@@ -52,5 +52,5 @@
   "resolutions": {
     "vue-router": "4.4.5"
   },
-  "packageManager": "pnpm@9.15.2"
+  "packageManager": "pnpm@9.15.3"
 }
