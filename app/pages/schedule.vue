@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { format } from "date-fns";
+
 const data = ref<AiringSchedules>();
 const schedules = ref<AiringSchedules["airingSchedules"]>([]);
 const daysOfTheWeek = ref<number[]>([]);
+const daysOfTheWeekFull = ref<string[]>([]);
 const loading = ref<boolean>(true);
 const hasNextPage = ref<boolean>(true);
 const currentPage = ref<number>(1);
@@ -13,13 +16,18 @@ endDate.setDate(startDate.getDate() + 7);
 const startTimestamp = Math.floor(startDate.getTime() / 1000);
 const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
-watch(schedules.value, () => {
+const setupSchedules = () => {
   const days: number[] = [];
+  const dates: string[] = [];
   for (const schedule of schedules.value) {
-    if (schedule.airingAt) days.push(new Date(schedule.airingAt * 1000).getDay());
+    if (schedule.airingAt) {
+      days.push(new Date(schedule.airingAt * 1000).getDay());
+      dates.push(format(new Date(schedule.airingAt * 1000), "MMMM Do"));
+    }
   }
   daysOfTheWeek.value = [...new Set(days)];
-});
+  daysOfTheWeekFull.value = [...new Set(dates)];
+};
 
 const filterScheduleByDay = (day: number) => computed (() => {
   return schedules.value
@@ -54,6 +62,7 @@ onMounted(async () => {
     hasNextPage.value = data.value.pageInfo.hasNextPage;
     loading.value = false;
   }
+  setupSchedules();
 });
 
 useSeoMeta({
@@ -83,7 +92,7 @@ useHead({
           <div v-for="(day, i) of daysOfTheWeek" :key="i" class="py-2 accordion-item border-0">
             <div class="fw-bold accordion-header user-select-none">
               <span v-ripple class="accordion-button rounded-2" :class="{ collapsed: i === 0 }" type="button" data-bs-toggle="collapse" :data-bs-target="`#${formatDayName(day).toLowerCase()}`">
-                <h4 class="mb-0">{{ formatDayName(day) }}</h4>
+                <h4 class="mb-0">{{ formatDayName(day) }}, {{ daysOfTheWeekFull[i] }}</h4>
               </span>
             </div>
             <div :id="formatDayName(day).toLowerCase()" class="accordion-collapse collapse" :class="{ show: i !== 0 }">
