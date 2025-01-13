@@ -33,7 +33,8 @@ export enum Licensor {
   HULU = 7,
   NETFLIX = 10,
   HIDIVE = 20,
-  AMAZON = 21
+  AMAZON = 21,
+  BILIBILI = 119
 }
 
 export enum Language {

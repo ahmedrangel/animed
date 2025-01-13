@@ -20,7 +20,7 @@ export const queryFilter = (options?: QueryOptions) => {
           sort: { type: "[MediaSort]", value: options?.sort },
           status_in: { type: "[MediaStatus]", value: options?.status_in },
           search: options?.search,
-          licensedById_in: { type: "[Int]", value: [Licensor.CRUNCHYROLL, Licensor.HULU, Licensor.NETFLIX, Licensor.HIDIVE, Licensor.AMAZON] },
+          licensedById_in: { type: "[Int]", value: [Licensor.CRUNCHYROLL, Licensor.HULU, Licensor.NETFLIX, Licensor.HIDIVE, Licensor.AMAZON, Licensor.BILIBILI] },
           genre_in: { type: "[String]", value: options?.genres },
           tag_in: { type: "[String]", value: options?.tags },
           startDate_greater: { type: "FuzzyDateInt", value: options?.startDate_greater },
