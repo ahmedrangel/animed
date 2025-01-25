@@ -114,6 +114,11 @@ export const getUpcoming = async (options?: QueryOptions, cacheKey?: string): Pr
     body: queryFilter({ ...options, sort: Sort.START_DATE, status_in: [Status.NOT_YET_RELEASED], startDate_greater: `${todayYear}0000` }),
     cacheKey
   });
+  data.Page.media.sort((a, b) =>
+    a.startDate.year - b.startDate.year
+    || a.startDate.month - b.startDate.month
+    || (a.startDate.day || 32) - (b.startDate.day || 32)
+  );
   return data.Page;
 };
 
