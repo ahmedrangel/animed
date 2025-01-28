@@ -56,7 +56,9 @@ onBeforeUnmount(() => {
                 <img :src="c.node.image?.large || c.node.image?.medium" class="img-fluid rounded-start rounded-end-0" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
               </div>
               <div class="col text-start me-auto mt-0 py-1">
-                <small class="d-block text-primary">{{ c.node?.name.userPreferred }}</small>
+                <small class="d-block">
+                  <NuxtLink :to="`/ch/${c.node?.id}/${fixSlug(c.node?.name.userPreferred)}`">{{ c.node?.name.userPreferred }}</NuxtLink>
+                </small>
                 <small class="text-capitalize">{{ c.role.toLowerCase() }}</small>
               </div>
               <div class="col text-end mt-0 py-1">

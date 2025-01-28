@@ -87,8 +87,10 @@ onBeforeUnmount(() => {
                   <img :class="`ci-${y}_${j}`" class="character-image img-fluid scale-on-hover h-100 w-100 position-absolute object-fit-cover" :src="c.characters[0]?.image?.large" :alt="c.characters[0]?.name?.userPreferred" :title="c.characters[0].name?.userPreferred">
                   <img :class="`coa-${y}_${j}`" class="character-on-anime scale-full-on-hover img-fluid bottom-0 end-0 position-absolute border-start border-top border-2" :src="c.node?.coverImage?.large" width="90px" :alt="c.node?.title?.romaji" :title="c.node?.title?.romaji">
                 </div>
-                <h5 class="mb-2 text-primary">
-                  {{ c.characters[0]?.name?.userPreferred }}
+                <h5 class="mb-2 text-primary d-flex align-items-center gap-1">
+                  <NuxtLink :to="`/ch/${c.characters[0]?.id}/${fixSlug(c.characters[0]?.name?.userPreferred)}`">
+                    {{ c.characters[0]?.name?.userPreferred }}
+                  </NuxtLink>
                   <span class="badge bg-light align-middle text-capitalize py-1 px-2 text-dark" style="font-size: .65em;">{{ c.characterRole.toLowerCase() }}</span>
                 </h5>
                 <template v-if="c?.node">

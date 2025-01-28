@@ -1,10 +1,10 @@
 import { gqlQuery } from "gql-payload";
 import { Sort } from "~~/enums/anilist";
 
-export const queryStaff = (options: QueryOptions) => {
+export const queryCharacter = (options: QueryOptions) => {
   const { id } = options;
   const query = gqlQuery({
-    operation: "Staff",
+    operation: "Character",
     variables: {
       id: Number(id)
     },
@@ -12,15 +12,10 @@ export const queryStaff = (options: QueryOptions) => {
       "id",
       { name: ["native", "userPreferred", "alternative"] },
       { image: ["large"] },
-      "languageV2",
       "age",
       "gender",
       "bloodType",
-      "yearsActive",
-      "primaryOccupations",
-      "homeTown",
       { dateOfBirth: ["year", "month", "day"] },
-      { dateOfDeath: ["year", "month", "day"] },
       { operation: "description",
         variables: { asHtml: true },
         fields: []
@@ -30,41 +25,51 @@ export const queryStaff = (options: QueryOptions) => {
   return query;
 };
 
-export const queryStaffCharacters = (options?: QueryOptions) => {
+export const queryCharacterMedias = (options?: QueryOptions) => {
   for (const key in options) {
     if (!options[key as keyof QueryOptions]) delete options[key as keyof QueryOptions];
   }
   const query = gqlQuery({
-    operation: "Staff",
+    operation: "Character",
     variables: {
       id: Number(options?.id)
     },
     fields: [
       "id",
-      { operation: "characterMedia",
+      { operation: "media",
         variables: {
           mediaPage: { name: "page", type: "Int", value: options?.page || 1 },
-          mediaSort: { name: "sort", type: "[MediaSort]", value: [Sort.START_DATE_DESC] },
-          mediaPerPage: { name: "perPage", type: "Int", value: 25 }
+          mediaSort: { name: "sort", type: "[MediaSort]", value: [options?.sort || Sort.START_DATE_DESC] },
+          mediaPerPage: { name: "perPage", type: "Int", value: 25 },
+          mediaType: { name: "type", type: "MediaType", value: "ANIME" }
         },
         fields: [
           { pageInfo: ["hasNextPage"] },
           { edges: [
+            "id",
             "characterRole",
-            {
-              characters: [
-                "id",
-                { name: ["userPreferred"] },
-                { image: ["large"] }
+            { operation: "voiceActorRoles",
+              variables: {
+                staffSort: { name: "sort", type: "[StaffSort]", value: [Sort.RELEVANCE, Sort.ID] }
+              },
+              fields: [
+                { voiceActor: [
+                  "id",
+                  "languageV2",
+                  { name: ["userPreferred"] },
+                  { image: ["large"] }
+                ]
+                }
               ]
             },
             { node: [
               "id",
               "format",
               { title: ["romaji", "english"] },
-              { coverImage: ["large"] },
+              { coverImage: ["extraLarge"] },
               { startDate: ["year", "month", "day"] }
-            ] }
+            ]
+            }
           ] }
         ]
       }
@@ -73,9 +78,9 @@ export const queryStaffCharacters = (options?: QueryOptions) => {
   return query;
 };
 
-export const queryStaffSlug = (id: QueryOptions["id"]) => {
+export const queryCharacterSlug = (id: QueryOptions["id"]) => {
   const query = gqlQuery({
-    operation: "Staff",
+    operation: "Character",
     variables: {
       id: Number(id)
     },

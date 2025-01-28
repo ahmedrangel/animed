@@ -1,4 +1,4 @@
-import { queryAnime, queryAnimeCharacters, queryAnimeEpisodes, queryAnimeSlug, queryFilter, querySchedules, queryStaff, queryStaffCharacters, queryStaffSlug } from "~/utils/queries";
+import { queryAnime, queryAnimeCharacters, queryAnimeEpisodes, queryAnimeSlug, queryCharacter, queryCharacterMedias, queryCharacterSlug, queryFilter, querySchedules, queryStaff, queryStaffCharacters, queryStaffSlug } from "~/utils/queries";
 import { API, Sort, Status } from "~~/enums/anilist";
 
 const callAnilistGQL = async <T>(options: AnilistRequest): Promise<{ data: T }> => {
@@ -246,4 +246,25 @@ export const getSchedules = async (options: QueryOptions = {}): Promise<AiringSc
     swr: true
   });
   return data.Page;
+};
+
+export const getCharacterSlug = async (id: number): Promise<string> => {
+  const { data } = await callAnilistGQL<{ Character: { name: { userPreferred: string } } }>({
+    body: queryCharacterSlug(id)
+  });
+  return data.Character.name.userPreferred;
+};
+
+export const getCharacter = async (options: QueryOptions): Promise<any> => {
+  const { data } = await callAnilistGQL<{ Character: any }>({
+    body: queryCharacter(options)
+  });
+  return data.Character;
+};
+
+export const getCharacterMedias = async (options: QueryOptions): Promise<any> => {
+  const { data } = await callAnilistGQL<{ Character: any }>({
+    body: queryCharacterMedias(options)
+  });
+  return data.Character;
 };

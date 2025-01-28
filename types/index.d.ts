@@ -190,6 +190,7 @@ declare global {
     edges: {
       characterRole: "MAIN" | "SUPPORTING" | "BACKGROUND";
       characters: {
+        id: number;
         image: StaffImageOptions;
         name: NameOptions;
       }[];
@@ -237,4 +238,6 @@ declare global {
     cacheKey?: string;
     swr?: boolean;
   }
+
+  // TODO: Character profile types
 }
