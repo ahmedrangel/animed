@@ -97,6 +97,7 @@ export const fixStaffDescription = (text: string) => {
   return text
     .replaceAll("https://anilist.co/anime", "/a")
     .replaceAll("https://anilist.co/staff", "/p")
+    .replaceAll("https://anilist.co/character", "/ch")
     .replace("<p><strong>", "<h6 class=\"fw-500 d-flex justify-content-start align-items-start anime-row flex-wrap mx-0 mb-2\"><strong>")
     .replaceAll("</p>", "</h6>")
     .replaceAll("<strong>", "<span><span class=\"mb-2 text-primary fw-500\">")
