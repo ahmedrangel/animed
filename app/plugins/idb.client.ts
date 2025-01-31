@@ -25,6 +25,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     const now = new Date().getTime();
     for (const [key, value] of expirationEntries) {
       if (Number(value) < now) {
+        console.info(`Removing expired cache: ${key}`);
         await Promise.all([
           useIdbStorage("cache")?.removeItem(String(key).replace(cache.base + ":", "")),
           useIdbStorage("expiration")?.removeItem(String(key).replace(cache.base + ":", ""))
