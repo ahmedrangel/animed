@@ -22,7 +22,7 @@ const setupSchedules = () => {
   for (const schedule of schedules.value) {
     if (schedule.airingAt) {
       days.push(new Date(schedule.airingAt * 1000).getDay());
-      dates.push(format(new Date(schedule.airingAt * 1000), "MMMM Do"));
+      dates.push(format(new Date(schedule.airingAt * 1000), "MMMM do"));
     }
   }
   daysOfTheWeek.value = [...new Set(days)];
