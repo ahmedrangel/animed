@@ -31,7 +31,7 @@
     "@nuxt/fonts": "^0.10.3",
     "@nuxt/icon": "^1.10.3",
     "@nuxt/scripts": "^0.10.0",
-    "@nuxthub/core": "^0.8.17",
+    "@nuxthub/core": "^0.8.15",
     "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/sitemap": "^7.2.4",
     "@types/bootstrap": "^5.2.10",
@@ -41,7 +41,7 @@
     "gql-payload": "^2.1.0",
     "nuxt": "^3.15.4",
     "stylelint-config-standard": "^37.0.0",
-    "wrangler": "^3.107.3"
+    "wrangler": "^3.107.2"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
