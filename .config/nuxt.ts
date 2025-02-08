@@ -2,7 +2,7 @@ import { SITE } from "../shared/utils/info";
 
 export default defineNuxtConfig({
   future: { compatibilityVersion: 4 },
-  compatibilityDate: "2025-02-07",
+  compatibilityDate: "2024-10-11",
   app: {
     pageTransition: { name: "fadepage", mode: "out-in" },
     layoutTransition: { name: "fadepage", mode: "out-in" },
@@ -116,6 +116,10 @@ export default defineNuxtConfig({
   },
   hub: {
     kv: true,
-    cache: true
+    cache: true,
+    bindings: {
+      compatibilityDate: "2024-10-20",
+      compatibilityFlags: ["nodejs_compat"]
+    }
   }
 });
