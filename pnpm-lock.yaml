@@ -49,7 +49,7 @@ importers:
         specifier: ^0.10.0
         version: 0.10.0(@unhead/vue@1.11.18(vue@3.5.13(typescript@5.7.3)))(db0@0.2.3)(idb-keyval@6.2.1)(ioredis@5.5.0)(magicast@0.3.5)(typescript@5.7.3)
       '@nuxthub/core':
-        specifier: ^0.8.15
+        specifier: ^0.8.17
         version: 0.8.17(db0@0.2.3)(idb-keyval@6.2.1)(ioredis@5.5.0)(magicast@0.3.5)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(terser@5.38.1)(yaml@2.7.0))
       '@nuxtjs/color-mode':
         specifier: ^3.5.2
@@ -79,7 +79,7 @@ importers:
         specifier: ^37.0.0
         version: 37.0.0(stylelint@16.14.1(typescript@5.7.3))
       wrangler:
-        specifier: ^3.107.2
+        specifier: ^3.107.3
         version: 3.107.3(@cloudflare/workers-types@4.20250204.0)
 
 packages:
