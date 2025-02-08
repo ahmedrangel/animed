@@ -52,5 +52,5 @@
   "resolutions": {
     "vue-router": "4.4.5"
   },
-  "packageManager": "pnpm@10.2.1"
+  "packageManager": "pnpm@10.2.0"
 }
