@@ -26,7 +26,7 @@
     "@iconify-json/ci": "^1.2.2",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/ph": "^1.2.2",
-    "@iconify-json/simple-icons": "^1.2.25",
+    "@iconify-json/simple-icons": "^1.2.26",
     "@nuxt/eslint": "^1.1.0",
     "@nuxt/fonts": "^0.10.3",
     "@nuxt/icon": "^1.10.3",
@@ -41,7 +41,7 @@
     "gql-payload": "^2.1.0",
     "nuxt": "^3.15.4",
     "stylelint-config-standard": "^37.0.0",
-    "wrangler": "^3.109.2"
+    "wrangler": "^3.111.0"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
@@ -52,5 +52,5 @@
   "resolutions": {
     "vue-router": "4.4.5"
   },
-  "packageManager": "pnpm@10.4.1"
+  "packageManager": "pnpm@10.5.2"
 }
