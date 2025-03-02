@@ -66,7 +66,7 @@ export const getNewlyReleased = async (options?: QueryOptions, cacheKey?: string
   return data.Page;
 };
 
-export const getPopular = async (options?: QueryOptions, cacheKey?: string): Promise< AnimeList> => {
+export const getPopular = async (options?: QueryOptions, cacheKey?: string): Promise<AnimeList> => {
   const { data } = await callAnilistGQL<{ Page: AnimeList }>({
     body: queryFilter({ ...options, sort: [Sort.TRENDING_DESC, Sort.POPULARITY_DESC] }),
     cacheKey

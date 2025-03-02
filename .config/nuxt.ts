@@ -50,7 +50,8 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxthub/core",
     "@nuxt/fonts",
-    "nuxt-ripple"
+    "nuxt-ripple",
+    "nuxt-auth-utils"
   ],
   icon: {
     mode: "svg",
@@ -59,7 +60,11 @@ export default defineNuxtConfig({
       sizeLimitKb: 2048
     }
   },
-  runtimeConfig: {},
+  runtimeConfig: {
+    secure: {
+      salt: ""
+    }
+  },
   features: {
     inlineStyles: false
   },
@@ -100,7 +105,7 @@ export default defineNuxtConfig({
   },
   routeRules: {
     "/": { sitemap: { priority: 1 } },
-    "/*/**": { sitemap: { priority: 0.8, lastmod: new Date().toISOString() } },
+    "/*/**": { sitemap: { priority: 0.8, lastmod: new Date().toISOString() }, appMiddleware: "setup-profile" },
     "/api/_nuxt_icon/**": { cache: { maxAge: 1.577e+7 } }
   },
   fonts: {
@@ -116,6 +121,8 @@ export default defineNuxtConfig({
   },
   hub: {
     kv: true,
-    cache: true
+    cache: true,
+    database: true,
+    blob: true
   }
 });

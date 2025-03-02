@@ -1,3 +1,7 @@
+import { digest } from "ohash";
+
+export type { H3Event } from "h3";
+
 const RATE_LIMIT_MAX_REQ = 2;
 const RATE_LIMIT_TIME_FRAME = 1000 * 60 * 5;
 
@@ -27,4 +31,9 @@ export const botRateLimitHandler = async (agent: string | undefined) => {
 
   await KV.set(keyName, { count: count + 1, lastReq: now });
   return false;
+};
+
+export const hash = (string: string, salt?: string) => {
+  const base64URL = digest(salt ? string + salt : string);
+  return Buffer.from(base64URL, "base64url").toString("hex");
 };

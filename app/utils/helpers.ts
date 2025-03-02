@@ -145,3 +145,7 @@ export const availablePageTypes: { name: ListType, routeType: string, title: str
 export const fromSameRouteParams = (last: RouteLocationNormalizedGeneric, current: RouteLocationNormalizedGeneric) => {
   return JSON.stringify(last?.params) === JSON.stringify(current.params) && last.fullPath !== current.fullPath;
 };
+
+export const fixUsername = (username: string) => {
+  return username.replace(/[^a-zA-Z0-9._]/g, "").slice(0, 20);
+};

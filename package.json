@@ -20,10 +20,13 @@
     "postinstall": "nuxt prepare",
     "lint": "pnpm run lint:eslint && pnpm run lint:stylelint",
     "lint:eslint": "eslint --fix --config .config/eslint.mjs",
-    "lint:stylelint": "stylelint \"**/*.css\" --fix --config .config/stylelint.json"
+    "lint:stylelint": "stylelint \"**/*.css\" --fix --config .config/stylelint.json",
+    "db:migrate": "drizzle-kit generate --config=.config/drizzle.ts"
   },
   "devDependencies": {
+    "@cf-wasm/photon": "^0.1.29",
     "@iconify-json/ci": "^1.2.2",
+    "@iconify-json/line-md": "^1.2.5",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/ph": "^1.2.2",
     "@iconify-json/simple-icons": "^1.2.26",
@@ -37,9 +40,12 @@
     "@types/bootstrap": "^5.2.10",
     "@vueuse/nuxt": "^12.7.0",
     "date-fns": "^4.1.0",
+    "drizzle-kit": "^0.30.5",
+    "drizzle-orm": "^0.40.0",
     "eslint": "9.21.0",
     "gql-payload": "^2.1.0",
     "nuxt": "^3.15.4",
+    "ohash": "^2.0.7",
     "stylelint-config-standard": "^37.0.0",
     "wrangler": "^3.111.0"
   },
@@ -47,6 +53,7 @@
     "bootstrap": "^5.3.3",
     "idb-keyval": "^6.2.1",
     "nuxt-aos": "^1.2.5",
+    "nuxt-auth-utils": "https://pkg.pr.new/atinux/nuxt-auth-utils@b83993f",
     "nuxt-ripple": "^0.0.8"
   },
   "resolutions": {
