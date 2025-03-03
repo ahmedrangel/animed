@@ -30,7 +30,7 @@ const tabs: ComputedRef<{
   },
   {
     name: loggedIn.value ? "Profile" : "Login",
-    icon: "ph:user-bold",
+    icon: "ph:user-circle-bold",
     route: loggedIn.value ? "/u" : "/login"
   }
 ]));

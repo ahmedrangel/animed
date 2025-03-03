@@ -90,9 +90,6 @@ importers:
       nuxt:
         specifier: ^3.15.4
         version: 3.15.4(@parcel/watcher@2.5.1)(@types/node@22.13.8)(db0@0.2.4(drizzle-orm@0.40.0(@cloudflare/workers-types@4.20250224.0)(gel@2.0.0)))(drizzle-orm@0.40.0(@cloudflare/workers-types@4.20250224.0)(gel@2.0.0))(eslint@9.21.0(jiti@2.4.2))(idb-keyval@6.2.1)(ioredis@5.5.0)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.34.9)(stylelint@16.15.0(typescript@5.7.3))(terser@5.39.0)(typescript@5.7.3)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(terser@5.39.0)(yaml@2.7.0))(yaml@2.7.0)
-      ohash:
-        specifier: ^2.0.7
-        version: 2.0.8
       stylelint-config-standard:
         specifier: ^37.0.0
         version: 37.0.0(stylelint@16.15.0(typescript@5.7.3))

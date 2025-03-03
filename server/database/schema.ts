@@ -14,7 +14,7 @@ export const users = sqliteTable("users", {
 });
 
 export const socialConnections = sqliteTable("social_connections", {
-  id: integer().primaryKey({ autoIncrement: true }),
+  id: integer().primaryKey(),
   userId: integer().references(() => users.id, { onDelete: "cascade" }),
   provider: text().notNull(),
   providerId: text().notNull(),
@@ -23,12 +23,13 @@ export const socialConnections = sqliteTable("social_connections", {
 });
 
 export const watchList = sqliteTable("watch_list", {
-  id: integer().primaryKey({ autoIncrement: true }),
+  id: integer().primaryKey(),
   mediaId: integer().notNull(),
   userId: integer().references(() => users.id, { onDelete: "cascade" }),
   status: text().notNull(),
   score: integer(),
   progress: integer(),
   startedDate: integer(),
-  finishedDate: integer()
+  finishedDate: integer(),
+  updatedAt: integer().notNull()
 });
