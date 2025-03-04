@@ -142,8 +142,13 @@ watch(viewMode, () => {
     <section id="profile" class="text-center py-5">
       <div class="px-2 pt-4 pb-2 pt-lg-5 px-lg-5 px-xl-5 w-100 position-relative">
         <h4 class="mb-3">{{ currentUser.username }}</h4>
-        <ButtonComp v-if="currentUser.loggedIn" v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark" @click="logOut">Logout</ButtonComp>
-        <div v-if="isMyPage" class="d-flex justify-content-center gap-3 mt-3 align-items-center mb-3">
+        <ButtonComp v-if="currentUser.loggedIn" v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark mb-3" @click="logOut">Logout</ButtonComp>
+        <div class="d-flex justify-content-center align-items-center mb-3">
+          <div class="alert alert-warning m-0" role="alert">
+            <small>The Profile and Watchlist feature are currently in development</small>
+          </div>
+        </div>
+        <div v-if="isMyPage" class="d-flex justify-content-center gap-3 align-items-center mb-3">
           <small>View Mode</small>
           <select v-model="viewMode" class="form-select h6 mb-0 w-auto">
             <option v-for="(mode, i) in viewModes" :key="i" :value="i" :selected="viewMode === i">{{ mode }}</option>
