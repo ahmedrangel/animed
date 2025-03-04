@@ -183,7 +183,7 @@ watch(viewMode, () => {
                         <option selected :value="null">-</option>
                         <option v-for="j in [...Array(10)].map((_, j) => 10 - j)" :key="j" :value="j">{{ j }}</option>
                       </select>
-                      <small v-else>{{ userWatchlist?.find(el => el.mediaId === anime.id)?.score || "-" }}</small>
+                      <small v-else>{{ watchlistData?.[String(anime.id)]?.score || userWatchlist?.find(el => el.mediaId === anime.id)?.score || "-" }}</small>
                     </td>
                     <td class="bg-secondary">
                       <select v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.status" class="form-select h6 mb-0 w-auto">
@@ -191,7 +191,7 @@ watch(viewMode, () => {
                           {{ status.name }}
                         </option>
                       </select>
-                      <small v-else>{{ watchStatusNameBydId(userWatchlist?.find(el => el.mediaId === anime.id)?.status || 0) }}</small>
+                      <small v-else>{{ watchStatusNameBydId(watchlistData?.[String(anime.id)]?.status || userWatchlist?.find(el => el.mediaId === anime.id)?.status || 0) }}</small>
                     </td>
                     <td class="bg-secondary">
                       <span v-if="isMyPage && editMode" class="d-flex align-items-center justify-content-center gap-1">
@@ -205,15 +205,15 @@ watch(viewMode, () => {
                           <Icon name="ph:plus-bold" class="p-1" style="width: 20px; height: 20px;" />
                         </div>
                       </span>
-                      <small v-else>{{ userWatchlist?.find(el => el.mediaId === anime.id)?.progress }} / {{ anime.episodes }}</small>
+                      <small v-else>{{ watchlistData?.[String(anime.id)]?.progress || userWatchlist?.find(el => el.mediaId === anime.id)?.progress }} / {{ anime.episodes }}</small>
                     </td>
                     <td class="bg-secondary">
                       <input v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.startedDate" type="date" class="form-control h6 mb-0 w-auto">
-                      <small v-else>{{ userWatchlist?.find(el => el.mediaId === anime.id)?.startedDate }}</small>
+                      <small v-else>{{ watchlistData?.[String(anime.id)]?.startedDate || userWatchlist?.find(el => el.mediaId === anime.id)?.startedDate }}</small>
                     </td>
                     <td class="bg-secondary">
                       <input v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.finishedDate" type="date" :min="watchlistData![String(anime.id)]!.startedDate || undefined" class="form-control h6 mb-0 w-auto">
-                      <small v-else>{{ userWatchlist?.find(el => el.mediaId === anime.id)?.finishedDate }}</small>
+                      <small v-else>{{ watchlistData?.[String(anime.id)]?.finishedDate || userWatchlist?.find(el => el.mediaId === anime.id)?.finishedDate }}</small>
                     </td>
                     <td class="bg-secondary" style="max-width: 200px;">
                       <div class="d-flex justify-content-center flex-wrap gap-1">
