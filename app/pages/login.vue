@@ -24,11 +24,11 @@ watch(form, (value) => {
         <div class="d-flex flex-column align-items-center justify-content-center mb-3">
           <div class="user-input d-flex justify-content-center align-items-center bg-secondary mb-3">
             <h4 class="mb-0"><Icon name="ph:user-bold" class="mx-4" /></h4>
-            <input v-model="form.username" type="text" class="w-100 py-3 border-0 bg-transparent" placeholder="Username">
+            <input v-model="form.username" type="text" class="w-100 py-3 border-0 bg-transparent" placeholder="Username" disabled>
           </div>
           <div class="user-input d-flex justify-content-center align-items-center bg-secondary mb-3">
             <h4 class="mb-0"><Icon name="ph:password-bold" class="mx-4" /></h4>
-            <input type="password" class="w-100 py-3 border-0 bg-transparent" placeholder="Password">
+            <input type="password" class="w-100 py-3 border-0 bg-transparent" placeholder="Password" disabled>
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center w-100">
