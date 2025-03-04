@@ -1,13 +1,13 @@
 export default defineEventHandler(async (event) => {
-  await requireUserSession(event);
+  const { user } = await requireUserSession(event);
   const DB = useDB();
-  const body = await readBody<{ mediaId: number, userId: number }>(event);
-  const { mediaId, userId } = body;
+  const body = await readBody<{ mediaId: number }>(event);
+  const { mediaId } = body;
   const today = Date.now();
   // insert db
   const watchList = await DB.insert(tables.watchList).values({
     mediaId,
-    userId,
+    userId: user.id,
     status: watchStatus.PLAN_TO_WATCH.id,
     progress: 0,
     updatedAt: today

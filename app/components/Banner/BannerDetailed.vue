@@ -61,7 +61,7 @@ onBeforeUnmount(() => {
                 <span class="fw-light" v-html="a.description" />
                 <NuxtLink v-if="fixDescription(a.description.replace(/<br>/g, '')).more" class="text-primary" :to="`/a/${a?.id}/${fixSlug(a?.title?.romaji)}`">&nbsp;Read more</NuxtLink>
               </h6>
-              <ButtonComp v-if="a?.trailer?.site === 'youtube'" v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark mt-1" title="Watch Trailer" icon="ph:play-fill" @click="openVideoModal(a.trailer.id)">
+              <ButtonComp v-if="a?.trailer?.site === 'youtube'" v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark mt-1 px-3 py-2" title="Watch Trailer" icon="ph:play-fill" @click="openVideoModal(a.trailer.id)">
                 Watch Trailer
               </ButtonComp>
             </div>

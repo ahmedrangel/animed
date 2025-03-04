@@ -16,7 +16,7 @@ const added = computed(() => watchlist.value?.find(item => item.mediaId === prop
       <NuxtLink :to="`/a/${data.id}/${fixSlug(data.title.romaji)}`" class="text-white">
         <img class="img-fluid scale-on-hover h-100 w-100 position-absolute object-fit-cover" :src="data.coverImage?.extraLarge || data.coverImage?.large" width="280" :alt="data.title.romaji" :title="data.title.romaji">
       </NuxtLink>
-      <Icon v-if="cardHovered && loggedIn && !added && user?.id" name="ph:plus-bold" class="bookmark position-absolute bottom-0 end-0 m-3 z-1 h4 text-white" @click="addToWatchlist(user?.id, props.data.id)" />
+      <Icon v-if="cardHovered && loggedIn && !added && user?.id" name="ph:plus-bold" class="bookmark position-absolute bottom-0 end-0 m-3 z-1 h4 text-white" @click="addToWatchlist(props.data.id)" />
       <div v-if="loggedIn && !added" id="overlay-anime-card" class="position-absolute w-100 top-0 pe-none" />
     </div>
   </div>

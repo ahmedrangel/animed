@@ -150,11 +150,11 @@ export const fixUsername = (username: string) => {
   return username.replace(/[^a-zA-Z0-9._]/g, "").slice(0, 20);
 };
 
-export const addToWatchlist = async (userId: number, mediaId: number) => {
+export const addToWatchlist = async (mediaId: number) => {
   const watchlist = useWatchlist();
   const result = await $fetch<{ success: boolean }>("/api/watchlist", {
     method: "POST",
-    body: { userId, mediaId }
+    body: { mediaId }
   }).catch(() => null);
   if (result && watchlist.value) {
     watchlist.value = [...watchlist.value, result];

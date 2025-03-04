@@ -24,17 +24,16 @@
     "db:migrate": "drizzle-kit generate --config=.config/drizzle.ts"
   },
   "devDependencies": {
-    "@cf-wasm/photon": "^0.1.29",
     "@iconify-json/ci": "^1.2.2",
     "@iconify-json/line-md": "^1.2.5",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/ph": "^1.2.2",
-    "@iconify-json/simple-icons": "^1.2.26",
+    "@iconify-json/simple-icons": "^1.2.27",
     "@nuxt/eslint": "^1.1.0",
     "@nuxt/fonts": "^0.10.3",
     "@nuxt/icon": "^1.10.3",
     "@nuxt/scripts": "^0.10.5",
-    "@nuxthub/core": "^0.8.17",
+    "@nuxthub/core": "^0.8.18",
     "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/sitemap": "^7.2.6",
     "@types/bootstrap": "^5.2.10",
@@ -46,13 +45,13 @@
     "gql-payload": "^2.1.0",
     "nuxt": "^3.15.4",
     "stylelint-config-standard": "^37.0.0",
-    "wrangler": "^3.111.0"
+    "wrangler": "^3.112.0"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
     "idb-keyval": "^6.2.1",
     "nuxt-aos": "^1.2.5",
-    "nuxt-auth-utils": "https://pkg.pr.new/atinux/nuxt-auth-utils@b83993f",
+    "nuxt-auth-utils": "0.5.16",
     "nuxt-ripple": "^0.0.8"
   },
   "resolutions": {

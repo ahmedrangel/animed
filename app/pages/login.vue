@@ -36,7 +36,7 @@ watch(form, (value) => {
             <div class="d-flex anime-row flex-wrap gx-0 gx-lg-3 gy-3 justify-content-center">
               <template v-for="(connection, i) in connections" :key="i">
                 <div class="col-12 col-lg-6">
-                  <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" role="link" class="w-100" :class="connection.class" :to="connection.to" :icon="connection.icon" external :disabled="connection.disabled">Continue with {{ connection.name }}</ButtonComp>
+                  <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" role="link" class="w-100 px-2 py-3" :class="connection.class" :to="connection.to" :icon="connection.icon" external :disabled="connection.disabled">Continue with {{ connection.name }}</ButtonComp>
                 </div>
               </template>
             </div>

@@ -1,5 +1,6 @@
 import type { FetchError as F } from "ofetch";
 import type { CacheEntry as C } from "nitropack/runtime/types";
+import type { FieldsOption } from "gql-payload";
 import type { Sort, Status } from "~~/enums/anilist";
 
 export {};
@@ -168,6 +169,7 @@ declare global {
 
   interface QueryOptions {
     id?: number;
+    id_in?: number[];
     alias?: string;
     staffLanguage?: string;
     sort?: Sort | Sort[];
@@ -184,6 +186,7 @@ declare global {
     withInfo?: boolean;
     airingAt_greater?: number;
     airingAt_lesser?: number;
+    extraFields?: FieldsOption;
   }
 
   interface StaffCharacters {

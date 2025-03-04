@@ -122,7 +122,6 @@ export default defineNuxtConfig({
   hub: {
     kv: true,
     cache: true,
-    database: true,
-    blob: true
+    database: true
   }
 });

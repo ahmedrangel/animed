@@ -282,3 +282,11 @@ export const getCharacterMedias = async (options: QueryOptions): Promise<any> =>
   });
   return data.Character;
 };
+
+export const getListByIdIn = async (options?: QueryOptions, cacheKey?: string): Promise<AnimeList> => {
+  const { data } = await callAnilistGQL<{ Page: AnimeList }>({
+    body: queryFilter({ ...options }),
+    cacheKey
+  });
+  return data.Page;
+};

@@ -21,15 +21,12 @@ importers:
         specifier: ^1.2.5
         version: 1.2.5(magicast@0.3.5)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(terser@5.39.0)(yaml@2.7.0))
       nuxt-auth-utils:
-        specifier: https://pkg.pr.new/atinux/nuxt-auth-utils@b83993f
-        version: https://pkg.pr.new/atinux/nuxt-auth-utils@b83993f(magicast@0.3.5)
+        specifier: 0.5.16
+        version: 0.5.16(magicast@0.3.5)
       nuxt-ripple:
         specifier: ^0.0.8
         version: 0.0.8(magicast@0.3.5)
     devDependencies:
-      '@cf-wasm/photon':
-        specifier: ^0.1.29
-        version: 0.1.29
       '@iconify-json/ci':
         specifier: ^1.2.2
         version: 1.2.2
@@ -43,8 +40,8 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2
       '@iconify-json/simple-icons':
-        specifier: ^1.2.26
-        version: 1.2.26
+        specifier: ^1.2.27
+        version: 1.2.27
       '@nuxt/eslint':
         specifier: ^1.1.0
         version: 1.1.0(@vue/compiler-sfc@3.5.13)(eslint@9.21.0(jiti@2.4.2))(magicast@0.3.5)(typescript@5.7.3)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(terser@5.39.0)(yaml@2.7.0))
@@ -58,8 +55,8 @@ importers:
         specifier: ^0.10.5
         version: 0.10.5(@unhead/vue@1.11.20(vue@3.5.13(typescript@5.7.3)))(db0@0.2.4(drizzle-orm@0.40.0(@cloudflare/workers-types@4.20250224.0)(gel@2.0.0)))(idb-keyval@6.2.1)(ioredis@5.5.0)(magicast@0.3.5)(typescript@5.7.3)
       '@nuxthub/core':
-        specifier: ^0.8.17
-        version: 0.8.17(db0@0.2.4(drizzle-orm@0.40.0(@cloudflare/workers-types@4.20250224.0)(gel@2.0.0)))(idb-keyval@6.2.1)(ioredis@5.5.0)(magicast@0.3.5)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(terser@5.39.0)(yaml@2.7.0))
+        specifier: ^0.8.18
+        version: 0.8.18(db0@0.2.4(drizzle-orm@0.40.0(@cloudflare/workers-types@4.20250224.0)(gel@2.0.0)))(idb-keyval@6.2.1)(ioredis@5.5.0)(magicast@0.3.5)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(terser@5.39.0)(yaml@2.7.0))
       '@nuxtjs/color-mode':
         specifier: ^3.5.2
         version: 3.5.2(magicast@0.3.5)
@@ -94,8 +91,8 @@ importers:
         specifier: ^37.0.0
         version: 37.0.0(stylelint@16.15.0(typescript@5.7.3))
       wrangler:
-        specifier: ^3.111.0
-        version: 3.111.0(@cloudflare/workers-types@4.20250224.0)
+        specifier: ^3.112.0
+        version: 3.112.0(@cloudflare/workers-types@4.20250224.0)
 
 packages:
 
@@ -273,12 +270,6 @@ packages:
 
   '@capsizecss/unpack@2.3.0':
     resolution: {integrity: sha512-qkf9IoFIVTOkkpr8oZtCNSmubyWFCuPU4EOWO6J/rFPP5Ks2b1k1EHDSQRLwfokh6nCd7mJgBT2lhcuDCE6w4w==}
-
-  '@cf-wasm/internals@0.0.3':
-    resolution: {integrity: sha512-v6PmiQnJIrVvL2IdPg5aCqARSKw/U1JvFsms2cCt3Szx3/3EvtVVhN9MALCh6kZ2CV2fvzs3tmiYezRQ6JyqcQ==}
-
-  '@cf-wasm/photon@0.1.29':
-    resolution: {integrity: sha512-dqKRSfcqOQpVATTdMrnGjrf0iUH/Yv5woYn81o2nBv2xwSmB91MsnY1b83Bt24vC/oxVqbvio9JQByXT/Ry1lw==}
 
   '@clack/core@0.4.1':
     resolution: {integrity: sha512-Pxhij4UXg8KSr7rPek6Zowm+5M22rbd2g1nfojHJkxp5YkFqiZ2+YLEM/XGVIzvGOcM0nqjIFxrpDwWRZYWYjA==}
@@ -1168,8 +1159,8 @@ packages:
   '@iconify-json/ph@1.2.2':
     resolution: {integrity: sha512-PgkEZNtqa8hBGjHXQa4pMwZa93hmfu8FUSjs/nv4oUU6yLsgv+gh9nu28Kqi8Fz9CCVu4hj1MZs9/60J57IzFw==}
 
-  '@iconify-json/simple-icons@1.2.26':
-    resolution: {integrity: sha512-NvqRuE+5h/tp4boPlnvfs0alD0CvnRE7oeG9Li5NGmZRx2/rhwlNjW/vEVTyhZcR9zqvRPAVh2GXR+PTEpzV+A==}
+  '@iconify-json/simple-icons@1.2.27':
+    resolution: {integrity: sha512-FtZwp/H7ih5rY9FPfDR+k6toOo/cuwpHWY8faNhxLs5O5uW6Q8TeqdNWfjVfgFtrs5tUUzWysjqNGL234v8EMA==}
 
   '@iconify/collections@1.0.522':
     resolution: {integrity: sha512-IPTFZ2rGZ5kIwsR913mukn68KIf6EZnls1HFZNWhyvWmaqBxYo5W0ejLxMaW6Ob5dIaTDa9+Ik5kYzQf9uO0Kg==}
@@ -1479,8 +1470,8 @@ packages:
     peerDependencies:
       vue: ^3.3.4
 
-  '@nuxthub/core@0.8.17':
-    resolution: {integrity: sha512-0plAZ+oE/ty6z90sJ0feozSlcfJENaD9/+mlF4GIXx8bKic10X/w2EzoK1Ky+x4+0mWxi6qL2ZrchoMEJy+ywA==}
+  '@nuxthub/core@0.8.18':
+    resolution: {integrity: sha512-t7+jtyXVFuV60dhoWeYobVzij7c5ir0T10Uam2Gk9SUaMvp8Kd5op5mPnAo4v2SPW/JiJyK6gwTb7jUWDthPqg==}
 
   '@nuxtjs/color-mode@3.5.2':
     resolution: {integrity: sha512-cC6RfgZh3guHBMLLjrBB2Uti5eUoGM9KyauOaYS9ETmxNWBMTvpgjvSiSJp1OFljIXPIqVTJ3xtJpSNZiO3ZaA==}
@@ -3678,8 +3669,8 @@ packages:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
 
-  miniflare@3.20250214.1:
-    resolution: {integrity: sha512-NE66QV+2n9ZndaP5jgPlcVref3Arvizb+l2QqhgeXtKM5Orhi8UU2mijoiN3mHEUexKaBES2S1VubT4LDPqkxQ==}
+  miniflare@3.20250214.2:
+    resolution: {integrity: sha512-t+lT4p2lbOcKv4PS3sx1F/wcDAlbEYZCO2VooLp4H7JErWWYIi9yjD3UillC3CGOpiBahVg5nrPCoFltZf6UlA==}
     engines: {node: '>=16.13'}
     hasBin: true
 
@@ -3837,9 +3828,8 @@ packages:
   nuxt-aos@1.2.5:
     resolution: {integrity: sha512-tNEXMOKijCg+SygLvjp2VbEy7yQcC6ertzI23bCa6DPlu134bfzSYUGOJRSFSKtYjnrqIW7MzLpqPTfTwd8A3Q==}
 
-  nuxt-auth-utils@https://pkg.pr.new/atinux/nuxt-auth-utils@b83993f:
-    resolution: {tarball: https://pkg.pr.new/atinux/nuxt-auth-utils@b83993f}
-    version: 0.5.16
+  nuxt-auth-utils@0.5.16:
+    resolution: {integrity: sha512-mCJEwZWoFmOyEynCWWWFbRsVfNekbU06MxC+bfoPlxeJT3Pi58Wx61m03cRECQRS+AUUl3ZYqtNSOGP8u+XjxQ==}
     peerDependencies:
       '@atproto/api': ^0.13.15
       '@atproto/oauth-client-node': ^0.2.0
@@ -5155,8 +5145,8 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  wrangler@3.111.0:
-    resolution: {integrity: sha512-3j/Wq5aj/sCQRSmkjBLxbkIH7LCx0h2UnaxmhOplDjJmZty10lGRs/jGgaG/M/GEsDg5TJ7UHvBh3hSldgjfKg==}
+  wrangler@3.112.0:
+    resolution: {integrity: sha512-PNQWGze3ODlWwG33LPr8kNhbht3eB3L9fogv+fapk2fjaqj0kNweRapkwmvtz46ojcqWzsxmTe4nOC0hIVUfPA==}
     engines: {node: '>=16.17.0'}
     hasBin: true
     peerDependencies:
@@ -5493,12 +5483,6 @@ snapshots:
       fontkit: 2.0.4
     transitivePeerDependencies:
       - encoding
-
-  '@cf-wasm/internals@0.0.3': {}
-
-  '@cf-wasm/photon@0.1.29':
-    dependencies:
-      '@cf-wasm/internals': 0.0.3
 
   '@clack/core@0.4.1':
     dependencies:
@@ -6037,7 +6021,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/simple-icons@1.2.26':
+  '@iconify-json/simple-icons@1.2.27':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -6641,7 +6625,7 @@ snapshots:
       - vue-tsc
       - yaml
 
-  '@nuxthub/core@0.8.17(db0@0.2.4(drizzle-orm@0.40.0(@cloudflare/workers-types@4.20250224.0)(gel@2.0.0)))(idb-keyval@6.2.1)(ioredis@5.5.0)(magicast@0.3.5)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(terser@5.39.0)(yaml@2.7.0))':
+  '@nuxthub/core@0.8.18(db0@0.2.4(drizzle-orm@0.40.0(@cloudflare/workers-types@4.20250224.0)(gel@2.0.0)))(idb-keyval@6.2.1)(ioredis@5.5.0)(magicast@0.3.5)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(terser@5.39.0)(yaml@2.7.0))':
     dependencies:
       '@cloudflare/workers-types': 4.20250224.0
       '@nuxt/devtools-kit': 2.1.1(magicast@0.3.5)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(terser@5.39.0)(yaml@2.7.0))
@@ -9020,7 +9004,7 @@ snapshots:
 
   min-indent@1.0.1: {}
 
-  miniflare@3.20250214.1:
+  miniflare@3.20250214.2:
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       acorn: 8.14.0
@@ -9257,7 +9241,7 @@ snapshots:
       - supports-color
       - vite
 
-  nuxt-auth-utils@https://pkg.pr.new/atinux/nuxt-auth-utils@b83993f(magicast@0.3.5):
+  nuxt-auth-utils@0.5.16(magicast@0.3.5):
     dependencies:
       '@adonisjs/hash': 9.0.5
       '@nuxt/kit': 3.15.4(magicast@0.3.5)
@@ -10800,14 +10784,14 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20250214.0
       '@cloudflare/workerd-windows-64': 1.20250214.0
 
-  wrangler@3.111.0(@cloudflare/workers-types@4.20250224.0):
+  wrangler@3.112.0(@cloudflare/workers-types@4.20250224.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.3.4
       '@esbuild-plugins/node-globals-polyfill': 0.2.3(esbuild@0.17.19)
       '@esbuild-plugins/node-modules-polyfill': 0.2.2(esbuild@0.17.19)
       blake3-wasm: 2.1.5
       esbuild: 0.17.19
-      miniflare: 3.20250214.1
+      miniflare: 3.20250214.2
       path-to-regexp: 6.3.0
       unenv: 2.0.0-rc.1
       workerd: 1.20250214.0

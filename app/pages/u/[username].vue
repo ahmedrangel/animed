@@ -8,7 +8,9 @@ const logOut = () => {
   navigateTo("/login", { external: true });
 };
 
-if (error.value && loggedIn.value && user.value?.username?.toLowerCase() === username.toLowerCase()) {
+const isMyPage = loggedIn.value && user.value?.username?.toLowerCase() === username.toLowerCase();
+
+if (error.value && isMyPage) {
   clear();
   navigateTo("/login", { external: true });
 }
@@ -22,23 +24,216 @@ if (error.value) {
 }
 
 const { data: userWatchlist } = await useFetch("/api/watchlist", {
-  query: { userId: result.value?.id },
-  key: `watchlist-${result.value?.id}`,
-  getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key]
+  query: { userId: result.value?.id, page: 1 }
 });
 
 const currentUser = {
   loggedIn: user.value?.username?.toLocaleLowerCase() === username.toLowerCase() && String(result.value?.username).toLowerCase() === username.toLowerCase(),
   ...result.value
 };
+
+const animeList = ref<Anime[]>();
+interface WatchlistData {
+  [key: string]: {
+    score?: number | null;
+    status?: number;
+    progress?: number;
+    startedDate?: number | null;
+    finishedDate?: number | null;
+  };
+}
+
+const watchlistData = ref<WatchlistData>();
+const oldWatchlistData = ref<WatchlistData>();
+
+onMounted(async () => {
+  if (!userWatchlist.value) return;
+  const mediaIds = userWatchlist.value.map(item => item.mediaId);
+  const pageInfo = await getListByIdIn({
+    id_in: mediaIds,
+    perPage: 50,
+    extraFields: ["genres", "episodes"]
+  });
+  animeList.value = pageInfo.media.toSorted((a, b) => mediaIds.indexOf(a.id) - mediaIds.indexOf(b.id));
+  if (isMyPage) {
+    const mappedValues = userWatchlist.value.map(item => ({
+      [String(item.mediaId)]: {
+        score: item.score,
+        status: item.status || 0,
+        progress: item.progress || 0,
+        startedDate: item.startedDate,
+        finishedDate: item.finishedDate
+      }
+    })).reduce((acc, cur) => ({ ...acc, ...cur }), {});
+    oldWatchlistData.value = JSON.parse(JSON.stringify({ ...mappedValues }));
+    watchlistData.value = { ...mappedValues };
+  }
+});
+
+const fixProgress = (input: string, anime: Anime) => {
+  const progress = Number(input);
+  if (!input || progress <= 0) return 0;
+  if (anime.episodes && progress > anime.episodes) return anime.episodes;
+  return progress;
+};
+
+watch(watchlistData, () => {
+  if (!watchlistData.value) return;
+  Object.entries(watchlistData.value).map(async ([mediaId, data]) => {
+    const oldData = oldWatchlistData.value?.[mediaId];
+    if (data.progress !== oldData?.progress) {
+      watchlistData.value![mediaId]!.progress! = fixProgress(String(watchlistData.value![mediaId]!.progress)!, animeList.value!.find(el => el.id === Number(mediaId))!);
+    }
+  });
+}, { deep: true });
+
+watchDebounced(watchlistData, async () => {
+  if (!watchlistData.value) return;
+  Object.entries(watchlistData.value).map(async ([mediaId, data]) => {
+    const oldData = oldWatchlistData.value?.[mediaId];
+    const toUpdate = {
+      ...data.status !== oldData?.status && { status: data.status },
+      ...data.progress !== oldData?.progress && { progress: data.progress },
+      ...data.score !== oldData?.score && { score: data.score },
+      ...data.startedDate !== oldData?.startedDate && { startedDate: data.startedDate },
+      ...data.finishedDate !== oldData?.finishedDate && { finishedDate: data.finishedDate }
+    };
+    if (!Object.keys(toUpdate).length) return;
+    const updated = await $fetch("/api/watchlist", {
+      method: "PATCH",
+      body: {
+        mediaId: Number(mediaId),
+        ...toUpdate
+      }
+    }).catch(() => null);
+    if (!updated) {
+      watchlistData.value![mediaId] = { ...oldWatchlistData.value![mediaId] };
+      return;
+    }
+    oldWatchlistData.value![mediaId] = { ...data };
+  });
+}, { debounce: 1000, deep: true });
+
+const removeItem = async (mediaId: number) => {
+  const removed = await $fetch("/api/watchlist", {
+    method: "DELETE",
+    query: { mediaId }
+  }).catch(() => null);
+  if (!removed) return;
+  delete watchlistData.value![String(mediaId)];
+  delete oldWatchlistData.value![String(mediaId)];
+  animeList.value = animeList.value!.filter(el => el.id !== mediaId);
+};
+
+const viewMode = ref(0);
+const viewModes = ["Normal", "Edit"];
+const editMode = ref(false);
+watch(viewMode, () => {
+  if (viewMode.value === 1) {
+    return editMode.value = true;
+  }
+  editMode.value = false;
+});
 </script>
 
 <template>
   <main>
     <section id="profile" class="text-center py-5">
-      <h4 class="mb-3">{{ currentUser.username }}</h4>
-      <h6>{{ userWatchlist }}</h6>
-      <ButtonComp v-if="currentUser.loggedIn" v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark" @click="logOut">Logout</ButtonComp>
+      <div class="px-2 pt-4 pb-2 pt-lg-5 px-lg-5 px-xl-5 w-100 position-relative">
+        <h4 class="mb-3">{{ currentUser.username }}</h4>
+        <ButtonComp v-if="currentUser.loggedIn" v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark" @click="logOut">Logout</ButtonComp>
+        <div class="d-flex justify-content-center gap-3 mt-3 align-items-center mb-3">
+          <small>View Mode</small>
+          <select v-model="viewMode" class="form-select h6 mb-0 w-auto">
+            <option v-for="(mode, i) in viewModes" :key="i" :value="i" :selected="viewMode === i">{{ mode }}</option>
+          </select>
+        </div>
+        <div v-if="animeList?.length">
+          <div class="table-responsive">
+            <table class="table table-bordered bg-secondary border align-middle">
+              <thead>
+                <tr>
+                  <th scope="col" />
+                  <th scope="col"><small>Title</small></th>
+                  <th scope="col"><small>Score</small></th>
+                  <th scope="col"><small>Status</small></th>
+                  <th scope="col"><small>Progress</small></th>
+                  <th scope="col"><small>Started Date</small></th>
+                  <th scope="col"><small>Finished Date</small></th>
+                  <th scope="col"><small>Genres</small></th>
+                  <th v-if="isMyPage && editMode" scope="col" />
+                </tr>
+              </thead>
+              <tbody>
+                <template v-for="(anime, i) of animeList" :key="i">
+                  <tr>
+                    <td class="bg-secondary">
+                      <img :src="anime.coverImage.extraLarge || anime.coverImage?.large" :alt="anime.title.romaji" :title="anime.title.romaji" style="max-height: 80px;">
+                    </td>
+                    <td class="bg-secondary text-start" style="max-width: 300px;">
+                      <NuxtLink :to="`/a/${anime.id}/${fixSlug(anime.title.romaji)}`" :title="anime.title?.english ? anime.title?.english : anime.title?.romaji">
+                        <small>{{ anime.title?.romaji }}</small>
+                      </NuxtLink>
+                      <br>
+                      <small class="text-muted">{{ anime.title?.english ? anime.title?.english : anime.title?.romaji }}</small>
+                    </td>
+                    <td class="bg-secondary">
+                      <select v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.score" class="form-select h6 mb-0 w-auto">
+                        <option selected :value="null">-</option>
+                        <option v-for="j in [...Array(10)].map((_, j) => 10 - j)" :key="j" :value="j">{{ j }}</option>
+                      </select>
+                      <small v-else>{{ userWatchlist?.find(el => el.mediaId === anime.id)?.score || "-" }}</small>
+                    </td>
+                    <td class="bg-secondary">
+                      <select v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.status" class="form-select h6 mb-0 w-auto">
+                        <option v-for="(status, key) in watchStatus" :key="key" :value="status.id">
+                          {{ status.name }}
+                        </option>
+                      </select>
+                      <small v-else>{{ watchStatusNameBydId(userWatchlist?.find(el => el.mediaId === anime.id)?.status || 0) }}</small>
+                    </td>
+                    <td class="bg-secondary">
+                      <span v-if="isMyPage && editMode" class="d-flex align-items-center justify-content-center gap-1">
+                        <div class="bg-dark rounded-circle text-primary d-flex align-items-center justify-content-center" role="button" @click="watchlistData![String(anime.id)]!.progress!--">
+                          <Icon name="ph:minus-bold" class="p-1" style="width: 20px; height: 20px;" />
+                        </div>
+                        <small>{{ watchlistData![String(anime.id)]!.progress }}</small>
+                        <h6 class="mb-0 text-white">/</h6>
+                        <small>{{ anime.episodes }}</small>
+                        <div class="bg-dark rounded-circle text-primary d-flex align-items-center justify-content-center" role="button" @click="watchlistData![String(anime.id)]!.progress!++">
+                          <Icon name="ph:plus-bold" class="p-1" style="width: 20px; height: 20px;" />
+                        </div>
+                      </span>
+                      <small v-else>{{ userWatchlist?.find(el => el.mediaId === anime.id)?.progress }} / {{ anime.episodes }}</small>
+                    </td>
+                    <td class="bg-secondary">
+                      <input v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.startedDate" type="date" class="form-control h6 mb-0 w-auto">
+                      <small v-else>{{ userWatchlist?.find(el => el.mediaId === anime.id)?.startedDate }}</small>
+                    </td>
+                    <td class="bg-secondary">
+                      <input v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.finishedDate" type="date" :min="watchlistData![String(anime.id)]!.startedDate || undefined" class="form-control h6 mb-0 w-auto">
+                      <small v-else>{{ userWatchlist?.find(el => el.mediaId === anime.id)?.finishedDate }}</small>
+                    </td>
+                    <td class="bg-secondary" style="max-width: 200px;">
+                      <div class="d-flex justify-content-center flex-wrap gap-1">
+                        <template v-for="(genre, j) of anime.genres" :key="j">
+                          <NuxtLink v-if="categories.some(c => c.name.toLowerCase() === genre.toLowerCase())" :to="`/c/${fixSlug(genre)}`">
+                            <span class="badge bg-body align-middle fw-normal my-1">{{ genre }}</span>
+                          </NuxtLink>
+                          <span v-else class="badge bg-body align-middle fw-normal my-1">{{ genre }}</span>
+                        </template>
+                      </div>
+                    </td>
+                    <td v-if="isMyPage && editMode" class="bg-secondary">
+                      <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark" icon="ph:trash-bold" style="width: 40px; height: 36px;" @click="removeItem(anime.id)" />
+                    </td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 </template>

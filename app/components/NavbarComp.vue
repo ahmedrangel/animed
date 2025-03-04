@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { RouteNamedMap } from "vue-router/auto-routes";
 
-const { loggedIn } = useUserSession();
+const { loggedIn, user } = useUserSession();
 
 const tabs: ComputedRef<{
   name: string;
   icon: string;
-  route: RouteNamedMap[keyof RouteNamedMap]["path"];
+  route: RouteNamedMap[keyof RouteNamedMap]["path"] | `/u/${string}`;
 }[]> = computed(() => ([
   {
     name: "Home",
@@ -31,7 +31,7 @@ const tabs: ComputedRef<{
   {
     name: loggedIn.value ? "Profile" : "Login",
     icon: "ph:user-circle-bold",
-    route: loggedIn.value ? "/u" : "/login"
+    route: loggedIn.value && user.value ? `/u/${user.value.username}` : "/login"
   }
 ]));
 </script>

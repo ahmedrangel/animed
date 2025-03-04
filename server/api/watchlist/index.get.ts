@@ -1,7 +1,11 @@
 export default defineEventHandler(async (event) => {
   const DB = useDB();
-  const { userId } = getQuery<{ userId: number }>(event);
-  const watchList = await DB.select({
+  const { userId, page } = getQuery<{ userId: number, page?: number }>(event);
+  const limit = 50;
+  const offset = page ? (Number(page) - 1) * limit : null;
+  const statusOrder = [1, 2, 3, 4, 0];
+  let query;
+  query = DB.select({
     userId: tables.watchList.userId,
     mediaId: tables.watchList.mediaId,
     status: tables.watchList.status,
@@ -10,7 +14,18 @@ export default defineEventHandler(async (event) => {
     startedDate: tables.watchList.startedDate,
     finishedDate: tables.watchList.finishedDate,
     updatedAt: tables.watchList.updatedAt
-  }).from(tables.watchList).where(eq(tables.watchList.userId, userId)).all();
+  }).from(tables.watchList).where(eq(tables.watchList.userId, userId))
+    .orderBy(sql.raw(`
+      CASE status
+        ${statusOrder.map((status, index) => `WHEN ${status} THEN ${index + 1}`).join(" ")}
+      END
+    `));
+
+  if (page && offset) {
+    query = query.limit(limit).offset(offset);
+  }
+
+  const watchList = await query.all();
 
   if (!watchList) {
     throw createError({
@@ -19,6 +34,5 @@ export default defineEventHandler(async (event) => {
       fatal: true
     });
   }
-
   return watchList;
 });
