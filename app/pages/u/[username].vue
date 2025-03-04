@@ -49,6 +49,7 @@ const oldWatchlistData = ref<WatchlistData>();
 onMounted(async () => {
   if (!userWatchlist.value) return;
   const mediaIds = userWatchlist.value.map(item => item.mediaId);
+  if (!mediaIds.length) return;
   const pageInfo = await getListByIdIn({
     id_in: mediaIds,
     perPage: 50,
