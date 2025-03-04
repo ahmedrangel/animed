@@ -24,6 +24,7 @@ export const socialConnections = sqliteTable("social_connections", {
 
 export const watchList = sqliteTable("watch_list", {
   mediaId: integer().notNull(),
+  mediaSlug: text().notNull(),
   userId: integer().references(() => users.id, { onDelete: "cascade" }),
   status: integer().notNull(),
   score: integer(),

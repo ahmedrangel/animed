@@ -77,7 +77,7 @@ const updateButtonDisabled = computed(() => JSON.stringify(watchlistData.value) 
 <template>
   <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 px-0" style="max-width: 400px;">
     <img id="cover" :src="anime?.coverImage?.extraLarge" class="img-fluid mb-2" :alt="anime.title.romaji" :title="anime.title.romaji" data-aos="fade-in">
-    <ButtonComp v-if="loggedIn && !added && user" v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark w-100 px-3 py-2" icon="ph:plus-bold" @click="addToWatchlist(anime.id)">
+    <ButtonComp v-if="loggedIn && !added && user" v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark w-100 px-3 py-2" icon="ph:plus-bold" @click="addToWatchlist(anime.id, fixSlug(data.title.romaji))">
       Add to Watchlist
     </ButtonComp>
     <div v-if="loggedIn && added">

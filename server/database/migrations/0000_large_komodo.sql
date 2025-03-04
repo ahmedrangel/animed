@@ -25,6 +25,7 @@ CREATE UNIQUE INDEX `users_username_unique` ON `users` (`username`);
 CREATE UNIQUE INDEX `users_email_unique` ON `users` (`email`);
 CREATE TABLE `watch_list` (
 	`media_id` integer NOT NULL,
+	`media_slug` text NOT NULL,
 	`user_id` integer,
 	`status` integer NOT NULL,
 	`score` integer,

@@ -8,6 +8,7 @@ export default defineEventHandler(async (event) => {
   query = DB.select({
     userId: tables.watchList.userId,
     mediaId: tables.watchList.mediaId,
+    mediaSlug: tables.watchList.mediaSlug,
     status: tables.watchList.status,
     score: tables.watchList.score,
     progress: tables.watchList.progress,
@@ -18,7 +19,8 @@ export default defineEventHandler(async (event) => {
     .orderBy(sql.raw(`
       CASE status
         ${statusOrder.map((status, index) => `WHEN ${status} THEN ${index + 1}`).join(" ")}
-      END
+      END,
+      media_slug ASC
     `));
 
   if (page && offset) {

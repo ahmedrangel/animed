@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "3b92a754-a9a3-4fae-8d22-2444a7bfd0bc",
+  "id": "d5429da3-9b3f-457b-b5ae-95a6f05d047f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "social_connections": {
@@ -171,6 +171,13 @@
         "media_id": {
           "name": "media_id",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "media_slug": {
+          "name": "media_slug",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
