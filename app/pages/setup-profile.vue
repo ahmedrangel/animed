@@ -75,10 +75,10 @@ watchDebounced(form, async () => {
           </div>
         </Transition>
         <div class="d-flex flex-column gap-3">
-          <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark" type="submit" :disabled="!form.username || loadingLookup || errorMessage" title="Save" icon="ph:floppy-disk-bold">
+          <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark px-2 py-3" type="submit" :disabled="!form.username || loadingLookup || errorMessage" title="Save" icon="ph:floppy-disk-bold">
             Save
           </ButtonComp>
-          <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark" title="Log Out" icon="ph:sign-out-bold" @click="logOut">
+          <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark px-2 py-3" title="Log Out" icon="ph:sign-out-bold" @click="logOut">
             Log Out
           </ButtonComp>
         </div>
