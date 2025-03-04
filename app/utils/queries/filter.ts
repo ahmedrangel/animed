@@ -15,6 +15,7 @@ export const queryFilter = (options?: QueryOptions) => {
       { pageInfo: ["hasNextPage"] },
       { operation: "media",
         variables: {
+          id_in: { type: "[Int]", value: options?.id_in },
           type: { type: "MediaType", value: "ANIME" },
           format_in: { type: "[MediaFormat]", value: [Format.TV, Format.OVA, Format.ONA, Format.TV_SHORT] },
           sort: { type: "[MediaSort]", value: options?.sort },
@@ -37,7 +38,8 @@ export const queryFilter = (options?: QueryOptions) => {
           "status",
           "averageScore",
           { trailer: ["id", "site"] },
-          { nextAiringEpisode: ["airingAt"] }
+          { nextAiringEpisode: ["airingAt"] },
+          ...(Array.isArray(options?.extraFields) ? options.extraFields : [])
         ]
       }]
   });
