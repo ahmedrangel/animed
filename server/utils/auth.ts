@@ -38,7 +38,7 @@ export const handleOAuth = async (event: H3Event, userOptions: { id: string, ema
   }
 
   const { secure } = useRuntimeConfig();
-  const userHash = hash(String(email), secure.salt);
+  const userHash = await hash(String(email), secure.salt);
   await setUserSession(event, {
     user: {
       ...authUser,
