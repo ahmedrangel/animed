@@ -1,5 +1,5 @@
 CREATE TABLE `social_connections` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`id` integer PRIMARY KEY NOT NULL,
 	`user_id` integer,
 	`provider` text NOT NULL,
 	`provider_id` text NOT NULL,
@@ -24,13 +24,14 @@ CREATE TABLE `users` (
 CREATE UNIQUE INDEX `users_username_unique` ON `users` (`username`);
 CREATE UNIQUE INDEX `users_email_unique` ON `users` (`email`);
 CREATE TABLE `watch_list` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`media_id` integer NOT NULL,
 	`user_id` integer,
-	`status` text NOT NULL,
+	`status` integer NOT NULL,
 	`score` integer,
-	`progress` integer,
+	`progress` integer NOT NULL,
 	`started_date` integer,
 	`finished_date` integer,
+	`updated_at` integer NOT NULL,
+	PRIMARY KEY(`media_id`, `user_id`),
 	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );

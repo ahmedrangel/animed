@@ -149,3 +149,15 @@ export const fromSameRouteParams = (last: RouteLocationNormalizedGeneric, curren
 export const fixUsername = (username: string) => {
   return username.replace(/[^a-zA-Z0-9._]/g, "").slice(0, 20);
 };
+
+export const addToWatchlist = async (userId: number, mediaId: number) => {
+  const watchlist = useWatchlist();
+  const result = await $fetch<{ success: boolean }>("/api/watchlist", {
+    method: "POST",
+    body: { userId, mediaId }
+  }).catch(() => null);
+  if (result && watchlist.value) {
+    watchlist.value = [...watchlist.value, result];
+    return result;
+  }
+};

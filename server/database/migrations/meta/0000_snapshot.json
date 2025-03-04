@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "de6406f2-996c-42c7-a41c-da3518a8a170",
+  "id": "3b92a754-a9a3-4fae-8d22-2444a7bfd0bc",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "social_connections": {
@@ -12,7 +12,7 @@
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": true
+          "autoincrement": false
         },
         "user_id": {
           "name": "user_id",
@@ -168,13 +168,6 @@
     "watch_list": {
       "name": "watch_list",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": true
-        },
         "media_id": {
           "name": "media_id",
           "type": "integer",
@@ -191,7 +184,7 @@
         },
         "status": {
           "name": "status",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -207,7 +200,7 @@
           "name": "progress",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "started_date": {
@@ -222,6 +215,13 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
+          "autoincrement": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
           "autoincrement": false
         }
       },
@@ -241,7 +241,15 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "watch_list_media_id_user_id_pk": {
+          "columns": [
+            "media_id",
+            "user_id"
+          ],
+          "name": "watch_list_media_id_user_id_pk"
+        }
+      },
       "uniqueConstraints": {},
       "checkConstraints": {}
     }

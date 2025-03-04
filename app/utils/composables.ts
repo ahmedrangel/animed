@@ -55,3 +55,8 @@ export const useFormState = <T extends Record<string, unknown>>(initialState: T)
   Object.assign(data, methods);
   return data as Ref<T> & typeof methods;
 };
+
+export const useWatchlist = () => {
+  const { data: watchlist } = useNuxtData<any[]>("mywatchlist");
+  return watchlist;
+};

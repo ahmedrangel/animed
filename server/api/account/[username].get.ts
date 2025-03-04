@@ -1,5 +1,4 @@
 export default defineEventHandler(async (event) => {
-  await requireUserSession(event);
   const DB = useDB();
   const { username } = getRouterParams(event);
   const user = await DB.select({

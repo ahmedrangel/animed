@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer, primaryKey } from "drizzle-orm/sqlite-core";
 
 export const users = sqliteTable("users", {
   id: integer().primaryKey({ autoIncrement: true }),
@@ -23,13 +23,14 @@ export const socialConnections = sqliteTable("social_connections", {
 });
 
 export const watchList = sqliteTable("watch_list", {
-  id: integer().primaryKey(),
   mediaId: integer().notNull(),
   userId: integer().references(() => users.id, { onDelete: "cascade" }),
-  status: text().notNull(),
+  status: integer().notNull(),
   score: integer(),
-  progress: integer(),
+  progress: integer().notNull(),
   startedDate: integer(),
   finishedDate: integer(),
   updatedAt: integer().notNull()
-});
+}, table => [
+  primaryKey({ columns: [table.mediaId, table.userId] })
+]);
