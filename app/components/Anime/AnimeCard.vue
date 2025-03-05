@@ -36,7 +36,7 @@ const added = computed(() => watchlist.value?.find(item => item.mediaId === prop
 
 <style scoped>
 .image #overlay-anime-card {
-  background: linear-gradient(0deg, rgba(13, 13, 13, 0.8) 15%, rgba(13, 13, 13, 0) 45%);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 15%, rgba(0, 0, 0, 0) 40%);
   opacity: 0;
   transition: opacity 0.3s ease-in-out!important;
   height: 100%;
