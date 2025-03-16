@@ -28,24 +28,24 @@
     "@iconify-json/line-md": "^1.2.5",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/ph": "^1.2.2",
-    "@iconify-json/simple-icons": "^1.2.27",
-    "@nuxt/eslint": "^1.1.0",
-    "@nuxt/fonts": "^0.10.3",
-    "@nuxt/icon": "^1.10.3",
-    "@nuxt/scripts": "^0.10.5",
+    "@iconify-json/simple-icons": "^1.2.28",
+    "@nuxt/eslint": "^1.2.0",
+    "@nuxt/fonts": "^0.11.0",
+    "@nuxt/icon": "^1.11.0",
+    "@nuxt/scripts": "^0.11.2",
     "@nuxthub/core": "^0.8.18",
     "@nuxtjs/color-mode": "^3.5.2",
-    "@nuxtjs/sitemap": "^7.2.6",
+    "@nuxtjs/sitemap": "^7.2.9",
     "@types/bootstrap": "^5.2.10",
-    "@vueuse/nuxt": "^12.7.0",
+    "@vueuse/nuxt": "^13.0.0",
     "date-fns": "^4.1.0",
     "drizzle-kit": "^0.30.5",
     "drizzle-orm": "^0.40.0",
-    "eslint": "9.21.0",
+    "eslint": "9.22.0",
     "gql-payload": "^2.1.0",
-    "nuxt": "^3.15.4",
+    "nuxt": "^3.16.0",
     "stylelint-config-standard": "^37.0.0",
-    "wrangler": "^3.112.0"
+    "wrangler": "^4.0.0"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
@@ -57,5 +57,5 @@
   "resolutions": {
     "vue-router": "4.4.5"
   },
-  "packageManager": "pnpm@10.5.2"
+  "packageManager": "pnpm@10.6.3"
 }
