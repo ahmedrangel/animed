@@ -14,6 +14,11 @@ const tabs: ComputedRef<{
     route: "/"
   },
   {
+    name: "Search",
+    icon: "ph:magnifying-glass-bold",
+    route: "/search"
+  },
+  {
     name: "Categories",
     icon: "ph:squares-four-bold",
     route: "/c"
@@ -22,11 +27,6 @@ const tabs: ComputedRef<{
     name: "Airing Schedule",
     icon: "ph:calendar-dots-bold",
     route: "/schedule"
-  },
-  {
-    name: "Search",
-    icon: "ph:magnifying-glass-bold",
-    route: "/search"
   },
   {
     name: loggedIn.value ? "Profile" : "Login",
