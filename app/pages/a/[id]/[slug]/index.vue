@@ -269,7 +269,7 @@ const fixTheme = (text: string) => {
                         <div class="col ps-0 mt-0" style="max-width: 100px;">
                           <img :src="c.node.image.medium" class="img-fluid rounded-start rounded-end-0" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
                         </div>
-                        <div class="col text-start me-auto mt-0 py-1">
+                        <div v-if="c.node?.name.userPreferred" class="col text-start me-auto mt-0 py-1">
                           <small class="d-block">
                             <NuxtLink :to="`/ch/${c.node?.id}/${fixSlug(c.node?.name.userPreferred)}`">{{ c.node?.name.userPreferred }}</NuxtLink>
                           </small>
