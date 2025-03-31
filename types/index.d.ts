@@ -170,6 +170,7 @@ declare global {
   interface QueryOptions {
     id?: number;
     id_in?: number[];
+    idMal_in?: number[];
     alias?: string;
     staffLanguage?: string;
     sort?: Sort | Sort[];
@@ -187,6 +188,7 @@ declare global {
     airingAt_greater?: number;
     airingAt_lesser?: number;
     extraFields?: FieldsOption;
+    noFilter?: boolean;
   }
 
   interface StaffCharacters {

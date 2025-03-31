@@ -191,7 +191,7 @@ export const getStaff = async (options: { id: number, slug: string }): Promise<S
   });
 
   const response = data.Staff as StaffInfo;
-  const _slug = fixSlug(response?.name?.userPreferred);
+  const _slug = fixSlug(response.name.userPreferred!);
   if (options?.slug && options.slug.toLowerCase() !== _slug) {
     throw createError({
       statusCode: 404,

@@ -53,7 +53,8 @@ onMounted(async () => {
   const pageInfo = await getListByIdIn({
     id_in: mediaIds,
     perPage: 50,
-    extraFields: ["genres", "episodes"]
+    extraFields: ["genres", "episodes"],
+    noFilter: true
   });
   animeList.value = pageInfo.media.toSorted((a, b) => mediaIds.indexOf(a.id) - mediaIds.indexOf(b.id));
   if (isMyPage) {
