@@ -42,5 +42,7 @@ export const categories = [
   { name: "Succubus", type: "tag" },
   { name: "Tomboy", type: "tag" },
   { name: "Food", type: "tag" },
-  { name: "Dragons", type: "tag" }
+  { name: "Dragons", type: "tag" },
+  { name: "Artificial Intelligence", type: "tag" },
+  { name: "Maids", type: "tag" }
 ] as { name: string, type: "genre" | "tag" }[];
