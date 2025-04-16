@@ -24,7 +24,7 @@ useHead({
       <h3 class="px-4 py-4 mb-0 bg-dark">Categories</h3>
       <ul>
         <NuxtLink v-for="(c, i) of result" :key="i" v-ripple="{ color: 'rgba(0,0,0,0.4)' }" :to="`/c/${fixSlug(c.name)}`" role="button" class="px-2 py-4 d-flex justify-content-center align-items-center" :title="c.name">
-          <span class="category-name h3 text-center pe-none fw-normal">{{ c.name }}</span>
+          <span class="category-name h3 text-center pe-none fw-normal mb-0">{{ c.name }}</span>
         </NuxtLink>
       </ul>
     </section>
