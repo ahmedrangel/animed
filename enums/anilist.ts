@@ -34,7 +34,8 @@ export enum Licensor {
   NETFLIX = 10,
   HIDIVE = 20,
   AMAZON = 21,
-  BILIBILI = 119
+  BILIBILI = 119,
+  X = 219
 }
 
 export enum Language {
