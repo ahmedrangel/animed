@@ -20,7 +20,7 @@ const loading = ref(query ? false : true);
 const getNextMedia = async () => {
   nexted.value = true;
   const tag_or_genre = category ? cat_type === "genre" ? { genres: category ? [category] : null } : { tags: category ? [category] : null } : null;
-  const next = await getList(type, { page: count.value, search: props?.query, ...tag_or_genre });
+  const next = await getList(type, { page: count.value, perPage: 50, search: props?.query, ...tag_or_genre });
   media.value.push(...next.media);
   nexted.value = false;
   count.value = count.value + 1;
