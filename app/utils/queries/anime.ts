@@ -127,9 +127,9 @@ export const queryAnimeCharacters = (options?: QueryOptions) => {
     operation: "Media",
     variables: { id: Number(options?.id) },
     fields: [
+      "id",
+      { title: ["romaji", "english", "native"] },
       ...options?.withInfo ? [
-        "id",
-        { title: ["romaji", "english", "native"] },
         { coverImage: ["extraLarge"] },
         "bannerImage",
         "format",

@@ -84,8 +84,8 @@ onBeforeUnmount(() => {
             <template v-for="(c, j) of orderedMedias[y ? String(y) : 'TBA']" :key="j">
               <div v-if="c?.node?.id" class="position-relative col-lg-2 col-md-3 col-sm-4 col-xs-4 col-6 mb-2 justify-content-center">
                 <div class="character-element image overflow-hidden mb-2 w-100 position-relative" data-aos="fade-in">
-                  <img :class="`ci-${y}_${j}`" class="character-image img-fluid scale-on-hover h-100 w-100 position-absolute object-fit-cover" :src="c.node?.coverImage?.extraLarge" :alt="c.node?.title?.english || c.node?.title?.romaji" :title="c.node?.title?.english || c.node?.title?.romaji">
-                  <img :class="`coa-${y}_${j}`" class="character-on-anime scale-full-on-hover img-fluid bottom-0 end-0 position-absolute border-start border-top border-2" :src="c.voiceActorRoles[0]?.voiceActor?.image?.large" width="90px" :alt="c.voiceActorRoles[0]?.voiceActor?.name?.userPreferred" :title="c.voiceActorRoles[0]?.voiceActor?.name?.userPreferred">
+                  <img v-if="c.node?.coverImage?.extraLarge" :class="`ci-${y}_${j}`" class="character-image img-fluid scale-on-hover h-100 w-100 position-absolute object-fit-cover" :src="c.node?.coverImage?.extraLarge" :alt="c.node?.title?.english || c.node?.title?.romaji" :title="c.node?.title?.english || c.node?.title?.romaji">
+                  <img v-if="c.voiceActorRoles?.[0]?.voiceActor?.image?.large" :class="`coa-${y}_${j}`" class="character-on-anime scale-full-on-hover img-fluid bottom-0 end-0 position-absolute border-start border-top border-2" :src="c.voiceActorRoles[0]?.voiceActor?.image?.large" width="90px" :alt="c.voiceActorRoles[0]?.voiceActor?.name?.userPreferred" :title="c.voiceActorRoles[0]?.voiceActor?.name?.userPreferred">
                 </div>
                 <NuxtLink :to="`/a/${c.node?.id}/${fixSlug(c.node?.title?.romaji)}`" class="text-white">
                   <h6 class="mb-1">
