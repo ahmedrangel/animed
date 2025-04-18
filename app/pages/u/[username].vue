@@ -32,7 +32,7 @@ const currentUser = {
   ...result.value
 };
 
-const animeList = ref<Anime[]>();
+const animeList = ref<Anime[]>([]);
 interface WatchlistData {
   [key: string]: {
     score?: number | null;
@@ -47,28 +47,9 @@ const watchlistData = ref<WatchlistData>();
 const oldWatchlistData = ref<WatchlistData>();
 
 onMounted(async () => {
-  if (!userWatchlist.value) return;
-  const mediaIds = userWatchlist.value.map(item => item.mediaId);
-  if (!mediaIds.length) return;
-  const pageInfo = await getListByIdIn({
-    id_in: mediaIds,
-    perPage: 50,
-    extraFields: ["genres", "episodes"],
-    noFilter: true
-  });
-  animeList.value = pageInfo.media.toSorted((a, b) => mediaIds.indexOf(a.id) - mediaIds.indexOf(b.id));
-  if (isMyPage) {
-    const mappedValues = userWatchlist.value.map(item => ({
-      [String(item.mediaId)]: {
-        score: item.score,
-        status: item.status || 0,
-        progress: item.progress || 0,
-        startedDate: item.startedDate,
-        finishedDate: item.finishedDate
-      }
-    })).reduce((acc, cur) => ({ ...acc, ...cur }), {});
-    oldWatchlistData.value = JSON.parse(JSON.stringify({ ...mappedValues }));
-    watchlistData.value = { ...mappedValues };
+  await getNextMedia();
+  if (animeList.value.length) {
+    addEventListener("scroll", scrollHandler);
   }
 });
 
@@ -136,6 +117,49 @@ watch(viewMode, () => {
   }
   editMode.value = false;
 });
+
+const nexted = ref(false) as Ref<boolean>;
+const count = ref(1) as Ref<number>;
+const lastRow = ref() as Ref<HTMLElement[]>;
+const hasNextPage = ref(false);
+
+const getNextMedia = async () => {
+  nexted.value = true;
+  if (!userWatchlist.value) return;
+  const mediaIds = userWatchlist.value.map(item => item.mediaId);
+  if (!mediaIds.length) return;
+  const next = await getListByIdIn({
+    id_in: mediaIds,
+    perPage: 50,
+    page: count.value,
+    extraFields: ["genres", "episodes"],
+    noFilter: true
+  });
+  animeList.value.push(...next.media);
+  animeList.value = animeList.value.toSorted((a, b) => mediaIds.indexOf(a.id) - mediaIds.indexOf(b.id));
+  if (isMyPage) {
+    const mappedValues = userWatchlist.value.map(item => ({
+      [String(item.mediaId)]: {
+        score: item.score,
+        status: item.status || 0,
+        progress: item.progress || 0,
+        startedDate: item.startedDate,
+        finishedDate: item.finishedDate
+      }
+    })).reduce((acc, cur) => ({ ...acc, ...cur }), {});
+    oldWatchlistData.value = JSON.parse(JSON.stringify({ ...mappedValues }));
+    watchlistData.value = { ...mappedValues };
+  }
+  nexted.value = false;
+  count.value = count.value + 1;
+  hasNextPage.value = next.pageInfo.hasNextPage;
+};
+
+const scrollHandler = async () => {
+  if (lastRow.value?.[0] && onScreen(lastRow.value[0]) && !nexted.value && count.value && hasNextPage.value) {
+    await getNextMedia();
+  }
+};
 </script>
 
 <template>
@@ -160,6 +184,7 @@ watch(viewMode, () => {
             <table class="table table-bordered bg-secondary border align-middle">
               <thead>
                 <tr>
+                  <th scope="col"><small>#</small></th>
                   <th scope="col" />
                   <th scope="col"><small>Title</small></th>
                   <th scope="col"><small>Score</small></th>
@@ -174,6 +199,9 @@ watch(viewMode, () => {
               <tbody>
                 <template v-for="(anime, i) of animeList" :key="i">
                   <tr>
+                    <td class="bg-secondary">
+                      <small>{{ i + 1 }}</small>
+                    </td>
                     <td class="bg-secondary">
                       <img :src="anime.coverImage.extraLarge || anime.coverImage?.large" :alt="anime.title.romaji" :title="anime.title.romaji" style="max-height: 80px;">
                     </td>
@@ -200,18 +228,18 @@ watch(viewMode, () => {
                       <small v-else>{{ watchStatusNameBydId(watchlistData?.[String(anime.id)]?.status || userWatchlist?.find(el => el.mediaId === anime.id)?.status || 0) }}</small>
                     </td>
                     <td class="bg-secondary">
-                      <span v-if="isMyPage && editMode" class="d-flex align-items-center justify-content-center gap-1">
+                      <span v-if="isMyPage" class="d-flex align-items-center justify-content-center gap-1">
                         <div class="bg-dark rounded-circle text-primary d-flex align-items-center justify-content-center" role="button" @click="watchlistData![String(anime.id)]!.progress!--">
                           <Icon name="ph:minus-bold" class="p-1" style="width: 20px; height: 20px;" />
                         </div>
                         <small>{{ watchlistData![String(anime.id)]!.progress }}</small>
                         <h6 class="mb-0 text-white">/</h6>
-                        <small>{{ anime.episodes }}</small>
+                        <small>{{ anime.episodes || "?" }}</small>
                         <div class="bg-dark rounded-circle text-primary d-flex align-items-center justify-content-center" role="button" @click="watchlistData![String(anime.id)]!.progress!++">
                           <Icon name="ph:plus-bold" class="p-1" style="width: 20px; height: 20px;" />
                         </div>
                       </span>
-                      <small v-else>{{ watchlistData?.[String(anime.id)]?.progress || userWatchlist?.find(el => el.mediaId === anime.id)?.progress }} / {{ anime.episodes }}</small>
+                      <small v-else>{{ watchlistData?.[String(anime.id)]?.progress || userWatchlist?.find(el => el.mediaId === anime.id)?.progress }} / {{ anime.episodes || "?" }}</small>
                     </td>
                     <td class="bg-secondary">
                       <input v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.startedDate" type="date" class="form-control h6 mb-0 w-auto">
@@ -233,6 +261,12 @@ watch(viewMode, () => {
                     </td>
                     <td v-if="isMyPage && editMode" class="bg-secondary">
                       <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark" icon="ph:trash-bold" style="width: 40px; height: 36px;" @click="removeItem(anime.id)" />
+                    </td>
+                  </tr>
+                  <tr v-if="i === animeList?.length - 1 && hasNextPage">
+                    <td colspan="9" class="m-0 px-0 py-3 bg-secondary">
+                      <span ref="lastRow" />
+                      <SpinnerLoading v-if="nexted" />
                     </td>
                   </tr>
                 </template>

@@ -121,7 +121,7 @@ declare global {
     seasonYear: number;
     format: string;
     status: "FINISHED" | "RELEASING" | "NOT_YET_RELEASED" | "CANCELLED" | "HIATUS";
-    episodes: number;
+    episodes?: number;
     duration: number;
     genres: string[];
     isAdult: boolean;
