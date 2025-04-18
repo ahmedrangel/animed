@@ -23,6 +23,10 @@ a>*:hover, a:hover {
   color: var(--bs-link-hover-color)!important;
 }
 
+.table>:not(caption)>*>* {
+  background-color: var(--bs-body-bg);
+}
+
 #search .row>* {
   width: inherit;
 }
@@ -352,8 +356,4 @@ input:focus-visible {
 
 .btn {
   border-radius: 4px;
-}
-
-.table>:not(caption)>*>* {
-  background-color: var(--bs-body-bg);
 }
