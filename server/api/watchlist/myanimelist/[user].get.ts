@@ -4,6 +4,7 @@ export default defineEventHandler(async (event) => {
   await requireUserSession(event);
   const config = useRuntimeConfig();
   const { user } = getRouterParams(event);
+  console.info(config.myanimelist.clientId);
   const { data } = await $fetch<{ data: MyAnimeListWatchlist[] }>(`${API.BASE}/users/${user}/animelist`, {
     query: {
       fields: "list_status",
