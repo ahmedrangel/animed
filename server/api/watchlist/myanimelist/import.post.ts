@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
     const values = chunk.map(({ mediaId, mediaSlug, userId, status, progress, score, startedDate, finishedDate, updatedAt }) => {
       return `(${mediaId}, '${mediaSlug}', ${userId}, ${status}, ${progress}, ${score}, ${startedDate ? `'${startedDate}'` : null}, ${finishedDate ? `'${finishedDate}'` : null}, ${updatedAt})`;
     }).join(", ");
-    const returning = import.meta.dev ? await hubDatabase().exec(insertQuery(values)) : await event.context.cloudflare.env.DB.prepare(insertQuery(values)).all();
+    const returning = import.meta.dev ? await hubDatabase().exec(insertQuery(values)) : await event.context.cloudflare.env.DB.prepare(insertQuery(values)).run();
     if (returning.count) importedCount = importedCount + chunk.length;
   }
   if (!importedCount) {
