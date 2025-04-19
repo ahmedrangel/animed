@@ -14,7 +14,7 @@ const watchlistData = ref({
   progress: added.value?.progress || 0,
   score: added.value?.score || null,
   startedDate: added.value?.startedDate ? new Date(added.value.startedDate).toISOString().split("T")[0] : null,
-  finishedDate: added.value?.startedDate ? new Date(added.value.finishedDate).toISOString().split("T")[0] : null
+  finishedDate: added.value?.finishedDate ? new Date(added.value.finishedDate).toISOString().split("T")[0] : null
 });
 
 const oldWatchlistData = ref({ ...watchlistData.value });
