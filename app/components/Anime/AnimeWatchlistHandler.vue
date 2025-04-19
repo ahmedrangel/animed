@@ -39,6 +39,13 @@ watch(watchlistData, () => {
   if (!watchlistData.value.finishedDate) watchlistData.value.finishedDate = null;
 }, { deep: true });
 
+watchDebounced(watchlistData, async () => {
+  if (!watchlist.value) return;
+  updating.value = true;
+  await updateWatchlist();
+  updating.value = false;
+}, { deep: true, debounce: 1000 });
+
 const updateWatchlist = async () => {
   if (!watchlist.value) return;
   watchlist.value = await Promise.all(watchlist.value.map(async (item) => {
