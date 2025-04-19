@@ -198,7 +198,7 @@ const scrollHandler = async () => {
               <tbody>
                 <template v-for="(anime, i) of animeList" :key="i">
                   <tr>
-                    <td :style="{ backgroundColor: watchStatusColorById(watchlistData?.[String(anime.id)]?.status || userWatchlist?.find(el => el.mediaId === anime.id)?.status || 0) }" />
+                    <td :style="{ backgroundColor: watchStatusColorById(watchlistData?.[String(anime.id)]?.status ?? userWatchlist?.find(el => el.mediaId === anime.id)?.status ?? 0) }" />
                     <td class="bg-secondary">
                       <small>{{ i + 1 }}</small>
                     </td>
@@ -217,7 +217,7 @@ const scrollHandler = async () => {
                         <option selected :value="null">-</option>
                         <option v-for="j in [...Array(10)].map((_, j) => 10 - j)" :key="j" :value="j">{{ j }}</option>
                       </select>
-                      <small v-else>{{ watchlistData?.[String(anime.id)]?.score || userWatchlist?.find(el => el.mediaId === anime.id)?.score || "-" }}</small>
+                      <small v-else>{{ watchlistData?.[String(anime.id)]?.score ?? userWatchlist?.find(el => el.mediaId === anime.id)?.score ?? "-" }}</small>
                     </td>
                     <td class="bg-secondary">
                       <select v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.status" class="form-select h6 mb-0 w-auto">
@@ -225,7 +225,7 @@ const scrollHandler = async () => {
                           {{ status.name }}
                         </option>
                       </select>
-                      <small v-else>{{ watchStatusNameBydId(watchlistData?.[String(anime.id)]?.status || userWatchlist?.find(el => el.mediaId === anime.id)?.status || 0) }}</small>
+                      <small v-else>{{ watchStatusNameBydId(watchlistData?.[String(anime.id)]?.status ?? userWatchlist?.find(el => el.mediaId === anime.id)?.status ?? 0) }}</small>
                     </td>
                     <td class="bg-secondary">
                       <span v-if="isMyPage" class="d-flex align-items-center justify-content-center gap-1">
@@ -239,7 +239,7 @@ const scrollHandler = async () => {
                           <Icon name="ph:plus-bold" class="p-1" style="width: 20px; height: 20px;" />
                         </div>
                       </span>
-                      <small v-else>{{ watchlistData?.[String(anime.id)]?.progress || userWatchlist?.find(el => el.mediaId === anime.id)?.progress }} / {{ anime.episodes || "?" }}</small>
+                      <small v-else>{{ watchlistData?.[String(anime.id)]?.progress ?? userWatchlist?.find(el => el.mediaId === anime.id)?.progress }} / {{ anime.episodes || "?" }}</small>
                     </td>
                     <td class="bg-secondary">
                       <input v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.startedDate" type="date" class="form-control h6 mb-0 w-auto">
