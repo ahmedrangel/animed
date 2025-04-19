@@ -243,11 +243,11 @@ const scrollHandler = async () => {
                     </td>
                     <td class="bg-secondary">
                       <input v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.startedDate" type="date" class="form-control h6 mb-0 w-auto">
-                      <small v-else>{{ watchlistData?.[String(anime.id)]?.startedDate || userWatchlist?.find(el => el.mediaId === anime.id)?.startedDate }}</small>
+                      <small v-else class="text-nowrap">{{ watchlistData?.[String(anime.id)]?.startedDate || userWatchlist?.find(el => el.mediaId === anime.id)?.startedDate }}</small>
                     </td>
                     <td class="bg-secondary">
                       <input v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.finishedDate" type="date" :min="watchlistData![String(anime.id)]!.startedDate || undefined" class="form-control h6 mb-0 w-auto">
-                      <small v-else>{{ watchlistData?.[String(anime.id)]?.finishedDate || userWatchlist?.find(el => el.mediaId === anime.id)?.finishedDate }}</small>
+                      <small v-else class="text-nowrap">{{ watchlistData?.[String(anime.id)]?.finishedDate || userWatchlist?.find(el => el.mediaId === anime.id)?.finishedDate }}</small>
                     </td>
                     <td class="bg-secondary" style="max-width: 200px;">
                       <div class="d-flex justify-content-center flex-wrap gap-1">
