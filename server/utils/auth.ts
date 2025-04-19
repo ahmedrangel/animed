@@ -57,7 +57,7 @@ export const handleOAuth = async (event: H3Event, userOptions: { id: string, ema
 
       if (!authUser) return sendRedirect(event, "/login?error=signin_auth_error");
 
-      const { secure } = useRuntimeConfig();
+      const { secure } = useRuntimeConfig(event);
       const userHash = await hash(String(authUser.id), secure.salt);
       await setUserSession(event, {
         user: {
@@ -85,7 +85,7 @@ export const handleOAuth = async (event: H3Event, userOptions: { id: string, ema
         if (!connection?.provider) console.info(`${provider} connection failed to save`);
       }
 
-      const { secure } = useRuntimeConfig();
+      const { secure } = useRuntimeConfig(event);
       const userHash = await hash(String(session.user.id), secure.salt);
       await setUserSession(event, {
         user: {
