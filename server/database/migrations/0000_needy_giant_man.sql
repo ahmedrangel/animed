@@ -30,8 +30,8 @@ CREATE TABLE `watch_list` (
 	`status` integer NOT NULL,
 	`score` integer,
 	`progress` integer NOT NULL,
-	`started_date` integer,
-	`finished_date` integer,
+	`started_date` text,
+	`finished_date` text,
 	`updated_at` integer NOT NULL,
 	PRIMARY KEY(`media_id`, `user_id`),
 	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade

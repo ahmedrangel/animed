@@ -38,7 +38,8 @@ export default defineNuxtConfig({
     "~/assets/css/main.css",
     "~/assets/css/transitions.css",
     "~/assets/css/theme.css",
-    "~/assets/css/categories.css"
+    "~/assets/css/categories.css",
+    "~/assets/css/connections.css"
   ],
   modules: [
     "@nuxt/scripts",
@@ -63,6 +64,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     secure: {
       salt: ""
+    },
+    myanimelist: {
+      clientId: ""
     }
   },
   features: {

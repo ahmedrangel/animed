@@ -2,6 +2,7 @@ import type { FetchError as F } from "ofetch";
 import type { CacheEntry as C } from "nitropack/runtime/types";
 import type { FieldsOption } from "gql-payload";
 import type { Sort, Status } from "~~/enums/anilist";
+import type { User as U } from "#auth-utils";
 
 export {};
 
@@ -189,6 +190,7 @@ declare global {
     airingAt_lesser?: number;
     extraFields?: FieldsOption;
     noFilter?: boolean;
+    includeNSFW?: boolean;
   }
 
   interface StaffCharacters {
@@ -245,4 +247,21 @@ declare global {
   }
 
   // TODO: Character profile types
+
+  interface MyAnimeListWatchlist {
+    node: {
+      id: number;
+      title: string;
+    };
+    list_status: {
+      status: string;
+      score: number;
+      num_episodes_watched: number;
+      updated_at: string;
+      start_date: string;
+      finish_date: string;
+    };
+  }
+
+  type User = U;
 }

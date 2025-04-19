@@ -4,13 +4,6 @@ const form = useFormState({
   password: ""
 });
 
-const connections = [
-  { name: "Discord", icon: "simple-icons:discord", class: "discord", to: "/auth/discord" },
-  { name: "Google", icon: "simple-icons:google", class: "google", to: "/auth/google" },
-  { name: "Facebook", icon: "simple-icons:facebook", class: "facebook", to: "/auth/facebook", disabled: true },
-  { name: "X", icon: "simple-icons:x", class: "x-twitter", to: "/auth/x", disabled: true }
-];
-
 watch(form, (value) => {
   form.value.username = fixUsername(value.username);
 }, { deep: true });
@@ -37,7 +30,7 @@ watch(form, (value) => {
         <div class="d-flex align-items-center justify-content-center w-100">
           <div class="connections">
             <div class="d-flex anime-row flex-wrap gx-0 gx-lg-3 gy-3 justify-content-center">
-              <template v-for="(connection, i) in connections" :key="i">
+              <template v-for="(connection, i) in socialConnections" :key="i">
                 <div class="col-12 col-lg-6">
                   <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" role="link" class="w-100 px-2 py-3" :class="connection.class" :to="connection.to" :icon="connection.icon" external :disabled="connection.disabled">Continue with {{ connection.name }}</ButtonComp>
                 </div>
@@ -49,56 +42,3 @@ watch(form, (value) => {
     </section>
   </main>
 </template>
-
-<style scoped>
-@media only screen and (width >= 992px) {
-  #login .user-input, #login .connections{
-    width: 50%;
-  }
-}
-
-.discord {
-    background-color: #5865f2;
-    color: var(--white);
-    &>*:hover, &:hover {
-      color: #5865f2!important;
-    }
-    &:hover {
-      background-color: white!important;
-      border: 1px solid #5865f2;
-    }
-  }
-.google {
-  background-color: #db4437;
-  color: var(--white);
-  &>*:hover, &:hover {
-    color: #db4437!important;
-  }
-  &:hover {
-    background-color: white!important;
-    border: 1px solid #db4437;
-  }
-}
-.facebook {
-  background-color: #1877f2;
-  color: var(--white);
-  &>*:hover, &:hover {
-    color: #1877f2!important;
-  }
-  &:hover {
-    background-color: white!important;
-    border: 1px solid #1877f2;
-  }
-}
-.x-twitter {
-  background-color: white;
-  color: black;
-  &>*:hover, &:hover {
-    color: white!important;
-  }
-  &:hover {
-    background-color: black!important;
-    border: 1px solid white!important
-  }
-}
-</style>

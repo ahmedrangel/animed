@@ -161,3 +161,49 @@ export const addToWatchlist = async (mediaId: number, mediaSlug: string) => {
     return result;
   }
 };
+
+export const importMyAnimeList = async () => {
+  const user = prompt("Enter your MyAnimeList username:")?.trim();
+  if (!user) return;
+  const myanimelistData = await $fetch<MyAnimeListWatchlist[]>(`/api/watchlist/myanimelist/${user}`).catch(() => null);
+  if (!myanimelistData) return;
+  const chunkSize = 50;
+  const importData = [];
+  for (let i = 0; i < myanimelistData.length; i += chunkSize) {
+    const chunk = myanimelistData.slice(i, i + chunkSize);
+    const malIds = chunk.map(item => item.node.id);
+    const anilistData = await getListByIdIn({
+      idMal_in: malIds,
+      perPage: 50,
+      noFilter: true,
+      includeNSFW: true,
+      extraFields: ["idMal"]
+    });
+    for (const item of chunk) {
+      const anilistItem = anilistData.media.find(media => media.idMal === item.node.id);
+      const listStatus = item.list_status;
+      if (!anilistItem) continue;
+      importData.push({
+        mediaId: anilistItem.id,
+        mediaSlug: fixSlug(anilistItem.title.romaji),
+        score: listStatus.score,
+        status: listStatus.status === "plan_to_watch" ? 0 : listStatus.status === "watching" ? 1 : listStatus.status === "completed" ? 2 : listStatus.status === "on_hold" ? 3 : listStatus.status === "dropped" ? 4 : null,
+        progress: listStatus.num_episodes_watched || 0,
+        startedDate: listStatus.start_date,
+        finishedDate: listStatus.finish_date
+      });
+    }
+  }
+  await $fetch("/api/watchlist/myanimelist/import", {
+    method: "POST",
+    body: importData
+  }).catch(() => null);
+  return true;
+};
+
+export const socialConnections = [
+  { id: "discord", name: "Discord", icon: "simple-icons:discord", class: "discord", to: "/auth/discord" },
+  { id: "google", name: "Google", icon: "simple-icons:google", class: "google", to: "/auth/google" },
+  { id: "facebook", name: "Facebook", icon: "simple-icons:facebook", class: "facebook", to: "/auth/facebook", disabled: true },
+  { id: "x-twitter", name: "X", icon: "simple-icons:x", class: "x-twitter", to: "/auth/x", disabled: true }
+];

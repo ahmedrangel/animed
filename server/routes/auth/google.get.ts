@@ -3,7 +3,6 @@ export default defineOAuthGoogleEventHandler({
     scope: ["email", "profile"]
   },
   async onSuccess (event, { user }) {
-    console.info(user);
     return handleOAuth(event, {
       id: user.sub,
       email: user.email

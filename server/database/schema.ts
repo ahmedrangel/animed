@@ -29,8 +29,8 @@ export const watchList = sqliteTable("watch_list", {
   status: integer().notNull(),
   score: integer(),
   progress: integer().notNull(),
-  startedDate: integer(),
-  finishedDate: integer(),
+  startedDate: text(),
+  finishedDate: text(),
   updatedAt: integer().notNull()
 }, table => [
   primaryKey({ columns: [table.mediaId, table.userId] })

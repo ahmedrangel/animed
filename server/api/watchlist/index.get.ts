@@ -2,7 +2,7 @@ export default defineEventHandler(async (event) => {
   const DB = useDB();
   const { userId, page } = getQuery<{ userId: number, page?: number }>(event);
   const limit = 50;
-  const offset = page ? (Number(page) - 1) * limit : null;
+  const offset = page ? (Number(page) - 1) * limit : 0;
   const statusOrder = [1, 2, 3, 4, 0];
   let query;
   query = DB.select({
@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
       media_slug ASC
     `));
 
-  if (page && offset) {
+  if (page) {
     query = query.limit(limit).offset(offset);
   }
 

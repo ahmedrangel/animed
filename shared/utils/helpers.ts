@@ -5,26 +5,35 @@ export const fixSlug = (name: string) => {
 export const watchStatus = {
   PLAN_TO_WATCH: {
     id: 0,
-    name: "Plan to Watch"
+    name: "Plan to Watch",
+    color: "#000000"
   },
   WATCHING: {
     id: 1,
-    name: "Watching"
+    name: "Watching",
+    color: "#0090d0"
   },
   COMPLETED: {
     id: 2,
-    name: "Completed"
+    name: "Completed",
+    color: "#00c153"
   },
   ON_HOLD: {
     id: 3,
-    name: "On Hold"
+    name: "On Hold",
+    color: "#fbbf24"
   },
   DROPPED: {
     id: 4,
-    name: "Dropped"
+    name: "Dropped",
+    color: "#a90000"
   }
 };
 
 export const watchStatusNameBydId = (id: number) => {
   return Object.values(watchStatus).find(status => status.id === id)?.name;
+};
+
+export const watchStatusColorById = (id: number) => {
+  return Object.values(watchStatus).find(status => status.id === id)?.color;
 };

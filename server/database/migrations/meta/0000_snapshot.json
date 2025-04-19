@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "1f1e0b10-0ad5-4b24-b54a-adbf2bbdb8a5",
+  "id": "65010475-13bd-4460-a3f2-42ac0e65d64d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "social_connections": {
@@ -212,14 +212,14 @@
         },
         "started_date": {
           "name": "started_date",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
         "finished_date": {
           "name": "finished_date",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false

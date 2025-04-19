@@ -1,21 +1,16 @@
 <script setup lang="ts">
 const { params } = useRoute("u-username");
 const { username } = params;
-const { data: result, error } = await useFetch(`/api/account/${username}`);
+const { data: result } = await useFetch<User>(`/api/account/${username}`);
 const { clear, user, loggedIn } = useUserSession();
-const logOut = () => {
-  clear();
-  navigateTo("/login", { external: true });
-};
-
 const isMyPage = loggedIn.value && user.value?.username?.toLowerCase() === username.toLowerCase();
 
-if (error.value && isMyPage) {
+if (!result.value && isMyPage) {
   clear();
   navigateTo("/login", { external: true });
 }
 
-if (error.value) {
+if (!result.value && !isMyPage) {
   throw createError({
     statusCode: 404,
     message: `User not found: ${username}`,
@@ -38,8 +33,8 @@ interface WatchlistData {
     score?: number | null;
     status?: number;
     progress?: number;
-    startedDate?: number | null;
-    finishedDate?: number | null;
+    startedDate?: string | null;
+    finishedDate?: string | null;
   };
 }
 
@@ -125,20 +120,23 @@ const hasNextPage = ref(false);
 
 const getNextMedia = async () => {
   nexted.value = true;
-  if (!userWatchlist.value) return;
-  const mediaIds = userWatchlist.value.map(item => item.mediaId);
+  const newUserWatchList = await $fetch("/api/watchlist", {
+    query: { userId: result.value?.id, page: count.value }
+  });
+  if (!newUserWatchList) return;
+  const mediaIds = newUserWatchList.map(item => item.mediaId);
   if (!mediaIds.length) return;
   const next = await getListByIdIn({
     id_in: mediaIds,
     perPage: 50,
-    page: count.value,
     extraFields: ["genres", "episodes"],
+    includeNSFW: true,
     noFilter: true
   });
   animeList.value.push(...next.media);
   animeList.value = animeList.value.toSorted((a, b) => mediaIds.indexOf(a.id) - mediaIds.indexOf(b.id));
   if (isMyPage) {
-    const mappedValues = userWatchlist.value.map(item => ({
+    const mappedValues = newUserWatchList.map(item => ({
       [String(item.mediaId)]: {
         score: item.score,
         status: item.status || 0,
@@ -147,8 +145,8 @@ const getNextMedia = async () => {
         finishedDate: item.finishedDate
       }
     })).reduce((acc, cur) => ({ ...acc, ...cur }), {});
-    oldWatchlistData.value = JSON.parse(JSON.stringify({ ...mappedValues }));
-    watchlistData.value = { ...mappedValues };
+    oldWatchlistData.value = { ...oldWatchlistData.value, ...JSON.parse(JSON.stringify({ ...mappedValues })) };
+    watchlistData.value = { ...watchlistData.value, ...mappedValues };
   }
   nexted.value = false;
   count.value = count.value + 1;
@@ -164,10 +162,10 @@ const scrollHandler = async () => {
 
 <template>
   <main>
-    <section id="profile" class="text-center py-5">
-      <div class="px-2 pt-4 pb-2 pt-lg-5 px-lg-5 px-xl-5 w-100 position-relative">
-        <h4 class="mb-3">{{ currentUser.username }}</h4>
-        <ButtonComp v-if="currentUser.loggedIn" v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark mb-3" @click="logOut">Logout</ButtonComp>
+    <section id="profile" class="text-center py-4">
+      <div class="px-2 px-lg-5 px-xl-5 w-100 position-relative">
+        <ProfileDropdown />
+        <ProfileMenu v-if="currentUser.loggedIn" class="mb-4" />
         <div class="d-flex justify-content-center align-items-center mb-3">
           <div class="alert alert-warning m-0" role="alert">
             <small>The Profile and Watchlist feature are currently in development</small>
@@ -184,6 +182,7 @@ const scrollHandler = async () => {
             <table class="table table-bordered bg-secondary border align-middle">
               <thead>
                 <tr>
+                  <th scope="col" />
                   <th scope="col"><small>#</small></th>
                   <th scope="col" />
                   <th scope="col"><small>Title</small></th>
@@ -199,6 +198,7 @@ const scrollHandler = async () => {
               <tbody>
                 <template v-for="(anime, i) of animeList" :key="i">
                   <tr>
+                    <td :style="{ backgroundColor: watchStatusColorById(watchlistData?.[String(anime.id)]?.status || userWatchlist?.find(el => el.mediaId === anime.id)?.status || 0) }" />
                     <td class="bg-secondary">
                       <small>{{ i + 1 }}</small>
                     </td>

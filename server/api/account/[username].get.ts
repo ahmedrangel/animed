@@ -10,12 +10,5 @@ export default defineEventHandler(async (event) => {
     createdAt: tables.users.createdAt,
     updatedAt: tables.users.updatedAt
   }).from(tables.users).where(eq(sql`lower(${tables.users.username})`, username.toLowerCase())).get();
-  if (!user) {
-    throw createError({
-      statusCode: 404,
-      message: `User not found: ${username}`,
-      fatal: true
-    });
-  }
   return user;
 });

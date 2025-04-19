@@ -28,7 +28,7 @@ export const queryFilter = (options?: QueryOptions) => {
           tag_in: { type: "[String]", value: options?.tags },
           startDate_greater: { type: "FuzzyDateInt", value: options?.startDate_greater },
           startDate_lesser: { type: "FuzzyDateInt", value: options?.startDate_lesser },
-          isAdult: { type: "Boolean", value: false }
+          ...!options?.includeNSFW && { isAdult: { type: "Boolean", value: false } }
         },
         fields: [
           "id",
