@@ -186,7 +186,7 @@ export const importMyAnimeList = async () => {
       importData.push({
         mediaId: anilistItem.id,
         mediaSlug: fixSlug(anilistItem.title.romaji),
-        score: listStatus.score,
+        score: listStatus.score || null,
         status: listStatus.status === "plan_to_watch" ? 0 : listStatus.status === "watching" ? 1 : listStatus.status === "completed" ? 2 : listStatus.status === "on_hold" ? 3 : listStatus.status === "dropped" ? 4 : null,
         progress: listStatus.num_episodes_watched || 0,
         startedDate: listStatus.start_date,
