@@ -13,7 +13,8 @@ export default defineEventHandler(async (event) => {
     headers: {
       "X-MAL-CLIENT-ID": config.myanimelist.clientId
     }
-  }).catch(() => {
+  }).catch((e) => {
+    console.info("Error fetching MyAnimeList watchlist", e);
     return { data: [] };
   });
   return data;
