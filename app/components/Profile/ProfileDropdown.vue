@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { params } = useRoute("u-username");
+const { username } = params;
 const { clear, user, loggedIn } = useUserSession();
 const logOut = () => {
   clear();
@@ -23,7 +25,7 @@ const logOut = () => {
   <div v-else class="mb-0 d-flex justify-content-end align-items-center">
     <div class="bg-secondary d-flex justify-content-center align-items-center gap-1 rounded p-2">
       <Icon name="ph:user-bold" />
-      <h6 class="fw-normal rounded mb-0">{{ user?.username }}</h6>
+      <h6 class="fw-normal rounded mb-0">{{ username }}</h6>
     </div>
   </div>
 </template>
