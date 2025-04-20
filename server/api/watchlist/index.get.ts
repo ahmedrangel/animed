@@ -5,8 +5,9 @@ export default defineEventHandler(async (event) => {
   const offset = page ? (Number(page) - 1) * limit : 0;
   const normalStatusOrder = [1, 2, 3, 4, 0];
   const invertedStatusOrder = normalStatusOrder.toReversed();
-  const statusOrder = order === "asc" || order === "init" ? normalStatusOrder : invertedStatusOrder;
-  const sortColumn = sort && order !== "init" ? tables.watchList[sort as keyof typeof tables.watchList] as SQLiteColumn : null;
+  const orderType = order ? order : "init";
+  const statusOrder = orderType === "asc" || orderType === "init" ? normalStatusOrder : invertedStatusOrder;
+  const sortColumn = sort && orderType !== "init" ? tables.watchList[sort as keyof typeof tables.watchList] as SQLiteColumn : null;
   const whereCondition = status ? and(eq(tables.watchList.userId, userId), eq(tables.watchList.status, Number(status))) : eq(tables.watchList.userId, userId);
   let query;
   query = DB.select({
@@ -20,7 +21,7 @@ export default defineEventHandler(async (event) => {
     finishedDate: tables.watchList.finishedDate,
     updatedAt: tables.watchList.updatedAt
   }).from(tables.watchList).where(whereCondition)
-    .orderBy(sortColumn ? order === "asc" ? asc(sortColumn) : desc(sortColumn) : sql.raw(`
+    .orderBy(sortColumn ? orderType === "asc" ? asc(sortColumn) : desc(sortColumn) : sql.raw(`
       CASE status
         ${statusOrder.map((status, index) => `WHEN ${status} THEN ${index + 1}`).join(" ")}
       END,

@@ -38,14 +38,29 @@ interface WatchlistData {
   };
 }
 
+const viewMode = ref(0);
+const viewModes = ["Normal", "Edit"];
+const editMode = ref(false);
+
+const nexted = ref(false) as Ref<boolean>;
+const count = ref(1) as Ref<number>;
+const lastRow = ref() as Ref<HTMLElement[]>;
+const hasNextPage = ref(false);
+
 const watchlistData = ref<WatchlistData>();
 const oldWatchlistData = ref<WatchlistData>();
+const sortKey = ref();
+const order = ref<"init" | "asc" | "desc">("init");
+const watchlistAnimeStatus = ref<number | undefined>(undefined);
 
-onMounted(async () => {
+const useServerLoaded = ref(true);
+
+onBeforeMount(async () => {
   await getNextMedia();
   if (animeList.value.length) {
     addEventListener("scroll", scrollHandler);
   }
+  useServerLoaded.value = false;
 });
 
 const fixProgress = (input: string, anime: Anime) => {
@@ -103,24 +118,14 @@ const removeItem = async (mediaId: number) => {
   animeList.value = animeList.value!.filter(el => el.id !== mediaId);
 };
 
-const viewMode = ref(0);
-const viewModes = ["Normal", "Edit"];
-const editMode = ref(false);
 watch(viewMode, () => {
-  if (viewMode.value === 1) {
-    return editMode.value = true;
-  }
+  if (viewMode.value === 1) return editMode.value = true;
   editMode.value = false;
 });
 
-const nexted = ref(false) as Ref<boolean>;
-const count = ref(1) as Ref<number>;
-const lastRow = ref() as Ref<HTMLElement[]>;
-const hasNextPage = ref(false);
-
 const getNextMedia = async () => {
   nexted.value = true;
-  const newUserWatchList = await $fetch("/api/watchlist", {
+  const newUserWatchList = useServerLoaded.value || (!watchlistAnimeStatus.value && count.value === 1 && order.value === "init") ? userWatchlist.value : await $fetch("/api/watchlist", {
     query: { userId: result.value?.id, page: count.value, ...sortKey.value && { sort: sortKey.value }, order: order.value, status: watchlistAnimeStatus.value }
   });
   if (!newUserWatchList) return;
@@ -135,19 +140,17 @@ const getNextMedia = async () => {
   });
   animeList.value.push(...next.media);
   animeList.value = animeList.value.toSorted((a, b) => mediaIds.indexOf(a.id) - mediaIds.indexOf(b.id));
-  if (isMyPage) {
-    const mappedValues = newUserWatchList.map(item => ({
-      [String(item.mediaId)]: {
-        score: item.score,
-        status: item.status || 0,
-        progress: item.progress || 0,
-        startedDate: item.startedDate,
-        finishedDate: item.finishedDate
-      }
-    })).reduce((acc, cur) => ({ ...acc, ...cur }), {});
-    oldWatchlistData.value = { ...oldWatchlistData.value, ...JSON.parse(JSON.stringify({ ...mappedValues })) };
-    watchlistData.value = { ...watchlistData.value, ...mappedValues };
-  }
+  const mappedValues = newUserWatchList.map(item => ({
+    [String(item.mediaId)]: {
+      score: item.score,
+      status: item.status || 0,
+      progress: item.progress || 0,
+      startedDate: item.startedDate,
+      finishedDate: item.finishedDate
+    }
+  })).reduce((acc, cur) => ({ ...acc, ...cur }), {});
+  oldWatchlistData.value = { ...oldWatchlistData.value, ...JSON.parse(JSON.stringify({ ...mappedValues })) };
+  watchlistData.value = { ...watchlistData.value, ...mappedValues };
   nexted.value = false;
   count.value = count.value + 1;
   hasNextPage.value = next.pageInfo.hasNextPage;
@@ -159,8 +162,6 @@ const scrollHandler = async () => {
   }
 };
 
-const sortKey = ref();
-const order = ref<"init" | "asc" | "desc">("init");
 const sortTable = async (key?: string) => {
   order.value = order.value === "init" ? "desc" : order.value === "desc" ? "asc" : "init";
   animeList.value = [];
@@ -171,7 +172,6 @@ const sortTable = async (key?: string) => {
   await getNextMedia();
 };
 
-const watchlistAnimeStatus = ref<number | undefined>(undefined);
 watch(watchlistAnimeStatus, async () => {
   animeList.value = [];
   count.value = 1;
@@ -192,6 +192,8 @@ const tableSorters = computed(() => [
   { key: "finishedDate", name: "Finished Date", sorter: true },
   { name: "Genres" }
 ]);
+
+const watchStatusList = Object.values(watchStatus);
 </script>
 
 <template>
@@ -215,7 +217,7 @@ const tableSorters = computed(() => [
           <small>Filter by status:</small>
           <select v-model="watchlistAnimeStatus" class="form-select h6 mb-0 w-auto">
             <option :selected="watchlistAnimeStatus === undefined" :value="undefined">All</option>
-            <option v-for="(status, i) in Object.values(watchStatus)" :key="status.id" :value="status.id" :selected="watchlistAnimeStatus === i">{{ status.name }}</option>
+            <option v-for="(status, i) in watchStatusList" :key="i" :value="status.id" :selected="watchlistAnimeStatus === status.id">{{ status.name }}</option>
           </select>
         </div>
         <div v-if="animeList?.length">
@@ -241,7 +243,7 @@ const tableSorters = computed(() => [
               <tbody>
                 <template v-for="(anime, i) of animeList" :key="i">
                   <tr>
-                    <td :style="{ backgroundColor: watchStatusColorById(watchlistData?.[String(anime.id)]?.status ?? userWatchlist?.find(el => el.mediaId === anime.id)?.status ?? 0) }" style="max-width: 24px; min-width: 24px; width: 24px;" />
+                    <td :style="{ backgroundColor: watchStatusColorById(watchlistData?.[String(anime.id)]?.status ?? 0) }" style="max-width: 24px; min-width: 24px; width: 24px;" />
                     <td class="bg-secondary align-middle">
                       <small>{{ i + 1 }}</small>
                     </td>
@@ -260,7 +262,7 @@ const tableSorters = computed(() => [
                         <option selected :value="null">-</option>
                         <option v-for="j in [...Array(10)].map((_, j) => 10 - j)" :key="j" :value="j">{{ j }}</option>
                       </select>
-                      <small v-else>{{ watchlistData?.[String(anime.id)]?.score ?? userWatchlist?.find(el => el.mediaId === anime.id)?.score ?? "-" }}</small>
+                      <small v-else>{{ watchlistData?.[String(anime.id)]?.score ?? "-" }}</small>
                     </td>
                     <td class="bg-secondary align-middle" style="width: 150px;">
                       <select v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.status" class="form-select h6 mb-0 w-auto">
@@ -268,7 +270,7 @@ const tableSorters = computed(() => [
                           {{ status.name }}
                         </option>
                       </select>
-                      <small v-else>{{ watchStatusNameBydId(watchlistData?.[String(anime.id)]?.status ?? userWatchlist?.find(el => el.mediaId === anime.id)?.status ?? 0) }}</small>
+                      <small v-else>{{ watchStatusNameBydId(watchlistData?.[String(anime.id)]?.status ?? 0) }}</small>
                     </td>
                     <td class="bg-secondary align-middle" style="width: 160px;">
                       <span v-if="isMyPage" class="d-flex align-items-center justify-content-center gap-1">
@@ -282,7 +284,7 @@ const tableSorters = computed(() => [
                           <Icon name="ph:plus-bold" class="p-1" style="width: 20px; height: 20px;" />
                         </div>
                       </span>
-                      <small v-else>{{ watchlistData?.[String(anime.id)]?.progress ?? userWatchlist?.find(el => el.mediaId === anime.id)?.progress }} / {{ anime.episodes || "?" }}</small>
+                      <small v-else>{{ watchlistData?.[String(anime.id)]?.progress }} / {{ anime.episodes || "?" }}</small>
                     </td>
                     <td class="bg-secondary align-middle" style="width: 140px;">
                       <VueDatePicker v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.startedDate" class="form-control h6 mb-0 w-auto" v-bind="vueDatePickerAttrs">
@@ -290,7 +292,7 @@ const tableSorters = computed(() => [
                           <span class="text-nowrap">{{ watchlistData![String(anime.id)]!.startedDate ? formatDatePicker(watchlistData![String(anime.id)]!.startedDate) : "-" }}</span>
                         </template>
                       </VueDatePicker>
-                      <small v-else class="text-nowrap">{{ formatDatePicker(watchlistData?.[String(anime.id)]?.startedDate || userWatchlist?.find(el => el.mediaId === anime.id)?.startedDate) }}</small>
+                      <small v-else class="text-nowrap">{{ formatDatePicker(watchlistData?.[String(anime.id)]?.startedDate) }}</small>
                     </td>
                     <td class="bg-secondary align-middle" style="width: 140px;">
                       <VueDatePicker v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.finishedDate" class="form-control h6 mb-0 w-auto" v-bind="vueDatePickerAttrs" :min-date="watchlistData?.[String(anime.id)]?.startedDate ? watchlistData?.[String(anime.id)]?.startedDate + 'T00:00' : undefined">
@@ -298,7 +300,7 @@ const tableSorters = computed(() => [
                           <span class="text-nowrap">{{ watchlistData![String(anime.id)]!.finishedDate ? formatDatePicker(watchlistData![String(anime.id)]!.finishedDate) : "-" }}</span>
                         </template>
                       </VueDatePicker>
-                      <small v-else class="text-nowrap">{{ formatDatePicker(watchlistData?.[String(anime.id)]?.finishedDate || userWatchlist?.find(el => el.mediaId === anime.id)?.finishedDate) }}</small>
+                      <small v-else class="text-nowrap">{{ formatDatePicker(watchlistData?.[String(anime.id)]?.finishedDate) }}</small>
                     </td>
                     <td class="bg-secondary align-middle" style="max-width: 200px; min-width: 200px;">
                       <div class="d-flex justify-content-center flex-wrap gap-1">
