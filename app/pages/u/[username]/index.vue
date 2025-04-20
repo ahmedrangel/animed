@@ -121,7 +121,7 @@ const hasNextPage = ref(false);
 const getNextMedia = async () => {
   nexted.value = true;
   const newUserWatchList = await $fetch("/api/watchlist", {
-    query: { userId: result.value?.id, page: count.value }
+    query: { userId: result.value?.id, page: count.value, ...sortKey.value && { sort: sortKey.value }, order: order.value, status: watchlistAnimeStatus.value }
   });
   if (!newUserWatchList) return;
   const mediaIds = newUserWatchList.map(item => item.mediaId);
@@ -158,6 +158,40 @@ const scrollHandler = async () => {
     await getNextMedia();
   }
 };
+
+const sortKey = ref();
+const order = ref<"init" | "asc" | "desc">("init");
+const sortTable = async (key?: string) => {
+  order.value = order.value === "init" ? "desc" : order.value === "desc" ? "asc" : "init";
+  animeList.value = [];
+  count.value = 1;
+  nexted.value = false;
+  hasNextPage.value = false;
+  sortKey.value = key;
+  await getNextMedia();
+};
+
+const watchlistAnimeStatus = ref<number | undefined>(undefined);
+watch(watchlistAnimeStatus, async () => {
+  animeList.value = [];
+  count.value = 1;
+  nexted.value = false;
+  hasNextPage.value = false;
+  await getNextMedia();
+});
+
+const tableSorters = computed(() => [
+  { name: "" },
+  { name: "#" },
+  { name: "" },
+  { key: "mediaSlug", name: "Title", sorter: true },
+  { key: "score", name: "Score", sorter: true },
+  { key: undefined, name: "Status", sorter: watchlistAnimeStatus.value && watchlistAnimeStatus.value >= 0 ? false : true },
+  { key: "progress", name: "Progress", sorter: true },
+  { key: "startedDate", name: "Started Date", sorter: true },
+  { key: "finishedDate", name: "Finished Date", sorter: true },
+  { name: "Genres" }
+]);
 </script>
 
 <template>
@@ -171,55 +205,64 @@ const scrollHandler = async () => {
             <small>The Profile and Watchlist feature are currently in development</small>
           </div>
         </div>
-        <div v-if="isMyPage" class="d-flex justify-content-center gap-3 align-items-center mb-3">
-          <small>View Mode</small>
+        <div v-if="isMyPage" class="d-flex justify-content-center gap-2 align-items-center mb-3">
+          <small>View Mode:</small>
           <select v-model="viewMode" class="form-select h6 mb-0 w-auto">
             <option v-for="(mode, i) in viewModes" :key="i" :value="i" :selected="viewMode === i">{{ mode }}</option>
           </select>
         </div>
+        <div class="d-flex justify-content-center gap-2 align-items-center mb-3">
+          <small>Filter by status:</small>
+          <select v-model="watchlistAnimeStatus" class="form-select h6 mb-0 w-auto">
+            <option :selected="watchlistAnimeStatus === undefined" :value="undefined">All</option>
+            <option v-for="(status, i) in Object.values(watchStatus)" :key="status.id" :value="status.id" :selected="watchlistAnimeStatus === i">{{ status.name }}</option>
+          </select>
+        </div>
         <div v-if="animeList?.length">
           <div class="table-responsive">
-            <table class="table table-bordered bg-secondary border align-middle">
+            <table class="table table-bordered bg-secondary border">
               <thead>
                 <tr>
-                  <th scope="col" />
-                  <th scope="col"><small>#</small></th>
-                  <th scope="col" />
-                  <th scope="col"><small>Title</small></th>
-                  <th scope="col"><small>Score</small></th>
-                  <th scope="col"><small>Status</small></th>
-                  <th scope="col"><small>Progress</small></th>
-                  <th scope="col"><small>Started Date</small></th>
-                  <th scope="col"><small>Finished Date</small></th>
-                  <th scope="col"><small>Genres</small></th>
+                  <template v-for="(header, i) of tableSorters" :key="i">
+                    <th v-if="header.sorter" scope="col" class="align-middle" role="button" @click="sortTable(header.key)">
+                      <div class="d-flex justify-content-center align-items-center gap-2">
+                        <small>{{ header.name }}</small>
+                        <Icon v-if="sortKey !== header.key" name="ph:caret-up-down-fill" class="flex-shrink-0" />
+                        <Icon v-else :name="order === 'asc' ? 'ph:caret-up-fill' : order === 'desc' ? 'ph:caret-down-fill' : 'ph:caret-up-down-fill'" class="flex-shrink-0" />
+                      </div>
+                    </th>
+                    <th v-else scope="col" class="align-middle">
+                      <small>{{ header.name }}</small>
+                    </th>
+                  </template>
                   <th v-if="isMyPage && editMode" scope="col" />
                 </tr>
               </thead>
               <tbody>
                 <template v-for="(anime, i) of animeList" :key="i">
                   <tr>
-                    <td :style="{ backgroundColor: watchStatusColorById(watchlistData?.[String(anime.id)]?.status ?? userWatchlist?.find(el => el.mediaId === anime.id)?.status ?? 0) }" />
-                    <td class="bg-secondary">
+                    <td :style="{ backgroundColor: watchStatusColorById(watchlistData?.[String(anime.id)]?.status ?? userWatchlist?.find(el => el.mediaId === anime.id)?.status ?? 0) }" style="max-width: 24px; min-width: 24px; width: 24px;" />
+                    <td class="bg-secondary align-middle">
                       <small>{{ i + 1 }}</small>
                     </td>
-                    <td class="bg-secondary">
+                    <td class="bg-secondary align-middle" style="max-width: 80px; min-width: 80px; width: 80px;">
                       <img :src="anime.coverImage.extraLarge || anime.coverImage?.large" :alt="anime.title.romaji" :title="anime.title.romaji" style="max-height: 80px;">
                     </td>
-                    <td class="bg-secondary text-start" style="max-width: 300px;">
+                    <td class="bg-secondary align-middle text-start" style="max-width: 300px;">
                       <NuxtLink :to="`/a/${anime.id}/${fixSlug(anime.title.romaji)}`" :title="anime.title?.english ? anime.title?.english : anime.title?.romaji">
                         <small>{{ anime.title?.romaji }}</small>
                       </NuxtLink>
                       <br>
                       <small class="text-muted">{{ anime.title?.english ? anime.title?.english : anime.title?.romaji }}</small>
                     </td>
-                    <td class="bg-secondary">
+                    <td class="bg-secondary align-middle" style="width: 100px;">
                       <select v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.score" class="form-select h6 mb-0 w-auto">
                         <option selected :value="null">-</option>
                         <option v-for="j in [...Array(10)].map((_, j) => 10 - j)" :key="j" :value="j">{{ j }}</option>
                       </select>
                       <small v-else>{{ watchlistData?.[String(anime.id)]?.score ?? userWatchlist?.find(el => el.mediaId === anime.id)?.score ?? "-" }}</small>
                     </td>
-                    <td class="bg-secondary">
+                    <td class="bg-secondary align-middle" style="width: 150px;">
                       <select v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.status" class="form-select h6 mb-0 w-auto">
                         <option v-for="(status, key) in watchStatus" :key="key" :value="status.id">
                           {{ status.name }}
@@ -227,7 +270,7 @@ const scrollHandler = async () => {
                       </select>
                       <small v-else>{{ watchStatusNameBydId(watchlistData?.[String(anime.id)]?.status ?? userWatchlist?.find(el => el.mediaId === anime.id)?.status ?? 0) }}</small>
                     </td>
-                    <td class="bg-secondary">
+                    <td class="bg-secondary align-middle" style="width: 160px;">
                       <span v-if="isMyPage" class="d-flex align-items-center justify-content-center gap-1">
                         <div class="bg-dark rounded-circle text-primary d-flex align-items-center justify-content-center" role="button" @click="watchlistData![String(anime.id)]!.progress!--">
                           <Icon name="ph:minus-bold" class="p-1" style="width: 20px; height: 20px;" />
@@ -241,7 +284,7 @@ const scrollHandler = async () => {
                       </span>
                       <small v-else>{{ watchlistData?.[String(anime.id)]?.progress ?? userWatchlist?.find(el => el.mediaId === anime.id)?.progress }} / {{ anime.episodes || "?" }}</small>
                     </td>
-                    <td class="bg-secondary">
+                    <td class="bg-secondary align-middle" style="width: 140px;">
                       <VueDatePicker v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.startedDate" class="form-control h6 mb-0 w-auto" v-bind="vueDatePickerAttrs">
                         <template #trigger>
                           <span class="text-nowrap">{{ watchlistData![String(anime.id)]!.startedDate ? formatDatePicker(watchlistData![String(anime.id)]!.startedDate) : "-" }}</span>
@@ -249,7 +292,7 @@ const scrollHandler = async () => {
                       </VueDatePicker>
                       <small v-else class="text-nowrap">{{ formatDatePicker(watchlistData?.[String(anime.id)]?.startedDate || userWatchlist?.find(el => el.mediaId === anime.id)?.startedDate) }}</small>
                     </td>
-                    <td class="bg-secondary">
+                    <td class="bg-secondary align-middle" style="width: 140px;">
                       <VueDatePicker v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.finishedDate" class="form-control h6 mb-0 w-auto" v-bind="vueDatePickerAttrs" :min-date="watchlistData?.[String(anime.id)]?.startedDate ? watchlistData?.[String(anime.id)]?.startedDate + 'T00:00' : undefined">
                         <template #trigger>
                           <span class="text-nowrap">{{ watchlistData![String(anime.id)]!.finishedDate ? formatDatePicker(watchlistData![String(anime.id)]!.finishedDate) : "-" }}</span>
@@ -257,13 +300,13 @@ const scrollHandler = async () => {
                       </VueDatePicker>
                       <small v-else class="text-nowrap">{{ formatDatePicker(watchlistData?.[String(anime.id)]?.finishedDate || userWatchlist?.find(el => el.mediaId === anime.id)?.finishedDate) }}</small>
                     </td>
-                    <td class="bg-secondary" style="max-width: 200px; min-width: 200px;">
+                    <td class="bg-secondary align-middle" style="max-width: 200px; min-width: 200px;">
                       <div class="d-flex justify-content-center flex-wrap gap-1">
                         <template v-for="(genre, j) of anime.genres" :key="j">
                           <NuxtLink v-if="categories.some(c => c.name.toLowerCase() === genre.toLowerCase())" :to="`/c/${fixSlug(genre)}`">
-                            <span class="badge bg-body align-middle fw-normal my-1">{{ genre }}</span>
+                            <span class="badge bg-body fw-normal my-1">{{ genre }}</span>
                           </NuxtLink>
-                          <span v-else class="badge bg-body align-middle fw-normal my-1">{{ genre }}</span>
+                          <span v-else class="badge bg-body fw-normal my-1">{{ genre }}</span>
                         </template>
                       </div>
                     </td>
@@ -286,7 +329,3 @@ const scrollHandler = async () => {
     </section>
   </main>
 </template>
-
-<style scoped>
-
-</style>

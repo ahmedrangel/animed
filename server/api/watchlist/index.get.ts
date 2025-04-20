@@ -1,9 +1,13 @@
 export default defineEventHandler(async (event) => {
   const DB = useDB();
-  const { userId, page } = getQuery<{ userId: number, page?: number }>(event);
+  const { userId, page, sort, order, status } = getQuery<{ userId: number, page?: number, sort?: string, order?: "init" | "asc" | "desc", status?: number | null }>(event);
   const limit = 50;
   const offset = page ? (Number(page) - 1) * limit : 0;
-  const statusOrder = [1, 2, 3, 4, 0];
+  const normalStatusOrder = [1, 2, 3, 4, 0];
+  const invertedStatusOrder = normalStatusOrder.toReversed();
+  const statusOrder = order === "asc" || order === "init" ? normalStatusOrder : invertedStatusOrder;
+  const sortColumn = sort && order !== "init" ? tables.watchList[sort as keyof typeof tables.watchList] as SQLiteColumn : null;
+  const whereCondition = status ? and(eq(tables.watchList.userId, userId), eq(tables.watchList.status, Number(status))) : eq(tables.watchList.userId, userId);
   let query;
   query = DB.select({
     userId: tables.watchList.userId,
@@ -15,8 +19,8 @@ export default defineEventHandler(async (event) => {
     startedDate: tables.watchList.startedDate,
     finishedDate: tables.watchList.finishedDate,
     updatedAt: tables.watchList.updatedAt
-  }).from(tables.watchList).where(eq(tables.watchList.userId, userId))
-    .orderBy(sql.raw(`
+  }).from(tables.watchList).where(whereCondition)
+    .orderBy(sortColumn ? order === "asc" ? asc(sortColumn) : desc(sortColumn) : sql.raw(`
       CASE status
         ${statusOrder.map((status, index) => `WHEN ${status} THEN ${index + 1}`).join(" ")}
       END,

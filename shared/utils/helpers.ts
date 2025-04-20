@@ -3,11 +3,6 @@ export const fixSlug = (name: string) => {
 };
 
 export const watchStatus = {
-  PLAN_TO_WATCH: {
-    id: 0,
-    name: "Plan to Watch",
-    color: "#000000"
-  },
   WATCHING: {
     id: 1,
     name: "Watching",
@@ -27,6 +22,11 @@ export const watchStatus = {
     id: 4,
     name: "Dropped",
     color: "#a90000"
+  },
+  PLAN_TO_WATCH: {
+    id: 0,
+    name: "Plan to Watch",
+    color: "#000000"
   }
 };
 

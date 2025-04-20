@@ -2,6 +2,8 @@ import { drizzle } from "drizzle-orm/d1";
 import * as schema from "../database/schema";
 
 export { sql, eq, and, or, count, desc, asc, exists, notExists } from "drizzle-orm";
+export type { SQLiteColumn } from "drizzle-orm/sqlite-core";
+
 export const tables = schema;
 
 export const useDB = () => {
