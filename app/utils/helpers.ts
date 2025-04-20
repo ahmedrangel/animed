@@ -216,7 +216,7 @@ export const formatDatePicker = (date?: string | null | undefined) => {
 
 export const vueDatePickerAttrs = {
   ignoreTimeValidation: true,
-  format: "yyyy-MM-dd",
+  format: "MMM d, yyyy",
   modelType: "yyyy-MM-dd",
   dark: true,
   enableTimePicker: false
