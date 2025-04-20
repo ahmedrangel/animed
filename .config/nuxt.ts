@@ -35,11 +35,13 @@ export default defineNuxtConfig({
   },
   css: [
     "bootstrap/dist/css/bootstrap.min.css",
+    "@vuepic/vue-datepicker/dist/main.css",
     "~/assets/css/main.css",
     "~/assets/css/transitions.css",
     "~/assets/css/theme.css",
     "~/assets/css/categories.css",
-    "~/assets/css/connections.css"
+    "~/assets/css/connections.css",
+    "~/assets/css/datepicker.css"
   ],
   modules: [
     "@nuxt/scripts",

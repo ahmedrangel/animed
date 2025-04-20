@@ -1,0 +1,22 @@
+.dp__theme_dark {
+  --dp-primary-color: var(--bs-primary);
+  --dp-border-color: var(--bs-primary);
+  --dp-primary-text-color: var(--bs-body-bg);
+  --dp-background-color: var(--bs-secondary);
+  --dp-menu-border-color: var(--bs-primary);
+  &.form-control.disabled {
+    background-color: var(--bs-secondary-bg);
+  }
+}
+
+.dp__theme_light {
+  --dp-primary-color: var(--bs-primary);
+}
+
+.dp__action_button {
+  font-weight: 600;
+}
+
+.dp__action_row {
+  background-color: var(--bs-body-bg);
+}

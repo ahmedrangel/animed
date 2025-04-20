@@ -66,6 +66,9 @@ importers:
       '@types/bootstrap':
         specifier: ^5.2.10
         version: 5.2.10
+      '@vuepic/vue-datepicker':
+        specifier: ^11.0.2
+        version: 11.0.2(vue@3.5.13(typescript@5.8.3))
       '@vueuse/nuxt':
         specifier: ^13.1.0
         version: 13.1.0(magicast@0.3.5)(nuxt@3.16.2(@netlify/blobs@8.2.0)(@parcel/watcher@2.5.1)(@types/node@22.14.1)(db0@0.3.1(drizzle-orm@0.42.0(@cloudflare/workers-types@4.20250416.0)))(drizzle-orm@0.42.0(@cloudflare/workers-types@4.20250416.0))(eslint@9.24.0(jiti@2.4.2))(idb-keyval@6.2.1)(ioredis@5.6.1)(magicast@0.3.5)(meow@13.2.0)(optionator@0.9.4)(rollup@4.40.0)(stylelint@16.18.0(typescript@5.8.3))(terser@5.39.0)(typescript@5.8.3)(vite@6.3.0(@types/node@22.14.1)(jiti@2.4.2)(terser@5.39.0)(yaml@2.7.1))(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3))
@@ -1913,6 +1916,12 @@ packages:
 
   '@vue/shared@3.5.13':
     resolution: {integrity: sha512-/hnE/qP5ZoGpol0a5mDi45bOd7t3tjYJBjsgCsivow7D48cJeV5l05RD82lPqi7gRiphZM37rnhW1l6ZoCNNnQ==}
+
+  '@vuepic/vue-datepicker@11.0.2':
+    resolution: {integrity: sha512-uHh78mVBXCEjam1uVfTzZ/HkyDwut/H6b2djSN9YTF+l/EA+XONfdCnOVSi1g+qVGSy65DcQAwyBNidAssnudQ==}
+    engines: {node: '>=18.12.0'}
+    peerDependencies:
+      vue: '>=3.3.0'
 
   '@vueuse/core@13.1.0':
     resolution: {integrity: sha512-PAauvdRXZvTWXtGLg8cPUFjiZEddTqmogdwYpnn60t08AA5a8Q4hZokBnpTOnVNqySlFlTcRYIC8OqreV4hv3Q==}
@@ -7557,6 +7566,11 @@ snapshots:
       vue: 3.5.13(typescript@5.8.3)
 
   '@vue/shared@3.5.13': {}
+
+  '@vuepic/vue-datepicker@11.0.2(vue@3.5.13(typescript@5.8.3))':
+    dependencies:
+      date-fns: 4.1.0
+      vue: 3.5.13(typescript@5.8.3)
 
   '@vueuse/core@13.1.0(vue@3.5.13(typescript@5.8.3))':
     dependencies:

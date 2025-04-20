@@ -207,3 +207,17 @@ export const socialConnections = [
   { id: "facebook", name: "Facebook", icon: "simple-icons:facebook", class: "facebook", to: "/auth/facebook", disabled: true },
   { id: "x-twitter", name: "X", icon: "simple-icons:x", class: "x-twitter", to: "/auth/x", disabled: true }
 ];
+
+export const formatDatePicker = (date?: string | null | undefined) => {
+  if (!date) return "";
+  const [y, m, d] = date.split("-").map(Number);
+  if (y && m && d) return format(new Date(y, m - 1, d), "MMM d, yyyy");
+};
+
+export const vueDatePickerAttrs = {
+  ignoreTimeValidation: true,
+  format: "yyyy-MM-dd",
+  modelType: "yyyy-MM-dd",
+  dark: true,
+  enableTimePicker: false
+};

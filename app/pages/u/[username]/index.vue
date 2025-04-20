@@ -242,12 +242,20 @@ const scrollHandler = async () => {
                       <small v-else>{{ watchlistData?.[String(anime.id)]?.progress ?? userWatchlist?.find(el => el.mediaId === anime.id)?.progress }} / {{ anime.episodes || "?" }}</small>
                     </td>
                     <td class="bg-secondary">
-                      <input v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.startedDate" type="date" class="form-control h6 mb-0 w-auto">
-                      <small v-else class="text-nowrap">{{ watchlistData?.[String(anime.id)]?.startedDate || userWatchlist?.find(el => el.mediaId === anime.id)?.startedDate }}</small>
+                      <VueDatePicker v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.startedDate" class="form-control h6 mb-0 w-auto" v-bind="vueDatePickerAttrs">
+                        <template #trigger>
+                          <span class="text-nowrap">{{ watchlistData![String(anime.id)]!.startedDate ? formatDatePicker(watchlistData![String(anime.id)]!.startedDate) : "-" }}</span>
+                        </template>
+                      </VueDatePicker>
+                      <small v-else class="text-nowrap">{{ formatDatePicker(watchlistData?.[String(anime.id)]?.startedDate || userWatchlist?.find(el => el.mediaId === anime.id)?.startedDate) }}</small>
                     </td>
                     <td class="bg-secondary">
-                      <input v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.finishedDate" type="date" :min="watchlistData![String(anime.id)]!.startedDate || undefined" class="form-control h6 mb-0 w-auto">
-                      <small v-else class="text-nowrap">{{ watchlistData?.[String(anime.id)]?.finishedDate || userWatchlist?.find(el => el.mediaId === anime.id)?.finishedDate }}</small>
+                      <VueDatePicker v-if="isMyPage && editMode" v-model="watchlistData![String(anime.id)]!.finishedDate" class="form-control h6 mb-0 w-auto" v-bind="vueDatePickerAttrs" :min-date="watchlistData?.[String(anime.id)]?.startedDate ? watchlistData?.[String(anime.id)]?.startedDate + 'T00:00' : undefined">
+                        <template #trigger>
+                          <span class="text-nowrap">{{ watchlistData![String(anime.id)]!.finishedDate ? formatDatePicker(watchlistData![String(anime.id)]!.finishedDate) : "-" }}</span>
+                        </template>
+                      </VueDatePicker>
+                      <small v-else class="text-nowrap">{{ formatDatePicker(watchlistData?.[String(anime.id)]?.finishedDate || userWatchlist?.find(el => el.mediaId === anime.id)?.finishedDate) }}</small>
                     </td>
                     <td class="bg-secondary" style="max-width: 200px; min-width: 200px;">
                       <div class="d-flex justify-content-center flex-wrap gap-1">

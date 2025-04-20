@@ -32,9 +32,6 @@ watch(watchlistData, () => {
   if (watchlistData.value.startedDate && watchlistData.value.finishedDate && watchlistData.value.startedDate > watchlistData.value.finishedDate) {
     watchlistData.value.finishedDate = watchlistData.value.startedDate;
   }
-  if (watchlistData.value.status === watchStatus.WATCHING.id && !watchlistData.value.startedDate) {
-    watchlistData.value.startedDate = new Date().toISOString().split("T")[0];
-  }
   if (!watchlistData.value.startedDate) watchlistData.value.startedDate = null;
   if (!watchlistData.value.finishedDate) watchlistData.value.finishedDate = null;
 }, { deep: true });
@@ -54,8 +51,8 @@ const updateWatchlist = async () => {
       item.status = watchlistData.value.status;
       item.progress = watchlistData.value.progress;
       item.score = watchlistData.value.score;
-      item.startedDate = watchlistData.value.startedDate ? new Date(watchlistData.value.startedDate).getTime() : null;
-      item.finishedDate = watchlistData.value.finishedDate ? new Date(watchlistData.value.finishedDate).getTime() : null;
+      item.startedDate = watchlistData.value.startedDate ? watchlistData.value.startedDate : null;
+      item.finishedDate = watchlistData.value.finishedDate ? watchlistData.value.finishedDate : null;
       const toUpdate = {
         ...watchlistData.value.status !== oldWatchlistData.value.status && { status: watchlistData.value.status },
         ...watchlistData.value.progress !== oldWatchlistData.value.progress && { progress: watchlistData.value.progress },
@@ -118,11 +115,25 @@ const updateButtonDisabled = computed(() => JSON.stringify(watchlistData.value) 
       </div>
       <div class="input-group mb-2">
         <label class="input-group-text bg-primary bg-secondary h6 mb-0">Started</label>
-        <input v-model="watchlistData.startedDate" type="date" class="form-control h6 mb-0" :disabled="updating">
+        <VueDatePicker v-model="watchlistData.startedDate" class="form-control h6 mb-0" :class="{ disabled: updating }" :disabled="updating" v-bind="vueDatePickerAttrs">
+          <template #trigger>
+            <span>{{ watchlistData.startedDate ? formatDatePicker(watchlistData.startedDate) : "-" }}</span>
+          </template>
+        </VueDatePicker>
+        <label v-if="watchlistData.startedDate" class="input-group-text bg-primary bg-secondary h6 mb-0" role="button" @click="watchlistData.startedDate = null">
+          <Icon name="ph:x" />
+        </label>
       </div>
       <div class="input-group mb-2">
         <label class="input-group-text bg-primary bg-secondary h6 mb-0">Finished</label>
-        <input v-model="watchlistData.finishedDate" type="date" :min="watchlistData.startedDate || undefined" class="form-control h6 mb-0" :disabled="updating">
+        <VueDatePicker v-model="watchlistData.finishedDate" class="form-control h6 mb-0" :class="{ disabled: updating }" :disabled="updating" :min-date="watchlistData.startedDate ? watchlistData.startedDate + 'T00:00' : undefined" v-bind="vueDatePickerAttrs">
+          <template #trigger>
+            <span>{{ watchlistData.finishedDate ? formatDatePicker(watchlistData.finishedDate) : '-' }}</span>
+          </template>
+        </VueDatePicker>
+        <label v-if="watchlistData.finishedDate" class="input-group-text bg-primary bg-secondary h6 mb-0" role="button" @click="watchlistData.finishedDate = null">
+          <Icon name="ph:x" />
+        </label>
       </div>
       <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark w-100 px-3 py-2" icon="ph:floppy-disk-bold" :disabled="updateButtonDisabled" @click="updateWatchlist">
         Update
