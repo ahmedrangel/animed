@@ -263,5 +263,17 @@ declare global {
     };
   }
 
+  interface Watchlist {
+    userId: number | null;
+    mediaId: number;
+    mediaSlug: string;
+    status: number;
+    score: number | null;
+    progress: number;
+    startedDate: string | null;
+    finishedDate: string | null;
+    updatedAt: number;
+  }
+
   type User = U;
 }

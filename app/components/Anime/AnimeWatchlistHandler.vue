@@ -10,16 +10,19 @@ const added = computed(() => watchlist.value?.find(item => item.mediaId === Numb
 const updating = ref(false);
 
 const watchlistData = ref({
+  mediaId: Number(anime.value.id),
+  mediaSlug: fixSlug(anime.value.title.romaji),
+  userId: user.value?.id || 0,
   status: added.value?.status || 0,
   progress: added.value?.progress || 0,
   score: added.value?.score || null,
-  startedDate: added.value?.startedDate ? new Date(added.value.startedDate).toISOString().split("T")[0] : null,
-  finishedDate: added.value?.finishedDate ? new Date(added.value.finishedDate).toISOString().split("T")[0] : null
+  startedDate: added.value?.startedDate ? new Date(added.value.startedDate).toISOString().split("T")[0]! : null,
+  finishedDate: added.value?.finishedDate ? new Date(added.value.finishedDate).toISOString().split("T")[0]! : null
 });
 
 const oldWatchlistData = ref({ ...watchlistData.value });
 
-const fixProgress = (input: string) => {
+const fixProgress = (input: string | number) => {
   const progress = Number(input);
   if (!input || progress <= 0) return 0;
   if (anime.value?.episodes && progress > anime.value.episodes) return anime.value.episodes;
@@ -66,7 +69,7 @@ const updateWatchlist = async () => {
       }).catch(() => null);
       if (!updated) {
         watchlistData.value = { ...oldWatchlistData.value };
-        return { mediaId: item.mediaId, userId: item.userId, ...oldWatchlistData.value, updatedAt: item.updatedAt };
+        return { ...oldWatchlistData.value, updatedAt: item.updatedAt };
       }
       oldWatchlistData.value = { ...watchlistData.value };
     }

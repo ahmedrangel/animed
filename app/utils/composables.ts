@@ -57,6 +57,14 @@ export const useFormState = <T extends Record<string, unknown>>(initialState: T)
 };
 
 export const useWatchlist = () => {
-  const { data: watchlist } = useNuxtData<any[]>("mywatchlist");
+  const { user, loggedIn } = useUserSession();
+  if (!loggedIn.value) return ref(null);
+  const { data: currentWatchlist } = useNuxtData<Watchlist[]>("mywatchlist");
+  if (currentWatchlist.value) return currentWatchlist;
+  const { data: watchlist } = useAsyncData("mywatchlist", () => $fetch<Watchlist[]>("/api/watchlist", {
+    query: { userId: user.value?.id }
+  }), {
+    getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key]
+  });
   return watchlist;
 };

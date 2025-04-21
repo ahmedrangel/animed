@@ -152,7 +152,7 @@ export const fixUsername = (username: string) => {
 
 export const addToWatchlist = async (mediaId: number, mediaSlug: string) => {
   const watchlist = useWatchlist();
-  const result = await $fetch<{ success: boolean }>("/api/watchlist", {
+  const result = await $fetch<Watchlist>("/api/watchlist", {
     method: "POST",
     body: { mediaId, mediaSlug }
   }).catch(() => null);
