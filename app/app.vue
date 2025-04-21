@@ -1,5 +1,6 @@
 <script setup lang="ts">
 setScrollBehavior();
+useWatchlist();
 </script>
 
 <template>
