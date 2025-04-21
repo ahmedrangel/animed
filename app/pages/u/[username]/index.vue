@@ -125,7 +125,7 @@ watch(viewMode, () => {
 
 const getNextMedia = async () => {
   nexted.value = true;
-  const newUserWatchList = useServerLoaded.value || (!watchlistAnimeStatus.value && count.value === 1 && order.value === "init") ? userWatchlist.value : await $fetch("/api/watchlist", {
+  const newUserWatchList = useServerLoaded.value || (typeof watchlistAnimeStatus.value != "number" && count.value === 1 && order.value === "init") ? userWatchlist.value : await $fetch("/api/watchlist", {
     query: { userId: result.value?.id, page: count.value, ...sortKey.value && { sort: sortKey.value }, order: order.value, status: watchlistAnimeStatus.value }
   });
   if (!newUserWatchList) return;
