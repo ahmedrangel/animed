@@ -312,7 +312,7 @@ const watchStatusList = Object.values(watchStatus);
                         </template>
                       </div>
                     </td>
-                    <td v-if="isMyPage && editMode" class="bg-secondary">
+                    <td v-if="isMyPage && editMode" class="bg-secondary align-middle">
                       <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark" icon="ph:trash-bold" style="width: 40px; height: 36px;" @click="removeItem(anime.id)" />
                     </td>
                   </tr>
