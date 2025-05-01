@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import VueDatePicker from "@vuepic/vue-datepicker";
+
 const { params } = useRoute("u-username");
 const { username } = params;
 const { data: result } = await useFetch<User>(`/api/account/${username}`);
