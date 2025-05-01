@@ -70,6 +70,8 @@ const fixProgress = (input: string, anime: Anime) => {
   return progress;
 };
 
+const currentWatchlist = useWatchlist() as Ref<Partial<Watchlist[]>>;
+
 watch(watchlistData, () => {
   if (!watchlistData.value) return;
   Object.entries(watchlistData.value).map(async ([mediaId, data]) => {
@@ -103,6 +105,14 @@ watchDebounced(watchlistData, async () => {
       watchlistData.value![mediaId] = { ...oldWatchlistData.value![mediaId] };
       return;
     }
+
+    currentWatchlist.value = currentWatchlist.value?.map((item) => {
+      if (item && item.mediaId === Number(mediaId)) {
+        item = { ...item, ...toUpdate };
+      }
+      return item;
+    });
+
     oldWatchlistData.value![mediaId] = { ...data };
   });
 }, { debounce: 1000, deep: true });
