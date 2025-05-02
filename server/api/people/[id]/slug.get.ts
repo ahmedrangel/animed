@@ -12,5 +12,5 @@ export default defineCachedEventHandler(async (event) => {
   varies: ["user-agent"],
   group: cacheGroup,
   name: cacheName,
-  getKey: event => getRouterParams(event).id
+  getKey: event => getRouterParams(event).id as string
 });

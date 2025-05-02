@@ -7,42 +7,53 @@
 .discord {
     background-color: #5865f2;
     color: var(--white);
+
     &>*:hover, &:hover {
       color: #5865f2!important;
     }
+
     &:hover {
       background-color: white!important;
       border: 1px solid #5865f2;
     }
   }
+
 .google {
   background-color: #db4437;
   color: var(--white);
+
   &>*:hover, &:hover {
     color: #db4437!important;
   }
+
   &:hover {
     background-color: white!important;
     border: 1px solid #db4437;
   }
 }
+
 .facebook {
   background-color: #1877f2;
   color: var(--white);
+
   &>*:hover, &:hover {
     color: #1877f2!important;
   }
+
   &:hover {
     background-color: white!important;
     border: 1px solid #1877f2;
   }
 }
+
 .x-twitter {
   background-color: white;
   color: black;
+
   &>*:hover, &:hover {
     color: white!important;
   }
+
   &:hover {
     background-color: black!important;
     border: 1px solid white!important

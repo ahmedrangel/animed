@@ -4,6 +4,7 @@
   --dp-primary-text-color: var(--bs-body-bg);
   --dp-background-color: var(--bs-secondary);
   --dp-menu-border-color: var(--bs-primary);
+
   &.form-control.disabled {
     background-color: var(--bs-secondary-bg);
   }

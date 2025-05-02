@@ -46,6 +46,7 @@
     "gql-payload": "^2.1.0",
     "nuxt": "^3.17.1",
     "stylelint-config-standard": "^38.0.0",
+    "typescript": "^5.8.3",
     "wrangler": "^4.14.1"
   },
   "dependencies": {
