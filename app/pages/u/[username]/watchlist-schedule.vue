@@ -94,7 +94,7 @@ onMounted(async () => {
 
 <template>
   <main>
-    <section id="profile">
+    <section id="profile" class="py-4">
       <div class="px-2 px-lg-5 px-xl-5 w-100 position-relative">
         <ProfileDropdown />
         <ProfileMenu :username="username" :is-my-page="isMyPage" />
