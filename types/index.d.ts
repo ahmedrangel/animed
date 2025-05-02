@@ -276,4 +276,12 @@ declare global {
   }
 
   type User = U;
+
+  interface AccountConnection {
+    id: number;
+    provider: string;
+    providerId: string;
+    createdAt: number;
+    updatedAt: number;
+  }
 }

@@ -1,4 +1,4 @@
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event): Promise<AccountConnection[]> => {
   const { user } = await requireUserSession(event);
   const DB = useDB();
   // Get user connections
