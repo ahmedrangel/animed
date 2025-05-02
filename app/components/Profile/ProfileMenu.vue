@@ -1,16 +1,24 @@
 <script setup lang="ts">
-const { user } = useUserSession();
+const props = defineProps<{
+  username: string;
+  isMyPage?: boolean;
+}>();
 
 const tabs = [
   {
     name: "Watchlist",
-    route: `/u/${user.value?.username}`,
+    route: `/u/${props.username}`,
+    enable: true
+  },
+  {
+    name: "Watching Schedule",
+    route: `/u/${props.username}/watchlist-schedule`,
     enable: true
   },
   {
     name: "Settings",
-    route: `/u/${user.value?.username}/settings`,
-    enable: true
+    route: `/u/${props.username}/settings`,
+    enable: props.isMyPage
   }
 ];
 </script>

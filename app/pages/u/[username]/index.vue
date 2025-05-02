@@ -24,11 +24,6 @@ const { data: userWatchlist } = await useFetch("/api/watchlist", {
   query: { userId: result.value?.id, page: 1 }
 });
 
-const currentUser = {
-  loggedIn: user.value?.username?.toLocaleLowerCase() === username.toLowerCase() && String(result.value?.username).toLowerCase() === username.toLowerCase(),
-  ...result.value
-};
-
 const animeList = ref<Anime[]>([]);
 interface WatchlistData {
   [key: string]: {
@@ -213,7 +208,7 @@ const watchStatusList = Object.values(watchStatus);
     <section id="profile" class="text-center py-4">
       <div class="px-2 px-lg-5 px-xl-5 w-100 position-relative">
         <ProfileDropdown />
-        <ProfileMenu v-if="currentUser.loggedIn" class="mb-4" />
+        <ProfileMenu :username="username" :is-my-page="isMyPage" class="mb-4" />
         <div class="d-flex justify-content-center align-items-center mb-3">
           <div class="alert alert-warning m-0" role="alert">
             <small>The Profile and Watchlist feature are currently in development</small>

@@ -239,12 +239,12 @@ export const getPreviewList = async (type: ListType, options: QueryOptions = {})
   };
 };
 
-export const getSchedules = async (options: QueryOptions = {}): Promise<AiringSchedules> => {
+export const getSchedules = async (options: QueryOptions = {}, reqOptions?: AnilistRequest): Promise<AiringSchedules> => {
   const { page } = options;
   const { data } = await callAnilistGQL<{ Page: AiringSchedules }>({
     body: querySchedules(options),
     cacheKey: `schedule:${page}`,
-    swr: true
+    ...reqOptions
   });
   return data.Page;
 };

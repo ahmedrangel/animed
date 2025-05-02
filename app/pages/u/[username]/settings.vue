@@ -1,12 +1,16 @@
 <script setup lang="ts">
 const { loggedIn, user, clear } = useUserSession();
 const { query } = useRoute();
+const { params } = useRoute("u-username");
+const { username } = params;
 
 if (!user.value?.username || !loggedIn.value) navigateTo("/");
 const { data: connections } = await useFetch("/api/account/connections");
 
 const imported = ref(false);
 const importing = ref(false);
+
+const isMyPage = loggedIn.value && user.value?.username?.toLowerCase() === username.toLowerCase();
 
 const isConnected = (id: string) => connections.value?.some(connection => connection.provider === id);
 const disconnect = async (id: string) => {
@@ -48,7 +52,7 @@ const importList = async () => {
     <section id="profile" class="text-start py-4">
       <div class="px-2 px-lg-5 px-xl-5 w-100 position-relative">
         <ProfileDropdown />
-        <ProfileMenu />
+        <ProfileMenu :username="username" :is-my-page="isMyPage" />
         <div v-if="query?.error" class="pt-4">
           <div class="alert alert-danger" role="alert">
             <small v-if="query.error === 'connection_already_exists' && query.provider">[{{ query.provider }}] Connection already exists in another account.</small>

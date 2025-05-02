@@ -1,4 +1,4 @@
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event): Promise<Watchlist[]> => {
   const DB = useDB();
   const { userId, page, sort, order, status } = getQuery<{ userId: number, page?: number, sort?: string, order?: "init" | "asc" | "desc", status?: number | null }>(event);
   const limit = 50;

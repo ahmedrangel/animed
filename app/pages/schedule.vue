@@ -46,7 +46,7 @@ const nowAiringSchedule = computed(() => {
 });
 
 onMounted(async () => {
-  data.value = await getSchedules({ airingAt_greater: startTimestamp, airingAt_lesser: endTimestamp, page: currentPage.value });
+  data.value = await getSchedules({ airingAt_greater: startTimestamp, airingAt_lesser: endTimestamp, page: currentPage.value }, { swr: true });
   schedules.value.push(...data.value.airingSchedules);
   hasNextPage.value = data.value.pageInfo.hasNextPage;
   loading.value = false;
@@ -57,7 +57,7 @@ onMounted(async () => {
       airingAt_greater: startTimestamp,
       airingAt_lesser: endTimestamp,
       page: currentPage.value
-    });
+    }, { swr: true });
     schedules.value.push(...data.value.airingSchedules);
     hasNextPage.value = data.value.pageInfo.hasNextPage;
     loading.value = false;
