@@ -72,7 +72,7 @@ const fixProgress = (input: string, anime: Anime) => {
   return progress;
 };
 
-const currentWatchlist = useWatchlist() as Ref<Partial<Watchlist[]>>;
+const currentWatchlist = useWatchlist();
 
 watch(watchlistData, () => {
   if (!watchlistData.value) return;

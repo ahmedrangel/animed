@@ -57,8 +57,8 @@ export const useFormState = <T extends Record<string, unknown>>(initialState: T)
 };
 
 export const useWatchlist = () => {
-  const { data } = useNuxtData("mywatchlist");
-  return data as Ref<Watchlist[]>;
+  const { data } = useNuxtData<Watchlist[]>("mywatchlist");
+  return data;
 };
 
 export const setupWatchlist = async () => {
