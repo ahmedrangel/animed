@@ -67,7 +67,7 @@ const fixProgress = (input: string, anime: Anime) => {
   return progress;
 };
 
-const currentWatchlist = useWatchlist();
+const currentWatchlist = await useWatchlist();
 
 watch(watchlistData, () => {
   if (!watchlistData.value) return;
@@ -103,12 +103,14 @@ watchDebounced(watchlistData, async () => {
       return;
     }
 
-    currentWatchlist.value = currentWatchlist.value?.map((item) => {
+    const newWatchlistData = currentWatchlist.value?.map((item) => {
       if (item && item.mediaId === Number(mediaId)) {
         item = { ...item, ...toUpdate };
       }
       return item;
     });
+
+    useCachedData("mywatchlist", () => newWatchlistData);
 
     oldWatchlistData.value![mediaId] = { ...data };
   });

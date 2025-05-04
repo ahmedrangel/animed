@@ -5,7 +5,7 @@ const props = defineProps<{
 
 const cardHovered = ref(false);
 const { user, loggedIn } = useUserSession();
-const watchlist = useWatchlist();
+const watchlist = await useWatchlist();
 const added = computed(() => watchlist.value?.find(item => item.mediaId === props.data.id));
 </script>
 

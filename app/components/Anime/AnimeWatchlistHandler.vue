@@ -7,7 +7,7 @@ const props = defineProps<{
 
 const anime = computed(() => props.data);
 const { loggedIn, user } = useUserSession();
-const watchlist = useWatchlist();
+const watchlist = await useWatchlist();
 const added = computed(() => watchlist.value?.find(item => item.mediaId === Number(anime.value.id)));
 const updating = ref(false);
 

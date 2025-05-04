@@ -151,13 +151,13 @@ export const fixUsername = (username: string) => {
 };
 
 export const addToWatchlist = async (mediaId: number, mediaSlug: string) => {
-  const { data: watchlist } = useNuxtData<Watchlist[]>("mywatchlist");
+  const watchlist = await useWatchlist();
   const result = await $fetch<Watchlist>("/api/watchlist", {
     method: "POST",
     body: { mediaId, mediaSlug }
   }).catch(() => null);
   if (result && watchlist.value) {
-    watchlist.value = [...watchlist.value, result];
+    useCachedData("mywatchlist", () => [...watchlist.value, result]);
     return result;
   }
 };
