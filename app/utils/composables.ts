@@ -1,5 +1,5 @@
 import type { NitroFetchRequest } from "nitropack";
-import type { UseFetchOptions, NuxtApp } from "#app";
+import type { UseFetchOptions } from "#app";
 
 export const useModalController = (id: string) => {
   const { $bootstrap } = useNuxtApp();
@@ -74,17 +74,24 @@ export const useCachedData = <T = any>(key: string, getValue?: () => T): Ref<T> 
   return cachedData[key];
 };
 
-export const setupCachedData = <T>(key: string, { payload }: NuxtApp): T => {
+export const setupCachedData = <T>(key: string): T => {
   const cachedData = useCachedData(key);
+
   if (cachedData.value) {
     return cachedData.value;
   }
 
-  const payloadData = payload.data[key];
-  if (payloadData) {
-    useCachedData(key, () => payloadData);
+  const { data } = useNuxtData(key);
+
+  if (data.value) {
+    useCachedData(key, () => data.value);
   }
-  return payloadData;
+  else {
+    watch(data, (newData) => {
+      useCachedData(key, () => newData);
+    });
+  }
+  return data.value;
 };
 
 export const useCachedFetch = async <T>(url: NitroFetchRequest, options: UseFetchOptions<T> & { key: string }) => {
