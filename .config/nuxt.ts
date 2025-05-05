@@ -123,8 +123,7 @@ export default defineNuxtConfig({
     }
   },
   experimental: {
-    typedPages: true,
-    purgeCachedData: false
+    typedPages: true
   },
   hub: {
     kv: true,

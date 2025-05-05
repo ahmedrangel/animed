@@ -1,5 +1,4 @@
-import type { NitroFetchRequest } from "nitropack";
-import type { UseFetchOptions } from "#app";
+import type { NuxtApp } from "#app";
 
 export const useModalController = (id: string) => {
   const { $bootstrap } = useNuxtApp();
@@ -74,54 +73,41 @@ export const useCachedData = <T = any>(key: string, getValue?: () => T): Ref<T> 
   return cachedData[key];
 };
 
-export const setupCachedData = <T>(key: string): T => {
+export const setupCachedData = <T>(key: string, nuxtApp: NuxtApp): T | undefined => {
+  if (import.meta.server) return;
+
   const cachedData = useCachedData(key);
 
   if (cachedData.value) {
     return cachedData.value;
   }
 
-  const { data } = useNuxtData(key);
+  const data = nuxtApp.payload.data[key];
 
-  if (data.value) {
-    useCachedData(key, () => data.value);
+  if (data) {
+    useCachedData(key, () => data);
   }
   else {
-    watch(data, (newData) => {
-      useCachedData(key, () => newData);
+    watch(() => nuxtApp.payload.data[key], (newValue) => {
+      cachedData.value = newValue;
     });
   }
-  return data.value;
-};
 
-export const useCachedFetch = async <T>(url: NitroFetchRequest, options: UseFetchOptions<T> & { key: string }) => {
-  const nuxtData = useCachedData<T>(options.key);
-
-  if (!nuxtData.value) {
-    const { data: resultsFetch } = await useFetch(url, {
-      ...options,
-      getCachedData: setupCachedData
-    });
-
-    if (options.lazy) {
-      watch(resultsFetch, () => {
-        nuxtData.value = resultsFetch.value as T;
-      });
-    }
-    else {
-      nuxtData.value = resultsFetch.value as T;
-    }
-  }
-
-  return nuxtData;
+  return data;
 };
 
 export const useWatchlist = async () => {
   const { user, loggedIn } = useUserSession();
   if (!loggedIn.value) return ref(null);
-  const data = await useCachedFetch<Watchlist[]>("/api/watchlist", {
-    query: { userId: user.value?.id },
-    key: "mywatchlist"
-  });
-  return data;
+  const key = "mywatchlist";
+  const nuxtData = useCachedData<Watchlist[]>(key);
+  if (!nuxtData.value) {
+    const { data: resultsFetch } = await useFetch<Watchlist[]>("/api/watchlist", {
+      query: { userId: user.value?.id },
+      key,
+      getCachedData: setupCachedData
+    });
+    if (resultsFetch.value) nuxtData.value = resultsFetch.value;
+  }
+  return nuxtData;
 };
