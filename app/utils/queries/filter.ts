@@ -23,7 +23,7 @@ export const queryFilter = (options?: QueryOptions) => {
           status_in: { type: "[MediaStatus]", value: options?.status_in },
           search: options?.search,
           isLicensed: { type: "Boolean", value: true },
-          ...!options?.noFilter && { licensedById_in: { type: "[Int]", value: [Licensor.CRUNCHYROLL, Licensor.HULU, Licensor.NETFLIX, Licensor.HIDIVE, Licensor.AMAZON, Licensor.BILIBILI, Licensor.X] } },
+          ...!options?.noFilter && { licensedById_in: { type: "[Int]", value: [1, Licensor.CRUNCHYROLL, Licensor.HULU, Licensor.NETFLIX, Licensor.HIDIVE, Licensor.AMAZON, Licensor.BILIBILI, Licensor.X] } },
           genre_in: { type: "[String]", value: options?.genres },
           tag_in: { type: "[String]", value: options?.tags },
           startDate_greater: { type: "FuzzyDateInt", value: options?.startDate_greater },
