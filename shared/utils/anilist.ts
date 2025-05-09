@@ -111,7 +111,7 @@ export const getAnimeSlug = async (id: number): Promise<Anime> => {
 export const getUpcoming = async (options?: QueryOptions, cacheKey?: string): Promise<AnimeList> => {
   const todayYear = new Date().getFullYear();
   const { data } = await callAnilistGQL<{ Page: AnimeList }>({
-    body: queryFilter({ ...options, sort: Sort.START_DATE, status_in: [Status.NOT_YET_RELEASED], startDate_greater: `${todayYear}0000` }),
+    body: queryFilter({ ...options, sort: [Sort.START_DATE, Sort.TRENDING_DESC], status_in: [Status.NOT_YET_RELEASED], startDate_greater: `${todayYear}0000` }),
     cacheKey
   });
   data.Page.media.sort((a, b) =>
