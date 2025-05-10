@@ -20,6 +20,11 @@ const tabs = [
     name: "Episodes",
     route: `/a/${props.animeId}/${props.slug}/episodes`,
     enable: props.episodes ? true : false
+  },
+  {
+    name: "Art",
+    route: `/a/${props.animeId}/${props.slug}/art`,
+    enable: true
   }
 ];
 </script>
