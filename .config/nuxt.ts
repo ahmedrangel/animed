@@ -69,6 +69,9 @@ export default defineNuxtConfig({
     },
     myanimelist: {
       clientId: ""
+    },
+    zerochan: {
+      cookie: ""
     }
   },
   features: {
