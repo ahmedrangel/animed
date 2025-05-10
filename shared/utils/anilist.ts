@@ -84,7 +84,8 @@ export const getTopRated = async (options?: QueryOptions, cacheKey?: string): Pr
 
 export const getAnimeInfo = async (options?: QueryOptions): Promise<Anime> => {
   const { data } = await callAnilistGQL<{ Media: Anime }>({
-    body: queryAnime(options)
+    body: queryAnime(options),
+    cacheKey: `anime:${options?.id}`
   });
   const response = data.Media as Anime;
   const slug = fixSlug(response?.title?.romaji);
