@@ -91,6 +91,13 @@ useSeoMeta({
 useHead({
   link: [{ rel: "canonical", href: SITE.url + `/a/${id}/${slug}/art` }, { rel: "preconnect", href: "https://static.zerochan.net" }]
 });
+
+const getZerochanURL = (url: string) => {
+  const parts = url.split(".");
+  const id = parts[parts.length - 2];
+  console.log(parts);
+  return `https://www.zerochan.net/${id}`;
+};
 </script>
 
 <template>
@@ -129,7 +136,7 @@ useHead({
                 <MasonryWall :items="images.itemListElement" :gap="16" :max-columns="6" :min-columns="2" :column-width="277">
                   <template #default="{ item }">
                     <div class="overflow-hidden rounded-2">
-                      <NuxtLink v-ripple :to="item.url" target="_blank" external class="position-relative">
+                      <NuxtLink v-ripple :to="getZerochanURL(item.url) || item.url" target="_blank" external class="position-relative">
                         <img :src="item.thumbnailUrl" style="width: 100%" class="scale-on-hover">
                       </NuxtLink>
                     </div>
