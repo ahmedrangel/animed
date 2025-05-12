@@ -95,7 +95,6 @@ useHead({
 const getZerochanURL = (url: string) => {
   const parts = url.split(".");
   const id = parts[parts.length - 2];
-  console.log(parts);
   return `https://www.zerochan.net/${id}`;
 };
 </script>
