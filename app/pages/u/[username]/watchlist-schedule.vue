@@ -21,9 +21,9 @@ if (!result.value && !isMyPage) {
   });
 }
 
-const { data: userWatchlist } = await useFetch("/api/watchlist", {
+const userWatchlist = isMyPage ? await useWatchlist() : (await useFetch("/api/watchlist", {
   query: { userId: result.value?.id }
-});
+})).data;
 
 const data = ref<AiringSchedules>();
 const schedules = ref<AiringSchedules["airingSchedules"]>([]);

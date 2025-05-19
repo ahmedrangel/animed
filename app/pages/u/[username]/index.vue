@@ -20,9 +20,11 @@ if (!result.value && !isMyPage) {
   });
 }
 
-const { data: userWatchlist } = await useFetch("/api/watchlist", {
-  query: { userId: result.value?.id, page: 1 }
-});
+const authUserWatchlist = await useWatchlist();
+
+const userWatchlist = isMyPage ? authUserWatchlist : (await useFetch("/api/watchlist", {
+  query: { userId: result.value?.id }
+})).data;
 
 const animeList = ref<Anime[]>([]);
 interface WatchlistData {
@@ -67,8 +69,6 @@ const fixProgress = (input: string, anime: Anime) => {
   return progress;
 };
 
-const currentWatchlist = await useWatchlist();
-
 watch(watchlistData, () => {
   if (!watchlistData.value) return;
   Object.entries(watchlistData.value).map(async ([mediaId, data]) => {
@@ -103,7 +103,7 @@ watchDebounced(watchlistData, async () => {
       return;
     }
 
-    const newWatchlistData = currentWatchlist.value?.map((item) => {
+    const newWatchlistData = authUserWatchlist.value?.map((item) => {
       if (item && item.mediaId === Number(mediaId)) {
         item = { ...item, ...toUpdate };
       }
@@ -134,9 +134,46 @@ watch(viewMode, () => {
 
 const getNextMedia = async () => {
   nexted.value = true;
-  const newUserWatchList = useServerLoaded.value || (typeof watchlistAnimeStatus.value != "number" && count.value === 1 && order.value === "init") ? userWatchlist.value : await $fetch("/api/watchlist", {
-    query: { userId: result.value?.id, page: count.value, ...sortKey.value && { sort: sortKey.value }, order: order.value, status: watchlistAnimeStatus.value }
-  });
+  const newUserWatchList = userWatchlist.value?.toSorted((a, b) => {
+    if (sortKey.value === "mediaSlug") {
+      const aTitle = a.mediaSlug || "";
+      const bTitle = b.mediaSlug || "";
+      return order.value === "asc" ? aTitle.localeCompare(bTitle) : order.value === "desc" ? bTitle.localeCompare(aTitle) : 0;
+    }
+    if (sortKey.value === "score") {
+      const aScore = a.score || 0;
+      const bScore = b.score || 0;
+      return order.value === "asc" ? aScore - bScore : order.value === "desc" ? bScore - aScore : 0;
+    }
+    if (sortKey.value === "status") {
+      const statusOrder = [1, 2, 3, 4, 0];
+      const aStatus = statusOrder.indexOf(a.status);
+      const bStatus = statusOrder.indexOf(b.status);
+      return order.value === "asc" ? aStatus - bStatus : order.value === "desc" ? bStatus - aStatus : 0;
+    }
+    if (sortKey.value === "progress") {
+      const aProgress = a.progress || 0;
+      const bProgress = b.progress || 0;
+      return order.value === "asc" ? aProgress - bProgress : order.value === "desc" ? bProgress - aProgress : 0;
+    }
+    if (sortKey.value === "startedDate") {
+      const aDate = new Date(a.startedDate || "0001-01-01");
+      const bDate = new Date(b.startedDate || "0001-01-01");
+      return order.value === "asc" ? aDate.getTime() - bDate.getTime() : order.value === "desc" ? bDate.getTime() - aDate.getTime() : 0;
+    }
+    if (sortKey.value === "finishedDate") {
+      const aDate = new Date(a.finishedDate || "0001-01-01");
+      const bDate = new Date(b.finishedDate || "0001-01-01");
+      return order.value === "asc" ? aDate.getTime() - bDate.getTime() : order.value === "desc" ? bDate.getTime() - aDate.getTime() : 0;
+    }
+    return 0;
+  }).filter((item) => {
+    if (watchlistAnimeStatus.value !== undefined) {
+      return item.status === watchlistAnimeStatus.value;
+    }
+    return item;
+  })?.slice((count.value - 1) * 50, count.value * 50);
+
   if (!newUserWatchList) return;
   const mediaIds = newUserWatchList.map(item => item.mediaId);
   if (!mediaIds.length) return;
@@ -173,6 +210,7 @@ const scrollHandler = async () => {
 
 const sortTable = async (key?: string) => {
   order.value = order.value === "init" ? "desc" : order.value === "desc" ? "asc" : "init";
+  order.value = key === sortKey.value ? order.value : "desc";
   animeList.value = [];
   count.value = 1;
   nexted.value = false;
@@ -195,7 +233,7 @@ const tableSorters = computed(() => [
   { name: "" },
   { key: "mediaSlug", name: "Title", sorter: true },
   { key: "score", name: "Score", sorter: true },
-  { key: undefined, name: "Status", sorter: watchlistAnimeStatus.value && watchlistAnimeStatus.value >= 0 ? false : true },
+  { key: "status", name: "Status", sorter: watchlistAnimeStatus.value !== undefined && watchlistAnimeStatus.value >= 0 ? false : true },
   { key: "progress", name: "Progress", sorter: true },
   { key: "startedDate", name: "Started Date", sorter: true },
   { key: "finishedDate", name: "Finished Date", sorter: true },
@@ -257,7 +295,7 @@ const watchStatusList = Object.values(watchStatus);
                       <small>{{ i + 1 }}</small>
                     </td>
                     <td class="bg-secondary align-middle" style="max-width: 80px; min-width: 80px; width: 80px;">
-                      <img :src="anime.coverImage.extraLarge || anime.coverImage?.large" :alt="anime.title.romaji" :title="anime.title.romaji" style="max-height: 80px;">
+                      <img :src="anime.coverImage.extraLarge || anime.coverImage?.large" :alt="anime.title.romaji" :title="anime.title.romaji" style="max-height: 80px; max-width: 100%;">
                     </td>
                     <td class="bg-secondary align-middle text-start" style="max-width: 300px;">
                       <NuxtLink :to="`/a/${anime.id}/${fixSlug(anime.title.romaji)}`" :title="anime.title?.english ? anime.title?.english : anime.title?.romaji">
