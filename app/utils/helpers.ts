@@ -157,7 +157,7 @@ export const addToWatchlist = async (mediaId: number, mediaSlug: string) => {
     body: { mediaId, mediaSlug }
   }).catch(() => null);
   if (result && watchlist.value) {
-    useCachedData("mywatchlist", () => [...watchlist.value, result]);
+    useCachedData("mywatchlist", () => [...(watchlist.value || []), result]);
     return result;
   }
 };
