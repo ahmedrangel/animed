@@ -102,11 +102,13 @@ export const useWatchlist = async () => {
   const key = "mywatchlist";
   const nuxtData = useCachedData<Watchlist[]>(key);
   if (!nuxtData.value) {
-    const { data: resultsFetch } = await useFetch<Watchlist[]>("/api/watchlist", {
+    const { data: resultsFetch, execute } = await useFetch<Watchlist[]>("/api/watchlist", {
       query: { userId: user.value?.id },
       key,
-      getCachedData: setupCachedData
+      getCachedData: setupCachedData,
+      immediate: false
     });
+    await execute();
     if (resultsFetch.value) nuxtData.value = resultsFetch.value;
   }
   return nuxtData;
