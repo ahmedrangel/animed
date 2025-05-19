@@ -52,14 +52,13 @@ const sortKey = ref();
 const order = ref<"init" | "asc" | "desc">("init");
 const watchlistAnimeStatus = ref<number | undefined>(undefined);
 
-const useServerLoaded = ref(true);
+const totalEntries = ref<number>(0);
 
 onBeforeMount(async () => {
   await getNextMedia();
   if (animeList.value.length) {
     addEventListener("scroll", scrollHandler);
   }
-  useServerLoaded.value = false;
 });
 
 const fixProgress = (input: string, anime: Anime) => {
@@ -134,7 +133,7 @@ watch(viewMode, () => {
 
 const getNextMedia = async () => {
   nexted.value = true;
-  const newUserWatchList = userWatchlist.value?.toSorted((a, b) => {
+  const filteredWatchlist = userWatchlist.value?.toSorted((a, b) => {
     if (sortKey.value === "mediaSlug") {
       const aTitle = a.mediaSlug || "";
       const bTitle = b.mediaSlug || "";
@@ -172,7 +171,9 @@ const getNextMedia = async () => {
       return item.status === watchlistAnimeStatus.value;
     }
     return item;
-  })?.slice((count.value - 1) * 50, count.value * 50);
+  });
+  totalEntries.value = filteredWatchlist?.length || 0;
+  const newUserWatchList = filteredWatchlist?.slice((count.value - 1) * 50, count.value * 50);
 
   if (!newUserWatchList) return;
   const mediaIds = newUserWatchList.map(item => item.mediaId);
@@ -266,6 +267,9 @@ const watchStatusList = Object.values(watchStatus);
             <option :selected="watchlistAnimeStatus === undefined" :value="undefined">All</option>
             <option v-for="(status, i) in watchStatusList" :key="i" :value="status.id" :selected="watchlistAnimeStatus === status.id">{{ status.name }}</option>
           </select>
+        </div>
+        <div v-if="animeList?.length" class="d-flex justify-content-start align-items-center mb-3">
+          <h6 class="m-0">Total entries: {{ totalEntries }}</h6>
         </div>
         <div v-if="animeList?.length">
           <div class="table-responsive">
