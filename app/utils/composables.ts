@@ -100,16 +100,10 @@ export const useWatchlist = async () => {
   const { user, loggedIn } = useUserSession();
   if (!loggedIn.value) return ref(null);
   const key = "mywatchlist";
-  const nuxtData = useCachedData<Watchlist[]>(key);
-  if (!nuxtData.value) {
-    const { data: resultsFetch, execute } = await useFetch<Watchlist[]>("/api/watchlist", {
-      query: { userId: user.value?.id },
-      key,
-      getCachedData: setupCachedData,
-      immediate: false
-    });
-    await execute();
-    if (resultsFetch.value) nuxtData.value = resultsFetch.value;
-  }
-  return nuxtData;
+  const { data: resultsFetch } = await useFetch<Watchlist[]>("/api/watchlist", {
+    query: { userId: user.value?.id },
+    key,
+    getCachedData: setupCachedData
+  });
+  return resultsFetch;
 };
