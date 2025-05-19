@@ -7,10 +7,16 @@ const route = useRoute();
 const videoModal = useModalController("video-modal");
 const videoId = ref("");
 
-const animeArray = useState(route.path, () => props.anime.toSorted(() => Math.random() - 0.5).map(el => ({
+const computedAnime = computed(() => props.anime.toSorted(() => Math.random() - 0.5).map(el => ({
   ...el,
   description: el.description ? fixDescription(el.description).text : null
 })));
+
+const animeArray = useState(route.path, () => computedAnime.value);
+
+watch(computedAnime, () => {
+  animeArray.value = computedAnime.value;
+}, { deep: true });
 
 const openVideoModal = (trailer: string) => {
   videoId.value = trailer;

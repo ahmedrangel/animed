@@ -25,7 +25,7 @@ const data = computed({
     return previewData.value;
   },
   set () {
-    if (data.value.preview.length && !animesWithBanner.value.length) {
+    if (data.value.preview.length) {
       trendings.value = data.value?.preview?.find(el => el.type === "trending")?.media || data.value?.preview?.find(el => el.type === "new")?.media || data.value?.preview?.find(el => el.type === "top-rated")?.media || [];
       animesWithBanner.value = trendings.value?.filter(el => el.bannerImage) as Anime[] || trendings.value;
     }
