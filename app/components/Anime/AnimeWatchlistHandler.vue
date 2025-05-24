@@ -81,12 +81,29 @@ const updateWatchlist = async () => {
 };
 
 const updateButtonDisabled = computed(() => JSON.stringify(watchlistData.value) === JSON.stringify(oldWatchlistData.value));
+
+const removeFromWatchlist = async () => {
+  if (!watchlist.value) return;
+  const confirmed = confirm(`Are you sure you want to remove ${props.data.title.romaji} from your watchlist?`);
+  if (!confirmed) return;
+  $fetch("/api/watchlist", {
+    method: "DELETE",
+    query: { mediaId: anime.value.id }
+  }).catch(() => null);
+  watchlist.value = watchlist.value.filter(item => item.mediaId !== Number(anime.value.id));
+};
+
+const add = async () => {
+  const result = await addToWatchlist(anime.value.id, fixSlug(anime.value.title.romaji));
+  if (!result) return;
+  watchlist.value = [...(watchlist.value || []), result];
+};
 </script>
 
 <template>
   <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 px-0" style="max-width: 400px;">
     <img id="cover" :src="anime?.coverImage?.extraLarge" class="img-fluid mb-2" :alt="anime.title.romaji" :title="anime.title.romaji" data-aos="fade-in">
-    <ButtonComp v-if="loggedIn && !added && user" v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark w-100 px-3 py-2" icon="ph:plus-bold" @click="addToWatchlist(anime.id, fixSlug(data.title.romaji))">
+    <ButtonComp v-if="loggedIn && !added && user" v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark w-100 px-3 py-2" icon="ph:plus-bold" @click="add">
       Add to Watchlist
     </ButtonComp>
     <div v-if="loggedIn && added">
@@ -140,8 +157,11 @@ const updateButtonDisabled = computed(() => JSON.stringify(watchlistData.value) 
           <Icon name="ph:x" />
         </label>
       </div>
-      <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark w-100 px-3 py-2" icon="ph:floppy-disk-bold" :disabled="updateButtonDisabled" @click="updateWatchlist">
+      <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark w-100 px-3 py-2 mb-2" icon="ph:floppy-disk-bold" :disabled="updateButtonDisabled" @click="updateWatchlist">
         Update
+      </ButtonComp>
+      <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark w-100 px-3 py-2" icon="ph:trash-bold" @click="removeFromWatchlist">
+        Remove from Watchlist
       </ButtonComp>
     </div>
   </div>
