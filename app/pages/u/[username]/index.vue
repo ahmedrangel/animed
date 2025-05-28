@@ -53,6 +53,15 @@ const order = ref<"init" | "asc" | "desc">("init");
 const watchlistAnimeStatus = ref<number | undefined>(undefined);
 
 const totalEntries = ref<number>(0);
+const statusesFromWatchlist = computed(() => {
+  return userWatchlist.value?.map(item => item.status).filter(status => status !== undefined) || [];
+});
+const statusesCount = computed(() => {
+  return statusesFromWatchlist.value.reduce((acc, status) => {
+    acc[status] = (acc[status] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+});
 
 onBeforeMount(async () => {
   await getNextMedia();
@@ -270,6 +279,19 @@ const watchStatusList = Object.values(watchStatus);
         </div>
         <div v-if="animeList?.length" class="d-flex justify-content-start align-items-center mb-3">
           <h6 class="m-0">Total entries: {{ totalEntries }}</h6>
+        </div>
+        <div v-if="animeList?.length" class="border rounded-2 overflow-hidden mb-3">
+          <div class="progress rounded-0 border-bottom">
+            <div v-for="statusId in [1, 2, 3, 4, 0]" :key="statusId" class="progress-bar" :style="{ width: `${(statusesCount[statusId] || 0) / totalEntries * 100}%`, backgroundColor: watchStatusColorById(statusId) }" :aria-valuenow="(statusesCount[statusId] || 0) / totalEntries * 100" aria-valuemin="0" aria-valuemax="100" />
+          </div>
+          <div class="d-flex justify-content-center align-items-center bg-secondary flex-wrap p-2" style="row-gap: 0; column-gap: 1rem;">
+            <template v-for="(status, i) in watchStatusList" :key="i">
+              <div class="d-flex justify-content-center align-items-center gap-2 py-1">
+                <Icon name="ph:circle-fill" class="flex-shrink-0" :style="{ color: watchStatusColorById(status.id) }" />
+                <small class="text-nowrap">{{ status.name }}: {{ statusesCount[status.id] || 0 }}</small>
+              </div>
+            </template>
+          </div>
         </div>
         <div v-if="animeList?.length">
           <div class="table-responsive">
