@@ -199,6 +199,8 @@ export const importMyAnimeList = async () => {
     method: "POST",
     body: importData
   }).catch(() => null);
+  const watchlist = await $fetch("/api/watchlist").catch(() => null);
+  if (watchlist) updateMyGlobalWatchlist(watchlist);
   return true;
 };
 
