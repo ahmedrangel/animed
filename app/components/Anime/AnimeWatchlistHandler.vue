@@ -77,6 +77,7 @@ const updateWatchlist = async () => {
     }
     return item;
   }));
+  updateMyGlobalWatchlist(watchlist.value);
   updating.value = false;
 };
 
@@ -91,6 +92,7 @@ const removeFromWatchlist = async () => {
     query: { mediaId: anime.value.id }
   }).catch(() => null);
   watchlist.value = watchlist.value.filter(item => item.mediaId !== Number(anime.value.id));
+  updateMyGlobalWatchlist(watchlist.value);
 };
 
 const add = async () => {

@@ -111,14 +111,14 @@ watchDebounced(watchlistData, async () => {
       return;
     }
 
-    const newWatchlistData = authUserWatchlist.value?.map((item) => {
+    authUserWatchlist.value = userWatchlist.value?.map((item) => {
       if (item && item.mediaId === Number(mediaId)) {
         item = { ...item, ...toUpdate };
       }
       return item;
     });
 
-    useCachedData("mywatchlist", () => newWatchlistData);
+    updateMyGlobalWatchlist(authUserWatchlist.value);
 
     oldWatchlistData.value![mediaId] = { ...data };
   });
@@ -133,6 +133,7 @@ const removeItem = async (mediaId: number) => {
   delete watchlistData.value![String(mediaId)];
   delete oldWatchlistData.value![String(mediaId)];
   animeList.value = animeList.value!.filter(el => el.id !== mediaId);
+  updateMyGlobalWatchlist(authUserWatchlist.value?.filter(item => item.mediaId !== mediaId));
 };
 
 watch(viewMode, () => {

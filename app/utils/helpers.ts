@@ -151,13 +151,14 @@ export const fixUsername = (username: string) => {
 };
 
 export const addToWatchlist = async (mediaId: number, mediaSlug: string) => {
-  const watchlist = useCachedData<Watchlist[]>("mywatchlist");
+  const watchlist = useNuxtApp().payload.data["mywatchlist"] as Watchlist[];
   const result = await $fetch<Watchlist>("/api/watchlist", {
     method: "POST",
     body: { mediaId, mediaSlug }
   }).catch(() => null);
-  if (result && watchlist.value) {
-    useCachedData("mywatchlist", () => [...(watchlist.value || []), result]);
+  if (result && watchlist) {
+    updateMyGlobalWatchlist([...(watchlist || []), result]);
+
     return result;
   }
 };
@@ -220,4 +221,14 @@ export const vueDatePickerAttrs = {
   modelType: "yyyy-MM-dd",
   dark: true,
   enableTimePicker: false
+};
+
+export const updateMyGlobalWatchlist = (newWatchlist?: Watchlist[]) => {
+  if (!newWatchlist || !newWatchlist.length) return;
+  useNuxtApp().payload.data["mywatchlist"] = newWatchlist.sort((a, b) => a.mediaSlug.localeCompare(b.mediaSlug)).sort((a, b) => {
+    const statusOrder = [1, 2, 3, 4, 0];
+    const aStatus = statusOrder.indexOf(a.status);
+    const bStatus = statusOrder.indexOf(b.status);
+    return aStatus - bStatus;
+  });
 };
