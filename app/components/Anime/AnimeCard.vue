@@ -18,11 +18,11 @@ const add = async () => {
 <template>
   <div class="position-relative" data-aos="fade-in">
     <BadgeBroadcasting v-if="data.status === 'RELEASING'" :airing-date="data?.nextAiringEpisode?.airingAt" class="pe-none" />
-    <div v-ripple class="image overflow-hidden mb-2 w-100 position-relative border" @mouseover="cardHovered = true" @mouseleave="cardHovered = false">
+    <div v-ripple class="image overflow-hidden mb-2 w-100 position-relative" @mouseover="cardHovered = true" @mouseleave="cardHovered = false">
       <NuxtLink :to="`/a/${data.id}/${fixSlug(data.title.romaji)}`" class="text-white">
         <img class="img-fluid scale-on-hover h-100 w-100 position-absolute object-fit-cover" :src="data.coverImage?.extraLarge || data.coverImage?.large" width="280" :alt="data.title.romaji" :title="data.title.romaji">
       </NuxtLink>
-      <div v-if="cardHovered && loggedIn && !added && user?.id" role="button" class="bookmark rounded-1 text-white position-absolute bottom-0 end-0 z-1 m-2 p-2" title="Add to Watchlist" @click="add">
+      <div v-if="cardHovered && loggedIn && !added && user?.id" role="button" class="bookmark rounded-1 text-dark position-absolute bottom-0 end-0 z-1 m-2 p-2" title="Add to Watchlist" @click="add">
         <Icon name="ph:plus-bold" width="24" height="24" />
       </div>
       <div v-if="loggedIn && !added" id="overlay-anime-card" class="position-absolute w-100 top-0 pe-none" />
@@ -54,12 +54,9 @@ const add = async () => {
 }
 
 .bookmark {
-  border: 1px solid var(--bs-border-color);
-  background-color: rgba(var(--bs-secondary-rgb), 0.8);
+  background-color: rgba(var(--bs-primary-rgb), 0.6);
 }
 .bookmark:hover {
-  color: var(--bs-primary)!important;
-  border: 1px solid rgba(var(--bs-primary-rgb), 0.3);
-  background-color: rgba(var(--bs-secondary-rgb), 0.9);
+  background-color: rgba(var(--bs-primary-rgb), 1);
 }
 </style>
