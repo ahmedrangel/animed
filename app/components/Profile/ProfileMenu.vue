@@ -11,11 +11,6 @@ const tabs = [
     enable: true
   },
   {
-    name: "Watching Schedule",
-    route: `/u/${props.username}/watchlist-schedule`,
-    enable: true
-  },
-  {
     name: "Settings",
     route: `/u/${props.username}/settings`,
     enable: props.isMyPage

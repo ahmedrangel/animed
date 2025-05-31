@@ -5,7 +5,7 @@ const props = defineProps({
   airingNow: { type: Boolean, default: false }
 });
 
-const anime = props.data.media;
+const anime = computed(() => props.data.media);
 const now = new Date().getTime() / 1000;
 </script>
 
