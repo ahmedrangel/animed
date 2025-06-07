@@ -191,7 +191,8 @@ export const importMyAnimeList = async () => {
         status: listStatus.status === "plan_to_watch" ? 0 : listStatus.status === "watching" ? 1 : listStatus.status === "completed" ? 2 : listStatus.status === "on_hold" ? 3 : listStatus.status === "dropped" ? 4 : null,
         progress: listStatus.num_episodes_watched || 0,
         startedDate: listStatus.start_date,
-        finishedDate: listStatus.finish_date
+        finishedDate: listStatus.finish_date,
+        updatedAt: listStatus.updated_at ? new Date(listStatus.updated_at).getTime() : undefined
       });
     }
   }

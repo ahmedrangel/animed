@@ -8,11 +8,12 @@ export default defineEventHandler(async (event) => {
     score: number;
     startedDate?: string;
     finishedDate?: string;
+    updatedAt?: number;
   }[]>(event);
   const DB = useDB();
   const today = Date.now();
   await DB.delete(tables.watchList).where(eq(tables.watchList.userId, user.id)).run();
-  const mapValues = body.map(({ mediaId, mediaSlug, progress, status, score, startedDate, finishedDate }) => {
+  const mapValues = body.map(({ mediaId, mediaSlug, progress, status, score, startedDate, finishedDate, updatedAt }) => {
     return {
       mediaId,
       mediaSlug,
@@ -22,7 +23,7 @@ export default defineEventHandler(async (event) => {
       score,
       startedDate: startedDate || null,
       finishedDate: finishedDate || null,
-      updatedAt: today
+      updatedAt: updatedAt || today
     };
   });
   const chunkSize = 111;
