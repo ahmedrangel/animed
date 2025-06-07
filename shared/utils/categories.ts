@@ -47,5 +47,9 @@ export const categories = [
   { name: "Maids", type: "tag" },
   { name: "Witch", type: "tag" },
   { name: "Ninja", type: "tag" },
-  { name: "Swordplay", type: "tag" }
+  { name: "Swordplay", type: "tag" },
+  { name: "Slapstick", type: "tag" },
+  { name: "Female Protagonist", type: "tag" },
+  { name: "Male Protagonist", type: "tag" },
+  { name: "Chibi", type: "tag" }
 ] as { name: string, type: "genre" | "tag" }[];
