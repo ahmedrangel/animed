@@ -1,8 +1,17 @@
 export default defineEventHandler(async (event): Promise<Watchlist[]> => {
   const DB = useDB();
-  const { userId } = getQuery<{ userId: number, page?: number, sort?: string, order?: "init" | "asc" | "desc", status?: number | null }>(event);
+  const params = getQuery<{ userId: number, page?: number, sort?: string, order?: "init" | "asc" | "desc", status?: number | null }>(event);
+  const userSession = await getUserSession(event);
+  const userId = params.userId || userSession?.user?.id || null;
+  if (!userId) {
+    throw createError({
+      statusCode: 401,
+      message: "Must provide userId or be logged in",
+      fatal: true
+    });
+  }
   const statusOrder = [1, 2, 3, 4, 0];
-  const whereCondition = eq(tables.watchList.userId, userId);
+  const whereCondition = eq(tables.watchList.userId, Number(userId));
   const query = DB.select({
     userId: tables.watchList.userId,
     mediaId: tables.watchList.mediaId,
