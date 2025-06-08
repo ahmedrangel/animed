@@ -39,7 +39,7 @@
     "@types/bootstrap": "^5.2.10",
     "@vuepic/vue-datepicker": "^11.0.2",
     "@vueuse/nuxt": "^13.3.0",
-    "@yeger/vue-masonry-wall": "^5.0.18",
+    "@yeger/vue-masonry-wall": "^5.0.19",
     "cheerio": "^1.0.0",
     "date-fns": "^4.1.0",
     "drizzle-kit": "^0.31.1",
