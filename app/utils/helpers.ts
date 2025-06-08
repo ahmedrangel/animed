@@ -150,61 +150,6 @@ export const fixUsername = (username: string) => {
   return username.replace(/[^a-zA-Z0-9._]/g, "").slice(0, 20);
 };
 
-export const addToWatchlist = async (mediaId: number, mediaSlug: string) => {
-  const watchlist = useNuxtApp().payload.data["mywatchlist"] as Watchlist[];
-  const result = await $fetch<Watchlist>("/api/watchlist", {
-    method: "POST",
-    body: { mediaId, mediaSlug }
-  }).catch(() => null);
-  if (result && watchlist) {
-    updateMyGlobalWatchlist([...(watchlist || []), result]);
-
-    return result;
-  }
-};
-
-export const importMyAnimeList = async () => {
-  const user = prompt("Enter your MyAnimeList username:")?.trim();
-  if (!user) return;
-  const myanimelistData = await $fetch<MyAnimeListWatchlist[]>(`/api/watchlist/myanimelist/${user}`).catch(() => null);
-  if (!myanimelistData) return;
-  const chunkSize = 50;
-  const importData = [];
-  for (let i = 0; i < myanimelistData.length; i += chunkSize) {
-    const chunk = myanimelistData.slice(i, i + chunkSize);
-    const malIds = chunk.map(item => item.node.id);
-    const anilistData = await getListByIdIn({
-      idMal_in: malIds,
-      perPage: 50,
-      noFilter: true,
-      includeNSFW: true,
-      extraFields: ["idMal"]
-    });
-    for (const item of chunk) {
-      const anilistItem = anilistData.media.find(media => media.idMal === item.node.id);
-      const listStatus = item.list_status;
-      if (!anilistItem) continue;
-      importData.push({
-        mediaId: anilistItem.id,
-        mediaSlug: fixSlug(anilistItem.title.romaji),
-        score: listStatus.score || null,
-        status: listStatus.status === "plan_to_watch" ? 0 : listStatus.status === "watching" ? 1 : listStatus.status === "completed" ? 2 : listStatus.status === "on_hold" ? 3 : listStatus.status === "dropped" ? 4 : null,
-        progress: listStatus.num_episodes_watched || 0,
-        startedDate: listStatus.start_date,
-        finishedDate: listStatus.finish_date,
-        updatedAt: listStatus.updated_at ? new Date(listStatus.updated_at).getTime() : undefined
-      });
-    }
-  }
-  await $fetch("/api/watchlist/myanimelist/import", {
-    method: "POST",
-    body: importData
-  }).catch(() => null);
-  const watchlist = await $fetch("/api/watchlist").catch(() => null);
-  if (watchlist) updateMyGlobalWatchlist(watchlist);
-  return true;
-};
-
 export const socialConnections = [
   { id: "discord", name: "Discord", icon: "simple-icons:discord", class: "discord", to: "/auth/discord" },
   { id: "google", name: "Google", icon: "simple-icons:google", class: "google", to: "/auth/google" },
@@ -224,14 +169,4 @@ export const vueDatePickerAttrs = {
   modelType: "yyyy-MM-dd",
   dark: true,
   enableTimePicker: false
-};
-
-export const updateMyGlobalWatchlist = (newWatchlist?: Watchlist[]) => {
-  if (!newWatchlist || !newWatchlist.length) return;
-  useNuxtApp().payload.data["mywatchlist"] = newWatchlist.sort((a, b) => a.mediaSlug.localeCompare(b.mediaSlug)).sort((a, b) => {
-    const statusOrder = [1, 2, 3, 4, 0];
-    const aStatus = statusOrder.indexOf(a.status);
-    const bStatus = statusOrder.indexOf(b.status);
-    return aStatus - bStatus;
-  });
 };
