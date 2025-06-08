@@ -1,4 +1,4 @@
-import { API } from "../../../../enums/myanimelist";
+import { API } from "~~/enums/myanimelist";
 
 export default defineEventHandler(async (event) => {
   await requireUserSession(event);
