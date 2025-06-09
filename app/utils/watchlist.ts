@@ -2,12 +2,12 @@ export const watchStatus = {
   WATCHING: {
     id: 1,
     name: "Watching",
-    color: "#0090d0"
+    color: "#00c153"
   },
   COMPLETED: {
     id: 2,
     name: "Completed",
-    color: "#00c153"
+    color: "#0090d0"
   },
   ON_HOLD: {
     id: 3,
