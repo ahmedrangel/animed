@@ -120,7 +120,7 @@ declare global {
     description: string;
     season: "WINTER" | "SPRING" | "SUMMER" | "FALL";
     seasonYear: number;
-    format: string;
+    format?: string;
     status: "FINISHED" | "RELEASING" | "NOT_YET_RELEASED" | "CANCELLED" | "HIATUS";
     episodes?: number;
     duration: number;
