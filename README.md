@@ -1,4 +1,4 @@
-> TV Animes library app built using [Nuxt 3](https://github.com/nuxt/nuxt), [Vue 3](https://github.com/vuejs/core), [Bootstrap](https://github.com/twbs/bootstrap) and [Typescript](https://github.com/microsoft/TypeScript) with data provided by [AniList](https://anilist.co) [API](https://docs.anilist.co), hosted on [Cloudflare Pages](https://pages.cloudflare.com) and deployed on [NuxtHub](https://hub.nuxt.com). Inspired by [Nuxt Movies](https://github.com/nuxt/movies).
+> TV Animes library app built using [Nuxt 4](https://github.com/nuxt/nuxt), [Vue 3](https://github.com/vuejs/core), [Bootstrap](https://github.com/twbs/bootstrap) and [Typescript](https://github.com/microsoft/TypeScript) with data provided by [AniList](https://anilist.co) [API](https://docs.anilist.co), hosted on [Cloudflare Pages](https://pages.cloudflare.com) and deployed on [NuxtHub](https://hub.nuxt.com). Inspired by [Nuxt Movies](https://github.com/nuxt/movies).
 
 Preview: https://animed.ahmedrangel.com
 
