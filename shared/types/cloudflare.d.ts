@@ -1,4 +1,4 @@
-import type { CfProperties, Request, ExecutionContext } from "@cloudflare/workers-types";
+import type { CfProperties, Request, ExecutionContext, D1Database, R2Bucket } from "@cloudflare/workers-types";
 
 declare module "h3" {
   interface H3EventContext {

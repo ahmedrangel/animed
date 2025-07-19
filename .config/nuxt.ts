@@ -1,8 +1,7 @@
 import { SITE } from "../shared/utils/info";
 
 export default defineNuxtConfig({
-  future: { compatibilityVersion: 4 },
-  compatibilityDate: "2025-02-07",
+  compatibilityDate: "2025-07-18",
   app: {
     pageTransition: { name: "fadepage", mode: "out-in" },
     layoutTransition: { name: "fadepage", mode: "out-in" },
@@ -106,6 +105,10 @@ export default defineNuxtConfig({
   },
   sitemap: {
     sources: ["/api/__sitemap"],
+    urls: [
+      { loc: "/", priority: 1, lastmod: new Date().toISOString() }
+    ],
+    defaults: { priority: 0.8, lastmod: new Date().toISOString() },
     xslColumns: [
       { label: "URL", width: "65%" },
       { label: "Priority", select: "sitemap:priority", width: "12.5%" },
@@ -113,8 +116,7 @@ export default defineNuxtConfig({
     ]
   },
   routeRules: {
-    "/": { sitemap: { priority: 1 } },
-    "/*/**": { sitemap: { priority: 0.8, lastmod: new Date().toISOString() }, appMiddleware: "setup-profile" },
+    "/*/**": { appMiddleware: "setup-profile" },
     "/api/_nuxt_icon/**": { cache: { maxAge: 1.577e+7 } }
   },
   fonts: {

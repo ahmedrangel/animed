@@ -1,7 +1,7 @@
 import type { FetchError as F } from "ofetch";
-import type { CacheEntry as C } from "nitropack/runtime/types";
+import type { CacheEntry as C } from "nitropack";
 import type { FieldsOption } from "gql-payload";
-import type { Sort, Status } from "~~/enums/anilist";
+import type { Sort, Status } from "../../enums/anilist";
 import type { User as U } from "#auth-utils";
 
 export {};

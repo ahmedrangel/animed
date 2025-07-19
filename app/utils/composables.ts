@@ -60,6 +60,8 @@ export const useWatchlist = async () => {
   const { user, loggedIn } = useUserSession();
   if (!loggedIn.value) return ref(null);
   const key = "mywatchlist";
+  const currentPayload = useNuxtApp().payload.data[key] as Watchlist[] | undefined;
+  if (currentPayload) return ref(currentPayload);
   const { data: resultsFetch } = await useFetch<Watchlist[]>("/api/watchlist", {
     query: { userId: user.value?.id },
     key,
