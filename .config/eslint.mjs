@@ -11,6 +11,7 @@ export default withNuxt([{
   rules: {
     "camelcase": "off",
     "no-console": ["error", { allow: ["info", "warn"] }],
+    "sort-imports": ["error", { ignoreDeclarationSort: true }],
     "@stylistic/indent": ["error", 2, { SwitchCase: 1 }],
     "@stylistic/linebreak-style": ["error", process.platform === "win32" ? "windows" : "unix"],
     "@stylistic/quotes": ["error", "double"],
@@ -24,6 +25,8 @@ export default withNuxt([{
     "@stylistic/no-multi-spaces": "error",
     "@stylistic/space-before-blocks": "error",
     "@stylistic/no-trailing-spaces": "error",
+    "@stylistic/no-extra-semi": "error",
+    "@stylistic/eol-last": ["error", "always"],
     "nuxt/prefer-import-meta": "error",
     "vue/first-attribute-linebreak": ["error", { singleline: "ignore", multiline: "ignore" }],
     "vue/max-attributes-per-line": ["error", { singleline: 100 }],
@@ -34,7 +37,6 @@ export default withNuxt([{
     "@typescript-eslint/no-dynamic-delete": ["off"],
     "@typescript-eslint/ban-ts-comment": ["off"],
     "vue/html-indent": ["error", 2],
-    "vue/multiline-html-element-content-newline": ["error", { ignores: [] }],
-    "@stylistic/no-extra-semi": "error"
+    "vue/multiline-html-element-content-newline": ["error", { ignores: [] }]
   }
 }]);
