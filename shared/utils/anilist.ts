@@ -1,57 +1,23 @@
 import { queryAnime, queryAnimeCharacters, queryAnimeEpisodes, queryAnimeSlug, queryCharacter, queryCharacterMedias, queryCharacterSlug, queryFilter, querySchedules, queryStaff, queryStaffCharacters, queryStaffSlug } from "./queries";
 import { API, Sort, Status } from "~~/enums/anilist";
-import { useIdbStorage } from "./composables";
+import { useCachedFetch, useIdbStorage } from "./composables";
 import { availablePageTypes, fixSlug } from "./helpers";
 import { SITE } from "./info";
 
 const callAnilistGQL = async <T>(options: AnilistRequest): Promise<{ data: T }> => {
   const { method = "POST", headers, body, cacheKey, swr } = options;
-  const storage = useIdbStorage("cache");
-  const storageExpirations = useIdbStorage("expiration");
-  const expiration = Date.now() + (43200 * 1000);
+  const ttl = 43200 * 1000;
+  const { data } = await useCachedFetch<{ data: T }>(API.GRAPHQL, {
+    method,
+    headers: headers || { "Content-Type": "application/json", "Accept": "application/json", "Referer": SITE.url },
+    body
+  }, {
+    cacheKey,
+    swr,
+    ttl
+  });
 
-  const fetchData = async () => {
-    const response = await $fetch<{ data: T }>(API.GRAPHQL, {
-      method,
-      headers: headers || { "Content-Type": "application/json", "Accept": "application/json", "Referer": SITE.url },
-      body
-    }).catch(() => null);
-    return response?.data;
-  };
-
-  if (cacheKey) {
-    const [cached, cachedExpiration] = await Promise.all([
-      storage?.getItem<T>(cacheKey),
-      storageExpirations?.getItem<string>(cacheKey)
-    ]);
-    if (cached && cachedExpiration && Number(cachedExpiration) > Date.now()) {
-      if (swr) {
-        void (async () => {
-          const response = await fetchData();
-          if (response && JSON.stringify(response) !== JSON.stringify(cached)) {
-            await Promise.all([
-              storage?.setItemRaw(cacheKey, response as unknown),
-              storageExpirations?.setItemRaw(cacheKey, expiration)
-            ]);
-          }
-        })();
-      }
-      return { data: cached };
-    }
-    await Promise.all([
-      storage?.removeItem(cacheKey),
-      storageExpirations?.removeItem(cacheKey)
-    ]);
-  }
-
-  const response = await fetchData();
-  if (response && cacheKey) {
-    await Promise.all([
-      storage?.setItemRaw(cacheKey, response as unknown),
-      storageExpirations?.setItemRaw(cacheKey, expiration)
-    ]);
-  }
-  return { data: response || {} as T };
+  return { data };
 };
 
 export const getSearch = async (options?: QueryOptions): Promise<AnimeList> => {
