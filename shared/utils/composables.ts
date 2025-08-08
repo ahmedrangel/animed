@@ -10,6 +10,7 @@ export const useIdbStorage = (name: "cache" | "expiration") => {
 
 export const useCachedFetch = async <T>(url: string, fetchOptions: NitroFetchOptions<any>, CacheOptions: { cacheKey?: string, swr?: boolean, ttl?: number }) => {
   const { cacheKey, swr, ttl } = CacheOptions;
+  const msTtl = (ttl || 0) * 1000;
   const now = Date.now();
   const storage = useIdbStorage("cache");
   const storageExpirations = useIdbStorage("expiration");
@@ -26,7 +27,7 @@ export const useCachedFetch = async <T>(url: string, fetchOptions: NitroFetchOpt
           if (response && JSON.stringify(response) !== JSON.stringify(cached)) {
             await Promise.all([
               storage?.setItemRaw(cacheKey, response as unknown),
-              storageExpirations?.setItemRaw(cacheKey, now + (ttl || 0))
+              storageExpirations?.setItemRaw(cacheKey, now + msTtl)
             ]);
           }
         })();
@@ -43,7 +44,7 @@ export const useCachedFetch = async <T>(url: string, fetchOptions: NitroFetchOpt
   if (response && cacheKey) {
     await Promise.all([
       storage?.setItemRaw(cacheKey, response as unknown),
-      storageExpirations?.setItemRaw(cacheKey, now + (ttl || 0))
+      storageExpirations?.setItemRaw(cacheKey, now + msTtl)
     ]);
   }
   return response as T;

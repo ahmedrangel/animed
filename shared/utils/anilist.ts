@@ -6,7 +6,7 @@ import { SITE } from "./info";
 
 const callAnilistGQL = async <T>(options: AnilistRequest): Promise<{ data: T }> => {
   const { method = "POST", headers, body, cacheKey, swr } = options;
-  const ttl = 43200 * 1000;
+  const ttl = 43200;
   const { data } = await useCachedFetch<{ data: T }>(API.GRAPHQL, {
     method,
     headers: headers || { "Content-Type": "application/json", "Accept": "application/json", "Referer": SITE.url },
