@@ -10,6 +10,13 @@ const loading = ref<boolean>(true);
 
 onMounted(async () => {
   staff.value = await getStaff({ id: Number(id), slug });
+  if (!staff.value) {
+    throw createError({
+      statusCode: 404,
+      message: `People not found: '${slug}'`,
+      fatal: true
+    });
+  }
   loading.value = false;
 
   seoTitle.value = staff.value.name.userPreferred + " | " + SITE.name;

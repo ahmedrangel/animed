@@ -106,6 +106,13 @@ if (isCrawler) {
 
 onMounted(async () => {
   anime.value = await getAnimeInfo({ id: Number(id), slug });
+  if (!anime.value) {
+    throw createError({
+      statusCode: 404,
+      message: `Anime not found: '${slug}'`,
+      fatal: true
+    });
+  }
   sharedInfoHandler(anime.value);
   useState(`${id}-info`, () => {
     return {

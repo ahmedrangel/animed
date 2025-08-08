@@ -12,6 +12,13 @@ export default defineCachedEventHandler(async (event) => {
 
   const { id } = getRouterParams(event);
   const data = await getAnimeEpisodes({ id: Number(id) });
+  if (!data) {
+    throw createError({
+      statusCode: 404,
+      message: `Anime episodes not found: '${id}'`,
+      fatal: true
+    });
+  }
   const slug = fixSlug(data.title.romaji);
   return { ...data, slug };
 }, {

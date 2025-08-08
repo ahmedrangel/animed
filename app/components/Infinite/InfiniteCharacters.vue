@@ -23,6 +23,7 @@ const scrollHandler = async () => {
   if (onScreen(lastRow.value[0]!) && !nexted.value && count.value && hasNextPage.value) {
     nexted.value = true;
     const next = await getAnimeCharacters({ id: result.id, page: count.value });
+    if (!next) return;
     result.characters.edges.push(...next.characters.edges);
     nexted.value = false;
     count.value = count.value + 1;

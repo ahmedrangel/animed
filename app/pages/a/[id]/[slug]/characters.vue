@@ -47,6 +47,13 @@ if (isCrawler) {
 
 onMounted(async () => {
   anime.value = await getAnimeCharacters({ id: Number(id), slug, withInfo: true });
+  if (!anime.value) {
+    throw createError({
+      statusCode: 404,
+      message: `Anime characters not found: '${slug}'`,
+      fatal: true
+    });
+  }
   sharedInfoHandler(anime.value);
   useState(`${id}-info`, () => {
     return {

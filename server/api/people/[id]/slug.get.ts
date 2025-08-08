@@ -4,6 +4,13 @@ const cacheName = "slug";
 export default defineCachedEventHandler(async (event) => {
   const { id } = getRouterParams(event);
   const name = await getStaffSlug(Number(id));
+  if (!name) {
+    throw createError({
+      statusCode: 404,
+      message: `People not found: '${id}'`,
+      fatal: true
+    });
+  }
   const slug = fixSlug(name);
   return { id, slug };
 }, {

@@ -12,6 +12,13 @@ export default defineCachedEventHandler(async (event) => {
 
   const { id } = getRouterParams(event);
   const data = await getAnimeCharacters({ id: Number(id), withInfo: true });
+  if (!data) {
+    throw createError({
+      statusCode: 404,
+      message: `Anime characters not found: '${id}'`,
+      fatal: true
+    });
+  }
   const slug = fixSlug(data.title.romaji);
   return { ...data, slug };
 }, {

@@ -1,5 +1,8 @@
-import { queryAnime, queryAnimeCharacters, queryAnimeEpisodes, queryAnimeSlug, queryCharacter, queryCharacterMedias, queryCharacterSlug, queryFilter, querySchedules, queryStaff, queryStaffCharacters, queryStaffSlug } from "~/utils/queries";
+import { queryAnime, queryAnimeCharacters, queryAnimeEpisodes, queryAnimeSlug, queryCharacter, queryCharacterMedias, queryCharacterSlug, queryFilter, querySchedules, queryStaff, queryStaffCharacters, queryStaffSlug } from "./queries";
 import { API, Sort, Status } from "~~/enums/anilist";
+import { useIdbStorage } from "./composables";
+import { availablePageTypes, fixSlug } from "./helpers";
+import { SITE } from "./info";
 
 const callAnilistGQL = async <T>(options: AnilistRequest): Promise<{ data: T }> => {
   const { method = "POST", headers, body, cacheKey, swr } = options;
@@ -82,7 +85,7 @@ export const getTopRated = async (options?: QueryOptions, cacheKey?: string): Pr
   return data.Page;
 };
 
-export const getAnimeInfo = async (options?: QueryOptions): Promise<Anime> => {
+export const getAnimeInfo = async (options?: QueryOptions): Promise<Anime | undefined> => {
   const { data } = await callAnilistGQL<{ Media: Anime }>({
     body: queryAnime(options),
     cacheKey: `anime:${options?.id}`
@@ -92,11 +95,7 @@ export const getAnimeInfo = async (options?: QueryOptions): Promise<Anime> => {
   response.slug = slug;
 
   if (options?.slug && options.slug.toLowerCase() !== slug) {
-    throw createError({
-      statusCode: 404,
-      message: `Anime not found: '${slug}'`,
-      fatal: true
-    });
+    return;
   }
 
   return response;
@@ -138,7 +137,7 @@ export const getList = async (type: string, options?: QueryOptions, cacheKey?: s
   }
 };
 
-export const getAnimeCharacters = async (options?: QueryOptions): Promise<Anime> => {
+export const getAnimeCharacters = async (options?: QueryOptions): Promise<Anime | undefined> => {
   const { data } = await callAnilistGQL<{ Media: Anime }>({
     body: queryAnimeCharacters(options)
   });
@@ -147,16 +146,12 @@ export const getAnimeCharacters = async (options?: QueryOptions): Promise<Anime>
   const slug = fixSlug(response?.title?.romaji);
 
   if (options?.slug && options.slug.toLowerCase() !== slug) {
-    throw createError({
-      statusCode: 404,
-      message: `Anime not found: '${slug}'`,
-      fatal: true
-    });
+    return;
   }
   return response;
 };
 
-export const getAnimeEpisodes = async (options?: QueryOptions): Promise<Anime> => {
+export const getAnimeEpisodes = async (options?: QueryOptions): Promise<Anime | undefined> => {
   const { data } = await callAnilistGQL<{ Media: Anime }>({
     body: queryAnimeEpisodes(options)
   });
@@ -164,27 +159,19 @@ export const getAnimeEpisodes = async (options?: QueryOptions): Promise<Anime> =
   const response = data.Media as Anime;
 
   if (!response?.streamingEpisodes?.length) {
-    throw createError({
-      statusCode: 404,
-      message: `Episodes for ${options?.slug} not found.`,
-      fatal: true
-    });
+    return;
   }
 
   const slug = fixSlug(response?.title?.romaji);
 
   if (options?.slug && options.slug.toLowerCase() !== slug) {
-    throw createError({
-      statusCode: 404,
-      message: `Anime not found: '${slug}'`,
-      fatal: true
-    });
+    return;
   }
 
   return response;
 };
 
-export const getStaff = async (options: { id: number, slug: string }): Promise<StaffInfo> => {
+export const getStaff = async (options: { id: number, slug: string }): Promise<StaffInfo | undefined> => {
   const { id } = options;
   const { data } = await callAnilistGQL<{ Staff: StaffInfo }>({
     body: queryStaff(options),
@@ -194,11 +181,7 @@ export const getStaff = async (options: { id: number, slug: string }): Promise<S
   const response = data.Staff as StaffInfo;
   const _slug = fixSlug(response.name.userPreferred!);
   if (options?.slug && options.slug.toLowerCase() !== _slug) {
-    throw createError({
-      statusCode: 404,
-      message: `People not found: '${options.slug}'`,
-      fatal: true
-    });
+    return;
   }
 
   return response;
@@ -257,7 +240,7 @@ export const getCharacterSlug = async (id: number): Promise<string> => {
   return data.Character.name.userPreferred;
 };
 
-export const getCharacter = async (options: QueryOptions): Promise<any> => {
+export const getCharacter = async (options: QueryOptions): Promise<any | undefined> => {
   const { id } = options;
   const { data } = await callAnilistGQL<{ Character: any }>({
     body: queryCharacter(options),
@@ -267,11 +250,7 @@ export const getCharacter = async (options: QueryOptions): Promise<any> => {
   const response = data.Character;
   const _slug = fixSlug(response?.name?.userPreferred);
   if (options?.slug && options.slug.toLowerCase() !== _slug) {
-    throw createError({
-      statusCode: 404,
-      message: `Character not found: '${options.slug}'`,
-      fatal: true
-    });
+    return;
   }
 
   return data.Character;

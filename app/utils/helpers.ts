@@ -135,13 +135,6 @@ export const animeFlvRelationLogic = (aflvArr: AFlvRequest["data"]["media"], ani
   }
 };
 
-export const availablePageTypes: { name: ListType, routeType: string, title: string }[] = [
-  { name: "new", routeType: "newly", title: "Newly Released" },
-  { name: "top-rated", routeType: "rated", title: "Top Rated" },
-  { name: "trending", routeType: "popular", title: "Trending" },
-  { name: "upcoming", routeType: "upcoming", title: "Upcoming" }
-];
-
 export const fromSameRouteParams = (last: RouteLocationNormalizedGeneric, current: RouteLocationNormalizedGeneric) => {
   return JSON.stringify(last?.params) === JSON.stringify(current.params) && last.fullPath !== current.fullPath;
 };

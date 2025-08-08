@@ -58,6 +58,13 @@ if (isCrawler) {
 
 onMounted(async () => {
   anime.value = await getAnimeInfo({ id: Number(id), slug });
+  if (!anime.value) {
+    throw createError({
+      statusCode: 404,
+      message: `Anime not found: '${slug}'`,
+      fatal: true
+    });
+  }
   sharedInfoHandler(anime.value);
   useState(`${id}-info`, () => {
     return {
@@ -109,7 +116,7 @@ const getZerochanURL = (url: string) => {
           <div class="px-2 pt-4 pt-lg-5 px-lg-5 px-xl-5 w-100">
             <AnimeMenu v-if="animeEpisodes" :anime-id="String(id)" :slug="String(slug)" :episodes="Boolean(animeEpisodes?.length)" />
             <div v-if="statedInfo || anime" :anime="statedInfo || anime" class="pt-4 pb-3 px-0">
-              <h4 class="mb-1 text-primary">{{ animeTitles.romaji }} <span class="badge bg-secondary align-middle">{{ animeFormat.replace(/_/g, " ") }}</span></h4>
+              <h4 class="mb-1 text-primary">{{ animeTitles.romaji }} <span v-if="animeFormat" class="badge bg-secondary align-middle">{{ animeFormat.replace(/_/g, " ") }}</span></h4>
               <h6 v-if="animeTitles.english" class="mb-1">{{ animeTitles.english }}</h6>
               <h6 v-if="animeTitles.native" class="mb-1">{{ animeTitles.native }}</h6>
               <div class="d-flex align-items-center position-relative">

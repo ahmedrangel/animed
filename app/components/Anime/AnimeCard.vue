@@ -29,7 +29,7 @@ const add = async () => {
     </div>
   </div>
   <NuxtLink :to="`/a/${data.id}/${fixSlug(data.title.romaji)}`" class="text-white">
-    <h6 class="mb-1 fw-normal">{{ data.title?.english ? data.title?.english : data.title?.romaji }} <span class="badge bg-secondary align-middle">{{ data.format.replace(/_/g, " ") }}</span></h6>
+    <h6 class="mb-1 fw-normal">{{ data.title?.english ? data.title?.english : data.title?.romaji }} <span v-if="data.format" class="badge bg-secondary align-middle">{{ data.format.replace(/_/g, " ") }}</span></h6>
   </NuxtLink>
   <small class="text-muted d-block mb-1 fw-light">{{ data.title.romaji }}</small>
   <small class="d-block mb-1 text-primary ">{{ data.startDate.year ? formatDate(data.startDate.year, data.startDate.month, data.startDate.day) : "TBA" }}</small>

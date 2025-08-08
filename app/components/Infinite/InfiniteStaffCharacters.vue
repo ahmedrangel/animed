@@ -42,6 +42,7 @@ const mouseListeners = (set: string[]) => {
 const getNextMedia = async () => {
   nexted.value = true;
   const next = await getStaffCharacters({ id, page: count.value });
+  if (!next) return;
   const nextYears = next.edges.map((edge: Record<string, any>) => edge.node.startDate.year) as string[];
   charactersYears.push(...nextYears);
   uniqueYears.value = [...new Set(charactersYears)];

@@ -10,6 +10,13 @@ const loading = ref<boolean>(true);
 
 onMounted(async () => {
   character.value = await getCharacter({ id: Number(id), slug });
+  if (!character.value) {
+    throw createError({
+      statusCode: 404,
+      message: `Character not found: '${slug}'`,
+      fatal: true
+    });
+  }
   loading.value = false;
   seoTitle.value = character.value.name.userPreferred + " | " + SITE.name;
   seoDescription.value = character.value.name.userPreferred;
