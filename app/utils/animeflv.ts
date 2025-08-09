@@ -7,7 +7,7 @@ export const getAflvSearch = async (query: string, userAgent?: string): Promise<
       ...userAgent ? { "User-Agent": userAgent } : {}
     }
   }, {
-    cacheKey: `animeflv:${query}`,
+    cacheKey: `animeflv:${decodeURIComponent(query)?.replace(/\W/g, "")}`,
     swr: false,
     ttl: 86400
   }).catch(() => null);
