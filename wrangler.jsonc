@@ -1,0 +1,28 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "animed",
+  "compatibility_date": "2025-08-19",
+  "main": "dist/server/index.mjs",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "dist/public"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "animed",
+      "database_id": "9155d3a6-9aa0-41bc-b844-90a18b4f1565"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "CACHE",
+      "id": "a6122c254ac34c0da9c81c6b2c103ce8",
+    },
+    {
+      "binding": "KV",
+      "id": "cbcea145e6434f8899fd34815277376c"
+    }
+  ]
+}
