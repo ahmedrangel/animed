@@ -143,7 +143,7 @@ const getZerochanURL = (url: string) => {
                   <template #default="{ item }">
                     <div class="overflow-hidden rounded-2">
                       <NuxtLink v-ripple :to="getZerochanURL(item.url) || item.url" target="_blank" external class="position-relative">
-                        <img :src="item.thumbnailUrl" style="width: 100%" class="scale-on-hover">
+                        <img :src="item.url?.replace('.full', '.1024')?.replace(/(.png|.jpg)/g, '.webp')" style="width: 100%" class="scale-on-hover">
                       </NuxtLink>
                     </div>
                   </template>
