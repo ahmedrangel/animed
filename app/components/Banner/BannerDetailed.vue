@@ -44,7 +44,7 @@ onBeforeUnmount(() => {
       </div>
       <div class="carousel-inner d-flex">
         <template v-for="(a, i) of animeArray" :key="i">
-          <div class="banner p-0 position-relative d-flex align-items-start align-items-md-center p-0 w-100 carousel-item" :class="{ active: !i }" data-bs-interval="10000">
+          <div class="banner p-0 position-relative d-flex align-items-start align-items-md-center w-100 carousel-item" :class="{ active: !i }" data-bs-interval="10000">
             <span id="blur" class="position-absolute top-0 w-100 h-100 bg-secondary" :style="{ backgroundImage: a?.bannerImage ? `url(${a?.bannerImage})` : 'none' }" data-aos="zoom-out" data-aos-duration="3000" />
             <span id="front" class="text-center px-4 pt-2 pt-md-0" data-aos="fade-in" data-aos-duration="2000">
               <img class="shadow" :src="a?.coverImage?.extraLarge" :alt="a?.title?.romaji" :title="a?.title?.romaji">
