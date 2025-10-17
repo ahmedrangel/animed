@@ -12,7 +12,8 @@ export enum Format {
   TV = "TV",
   TV_SHORT = "TV_SHORT",
   ONA = "ONA",
-  OVA = "OVA"
+  OVA = "OVA",
+  MOVIE = "MOVIE"
 }
 
 export enum Sort {

@@ -18,7 +18,7 @@ export const queryFilter = (options?: QueryOptions) => {
           id_in: { type: "[Int]", value: options?.id_in },
           idMal_in: { type: "[Int]", value: options?.idMal_in },
           type: { type: "MediaType", value: "ANIME" },
-          ...!options?.noFilter && { format_in: { type: "[MediaFormat]", value: [Format.TV, Format.OVA, Format.ONA, Format.TV_SHORT] } },
+          ...!options?.noFilter && { format_in: { type: "[MediaFormat]", value: [Format.TV, Format.OVA, Format.ONA, Format.TV_SHORT, Format.MOVIE] } },
           sort: { type: "[MediaSort]", value: options?.sort },
           status_in: { type: "[MediaStatus]", value: options?.status_in },
           search: options?.search,
