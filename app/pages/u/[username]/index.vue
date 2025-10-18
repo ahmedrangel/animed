@@ -211,7 +211,7 @@ const getNextMedia = async () => {
   watchlistData.value = { ...watchlistData.value, ...mappedValues };
   nexted.value = false;
   count.value = count.value + 1;
-  hasNextPage.value = next.pageInfo.hasNextPage;
+  hasNextPage.value = Boolean(totalEntries.value > animeList.value.length);
 };
 
 const scrollHandler = async () => {
