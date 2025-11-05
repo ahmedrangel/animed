@@ -161,5 +161,7 @@ export const vueDatePickerAttrs = {
   format: "MMM d, yyyy",
   modelType: "yyyy-MM-dd",
   dark: true,
-  enableTimePicker: false
+  timeConfig: {
+    enableTimePicker: false
+  }
 };

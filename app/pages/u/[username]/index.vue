@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import VueDatePicker from "@vuepic/vue-datepicker";
+import { VueDatePicker } from "@vuepic/vue-datepicker";
 
 const { params } = useRoute("u-username");
 const { username } = params;
-const { data: result } = await useFetch<User>(`/api/account/${username}`);
+const { data: result } = await useFetch(`/api/user/${username}`);
 const { clear, user, loggedIn } = useUserSession();
 const isMyPage = loggedIn.value && user.value?.username?.toLowerCase() === username.toLowerCase();
 
