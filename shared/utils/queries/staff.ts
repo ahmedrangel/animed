@@ -72,17 +72,3 @@ export const queryStaffCharacters = (options?: QueryOptions) => {
   });
   return query;
 };
-
-export const queryStaffSlug = (id: QueryOptions["id"]) => {
-  const query = gqlQuery({
-    operation: "Staff",
-    variables: {
-      id: Number(id)
-    },
-    fields: [
-      "id",
-      { name: ["userPreferred"] }
-    ]
-  });
-  return query;
-};

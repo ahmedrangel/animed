@@ -69,6 +69,7 @@ declare global {
     name: NameOptions;
     primaryOccupations?: string[];
     yearsActive?: number[];
+    slug?: string;
   }
 
   interface AnimeCharacters {

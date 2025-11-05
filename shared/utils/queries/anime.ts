@@ -107,18 +107,6 @@ export const queryAnime = (options?: QueryOptions) => {
   return query;
 };
 
-export const queryAnimeSlug = (id: QueryOptions["id"]) => {
-  const query = gqlQuery({
-    operation: "Media",
-    variables: { id },
-    fields: [
-      "id",
-      { title: ["romaji"] }
-    ]
-  });
-  return query;
-};
-
 export const queryAnimeCharacters = (options?: QueryOptions) => {
   for (const key in options) {
     if (!options[key as keyof QueryOptions]) delete options[key as keyof QueryOptions];

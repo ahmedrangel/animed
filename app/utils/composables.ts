@@ -27,14 +27,6 @@ export const useNavigationRoute = () => {
   return { lastRoute, currentRoute };
 };
 
-export const useDetectCrawler = (userAgent: string | undefined) => {
-  const botName = [...limitedBots, ...unlimitedBots].find(bot => userAgent?.includes(bot));
-  if (botName) {
-    return { userAgent, isCrawler: true };
-  }
-  return { userAgent, isCrawler: false };
-};
-
 export const useFormState = <T extends Record<string, unknown>>(initialState: T) => {
   const data = ref<T>({ ...initialState });
   const methods = {

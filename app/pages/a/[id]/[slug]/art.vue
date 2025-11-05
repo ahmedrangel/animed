@@ -41,21 +41,6 @@ const sharedInfoHandler = (value: Anime) => {
   seoImage.value = value.coverImage?.extraLarge;
 };
 
-const userAgent = useRequestHeaders(["User-Agent"])["user-agent"];
-const { isCrawler } = useDetectCrawler(userAgent);
-if (isCrawler) {
-  const data = await $fetch<Anime>(`/api/anime/${id}/images`, { headers: { "User-Agent": userAgent || "" } });
-  if (data?.slug?.toLowerCase() !== slug) {
-    throw createError({
-      statusCode: 404,
-      message: `Anime not found: '${slug}'`,
-      fatal: true
-    });
-  }
-  anime.value = data;
-  sharedInfoHandler(data);
-}
-
 onMounted(async () => {
   anime.value = await getAnimeInfo({ id: Number(id), slug });
   if (!anime.value) {

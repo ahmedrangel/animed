@@ -77,17 +77,3 @@ export const queryCharacterMedias = (options?: QueryOptions) => {
   });
   return query;
 };
-
-export const queryCharacterSlug = (id: QueryOptions["id"]) => {
-  const query = gqlQuery({
-    operation: "Character",
-    variables: {
-      id: Number(id)
-    },
-    fields: [
-      "id",
-      { name: ["userPreferred"] }
-    ]
-  });
-  return query;
-};

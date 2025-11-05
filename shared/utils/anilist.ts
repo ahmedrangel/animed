@@ -1,4 +1,4 @@
-import { queryAnime, queryAnimeCharacters, queryAnimeEpisodes, queryAnimeSlug, queryCharacter, queryCharacterMedias, queryCharacterSlug, queryFilter, querySchedules, queryStaff, queryStaffCharacters, queryStaffSlug } from "./queries";
+import { queryAnime, queryAnimeCharacters, queryAnimeEpisodes, queryCharacter, queryCharacterMedias, queryFilter, querySchedules, queryStaff, queryStaffCharacters } from "./queries";
 import { API, Sort, Status } from "~~/enums/anilist";
 import { useCachedFetch, useIdbStorage } from "./composables";
 import { availablePageTypes, fixSlug } from "./helpers";
@@ -67,13 +67,6 @@ export const getAnimeInfo = async (options?: QueryOptions): Promise<Anime | unde
   return response;
 };
 
-export const getAnimeSlug = async (id: number): Promise<Anime> => {
-  const { data } = await callAnilistGQL<{ Media: Anime }>({
-    body: queryAnimeSlug(id)
-  });
-  return data.Media;
-};
-
 export const getUpcoming = async (options?: QueryOptions, cacheKey?: string): Promise<AnimeList> => {
   const todayYear = new Date().getFullYear();
   const { data } = await callAnilistGQL<{ Page: AnimeList }>({
@@ -137,7 +130,7 @@ export const getAnimeEpisodes = async (options?: QueryOptions): Promise<Anime | 
   return response;
 };
 
-export const getStaff = async (options: { id: number, slug: string }): Promise<StaffInfo | undefined> => {
+export const getStaff = async (options: { id: number, slug?: string }): Promise<StaffInfo | undefined> => {
   const { id } = options;
   const { data } = await callAnilistGQL<{ Staff: StaffInfo }>({
     body: queryStaff(options),
@@ -146,6 +139,8 @@ export const getStaff = async (options: { id: number, slug: string }): Promise<S
 
   const response = data.Staff as StaffInfo;
   const _slug = fixSlug(response.name.userPreferred!);
+  response.slug = _slug;
+
   if (options?.slug && options.slug.toLowerCase() !== _slug) {
     return;
   }
@@ -158,13 +153,6 @@ export const getStaffCharacters = async (options?: QueryOptions): Promise<StaffC
     body: queryStaffCharacters({ ...options })
   });
   return data.Staff.characterMedia;
-};
-
-export const getStaffSlug = async (id: number): Promise<string> => {
-  const { data } = await callAnilistGQL<{ Staff: { name: { userPreferred: string } } }>({
-    body: queryStaffSlug(id)
-  });
-  return data.Staff.name.userPreferred;
 };
 
 export const getPreviewList = async (type: ListType, options: QueryOptions = {}): Promise<AnimePreviewListInfo> => {
@@ -197,13 +185,6 @@ export const getSchedules = async (options: QueryOptions = {}, reqOptions?: Anil
     ...reqOptions
   });
   return data.Page;
-};
-
-export const getCharacterSlug = async (id: number): Promise<string> => {
-  const { data } = await callAnilistGQL<{ Character: { name: { userPreferred: string } } }>({
-    body: queryCharacterSlug(id)
-  });
-  return data.Character.name.userPreferred;
 };
 
 export const getCharacter = async (options: QueryOptions): Promise<any | undefined> => {
