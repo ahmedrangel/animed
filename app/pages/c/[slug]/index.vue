@@ -41,8 +41,9 @@ onMounted(async () => {
   const cat_title = categories.find(c => fixSlug(c.name) === slug)!.name;
   const cat_type = categories.find(c => fixSlug(c.name) === slug)?.type;
   const options = cat_type === "genre" ? { genres: [cat_title] } : { tags: [cat_title] };
-  for (const type of availablePageTypes) {
-    const list = await getPreviewList(type.name, { ...options, slug, perPage: 20 });
+  const promises = availablePageTypes.map(type => getPreviewList(type.name, { ...options, slug, perPage: 20 }).catch(() => null));
+  const results = await Promise.all(promises);
+  for (const list of results) {
     if (list) previewData.value.preview.push(list);
   }
   if (data.value.preview.length) {

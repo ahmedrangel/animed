@@ -22,8 +22,9 @@ useHead({
 const data = computed(() => previewData.value);
 
 onMounted(async () => {
-  for (const type of availablePageTypes) {
-    const list = await getPreviewList(type.name, { perPage: 12 });
+  const promises = availablePageTypes.map(type => getPreviewList(type.name, { perPage: 12 }).catch(() => null));
+  const results = await Promise.all(promises);
+  for (const list of results) {
     if (list) previewData.value.preview.push(list);
   }
   if (data.value.preview.length) {
