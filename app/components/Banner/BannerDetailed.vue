@@ -7,16 +7,10 @@ const route = useRoute();
 const videoModal = useModalController("video-modal");
 const videoId = ref("");
 
-const computedAnime = computed(() => props.anime.toSorted(() => Math.random() - 0.5).map(el => ({
+const computedAnime = computed(() => props.anime.toSorted(() => Math.random() - 0.5)?.slice(0, 12)?.map(el => ({
   ...el,
   description: el.description ? fixDescription(el.description).text : null
 })));
-
-const animeArray = useState(route.path, () => computedAnime.value);
-
-watch(computedAnime, () => {
-  animeArray.value = computedAnime.value;
-}, { deep: true });
 
 const openVideoModal = (trailer: string) => {
   videoId.value = trailer;
@@ -40,10 +34,10 @@ onBeforeUnmount(() => {
     </ModalController>
     <div class="carousel slide carousel-fade overflow-hidden border-bottom" data-bs-ride="carousel">
       <div class="carousel-indicators mb-0">
-        <button v-for="(a, i) of animeArray" :key="i" type="button" :data-bs-target="`#detailed-banner .carousel`" :data-bs-slide-to="i" :class="{ active: !i }" aria-current="true" :aria-label="`${a.title} ${i + 1}`" />
+        <button v-for="(a, i) of computedAnime" :key="i" type="button" :data-bs-target="`#detailed-banner .carousel`" :data-bs-slide-to="i" :class="{ active: !i }" aria-current="true" :aria-label="`${a.title} ${i + 1}`" />
       </div>
       <div class="carousel-inner d-flex">
-        <template v-for="(a, i) of animeArray" :key="i">
+        <template v-for="(a, i) of computedAnime" :key="i">
           <div class="banner p-0 position-relative d-flex align-items-start align-items-md-center w-100 carousel-item" :class="{ active: !i }" data-bs-interval="10000">
             <span id="blur" class="position-absolute top-0 w-100 h-100 bg-secondary" :style="{ backgroundImage: a?.bannerImage ? `url(${a?.bannerImage})` : 'none' }" data-aos="zoom-out" data-aos-duration="3000" />
             <span id="front" class="text-center px-4 pt-2 pt-md-0" data-aos="fade-in" data-aos-duration="2000">
