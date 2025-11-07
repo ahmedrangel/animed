@@ -1,4 +1,5 @@
 import { gqlQuery } from "gql-payload";
+import { Sort } from "~~/enums/anilist";
 
 export const querySchedules = (options?: QueryOptions) => {
   for (const key in options) {
@@ -15,7 +16,8 @@ export const querySchedules = (options?: QueryOptions) => {
       { operation: "airingSchedules",
         variables: {
           airingAt_greater: { type: "Int", value: options?.airingAt_greater },
-          airingAt_lesser: { type: "Int", value: options?.airingAt_lesser }
+          airingAt_lesser: { type: "Int", value: options?.airingAt_lesser },
+          sort: { type: "[AiringSort]", value: Sort.TIME }
         },
         fields: [
           "id",

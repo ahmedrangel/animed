@@ -26,7 +26,8 @@ export enum Sort {
   ROLE = "ROLE",
   RELEVANCE = "RELEVANCE",
   ID = "ID",
-  RATING_DESC = "RATING_DESC"
+  RATING_DESC = "RATING_DESC",
+  TIME = "TIME"
 }
 
 export enum Licensor {
