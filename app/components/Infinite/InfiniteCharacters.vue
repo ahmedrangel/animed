@@ -79,7 +79,7 @@ onBeforeUnmount(() => {
         <div class="col-12 col-lg-6 col-xl-6 col-xxl-4" data-aos="fade-in">
           <div class="d-flex align-items-start anime-row flex-wrap row-cols-auto g-2 bg-secondary rounded text-nowrap overflow-auto">
             <div class="col ps-0 mt-0" style="max-width: 100px;">
-              <img v-if="c?.node?.image?.large" :src="c.node.image.large" class="img-fluid rounded-start" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
+              <img v-if="c?.node?.image?.large || c?.node?.image?.medium" :src="c.node.image?.large || c.node.image?.medium" class="img-fluid rounded-start rounded-end-0" style="max-height: 90px;" :alt="c.node?.name.userPreferred" :title="c.node?.name.userPreferred">
             </div>
             <div class="col text-start me-auto mt-0 py-1">
               <small class="d-block text-primary">{{ c.node?.name.userPreferred }}</small>
