@@ -23,7 +23,7 @@ const now = new Date().getTime() / 1000;
         Airing Next
       </span>
     </h6>
-    <div class="d-flex bg-secondary rounded-2 overflow-hidden">
+    <div class="d-flex bg-secondary rounded-1 overflow-hidden">
       <NuxtLink v-ripple :to="`/a/${anime.id}/${fixSlug(anime.title.romaji)}`" class="col-4 text-white position-relative">
         <span class="badge bg-dark align-middle position-absolute end-0 m-1 z-1 pe-none">{{ anime.format?.replace(/_/g, " ") }}</span>
         <div class="overflow-hidden">

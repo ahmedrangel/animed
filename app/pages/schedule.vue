@@ -105,7 +105,7 @@ watch(showUserSchedule, (value) => {
           </div>
           <div v-for="(day, i) of daysOfTheWeek" :key="i" class="py-2 accordion-item border-0">
             <div class="fw-bold accordion-header user-select-none">
-              <span v-ripple class="accordion-button rounded-2" :class="{ collapsed: i === 0 }" type="button" data-bs-toggle="collapse" :data-bs-target="`#${formatDayName(day).toLowerCase()}`">
+              <span v-ripple class="accordion-button rounded-1" :class="{ collapsed: i === 0 }" type="button" data-bs-toggle="collapse" :data-bs-target="`#${formatDayName(day).toLowerCase()}`">
                 <h4 class="mb-0">{{ formatDayName(day) }}, {{ daysOfTheWeekFull[i] }}</h4>
               </span>
             </div>
