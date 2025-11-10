@@ -3,6 +3,7 @@ import { API, Sort, Status } from "~~/enums/anilist";
 import { useCachedFetch, useIdbStorage } from "./composables";
 import { availablePageTypes, fixSlug } from "./helpers";
 import { SITE } from "./info";
+import { queryExplore } from "./queries/explore";
 
 const callAnilistGQL = async <T>(options: AnilistRequest): Promise<{ data: T }> => {
   const { method = "POST", headers, body, cacheKey, swr } = options;
@@ -81,6 +82,45 @@ export const getUpcoming = async (options?: QueryOptions, cacheKey?: string): Pr
   return data.Page;
 };
 
+export const getExplore = async (options?: QueryOptions): Promise<AnimePreviewListInfo[]> => {
+  const cacheKey = `explore:${options?.slug || "all"}`;
+  let { data } = await callAnilistGQL<AnilistExploreResponse>({
+    body: queryExplore(options),
+    cacheKey
+  }).catch(() => ({ data: null }));
+
+  if (!data) return [];
+
+  if (!data.newly?.media?.length && !data.topRated?.media?.length && !data.trending?.media?.length && !data.upcoming?.media?.length) {
+    await Promise.all([
+      useIdbStorage("cache")?.removeItem(cacheKey),
+      useIdbStorage("expiration")?.removeItem(cacheKey)
+    ]);
+    const newData = await callAnilistGQL<AnilistExploreResponse>({
+      body: queryExplore(options),
+      cacheKey
+    }).catch(() => ({ data: null }));
+    data = newData?.data;
+    if (!data) return [];
+  }
+
+  const dataMapping: { reqKey: string, type: ListType }[] = [
+    { reqKey: "newly", type: "new" },
+    { reqKey: "topRated", type: "top-rated" },
+    { reqKey: "trending", type: "trending" },
+    { reqKey: "upcoming", type: "upcoming" }
+  ];
+
+  return dataMapping
+    .filter(({ reqKey }) => data[reqKey as keyof typeof data])
+    .map(({ reqKey, type }) => ({
+      media: data[reqKey as keyof typeof data]?.media || [],
+      title: availablePageTypes.find(el => el.name === type)?.title,
+      route: `/c/${options?.slug || "all"}/${type}`,
+      type
+    }));
+};
+
 export const getList = async (type: string, options?: QueryOptions, cacheKey?: string) => {
   switch (type) {
     case "new":
@@ -153,28 +193,6 @@ export const getStaffCharacters = async (options?: QueryOptions): Promise<StaffC
     body: queryStaffCharacters({ ...options })
   });
   return data.Staff.characterMedia;
-};
-
-export const getPreviewList = async (type: ListType, options: QueryOptions = {}): Promise<AnimePreviewListInfo> => {
-  const { slug } = options;
-  const _slug = slug ? slug : "all";
-  const cacheKey = `preview:${type}:${_slug}`;
-  let list = await getList(type, options, cacheKey);
-
-  if (!list.media?.length) {
-    await Promise.all([
-      useIdbStorage("cache")?.removeItem(cacheKey),
-      useIdbStorage("expiration")?.removeItem(cacheKey)
-    ]);
-    list = await getList(type, options, cacheKey);
-  }
-
-  return {
-    ...list,
-    title: availablePageTypes.find(el => el.name === type)?.title,
-    type,
-    route: `/c/${_slug}/${type}`
-  };
 };
 
 export const getSchedules = async (options: QueryOptions = {}, reqOptions?: AnilistRequest): Promise<AiringSchedules> => {

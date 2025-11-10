@@ -247,6 +247,13 @@ declare global {
     swr?: boolean;
   }
 
+  interface AnilistExploreResponse {
+    newly?: AnimeList;
+    topRated?: AnimeList;
+    trending?: AnimeList;
+    upcoming?: AnimeList;
+  }
+
   // TODO: Character profile types
 
   interface MyAnimeListWatchlist {

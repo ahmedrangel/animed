@@ -41,11 +41,8 @@ onMounted(async () => {
   const cat_title = categories.find(c => fixSlug(c.name) === slug)!.name;
   const cat_type = categories.find(c => fixSlug(c.name) === slug)?.type;
   const options = cat_type === "genre" ? { genres: [cat_title] } : { tags: [cat_title] };
-  const promises = availablePageTypes.map(type => getPreviewList(type.name, { ...options, slug, perPage: 20 }).catch(() => null));
-  const results = await Promise.all(promises);
-  for (const list of results) {
-    if (list) previewData.value.preview.push(list);
-  }
+  const explore = await getExplore({ ...options, slug });
+  previewData.value.preview = explore;
   if (data.value.preview.length) {
     const trending = data.value?.preview?.find(el => el.type === "trending")?.media?.filter(anime => anime.bannerImage);
     const newly = data.value?.preview?.find(el => el.type === "new")?.media?.filter(anime => anime.bannerImage);

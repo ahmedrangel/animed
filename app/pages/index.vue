@@ -22,11 +22,8 @@ useHead({
 const data = computed(() => previewData.value);
 
 onMounted(async () => {
-  const promises = availablePageTypes.map(type => getPreviewList(type.name, { perPage: 12 }).catch(() => null));
-  const results = await Promise.all(promises);
-  for (const list of results) {
-    if (list) previewData.value.preview.push(list);
-  }
+  const explore = await getExplore();
+  previewData.value.preview = explore;
   if (data.value.preview.length) {
     const trending = data.value?.preview?.find(el => el.type === "trending")?.media?.filter(anime => anime.bannerImage);
     const newly = data.value?.preview?.find(el => el.type === "new")?.media?.filter(anime => anime.bannerImage);
