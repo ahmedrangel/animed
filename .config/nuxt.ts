@@ -1,7 +1,19 @@
 import { SITE } from "../shared/utils/info";
 
 export default defineNuxtConfig({
-  compatibilityDate: "2025-07-18",
+  modules: [
+    "@nuxt/scripts",
+    "@nuxt/icon",
+    "@nuxtjs/color-mode",
+    "@nuxtjs/sitemap",
+    "@nuxt/eslint",
+    "nuxt-aos",
+    "@vueuse/nuxt",
+    "@nuxthub/core",
+    "@nuxt/fonts",
+    "nuxt-ripple",
+    "nuxt-auth-utils"
+  ],
   app: {
     pageTransition: { name: "fadepage", mode: "out-in" },
     layoutTransition: { name: "fadepage", mode: "out-in" },
@@ -42,25 +54,14 @@ export default defineNuxtConfig({
     "~/assets/css/connections.css",
     "~/assets/css/datepicker.css"
   ],
-  modules: [
-    "@nuxt/scripts",
-    "@nuxt/icon",
-    "@nuxtjs/color-mode",
-    "@nuxtjs/sitemap",
-    "@nuxt/eslint",
-    "nuxt-aos",
-    "@vueuse/nuxt",
-    "@nuxthub/core",
-    "@nuxt/fonts",
-    "nuxt-ripple",
-    "nuxt-auth-utils"
-  ],
-  icon: {
-    mode: "svg",
-    clientBundle: {
-      scan: true,
-      sizeLimitKb: 2048
-    }
+  site: {
+    url: SITE.url
+  },
+  colorMode: {
+    preference: "dark",
+    fallback: "dark",
+    dataValue: "bs-theme",
+    storageKey: "nuxt-color-mode"
   },
   runtimeConfig: {
     secure: {
@@ -73,18 +74,17 @@ export default defineNuxtConfig({
       cookie: ""
     }
   },
+  routeRules: {
+    "/*/**": { appMiddleware: "setup-profile" },
+    "/api/_nuxt_icon/**": { cache: { maxAge: 1.577e+7 } }
+  },
   features: {
     inlineStyles: false
   },
-  colorMode: {
-    preference: "dark",
-    fallback: "dark",
-    dataValue: "bs-theme",
-    storageKey: "nuxt-color-mode"
+  experimental: {
+    typedPages: true
   },
-  site: {
-    url: SITE.url
-  },
+  compatibilityDate: "2025-07-18",
   nitro: {
     prerender: {
       routes: ["/c", "/search", "/sitemap.xml"]
@@ -97,10 +97,31 @@ export default defineNuxtConfig({
       }
     }
   },
+  hub: {
+    kv: true,
+    cache: true,
+    database: true,
+    workers: true
+  },
   eslint: {
     config: {
       autoInit: false,
       stylistic: true
+    }
+  },
+  fonts: {
+    families: [
+      { name: "Rubik", provider: "google", global: true, weights: [400, 500, 600, 700] }
+    ],
+    experimental: {
+      disableLocalFallbacks: true
+    }
+  },
+  icon: {
+    mode: "svg",
+    clientBundle: {
+      scan: true,
+      sizeLimitKb: 2048
     }
   },
   sitemap: {
@@ -114,26 +135,5 @@ export default defineNuxtConfig({
       { label: "Priority", select: "sitemap:priority", width: "12.5%" },
       { label: "Last Modified", select: "sitemap:lastmod", width: "35%" }
     ]
-  },
-  routeRules: {
-    "/*/**": { appMiddleware: "setup-profile" },
-    "/api/_nuxt_icon/**": { cache: { maxAge: 1.577e+7 } }
-  },
-  fonts: {
-    families: [
-      { name: "Rubik", provider: "google", global: true, weights: [400, 500, 600, 700] }
-    ],
-    experimental: {
-      disableLocalFallbacks: true
-    }
-  },
-  experimental: {
-    typedPages: true
-  },
-  hub: {
-    kv: true,
-    cache: true,
-    database: true,
-    workers: true
   }
 });
