@@ -1,8 +1,7 @@
 export default defineEventHandler(async (event) => {
   const { user } = await requireUserSession(event);
-  const DB = useDB();
   // Get user connections
-  const connections = await DB.select({
+  const connections = await db.select({
     id: tables.socialConnections.id,
     provider: tables.socialConnections.provider,
     providerId: tables.socialConnections.providerId,

@@ -1,7 +1,5 @@
 import { subtle } from "uncrypto";
 
-export type { H3Event } from "h3";
-
 const encoder = new TextEncoder();
 
 export const hash = async (string: string, salt?: string) => {

@@ -1,11 +1,12 @@
+import type { H3Event } from "h3";
+
 export const handleOAuth = async (event: H3Event, userOptions: { id: string, email: string }, provider: string) => {
   const { id, email } = userOptions;
-  const DB = useDB();
   const today = Date.now();
   const session = await getUserSession(event);
   try {
     if (!session.user) {
-      const checkConnection = await DB.select({
+      const checkConnection = await db.select({
         id: tables.socialConnections.id,
         userId: tables.socialConnections.userId
       }).from(tables.socialConnections)
@@ -13,7 +14,7 @@ export const handleOAuth = async (event: H3Event, userOptions: { id: string, ema
         .get();
       let authUser;
       if (!checkConnection?.userId) {
-        authUser = await DB.select({
+        authUser = await db.select({
           id: tables.users.id,
           name: tables.users.name,
           username: tables.users.username,
@@ -32,7 +33,7 @@ export const handleOAuth = async (event: H3Event, userOptions: { id: string, ema
         }
 
         if (!authUser?.id) {
-          authUser = await DB.insert(tables.users).values({
+          authUser = await db.insert(tables.users).values({
             email,
             createdAt: today,
             updatedAt: today
@@ -43,7 +44,7 @@ export const handleOAuth = async (event: H3Event, userOptions: { id: string, ema
         }
       }
 
-      authUser = authUser ? authUser : await DB.select({
+      authUser = authUser ? authUser : await db.select({
         id: tables.users.id,
         name: tables.users.name,
         username: tables.users.username,
@@ -69,7 +70,7 @@ export const handleOAuth = async (event: H3Event, userOptions: { id: string, ema
       return sendRedirect(event, "/");
     }
     else {
-      const checkConnection = await DB.select({
+      const checkConnection = await db.select({
         id: tables.socialConnections.id,
         userId: tables.socialConnections.userId
       }).from(tables.socialConnections)

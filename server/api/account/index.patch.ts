@@ -1,10 +1,9 @@
 export default defineEventHandler(async (event) => {
   const { user } = await requireUserSession(event);
   const body = await readBody(event);
-  const DB = useDB();
   const today = Date.now();
   // update db
-  const updated = await DB.update(tables.users).set({
+  const updated = await db.update(tables.users).set({
     ...body,
     updatedAt: today
   }).where(and(eq(tables.users.id, user.id))).returning().get();

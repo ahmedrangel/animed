@@ -1,7 +1,6 @@
 export default defineEventHandler(async (event) => {
-  const DB = useDB();
   const { username } = getRouterParams(event) as { username: string };
-  const user = await DB.select({
+  const user = await db.select({
     id: tables.users.id,
     name: tables.users.name,
     username: tables.users.username,

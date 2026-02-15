@@ -84,7 +84,7 @@ export default defineNuxtConfig({
   experimental: {
     typedPages: true
   },
-  compatibilityDate: "2025-07-18",
+  compatibilityDate: "2026-02-15",
   nitro: {
     prerender: {
       routes: ["/c", "/search", "/sitemap.xml"]
@@ -98,10 +98,16 @@ export default defineNuxtConfig({
     }
   },
   hub: {
-    kv: true,
     cache: true,
-    database: true,
-    workers: true
+    db: {
+      dialect: "sqlite",
+      casing: "snake_case"
+    }
+  },
+  vite: {
+    optimizeDeps: {
+      include: ["nuxt-aos > aos"]
+    }
   },
   eslint: {
     config: {

@@ -10,9 +10,8 @@ export default defineEventHandler(async (event) => {
     finishedDate?: string;
     updatedAt?: number;
   }[]>(event);
-  const DB = useDB();
   const today = Date.now();
-  await DB.delete(tables.watchList).where(eq(tables.watchList.userId, user.id)).run();
+  await db.delete(tables.watchList).where(eq(tables.watchList.userId, user.id)).run();
   const mapValues = body.map(({ mediaId, mediaSlug, progress, status, score, startedDate, finishedDate, updatedAt }) => {
     return {
       mediaId,
@@ -34,8 +33,8 @@ export default defineEventHandler(async (event) => {
     const values = chunk.map(({ mediaId, mediaSlug, userId, status, progress, score, startedDate, finishedDate, updatedAt }) => {
       return `(${mediaId}, '${mediaSlug}', ${userId}, ${status}, ${progress}, ${score}, ${startedDate ? `'${startedDate}'` : null}, ${finishedDate ? `'${finishedDate}'` : null}, ${updatedAt})`;
     }).join(", ");
-    const returning = import.meta.dev ? await hubDatabase().exec(insertQuery(values)) : await event.context.cloudflare.env.DB.exec(insertQuery(values));
-    if (returning.count) importedCount = importedCount + chunk.length;
+    const returning = await db.run(insertQuery(values));
+    if (returning) importedCount = importedCount + chunk.length;
   }
   if (!importedCount) {
     throw createError({

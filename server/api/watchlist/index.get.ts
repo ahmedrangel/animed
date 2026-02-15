@@ -1,5 +1,4 @@
 export default defineEventHandler(async (event): Promise<Watchlist[]> => {
-  const DB = useDB();
   const params = getQuery<{ userId: number, page?: number, sort?: string, order?: "init" | "asc" | "desc", status?: number | null }>(event);
   const userSession = await getUserSession(event);
   const userId = params.userId || userSession?.user?.id || null;
@@ -12,7 +11,7 @@ export default defineEventHandler(async (event): Promise<Watchlist[]> => {
   }
   const statusOrder = [1, 2, 3, 4, 0];
   const whereCondition = eq(tables.watchList.userId, Number(userId));
-  const query = DB.select({
+  const query = db.select({
     userId: tables.watchList.userId,
     mediaId: tables.watchList.mediaId,
     mediaSlug: tables.watchList.mediaSlug,

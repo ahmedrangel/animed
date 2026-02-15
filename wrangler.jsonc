@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "animed",
-  "compatibility_date": "2025-08-19",
+  "compatibility_date": "2026-02-15",
   "main": "dist/server/index.mjs",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
@@ -19,10 +19,6 @@
     {
       "binding": "CACHE",
       "id": "a6122c254ac34c0da9c81c6b2c103ce8",
-    },
-    {
-      "binding": "KV",
-      "id": "cbcea145e6434f8899fd34815277376c"
     }
   ]
 }
