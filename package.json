@@ -28,7 +28,7 @@
     "@iconify-json/line-md": "^1.2.14",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/ph": "^1.2.2",
-    "@iconify-json/simple-icons": "^1.2.70",
+    "@iconify-json/simple-icons": "^1.2.71",
     "@libsql/client": "^0.17.0",
     "@nuxt/eslint": "^1.15.1",
     "@nuxt/fonts": "^0.14.0",
@@ -53,14 +53,14 @@
     "stylelint": "^17.3.0",
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^5.9.3",
-    "wrangler": "^4.65.0"
+    "wrangler": "^4.66.0"
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
     "idb-keyval": "^6.2.2",
-    "nuxt-aos": "^1.2.5",
-    "nuxt-auth-utils": "0.5.28",
+    "nuxt-aos": "^1.2.6",
+    "nuxt-auth-utils": "0.5.29",
     "nuxt-ripple": "^0.0.8"
   },
-  "packageManager": "pnpm@10.29.3"
+  "packageManager": "pnpm@10.30.0"
 }

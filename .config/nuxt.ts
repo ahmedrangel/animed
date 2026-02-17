@@ -104,11 +104,6 @@ export default defineNuxtConfig({
       casing: "snake_case"
     }
   },
-  vite: {
-    optimizeDeps: {
-      include: ["nuxt-aos > aos"]
-    }
-  },
   eslint: {
     config: {
       autoInit: false,
