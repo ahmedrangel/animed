@@ -61,7 +61,11 @@ onMounted(async () => {
       streamingEpisodes: anime.value?.streamingEpisodes
     };
   });
-  images.value = await $fetch(`/api/anime/${encodeURIComponent(anime.value.title.romaji)}/art`).catch(() => null);
+  images.value = await $fetch("/api/anime/art", {
+    query: {
+      search: anime.value.title.romaji
+    }
+  }).catch(() => null);
   loading.value = false;
 });
 
