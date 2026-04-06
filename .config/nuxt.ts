@@ -70,9 +70,6 @@ export default defineNuxtConfig({
     myanimelist: {
       clientId: ""
     },
-    zerochan: {
-      cookie: ""
-    },
     session: {
       password: "",
       maxAge: 60 * 60 * 24 * 30 // 30 days

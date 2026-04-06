@@ -5,12 +5,10 @@ const cacheName = "art";
 
 export default defineCachedEventHandler(async (event) => {
   const { id } = getRouterParams(event);
-  const config = useRuntimeConfig(event);
   const title = decodeURIComponent(id).toLowerCase().replace(/\b(\d+(st|nd|rd|th)?\s+season|season\s+\d+)\b/g, "").replace(/\(\d+\)/g, "").replace(/[(),?!]/g, "").trim();
   const api = `https://www.zerochan.net/search?q=${encodeURIComponent(title)}`;
   const data = await $fetch.raw<string>(api, {
     headers: {
-      "Cookie": config.zerochan.cookie,
       "User-Agent": "animed.ahmedrangel.com - Ahmed Rangel2555"
     },
     responseType: "text",
