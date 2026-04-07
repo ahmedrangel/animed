@@ -93,6 +93,10 @@ const getZerochanURL = (url: string) => {
   const id = parts[parts.length - 2];
   return `https://www.zerochan.net/${id}`;
 };
+
+const getZerochanWebpURL = (url: string) => {
+  return url?.replace(".full", ".1024")?.replace(/(.png|.jpg)/g, ".webp");
+};
 </script>
 
 <template>
@@ -131,8 +135,8 @@ const getZerochanURL = (url: string) => {
                 <MasonryWall :items="images.itemListElement" :gap="16" :max-columns="6" :min-columns="2" :column-width="277">
                   <template #default="{ item }">
                     <div class="overflow-hidden rounded-1">
-                      <NuxtLink v-ripple :to="getZerochanURL(item.url) || item.url" target="_blank" external class="position-relative">
-                        <img :src="item.url?.replace('.full', '.1024')?.replace(/(.png|.jpg)/g, '.webp')" style="width: 100%" class="scale-on-hover">
+                      <NuxtLink v-ripple :to="getZerochanURL(item.url)" target="_blank" external class="position-relative">
+                        <img :src="getZerochanWebpURL(item.url)" style="width: 100%" class="scale-on-hover">
                       </NuxtLink>
                     </div>
                   </template>
