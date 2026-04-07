@@ -138,7 +138,7 @@ useSeoMeta({
 });
 
 useHead({
-  link: [{ rel: "canonical", href: SITE.url + `/a/${id}/${slug}` }]
+  link: [{ rel: "canonical", href: SITE.url + `/a/${id}/${slug}` }, { rel: "preconnect", href: "https://img1.ak.crunchyroll.com" }]
 });
 
 const toggleMoreThemes = () => {

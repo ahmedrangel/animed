@@ -83,7 +83,7 @@ useSeoMeta({
 });
 
 useHead({
-  link: [{ rel: "canonical", href: SITE.url + `/a/${id}/${slug}/episodes` }]
+  link: [{ rel: "canonical", href: SITE.url + `/a/${id}/${slug}/episodes` }, { rel: "preconnect", href: "https://img1.ak.crunchyroll.com" }]
 });
 </script>
 

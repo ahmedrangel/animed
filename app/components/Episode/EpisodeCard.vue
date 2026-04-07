@@ -2,10 +2,6 @@
 defineProps<{
   data: AnimeEpisodes;
 }>();
-
-useHead({
-  link: [{ rel: "preconnect", href: "https://img1.ak.crunchyroll.com" }]
-});
 </script>
 
 <template>
