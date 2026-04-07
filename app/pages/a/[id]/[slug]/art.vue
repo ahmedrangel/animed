@@ -130,18 +130,18 @@ const getZerochanWebpURL = (url: string) => {
               <div v-if="images && images.itemListElement" class="text-center">
                 <div class="alert alert-secondary d-flex align-items-center gap-1 fst-italic" role="alert">
                   <Icon name="ph:info-bold" />
-                  <small class="d-block">These arts could not be related to the anime. They are sourced from <NuxtLink href="https://www.zerochan.net/" target="_blank" external>Zerochan.net</NuxtLink></small>
+                  <small class="d-block">These arts could not be related to the anime. They are sourced from <NuxtLink href="https://www.zerochan.net/" target="_blank">Zerochan.net</NuxtLink></small>
                 </div>
                 <MasonryWall :items="images.itemListElement" :gap="16" :max-columns="6" :min-columns="2" :column-width="277">
                   <template #default="{ item }">
                     <div class="overflow-hidden rounded-1">
-                      <NuxtLink v-ripple :to="getZerochanURL(item.url)" target="_blank" external class="position-relative">
+                      <NuxtLink v-ripple :to="getZerochanURL(item.url)" target="_blank" class="position-relative">
                         <img :src="getZerochanWebpURL(item.url)" style="width: 100%" class="scale-on-hover">
                       </NuxtLink>
                     </div>
                   </template>
                 </MasonryWall>
-                <NuxtLink :to="images.url" target="_blank" external>
+                <NuxtLink :to="images.url" target="_blank">
                   <ButtonComp v-ripple class="mt-5 bg-primary">
                     <span style="color: var(--bs-dark)!important">See more</span>
                   </ButtonComp>
