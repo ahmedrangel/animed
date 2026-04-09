@@ -5,7 +5,7 @@ export const getAflvSearch = async (query: string): Promise<AFlvRequest["data"][
   const response = await useCachedFetch<AFlvRequest>(API.BASE + "/search?query=" + query, {}, {
     cacheKey: `animeflv:${decodeURIComponent(query)?.replace(/\W/g, "")}`,
     swr: false,
-    ttl: 86400
+    ttl: 604800 // 1 week
   }).catch(() => null);
   return response?.data?.media || [];
 };
