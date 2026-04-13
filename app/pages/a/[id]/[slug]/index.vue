@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { withQuery } from "ufo";
+
 const { lastRoute, currentRoute } = useNavigationRoute();
 const fromSameRoute = fromSameRouteParams(lastRoute, currentRoute);
 if (fromSameRoute) definePageMeta({ pageTransition: false, layoutTransition: false });
@@ -306,7 +308,7 @@ const fixTheme = (text: string) => {
                       <hr>
                       <ol class="small mb-0" data-aos="fade-in">
                         <li v-for="(op, i) of openings" :key="i" class="mb-2">
-                          <NuxtLink :to="`https://www.youtube.com/results?search_query=${encodeURIComponent(fixTheme(op).replace(/\(eps.*?\)/g, ''))}`" target="_blank">
+                          <NuxtLink :to="withQuery('https://www.youtube.com/results', { search_query: fixTheme(op).replace(/\(eps.*?\)/g, '') })" target="_blank">
                             <h6 class="mb-0 fw-light">{{ fixTheme(op) }}</h6>
                           </NuxtLink>
                         </li>
@@ -317,7 +319,7 @@ const fixTheme = (text: string) => {
                       <hr>
                       <ol class="small mb-0" data-aos="fade-in">
                         <li v-for="(en, i) of endings" :key="i" class="mb-2">
-                          <NuxtLink :to="`https://www.youtube.com/results?search_query=${encodeURIComponent(fixTheme(en).replace(/\(eps.*?\)/g, ''))}`" target="_blank">
+                          <NuxtLink :to="withQuery('https://www.youtube.com/results', { search_query: fixTheme(en).replace(/\(eps.*?\)/g, '') })" target="_blank">
                             <h6 class="mb-0 fw-light">{{ fixTheme(en) }}</h6>
                           </NuxtLink>
                         </li>

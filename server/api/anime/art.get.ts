@@ -6,8 +6,10 @@ const cacheName = "art";
 export default defineCachedEventHandler(async (event) => {
   const { search } = getQuery<{ search: string }>(event);
   const title = search.toLowerCase().replace(/\b(\d+(st|nd|rd|th)?\s+season|season\s+\d+)\b/g, "").replace(/\(\d+\)/g, "").replace(/[(),?!]/g, "").trim();
-  const api = `https://www.zerochan.net/search?q=${encodeURIComponent(title)}`;
-  const data = await $fetch.raw<string>(api, {
+  const data = await $fetch.raw<string>("https://www.zerochan.net/search", {
+    query: {
+      q: title
+    },
     headers: {
       "User-Agent": "animed.ahmedrangel.com - Ahmed Rangel2555"
     },
@@ -30,7 +32,7 @@ export default defineCachedEventHandler(async (event) => {
     });
   }
   const json = JSON.parse(script);
-  json.url = api;
+  json.url = data.url;
   return json;
 }, {
   maxAge: 432000, // 5 days
