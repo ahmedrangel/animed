@@ -43,6 +43,7 @@
     "@vuepic/vue-datepicker": "^12.1.0",
     "@vueuse/nuxt": "^14.2.1",
     "@yeger/vue-masonry-wall": "^6.1.0",
+    "animeflv-scraper": "^0.1.3",
     "cheerio": "^1.2.0",
     "date-fns": "^4.1.0",
     "drizzle-kit": "^0.31.9",

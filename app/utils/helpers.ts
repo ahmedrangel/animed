@@ -115,7 +115,7 @@ export const distanceToNow = (date: number) => {
   });
 };
 
-export const animeFlvRelationLogic = (aflvArr: AFlvRequest["data"]["media"], anilistObj: Anime): AnimeExternalLinks | undefined => {
+export const animeFlvRelationLogic = (aflvArr: AFLVMedia[], anilistObj: Anime): AnimeExternalLinks | undefined => {
   for (const aflv of aflvArr) {
     if (aflv?.type === "Anime"
       && (

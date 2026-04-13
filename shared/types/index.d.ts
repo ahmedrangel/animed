@@ -207,19 +207,11 @@ declare global {
     pageInfo: PageInfo;
   }
 
-  interface AFlvRequest {
-    success: boolean;
-    data: {
-      currentPage: number;
-      hasNextPage: boolean;
-      foundPages: number;
-      media: {
-        title: string;
-        slug: string;
-        url: string;
-        type: string;
-      }[];
-    };
+  interface AFLVMedia {
+    title: string;
+    slug: string;
+    url: string;
+    type: string;
   }
 
   interface GqlFetchBody {

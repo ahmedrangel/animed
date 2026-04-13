@@ -111,7 +111,11 @@ onMounted(async () => {
   });
   loading.value = false;
 
-  const animeflv = await getAflvSearch(encodeURIComponent(anime.value?.title?.english || anime.value?.title?.native));
+  const animeflv = await $fetch("/api/animeflv", {
+    query: {
+      search: anime.value?.title?.english || anime.value?.title?.native
+    }
+  }).catch(() => null);
   if (animeflv?.length) {
     const foundRelation = animeFlvRelationLogic(animeflv, anime.value);
     if (foundRelation) externalLinks.value.push(foundRelation);
