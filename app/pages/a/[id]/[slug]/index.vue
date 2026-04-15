@@ -180,7 +180,7 @@ const fixTheme = (text: string) => {
               </div>
               <span v-if="animeNextAiring?.airingAt && (animeNextAiring?.airingAt * 1000 > Date.now())" class="mt-1 d-inline-block p-1 rounded bg-secondary">
                 <h6 class="d-flex align-items-center justify-content-center gap-1 m-0">
-                  <Icon class="text-info" name="mdi:broadcast" />
+                  <Icon class="text-info" name="lucide:radio" />
                   <span class="text-center">Next Episode · <span class="text-primary">E{{ animeNextAiring?.episode }}</span> · {{ useTimeAgo(animeNextAiring.airingAt * 1000) }}</span>
                 </h6>
               </span>
@@ -240,7 +240,7 @@ const fixTheme = (text: string) => {
                       <div class="d-flex flex-wrap gap-2 align-items-end">
                         <div v-for="(site, i) of externalLinks" :key="i">
                           <NuxtLink v-if="site?.url" :to="site.url" target="_blank" class="d-flex align-items-center justify-content-center p-2 rounded" :style="{ 'background-color': site.color ? site.color : 'var(--bs-secondary)' }" :title="site.site" style="width: 50px; height: 50px">
-                            <Icon v-if="!site?.icon" name="ph:globe-simple-bold" class="text-white" style="font-size: 33px;" />
+                            <Icon v-if="!site?.icon" name="lucide:globe" class="text-white" style="font-size: 33px;" />
                             <img v-else :src="site.icon" class="pe-none" style="width: 33px;">
                           </NuxtLink>
                         </div>
@@ -327,8 +327,8 @@ const fixTheme = (text: string) => {
                     </div>
                     <NuxtLink v-if="themes && (themes?.endings.length > 10 || themes?.endings.length > 10)" class="ms-auto" role="button" @click="toggleMoreThemes()">
                       <div class="d-flex align-items-center gap-1">
-                        <Icon v-if="!moreThemes" name="ph:caret-down-bold" />
-                        <Icon v-else name="ph:caret-up-bold" />
+                        <Icon v-if="!moreThemes" name="lucide:chevron-down" />
+                        <Icon v-else name="lucide:chevron-up" />
                         <span>{{ !moreThemes ? 'More' : 'Less' }} theme songs</span>
                       </div>
                     </NuxtLink>

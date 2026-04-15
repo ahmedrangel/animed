@@ -1,4 +1,5 @@
 import { SITE } from "../shared/utils/info";
+import icons from "./icons";
 
 export default defineNuxtConfig({
   modules: [
@@ -121,10 +122,8 @@ export default defineNuxtConfig({
   },
   icon: {
     mode: "svg",
-    clientBundle: {
-      scan: true,
-      sizeLimitKb: 2048
-    }
+    provider: "none",
+    clientBundle: { icons }
   },
   sitemap: {
     sources: ["/api/__sitemap"],

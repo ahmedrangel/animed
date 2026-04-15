@@ -109,7 +109,7 @@ useHead({
               </div>
               <span v-if="animeNextAiring?.airingAt && (animeNextAiring?.airingAt * 1000 > Date.now())" class="mt-1 d-inline-block p-1 rounded bg-secondary">
                 <h6 class="d-flex align-items-center justify-content-center gap-1 m-0">
-                  <Icon class="text-info" name="mdi:broadcast" />
+                  <Icon class="text-info" name="lucide:radio" />
                   <span class="text-center">Next Episode · <span class="text-primary">E{{ animeNextAiring?.episode }}</span> · {{ useTimeAgo(animeNextAiring.airingAt * 1000) }}</span>
                 </h6>
               </span>

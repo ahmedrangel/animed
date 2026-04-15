@@ -9,7 +9,7 @@ defineProps<{
     <span class="badge bg-dark p-1">
       <div class="d-flex justify-content-end align-items-center gap-1">
         <div class="position-relative" style="width: 1em; height: 1em;">
-          <Icon class="text-info h6 position-absolute top-50 start-50 translate-middle" name="mdi:broadcast" />
+          <Icon class="text-info h6 position-absolute top-50 start-50 translate-middle" name="lucide:radio" />
         </div>
         <span class="d-block">Airing</span>
       </div>

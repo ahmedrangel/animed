@@ -78,7 +78,7 @@ const importList = async () => {
           <div class="d-flex align-items-center justify-content-center gap-2 mb-3">
             <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-info text-dark" :disabled="imported" @click="importList"><small>Start import</small></ButtonComp>
             <SpinnerLoading v-if="importing" size="1.5rem" />
-            <Icon v-if="imported" name="ph:check" class="text-success" size="2rem" />
+            <Icon v-if="imported" name="lucide:check" class="text-success" size="2rem" />
           </div>
           <h5 class="m-0">DANGER ZONE</h5>
           <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark" @click="deleteAccount"><small>Delete account</small></ButtonComp>

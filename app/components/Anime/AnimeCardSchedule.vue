@@ -13,13 +13,13 @@ const now = new Date().getTime() / 1000;
   <div class="position-relative">
     <h6 v-if="airingNow" class="position-absolute z-2 w-100 text-center mb-0" style="top: -12px">
       <span class="badge bg-info px-2 py-1 text-dark d-inline-flex gap-1 pe-none rounded-1">
-        <Icon name="mdi:broadcast" />
+        <Icon name="lucide:radio" />
         Airing Now
       </span>
     </h6>
     <h6 v-if="airingNext" class="position-absolute z-2 w-100 text-center mb-0" style="top: -12px">
       <span class="badge bg-primary px-2 py-1 text-dark d-inline-flex gap-1 pe-none rounded-1">
-        <Icon name="ph:arrow-down-duotone" />
+        <Icon name="lucide:arrow-down" />
         Airing Next
       </span>
     </h6>

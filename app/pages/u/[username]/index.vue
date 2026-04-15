@@ -304,8 +304,8 @@ const watchStatusList = Object.values(watchStatus);
                     <th v-if="header.sorter" scope="col" class="align-middle" role="button" @click="sortTable(header.key)">
                       <div class="d-flex justify-content-center align-items-center gap-2">
                         <small>{{ header.name }}</small>
-                        <Icon v-if="sortKey !== header.key" name="ph:caret-up-down-fill" class="flex-shrink-0" />
-                        <Icon v-else :name="order === 'asc' ? 'ph:caret-up-fill' : order === 'desc' ? 'ph:caret-down-fill' : 'ph:caret-up-down-fill'" class="flex-shrink-0" />
+                        <Icon v-if="sortKey !== header.key" name="lucide:chevrons-up-down" class="flex-shrink-0" />
+                        <Icon v-else :name="order === 'asc' ? 'lucide:chevron-up' : order === 'desc' ? 'lucide:chevron-down' : 'lucide:chevrons-up-down'" class="flex-shrink-0" />
                       </div>
                     </th>
                     <th v-else scope="col" class="align-middle">
@@ -350,13 +350,13 @@ const watchStatusList = Object.values(watchStatus);
                     <td class="bg-secondary align-middle" style="width: 160px;">
                       <span v-if="isMyPage" class="d-flex align-items-center justify-content-center gap-1">
                         <div class="bg-dark rounded-circle text-primary d-flex align-items-center justify-content-center" role="button" @click="watchlistData![String(anime.id)]!.progress!--">
-                          <Icon name="ph:minus-bold" class="p-1" style="width: 20px; height: 20px;" />
+                          <Icon name="lucide:minus" class="p-1" style="width: 20px; height: 20px;" />
                         </div>
                         <small>{{ watchlistData![String(anime.id)]!.progress }}</small>
                         <h6 class="mb-0 text-white">/</h6>
                         <small>{{ anime.episodes || "?" }}</small>
                         <div class="bg-dark rounded-circle text-primary d-flex align-items-center justify-content-center" role="button" @click="watchlistData![String(anime.id)]!.progress!++">
-                          <Icon name="ph:plus-bold" class="p-1" style="width: 20px; height: 20px;" />
+                          <Icon name="lucide:plus" class="p-1" style="width: 20px; height: 20px;" />
                         </div>
                       </span>
                       <small v-else>{{ watchlistData?.[String(anime.id)]?.progress }} / {{ anime.episodes || "?" }}</small>
@@ -388,7 +388,7 @@ const watchStatusList = Object.values(watchStatus);
                       </div>
                     </td>
                     <td v-if="isMyPage && editMode" class="bg-secondary align-middle">
-                      <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark" icon="ph:trash-bold" style="width: 40px; height: 36px;" @click="removeItem(anime.id)" />
+                      <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark" icon="lucide:trash-2" style="width: 40px; height: 36px;" @click="removeItem(anime.id)" />
                     </td>
                   </tr>
                   <tr v-if="i === animeList?.length - 1 && hasNextPage">

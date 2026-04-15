@@ -42,7 +42,7 @@ useHead({
   <main>
     <section id="search">
       <div class="d-flex justify-content-start align-items-center bg-secondary">
-        <h4><Icon name="ph:magnifying-glass" class="mx-4" /></h4>
+        <h4><Icon name="lucide:search" class="mx-4" /></h4>
         <input ref="input" v-model="query" type="text" class="w-100 py-3 border-0 bg-transparent" placeholder="Type to search...">
       </div>
       <TransitionGroup name="fade">

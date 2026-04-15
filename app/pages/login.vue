@@ -19,11 +19,11 @@ watch(form, (value) => {
             <small>The login feature is currently in development</small>
           </div>
           <div class="user-input d-flex justify-content-center align-items-center bg-secondary mb-3">
-            <h4 class="mb-0"><Icon name="ph:user-bold" class="mx-4" /></h4>
+            <h4 class="mb-0"><Icon name="lucide:user-round" class="mx-4" /></h4>
             <input v-model="form.username" type="text" class="w-100 py-3 border-0 bg-transparent" placeholder="Username">
           </div>
           <div class="user-input d-flex justify-content-center align-items-center bg-secondary mb-3">
-            <h4 class="mb-0"><Icon name="ph:password-bold" class="mx-4" /></h4>
+            <h4 class="mb-0"><Icon name="lucide:lock" class="mx-4" /></h4>
             <input type="password" class="w-100 py-3 border-0 bg-transparent" placeholder="Password">
           </div>
         </div>

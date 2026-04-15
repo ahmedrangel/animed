@@ -10,27 +10,27 @@ const tabs: ComputedRef<{
 }[]> = computed(() => ([
   {
     name: "Home",
-    icon: "ph:house-bold",
+    icon: "lucide:house",
     route: "/"
   },
   {
     name: "Search",
-    icon: "ph:magnifying-glass-bold",
+    icon: "lucide:search",
     route: "/search"
   },
   {
     name: "Categories",
-    icon: "ph:squares-four-bold",
+    icon: "lucide:layout-grid",
     route: "/c"
   },
   {
     name: "Airing Schedule",
-    icon: "ph:calendar-dots-bold",
+    icon: "lucide:calendar-days",
     route: "/schedule"
   },
   {
     name: loggedIn.value ? "Profile" : "Login",
-    icon: loggedIn.value ? "ph:user-circle-bold" : "ph:sign-in-bold",
+    icon: loggedIn.value ? "lucide:circle-user-round" : "lucide:log-in",
     route: loggedIn.value && user.value ? `/u/${user.value.username}` : "/login"
   }
 ]));

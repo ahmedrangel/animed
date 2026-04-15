@@ -12,19 +12,19 @@ const logOut = () => {
   <div v-if="loggedIn" class="mb-2 d-flex justify-content-end align-items-center">
     <button v-ripple class="d-flex align-items-center gap-1 btn bg-secondary dropdown-toggle border p-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
       <div class="d-flex align-items-center gap-1">
-        <Icon name="ph:user-bold" />
+        <Icon name="lucide:user-round" />
         <span>{{ user?.username }}</span>
       </div>
     </button>
     <ul class="dropdown-menu dropdown-menu-end">
       <li>
-        <ButtonComp v-ripple class="dropdown-item" icon="ph:sign-out-bold" @click="logOut">Logout</ButtonComp>
+        <ButtonComp v-ripple class="dropdown-item" icon="lucide:log-out" @click="logOut">Logout</ButtonComp>
       </li>
     </ul>
   </div>
   <div v-else class="mb-0 d-flex justify-content-end align-items-center">
     <div class="bg-secondary d-flex justify-content-center align-items-center gap-1 rounded p-2">
-      <Icon name="ph:user-bold" />
+      <Icon name="lucide:user-round" />
       <h6 class="fw-normal rounded mb-0">{{ username }}</h6>
     </div>
   </div>

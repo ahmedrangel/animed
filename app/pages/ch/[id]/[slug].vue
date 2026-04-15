@@ -53,7 +53,7 @@ useHead({
             <div class="pt-4 px-0">
               <div class="d-flex align-items-center gap-2">
                 <h4 class="mb-1 text-primary">{{ character.name?.userPreferred }}</h4>
-                <Icon v-if="character.name?.native" name="ph:dot-outline-fill" />
+                <Icon v-if="character.name?.native" name="lucide:dot" />
                 <h4 v-if="character.name?.native" class="mb-1">{{ character.name?.native }}</h4>
               </div>
               <h6 v-if="character.name?.alternative" class="mb-1 text-muted">{{ character.name?.alternative.join(", ") }}</h6>

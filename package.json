@@ -24,9 +24,8 @@
     "db:migrate": "drizzle-kit generate --config=.config/drizzle.ts"
   },
   "devDependencies": {
-    "@iconify-json/ci": "^1.2.2",
     "@iconify-json/line-md": "^1.2.16",
-    "@iconify-json/mdi": "^1.2.3",
+    "@iconify-json/lucide": "^1.2.102",
     "@iconify-json/ph": "^1.2.2",
     "@iconify-json/simple-icons": "^1.2.78",
     "@libsql/client": "^0.17.2",

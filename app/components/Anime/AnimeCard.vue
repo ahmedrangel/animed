@@ -23,7 +23,7 @@ const add = async () => {
         <img class="img-fluid scale-on-hover h-100 w-100 position-absolute object-fit-cover" :src="data.coverImage?.extraLarge || data.coverImage?.large" width="280" :alt="data.title.romaji" :title="data.title.romaji">
       </NuxtLink>
       <div v-if="cardHovered && loggedIn && !added && user?.id" role="button" class="bookmark rounded-1 text-dark position-absolute bottom-0 end-0 z-1 m-2 p-2" title="Add to Watchlist" @click="add">
-        <Icon name="ph:plus-bold" width="24" height="24" />
+        <Icon name="lucide:plus" width="24" height="24" />
       </div>
       <div v-if="loggedIn && !added" id="overlay-anime-card" class="position-absolute w-100 top-0 pe-none" />
     </div>

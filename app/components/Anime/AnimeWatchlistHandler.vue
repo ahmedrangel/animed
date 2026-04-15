@@ -105,7 +105,7 @@ const add = async () => {
 <template>
   <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 px-0" style="max-width: 400px;">
     <img id="cover" :src="anime?.coverImage?.extraLarge" class="img-fluid mb-2" :alt="anime.title.romaji" :title="anime.title.romaji" data-aos="fade-in">
-    <ButtonComp v-if="loggedIn && !added && user" v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark w-100 px-3 py-2" icon="ph:plus-bold" @click="add">
+    <ButtonComp v-if="loggedIn && !added && user" v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark w-100 px-3 py-2" icon="lucide:plus" @click="add">
       Add to Watchlist
     </ButtonComp>
     <div v-if="loggedIn && added">
@@ -122,11 +122,11 @@ const add = async () => {
         <input v-model="watchlistData.progress" type="number" class="form-control h6 mb-0" placeholder="0" :disabled="updating">
         <span class="input-group-text bg-primary bg-secondary d-flex align-items-center justify-content-center gap-2">
           <div class="bg-dark rounded-circle text-primary d-flex align-items-center justify-content-center" role="button" style="width: 22px; height: 22px;" @click="watchlistData.progress--">
-            <Icon name="ph:minus-bold" />
+            <Icon name="lucide:minus" />
           </div>
           <h6 class="mb-0 text-white">/</h6>
           <div class="bg-dark rounded-circle text-primary d-flex align-items-center justify-content-center" role="button" style="width: 22px; height: 22px;" @click="watchlistData.progress++">
-            <Icon name="ph:plus-bold" />
+            <Icon name="lucide:plus" />
           </div>
         </span>
       </div>
@@ -145,7 +145,7 @@ const add = async () => {
           </template>
         </VueDatePicker>
         <label v-if="watchlistData.startedDate" class="input-group-text bg-primary bg-secondary h6 mb-0" role="button" @click="watchlistData.startedDate = null">
-          <Icon name="ph:x" />
+          <Icon name="lucide:x" />
         </label>
       </div>
       <div class="input-group mb-2">
@@ -156,13 +156,13 @@ const add = async () => {
           </template>
         </VueDatePicker>
         <label v-if="watchlistData.finishedDate" class="input-group-text bg-primary bg-secondary h6 mb-0" role="button" @click="watchlistData.finishedDate = null">
-          <Icon name="ph:x" />
+          <Icon name="lucide:x" />
         </label>
       </div>
-      <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark w-100 px-3 py-2 mb-2" icon="ph:floppy-disk-bold" :disabled="updateButtonDisabled" @click="updateWatchlist">
-        Update
+      <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark w-100 px-3 py-2 mb-2" icon="lucide:pencil-line" :disabled="updateButtonDisabled" @click="updateWatchlist">
+        Save Changes
       </ButtonComp>
-      <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark w-100 px-3 py-2" icon="ph:trash-bold" @click="removeFromWatchlist">
+      <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark w-100 px-3 py-2" icon="lucide:trash-2" @click="removeFromWatchlist">
         Remove from Watchlist
       </ButtonComp>
     </div>

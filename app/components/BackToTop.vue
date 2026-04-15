@@ -17,7 +17,7 @@ onMounted(() => {
   <Transition name="tab">
     <button v-if="scrolled" id="back-to-top" class="bg-primary top rounded position-fixed m-4 end-0 bottom-0 btn text-dark btn-lg shadow d-none d-lg-block align-items-center" role="button" @click="topFunction()">
       <span class="p-2 d-flex align-items-center">
-        <Icon name="ph:arrow-up-fill" size="1.5rem" />
+        <Icon name="lucide:arrow-up" size="1.5rem" />
       </span>
     </button>
   </Transition>

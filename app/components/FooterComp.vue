@@ -22,7 +22,7 @@
       <InstallPWA>
         <NuxtLink>
           <h2 role="button" class="mb-0 text-muted" title="Install PWA">
-            <Icon name="mdi:monitor-arrow-down-variant" />
+            <Icon name="lucide:monitor-down" />
           </h2>
         </NuxtLink>
       </InstallPWA>

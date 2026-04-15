@@ -62,23 +62,23 @@ watchDebounced(form, async () => {
       <h2 class="mb-3">Please, set your username to continue</h2>
       <form @submit.prevent="patchAccount">
         <div class="d-flex justify-content-center align-items-center bg-secondary w-100 mb-3">
-          <h4 class="mb-0"><Icon name="ph:user-bold" class="mx-4" /></h4>
+          <h4 class="mb-0"><Icon name="lucide:user-round" class="mx-4" /></h4>
           <input v-model="form.username" type="text" class="w-100 py-3 border-0 bg-transparent" placeholder="Username">
-          <h4 v-if="form.username" class="mb-0"><Icon :name=" loadingLookup ? 'line-md:loading-twotone-loop' : errorMessage ? 'ph:x-bold' : 'ph:check-bold'" class="mx-4" /></h4>
+          <h4 v-if="form.username" class="mb-0"><Icon :name=" loadingLookup ? 'line-md:loading-twotone-loop' : errorMessage ? 'lucide:x' : 'lucide:check'" class="mx-4" /></h4>
         </div>
         <Transition name="fadepage">
           <div v-if="showErrorMessage" class="alert alert-danger" role="alert">
             <div class="position-relative d-flex align-items-center justify-content-center h6 mb-0">
               <span>{{ errorMessage }}</span>
-              <Icon name="ph:x-circle-bold" class="position-absolute end-0" role="button" @click="showErrorMessage = false" />
+              <Icon name="lucide:circle-x" class="position-absolute end-0" role="button" @click="showErrorMessage = false" />
             </div>
           </div>
         </Transition>
         <div class="d-flex flex-column gap-3">
-          <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark px-2 py-3" type="submit" :disabled="!form.username || loadingLookup || errorMessage" title="Save" icon="ph:floppy-disk-bold">
+          <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-primary text-dark px-2 py-3" type="submit" :disabled="!form.username || loadingLookup || errorMessage" title="Save" icon="lucide:pencil-line">
             Save
           </ButtonComp>
-          <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark px-2 py-3" title="Log Out" icon="ph:sign-out-bold" @click="logOut">
+          <ButtonComp v-ripple="{ color: 'rgba(0,0,0,0.4)' }" class="bg-danger text-dark px-2 py-3" title="Log Out" icon="lucide:log-out" @click="logOut">
             Log Out
           </ButtonComp>
         </div>
