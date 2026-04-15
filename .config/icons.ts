@@ -19,6 +19,7 @@ export default [
   "lucide:log-in",
   "lucide:log-out",
   "lucide:pencil-line",
+  "lucide:trash-2",
   "lucide:user-round",
   "lucide:lock",
   "lucide:circle-x",
