@@ -1,2 +1,9 @@
+minimumReleaseAge: 0
 shamefullyHoist: true
 strictPeerDependencies: false
+
+allowBuilds:
+  esbuild: false
+  unrs-resolver: false
+  vue-demi: false
+  workerd: false

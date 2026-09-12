@@ -1,6 +1,6 @@
-import { searchAnime } from "animeflv-scraper";
+import { searchAnime } from "animeav1-scraper";
 
-const cacheGroup = "getAnimeFLV";
+const cacheGroup = "getAnimeAV1";
 const cacheName = "search";
 
 export default defineCachedEventHandler(async (event) => {

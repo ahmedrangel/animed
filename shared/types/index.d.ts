@@ -207,7 +207,7 @@ declare global {
     pageInfo: PageInfo;
   }
 
-  interface AFLVMedia {
+  interface Animeav1Media {
     title: string;
     slug: string;
     url: string;

@@ -115,21 +115,21 @@ export const distanceToNow = (date: number) => {
   });
 };
 
-export const animeFlvRelationLogic = (aflvArr: AFLVMedia[], anilistObj: Anime): AnimeExternalLinks | undefined => {
-  for (const aflv of aflvArr) {
-    if (aflv?.type === "Anime"
+export const animeav1RelationLogic = (av1arr: Animeav1Media[], anilistObj: Anime): AnimeExternalLinks | undefined => {
+  for (const av1 of av1arr) {
+    if (av1?.type === "TV Anime"
       && (
-        aflv?.slug?.replace("-tv", "") === anilistObj?.slug
-        || aflv?.title?.toLowerCase()?.replace(/[^\w]/g, "") === anilistObj?.title?.english?.toLowerCase()?.replace(/[^\w]/g, "")
-        || aflv?.title?.toLowerCase()?.replace(/[^\w]/g, "") === anilistObj?.title?.romaji?.toLowerCase()?.replace(/[^\w]/g, "")
-        || anilistObj?.title?.english?.toLowerCase()?.replace(/[^\w]/g, "").includes(aflv?.title?.toLowerCase()?.replace(/[^\w]/g, ""))
-        || anilistObj?.title?.romaji?.toLowerCase()?.replace(/[^\w]/g, "").includes(aflv?.title?.toLowerCase()?.replace(/[^\w]/g, ""))
+        av1?.slug?.replace("-tv", "") === anilistObj?.slug
+        || av1?.title?.toLowerCase()?.replace(/[^\w]/g, "") === anilistObj?.title?.english?.toLowerCase()?.replace(/[^\w]/g, "")
+        || av1?.title?.toLowerCase()?.replace(/[^\w]/g, "") === anilistObj?.title?.romaji?.toLowerCase()?.replace(/[^\w]/g, "")
+        || anilistObj?.title?.english?.toLowerCase()?.replace(/[^\w]/g, "").includes(av1?.title?.toLowerCase()?.replace(/[^\w]/g, ""))
+        || anilistObj?.title?.romaji?.toLowerCase()?.replace(/[^\w]/g, "").includes(av1?.title?.toLowerCase()?.replace(/[^\w]/g, ""))
       )) {
       return {
-        site: "AnimeFLV",
-        url: aflv?.url,
-        icon: "/images/aflv.png",
-        color: "#2f353a"
+        site: "AnimeAV1",
+        url: av1?.url,
+        icon: "/images/animeav1.png",
+        color: "#131317"
       };
     }
   }
